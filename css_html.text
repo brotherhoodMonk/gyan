@@ -1,0 +1,298 @@
+All the HTML elements can be categorized into two categories (a) Block Level Elements (b)Inline Elements.
+Block Elements
+
+Block elements appear on the screen as if they have a
+line break before and after them. For example,
+ the <p>, <h1>, <ul>, <ol>,
+ <dl>, <pre>, <hr />, <blockquote>, and
+ <address> elements are all block level elements.
+ They all start on their own new line, and anything that f
+ ollows them appears on its own new line.
+
+ Inline Elements
+
+Inline elements, on the other hand, can appear within sentences and
+do not have to appear on a new line of their own. The <b>, <i>, <u>, <em>, <strong>, <sup>,
+<sub>, <big>, <small>, <li>, <ins>, <del>, <code>, <cite>, <dfn>, <kbd>, and <var>
+elements are all inline elements.
+
+Define different cascading methods that can be used inside the cascading order.
+
+Answer: Cascading order is itself a sorting method that allows many other different sorting methods:
+
+#1) Sort by origin: There are some rules which can provide the alternate way which can be defined as:
+
+Normal weight of style sheet of a particular provider will be overridden by the increased weight of the user's style sheet.
+Stylesheet rules of a particular user will be overridden by the normal width of the provider’s style sheet.
+#2) Sort by selector's specificity: Less specific selector is been overridden by the more specific selector.
+
+Example, A Contextual selector is less specific in comparison to the ID selector which is a more specific one and with that contextual selector is been overridden by the ID selector.
+
+#3) Sort by order specified: This comes in the scenario when the two selectors are same in weight and the other properties than the specification which will be seen for overriding.
+
+Example:
+
+All other styles will be seen overridden if the style attribute is used for inline style.
+
+And also if the link element is used for external style, then it will override the imported style.
+
+Q #29) Define ‘important’ declarations used in CSS.
+
+Answer: Important declarations are defined as that declaration which is having more importance than the normal declaration.
+
+While executing, these declarations override the declaration which is having less importance.
+
+Example, if there are two users Having important declaration then one of the declarations will override the declaration of another user.
+
+For Example:
+
+Body {background: #FF00FF !important; color: blue}
+
+In this body background has more weight than the color.
+
+Static- This is the default for every single page element. Different elements don't have different
+default values for positioning, they all start out as static. Static doesn't mean much;
+it just means that the element will flow into the page as it normally would.
+
+Relative. This type of positioning is probably the most confusing and misused.
+What it really means is "relative to itself". If you set position: relative;
+on an element but no other positioning attributes (top, left, bottom or right),
+it will have no effect on it's positioning at all, it will be exactly as it would be
+ if you left it as position: static; But if you do give it some other positioning attribute,
+ say, top: 10px;, it will shift its position 10 pixels down from where it would normally be.
+
+ There are two other things that happen when you set position: relative; on an element that
+ you should be aware of. One is that it introduces the ability to use z-index on that element,
+  which doesn't really work with statically positioned elements. Even if you don't set a z-index
+  value, this element will now appear on top of any other statically positioned element.
+  You can't fight it by setting a higher z-index value on a statically positioned element.
+  The other thing that happens is it limits the scope of absolutely positioned child elements.
+   Any element that is a child of the relatively positioned element can be absolutely positioned
+   within that block.
+
+   Absolute. This is a very powerful type of positioning that allows you to literally place any
+   page element exactly where you want it. You use the positioning attributes top, left, bottom.
+   and right to set the location. Remember that these values will be relative to the next parent
+   element with relative (or absolute) positioning. If there is no such parent, it will default
+   all the way back up to the <html> element itself meaning it will be placed relative to the
+   page itself.
+
+The trade-off (and most important thing to remember) about absolute positioning is that these
+elements are removed from the flow of elements on the page. An element with this type of positioning
+is not affected by other elements and it doesn't affect other elements. This is a serious thing to
+consider every time you use absolute positioning. Its overuse or improper use can limit the flexibility
+ of your site.
+
+ Fixed. This type of positioning is fairly rare but certainly has its uses. A fixed position element
+ is positioned relative to the viewport, or the browser window itself. The viewport doesn't change
+ when the window is scrolled, so a fixed positioned element will stay right where it is when the page is
+ scrolled, creating an effect a bit like the old school "frames"
+
+ 25) What is CSS opacity?
+
+Answer: It is the property which elaborates the transparency of an element.
+
+By this property, we can transparent the image that can take the values from 0.0-1.0, if the value is lower then the image is more transparent. IE8 and earlier version of the browser can take the values from 0-100.
+
+img {
+opacity: 0.6;
+filter: alpha(opacity=60); /* For IE8 and earlier */}
+
+Q #24) Explain the concept of pseudo-elements in CSS.
+
+Answer: It is a feature of CSS which is used to style the given parts of an element.
+
+For Example, we can style the first letter or line of an HTML element.
+
+selector::pseudo-element {
+property:value;
+}
+
+
+#23) What is a CSS pseudo class?
+
+Answer: It is a class which is used to define a special state of an HTML element.
+
+This class can be used by styling an element when a user snooped over it and also
+it can style an HTML element when it gets the focus.
+
+selector:pseudo-class {
+property:value;
+}
+ex- :hover,:active, :focus- :checked, :disabled,
+:link
+
+
+Q #24) Explain the concept of pseudo-elements in CSS.
+
+Answer: It is a feature of CSS which is used to style the given parts of an element.
+
+For Example, we can style the first letter or line of an HTML element.
+
+selector::pseudo-element {
+property:value;
+}
+
+::before ::afer ::firs-letter ::first-line ::selection
+
+id & class
+Id is a kind of element which uniquely assigns a name to a particular element whereas class
+has an element with a certain set of properties which can be used for the complete block.
+The id can be used as an element because it can uniquely identify it whereas class is
+also defined to block the element and applies too many tags wherever it is used.
+Id provides the restriction to use its properties to one specific element whereas in class the
+inheritance is applied to a specific block or group of the element.
+
+
+padding & margin
+padding is the space between the content and the border, whereas margin is the
+space outside the border. Here's an image I found from a quick Google search,
+that illustrates this idea.
+
+Margin is applied to the outside of you element hence effecting how far your
+element is away from other elements.
+
+
+Padding is applied to the inside of your element hence effecting how far
+your element's content is away from the border.
+
+Q #17) What is CSS flexbox?
+
+Answer: It allows you to design a flexible responsive layout structure
+without using any float or positioning property of CSS. To use CSS flexbox
+you need to define a flex container initially.
+
+flex-direction
+flex-wrap
+flex-flow
+justify-content
+align-items
+align-content
+
+Q #16) What are gradients in CSS?
+
+Answer: It is a property of CSS which allows you to display a smooth transformation between
+two or more than two specified colors.
+
+There are two types of gradients that are present in CSS. They are:
+
+Linear gradient
+Radial Gradient
+
+Q #15) How will you add border images to an HTML element?
+
+Answer: We can set the image to be used as the border image alongside an element by using
+the property of CSS “border-image”.
+
+Example:
+
+#borderimg {
+    border: 15px solid transparent;
+    padding: 20px;
+    border-image: url(border.png) 30 round;
+}
+
+specificity-
+
+
+If there are two or more conflicting CSS rules that point to the same element, the browser
+ follows some rules to determine which one is most specific and therefore wins out.
+
+Think of specificity as a score/rank that determines which style declarations are ultimately
+applied to an element.
+
+The universal selector (*) has low specificity, while ID selectors are highly specific!
+
+Specificity Hierarchy
+
+Every selector has its place in the specificity hierarchy. There are four categories which define the specificity level of a selector:
+
+Inline styles - An inline style is attached directly to the element to be styled. Example: <h1 style="color: #ffffff;">.
+
+IDs - An ID is a unique identifier for the page elements, such as #navbar.
+
+Classes, attributes and pseudo-classes - This category includes .classes, [attributes] and pseudo-classes such as :hover, :focus etc.
+
+Elements and pseudo-elements - This category includes element names and pseudo-elements, such as h1, div, :before and :after.
+
+Memorize how to calculate specificity!
+
+Start at 0, add 1000 for style attribute, add 100 for each ID,
+add 10 for each attribute, class or pseudo-class, add 1 for each element name or pseudo-element.
+
+
+CSS Counters-
+CSS counters are like "variables". The variable values can be incremented by CSS rules (which will track how many times they are used).
+
+To work with CSS counters we will use the following properties:
+
+    counter-reset - Creates or resets a counter
+    counter-increment - Increments a counter value
+    content - Inserts generated content
+    counter() or counters() function - Adds the value of a counter to an element
+
+    Explain the term Responsive web design.
+
+Answer: It is a method in which we design and develop a web page according to the user
+activities and conditions which are based on various components like the size of the screen, portability of the web page on different device etc.
+
+Hence it is done by using different flexible layouts and grids
+
+Q #9) Define CSS image scripts.
+
+Answer: CSS image scripts is a group of images which is placed into one image.
+
+It reduces the load time and request number to the server while projecting multiple
+images into a single web page.
+
+Explain the concept of Tweening.
+
+Answer: Tweening is the process in which we create intermediate frames between two
+images to get the appearance of the first image which develops into the second image.
+
+It is mainly used for creating animation.
+
+CSS Selectors
+
+In CSS, selectors are patterns used to select the element(s) you want to style.
+
+Use our CSS Selector Tester to demonstrate the different selectors.
+
+.class
+.class1.class2
+#id
+* 	* 	Selects all elements
+:active
+::after
+::before
+
+Q #6) What are the uses of embedded style sheet?
+
+Answer: Embedded style sheet gives us the privilege to define styles at one place in an HTML document.
+
+We can generate multiple classes using an embedded style sheet to use on multiple tag types of a web page and also there is no extra downloading required for importing the information.
+
+
+Q #5) Why is the external style sheet useful?
+
+Answer: External style sheet is very useful as we write all the styling codes in a single file and it can be used anywhere by just referencing the link of that external style sheet file.
+
+So if we do any changes in that external file, then the changes can also be observed on the webpage. So we can say that it is very useful and it makes your work easy while working on larger files.
+
+
+Q #4) Cite different types of CSS.
+
+Answer: There are three types of CSS as mentioned below.
+
+External – These are written in separate files.
+Internal – These are cited at the top of the web page code document.
+Inline – These are written right next to the text.
+
+Q #3) Distinguish between CSS2 and CSS3.
+
+Answer: There are several differences between CSS2 and CSS3.
+
+CSS3 is divided into two various sections which are called as a module. Whereas in CSS2 everything accedes into a single document with all the information in it.
+CSS3 modules are supported almost on every browser and on the other hand modules of CSS and CSS2 are not supported in every browser.
+In CSS3 we will find that many graphics related characteristics have been introduced like “Border-radius or box-shadow, flexbox.
+In CSS3, a user can precise multiple background images on a webpage by using properties like background-image, background-position, and background-repeat styles

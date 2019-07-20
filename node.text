@@ -1,0 +1,1099 @@
+Q-1. What Is Node.Js?
+
+Node.js is a JavaScript runtime or platform which is built on Google Chrome’s JavaScript v8 engine.
+This runtime allows executing the JavaScript code on any machine outside a browser.
+(this means that
+it is the server that executes the Javascript and not the browser).
+
+Node.js is single-threaded, that employs a concurrency model based on an event loop.
+ It doesn’t block the execution instead registers a callback which allows the application
+ to continue. It means Node.js can handle concurrent operations without creating multiple
+ threads of execution so can scale pretty well.
+
+ Following are the areas where it’s perfect to use Node.js.
+
+I/O bound Applications
+Data Streaming Applications
+Data Intensive Real-time Applications (DIRT)
+JSON APIs based Applications
+Single Page Applications
+At the same time, it’s not suitable for heavy applications involving more of CPU usage.
+
+eventloop-
+The event loop on every iteration looks if there’s something in the call stack, and executes it:
+The event loop is the term given to the process of the waiting for the msg queue to receive a message
+ synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
+ ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
+ to the call stack and executes it.
+
+
+
+To handle the asynchronous nature of program, Node.js uses external “Queue” called as message queue
+where it inserts the
+callback of asynchronous code rather than pushing it into call stack stack.
+
+Since that piece of code is not in stack, node runtime will not execute it immediately. Depending
+on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
+thread and execute it and as soon as thread processing is done and result is ready to process by
+ node runtime,event loop checks “is the stack empty ?” If stack is empty and Queue has some data, event loop will take the top most one from it and push it inside of stack for processing.
+Task of event loop is to check is there any item present in Queue and if Stack empty then push
+it on stack else wait for next tick ( Yes process.nextTick ).
+
+
+Web Workers
+Using Web Workers enables you to offload an expensive operation to a separate thread of execution,
+ freeing up the main thread to do other things. The worker includes a separate message queue, event
+ loop, and memory space independent from the original thread that instantiated it. Communication
+ between the worker and the main thread is done via message passing, which looks very much like the
+  traditional, evented code-examples we’ve already seen.
+
+Q-2. What Are The Key Features Of Node.Js?
+
+Let’s look at some of the key features of Node.js.
+
+1.Asynchronous event driven IO helps concurrent request handling –
+All APIs of Node.js are asynchronous. This feature means that if a Node receives a request for some
+Input/Output operation, it will execute that operation in the background and continue with the
+processing of other requests. Thus it will not wait for the response from the previous requests.
+
+2.Fast in Code execution – Node.js uses the V8 JavaScript Runtime engine, the one which is used by
+Google Chrome. Node has a wrapper over the JavaScript engine which makes the runtime engine much
+faster and hence processing of requests within Node.js also become faster.
+
+3.Single Threaded but Highly Scalable –
+Node.js uses a single thread model for event looping. The response
+from these events may or may not reach the server immediately. However, this does not block other
+operations. Thus making Node.js highly scalable. Traditional servers create limited threads to handle
+requests while Node.js creates a single thread that provides service to much larger numbers of such
+requests.
+
+4.Node.js library uses JavaScript –
+ This is another important aspect of Node.js from the developer’s point of view. The majority of
+  developers are already well-versed in JavaScript. Hence, development in Node.js becomes easier
+   for a developer who knows JavaScript.
+There is an Active and vibrant community for the Node.js framework –
+The active community always keeps the framework updated with the latest trends in the web development.
+No Buffering – Node.js applications never buffer any data. They simply output the data in chunks.
+
+When Should We Use Node.Js?
+It’s ideal to use Node.js for developing streaming or event-based real-time applications that
+require less CPU usage such as.
+
+Chat applications.
+Game servers.
+Node.js is good for fast and high-performance servers, that face the need to handle thousands
+of user requests simultaneously.
+
+Good For A Collaborative Environment.
+It is suitable for environments where multiple people work together. For example, they post their
+documents, modify them by doing check-out and check-in of these documents.
+Node.js supports such situations by creating an event loop for every change made to the document.
+The “Event loop” feature of Node.js enables it to handle multiple events simultaneously without
+getting blocked.
+
+Advertisement Servers.
+Here again, we have servers that handle thousands of request for downloading advertisements from a
+central host. And Node.js is an ideal solution to handle such tasks.
+
+Streaming Servers.
+Another ideal scenario to use Node.js is for multimedia streaming servers where clients fire request’s
+ towards the server to download different multimedia contents from it.
+
+To summarize, it’s good to use Node.js, when you need high levels of concurrency but less amount of
+dedicated CPU time.
+
+Last but not the least, since Node.js uses JavaScript internally, so it fits best for building
+client-side applications that also use JavaScript.
+
+When To Not Use Node.Js?
+However, we can use Node.js for a variety of applications. But it is a single threaded framework,
+so we should not use it for cases where the application requires long processing time.
+If the server is doing some calculation, it won’t be able to process any other requests.
+ Hence, Node.js is best when processing needs less dedicated CPU time.
+
+
+What IDEs Can You Use For Node.Js Development?
+
+Cloud9
+JetBrains WebStorm.
+JetBrains InteliJ IDEA.
+Komodo IDE.
+Eclipse.
+Atom.
+
+
+Control flow functions ==== A control flow function
+ is a lightweight, generic piece of code which runs in between several asynchronous
+  function calls and which take care of the necessary housekeeping to:
+
+control the order of execution,
+collect data,
+limit concurrency and
+call the next step in the program.
+
+
+we can use this in
+1: Series - an asynchronous for loop
+2: Full parallel - an asynchronous, parallel for loop
+3: Limited parallel - an asynchronous, parallel, concurrency limited for loop
+
+The Child Processes Module
+We can easily spin a child process using Node’s child_process module and those child processes
+can easily communicate with each other with a messaging system.
+
+The child_process module enables us to access Operating System functionalities
+by running any system command inside a child process.
+
+We can control that child process input stream, and listen to its output stream.
+We can also control the arguments to be passed to the underlying OS command,
+ and we can do whatever we want with that command’s output.
+
+ There are four different ways to create a child process in Node: spawn(),
+ fork(), exec(), and execFile().
+
+ Node.js child_process.exec() method
+ The child_process.exec() method runs a command in a console and buffers the output.
+
+ Node.js child_process.spawn() method
+The child_process.spawn() method launches a new process with a given command.
+
+This method returns streams (stdout & stderr) and it is generally used when the process returns
+ large amount of data.
+
+ Node.js child_process.fork() method
+The child_process.fork method is a special case of the spawn() to create Node processes.
+This method returns object with a built-in communication channel in addition to having all
+the methods in a normal ChildProcess instance.
+
+
+Q-26. What Is Chaining Process In Node.Js?
+Answer.
+
+It’s an approach to connect the output of one stream to the input of another stream, thus creating a chain
+of multiple stream operations.
+In chaining every method return the object, so that we can chain different calls in single line.
+
+General Chaining:
+    Functions may not belong to any single object.
+Singleton Chaining:
+    Created with object literal, every methods returns object
+Instance Chaining:
+    Created object with a constructor method and can have many instances
+
+    Advantages of chaining:
+
+    Reduces the headache of creating and maintaining the variables.
+    Clean and intuitive code.
+    Enforces functional approach.
+
+    Q-24. Does Node.Js Support Multi-Core Platforms? And Is It Capable Of Utilizing All The Cores?
+Answer.
+
+Yes, Node.js would run on a multi-core system without any issue. But it is by default a
+single-threaded application, so it can’t completely utilize the multi-core system.
+
+However, Node.js can facilitate deployment on multi-core systems where it does use the additional
+hardware. It packages with a Cluster module which is capable of starting multiple Node.js worker
+processes that will share the same port.
+
+
+Some of important properties of nodejs cluster :
+
+a)isDead : Tells if a worker is dead or alive. It returns true if the worker is ended
+
+b)isConnected : Tells if the worker is connected to it’s master
+
+c)isMaster : tells if current process is master
+
+d)isWorker : Tells if current process is worker
+
+e)worker : Returns current working worker
+
+f)workers : Returns all workers
+
+g)id : Returns unique id for a worker
+
+h)fork : Creates new worker from the master
+
+i)disconnect  : Disconnects all workers
+
+var numCPUs = os.cpus().length;
+if (cluster.isMaster) {
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('online', (worker) => {
+    logger.info('worker is online : ', worker.id);
+
+  });
+  cluster.on('exit', (worker) => {
+    logger.info(`worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  childProcess()
+}
+What Is <Package.Json>?
+A package is:
+
+    a) a folder containing a program described by a package.json file
+A package should be installed globally when it provides an executable command that you
+run from the shell (CLI), and it’s reused across projects.
+
+    global packages are all put in a single place in your system (exactly where depends on your
+    setup), regardless of where you run npm install -g <package-name>
+t is a plain JSON (JavaScript Object Notation) text file which contains all metadata information about
+ Node.js Project or application.
+This file should be present in the root directory of every Node.js Package or Module to describe its
+metadata in JSON format.
+The file is named as “package” because Node.js platform treats every feature as a separate component.
+Node.js calls these as Package or Module.
+Who Use It?
+NPM (Node Package Manager) uses <package.json> file. It includes details of the Node.js application or
+package. This file contains a no. of different directives or elements. These directives guide NPM,
+ about how to handle a module or package.
+
+ Q-22. What Is The Local Installation Of Dependencies?
+Answer.
+
+By default, NPM installs any dependency in the local mode. It means that the package gets installed
+in “node_modules” directory which is present in the same folder, where Node application is placed.
+Locally deployed packages are accessible via require(). Following is the syntax to install a Node
+ project locally.
+
+
+ Q-20. What Is NPM In Node.Js?
+Answer.
+
+NPM stands for Node Package Manager. It provides following two main functionalities.
+
+It works as an Online repository for node.js packages/modules which are present at <nodejs.org>.
+It works as Command line utility to install packages, do version management and dependency
+ management of Node.js packages.
+  800,000 code packages
+  Open-source developers use npm to share software
+  Many organizations also use npm to manage private development.
+
+  npm can manage dependencies.
+
+You can publish any directory from your computer as long as the directory has a package.json file.
+
+
+REPL
+A read–eval–print loop (REPL), also termed an interactive toplevel or language shell, is a
+ simple, interactive computer programming environment that takes single user inputs
+  (i.e., single expressions), evaluates (executes) them, and returns the result to the user; a
+  program written in a REPL environment is executed piecewise
+
+  The read function accepts an expression from the user, and parses it into a data structure in memory.
+  The eval function takes this internal data structure and evaluates it.
+  The print function takes the result yielded by eval, and prints it out to the user.
+  The development environment then returns to the read state, creating a loop,
+  which terminates when the program is closed.
+
+  As a shell, a REPL environment allows users to access relevant features of an operating system
+  in addition to providing access to programming capabilities.
+
+  Q-19. List And Explain The Important REPL Commands?
+  Answer.
+
+  Following is the list of some of the most commonly used REPL commands.
+
+  <.help> – It displays help for all the commands.
+  <tab Keys> – It displays the list of all the available commands.
+  <Up/Down Keys> – Its use is to determine what command was executed in REPL previously.
+  <.save filename> – Save the current REPL session to a file.
+  <.load filename> – To Load the specified file in the current REPL session.
+  <ctrl + c> – used to Terminate the current command.
+  <ctrl + c (twice)> – To Exit from the REPL.
+  <ctrl + d> – This command perfoms Exit from the REPL.
+  <.break> – It leads Exitting from multiline expression.
+  <.clear> – Exit from multiline expression.
+
+  What are Streams?
+
+  Streams are objects that let you read data from a source or write data to
+  a destination in continuous fashion. In Node.js, there are four types of streams −
+
+      Readable − Stream which is used for read operation.
+
+      Writable − Stream which is used for write operation.
+
+      Duplex − Stream which can be used for both read and write operation.
+
+      Transform − A type of duplex stream where the output is computed based on input.
+
+      Q-17. What Is EventEmitter In Node.Js?
+      Answer.
+
+      Events module in Node.js allows us to create and handle custom events. The Event module
+      contains “EventEmitter” class which can be used to raise and handle custom events.
+      It is accessible via the following code.
+
+      // Import events module
+      var events = require('events');
+
+      // Create an eventEmitter object
+      var eventEmitter = new events.EventEmitter();
+      When an EventEmitter instance encounters an error, it emits an “error” event. When a new listener
+       gets added, it fires a “newListener” event and when a listener gets removed, it fires a
+        “removeListener” event.
+
+      EventEmitter provides multiple properties like “on” and “emit”. The “on” property is used
+      to bind a function to the event and “emit” is used to fire an event.
+
+      If we want to break that flow and switch to asynchronous mode then we can use setImmediate()
+      or process.nextTick() methods:
+      =========
+
+      Node.js core API is based on asynchronous event-driven architecture in which certain kind of
+      objects called emitters periodically emit events that cause listener objects to be called.
+          All objects that emit events are members of EventEmitter class. These objects expose
+          an eventEmitter.on() function that allows one or more functions to be attached to named
+          events emitted by the object.
+          When the EventEmitter object emits an event, all of the functions attached to that specific
+          event are called synchronously. All values returned by the called listeners are ignored and
+          will be discarded.
+
+          Q-7. Is Node.Js Entirely Based On A Single-Thread?
+Answer.
+
+Yes, it’s true that Node.js processes all requests on a single thread. But it’s just a part of the
+theory behind Node.js design. In fact, more than the single thread mechanism, it makes use of events
+and callbacks to handle a large no. of requests asynchronously.
+
+Moreover, Node.js has an optimized design which utilizes both JavaScript and C++ to guarantee maximum
+ performance. JavaScript executes at the server-side by Google Chrome v8 engine. And the C++ lib UV
+ library takes care of the non-sequential I/O via background workers.
+
+To explain it practically, let’s assume there are 100s of requests lined up in Node.js queue. As per
+ design, the main thread of Node.js event loop will receive all of them and forwards to background
+  workers for execution. Once the workers finish processing requests, the registered callbacks get
+  notified on event loop thread to pass the result back to the user.
+
+  Q-8. How To Get Post Data In Node.Js?
+Answer.
+
+Following is the code snippet to fetch Post Data using Node.js.
+
+app.use(express.bodyParser());
+app.post('/', function(request, response){
+console.log(request.body.user);
+});
+
+Q-9. How To Make Post Request In Node.Js?
+Answer.
+
+Following code snippet can be used to make a Post Request in Node.js.
+
+var request = require('request');
+request.post(
+'http://www.example.com/action',
+{ form: { key: 'value' } },
+function (error, response, body) {
+if (!error && response.statusCode == 200) {
+console.log(body)
+}
+}
+);
+Q-13. Can You Create HTTP Server In Nodejs, Explain The Code Used For It?
+Answer.
+
+Yes, we can create HTTP Server in Node.js. We can use the <http-server> command to do so.
+
+Following is the sample code.
+
+var http = require('http');
+var requestListener = function (request, response) {
+response.writeHead(200, {'Content-Type': 'text/plain'});
+response.end('Welcome Viewers\n');
+}
+var server = http.createServer(requestListener);
+server.listen(8080); // The port where you want to start with.
+
+
+Q-10. What Is Callback In Node.Js?
+Answer.
+
+We may call “callback” as an asynchronous equivalent for a function. Node.js makes heavy use of
+callbacks and triggers it at the completion of a given task. All the APIs of Node.js are written
+in such a way that they support callbacks.
+
+For example, suppose we have a function to read a file, as soon as it starts reading the file,
+ Node.js return the control immediately to the execution environment so that the next instruction
+  can be executed. Once file read operation is complete, it will call the callback function and pass
+   the contents of the file as its arguments. Hence, there is no blocking or wait, due to File I/O.
+    This functionality makes Node.js as highly scalable, using it processes a high number of requests
+    without waiting for any function to return the expected result.
+
+
+
+Q-11. What Is Callback Hell?
+Answer.
+
+Initially, you may praise Callback after learning about it. Callback hell is heavily nested callbacks
+which make the code unreadable and difficult to maintain.
+
+Let’s see the following code example.
+
+downloadPhoto('http://coolcats.com/cat.gif', displayPhoto)
+function displayPhoto (error, photo) {
+if (error) console.error('Download error!', error)
+else console.log('Download finished', photo)
+}
+console.log('Download started')
+In this scenario, Node.js first declares the “displayPhoto” function. After that, it calls the “downloadPhoto” function and pass the “displayPhoto” function as its callback. Finally, the code prints ‘Download started’ on the console. The “displayPhoto” will be executed only after “downloadPhoto” completes the execution of all its tasks.
+
+
+
+Q-12. How To Avoid Callback Hell In Node.Js?
+Answer.
+
+Node.js internally uses a single-threaded event loop to process queued events. But this approach may
+lead to blocking the entire process if there is a task running longer than expected.
+
+Node.js addresses this problem by incorporating callbacks also known as higher-order functions.
+ So whenever a long-running process finishes its execution, it triggers the callback associated.
+ With this approach, it can allow the code execution to continue past the long-running task.
+
+However, the above solution looks extremely promising. But sometimes, it could lead to complex and
+unreadable code. More the no. of callbacks, longer the chain of returning callbacks would be. Just see
+ the below example.
+
+With such an unprecedented complexity, it’s hard to debug the code and can cause you a whole lot of
+time. There are four solutions which can address the callback hell problem.
+
+1. Make Your Program Modular.
+It proposes to split the logic into smaller modules. And then join them together from the main module
+to achieve the desired result.
+
+2. Use Async Mechanism.
+It is a widely used Node.js module which provides a sequential flow of execution.
+
+The async module has <async.waterfall> API which passes data from one operation to other using the
+ next callback.
+
+Another async API <async.map> allows iterating over a list of items in parallel and calls back with
+another list of results.
+
+With the async approach, the caller’s callback gets called only once. The caller here is the main
+ method using the async module.
+
+3. Use Promises Mechanism.
+Promises give an alternate way to write async code. They either return the result of execution or the error/exception. Implementing promises requires the use of <.then()> function which waits for the promise object to return. It takes two optional arguments, both functions. Depending on the state of the promise only one of them will get called. The first function call proceeds if the promise gets fulfilled. However, if the promise gets rejected, then the second function will get called.
+
+4. Use Generators.
+Generators are lightweight routines, they make a function wait and resume via the yield keyword.
+Generator functions uses a special syntax <function* ()>. They can also suspend and resume asynchronous operations using constructs such as promises or <thunks> and turn a synchronous code into asynchronous.
+
+
+Q-14. What Is The Difference Between Nodejs, AJAX, And JQuery?
+Answer.
+
+The one common trait between Node.js, AJAX, and jQuery is that all of them are the advanced
+implementation of JavaScript. However, they serve completely different purposes.
+
+Node.Js –
+It is a server-side platform for developing client-server applications. For example, if we’ve to
+build an online employee management system, then we won’t do it using client-side JS.
+But the Node.js can certainly do it as it runs on a server similar to Apache, Django not in a browser.
+
+AJAX (Aka Asynchronous Javascript And XML) –
+It is a client-side scripting technique, primarily designed for rendering the contents of a page
+ without refreshing it. There are a no. of large companies utilizing AJAX such as Facebook and
+ Stack Overflow to display dynamic content.
+
+JQuery –
+It is a famous JavaScript module which complements AJAX, DOM traversal, looping and so on.
+ This library provides many useful functions to help in JavaScript development. However,
+  it’s not mandatory to use it but as it also manages cross-browser compatibility, so can
+  help you produce highly maintainable web applications.
+
+
+
+Q-15. What Are Globals In Node.Js?
+Answer.
+
+There are three keywords in Node.js which constitute as Globals. These are Global, Process, and Buffer.
+
+Global.
+The Global keyword represents the global namespace object. It acts as a container for all other
+<global> objects. If we type <console.log(global)>, it’ll print out all of them.
+
+An important point to note about the global objects is that not all of them are in the global
+ scope, some of them fall in the module scope. So, it’s wise to declare them without using the var
+ keyword or add them to Global object.
+
+Variables declared using the var keyword become local to the module whereas those declared without
+it get subscribed to the global object.
+
+Process.
+It is also one of the global objects but includes additional functionality to turn a synchronous
+function into an async callback. There is no boundation to access it from anywhere in the code.
+It is the instance of the EventEmitter class. And each node application object is an instance of the
+Process object.
+
+It primarily gives back the information about the application or the environment.
+
+<process.execPath> – to get the execution path of the Node app.
+<process.Version> – to get the Node version currently running.
+<process.platform> – to get the server platform.
+Some of the other useful Process methods are as follows.
+
+<process.memoryUsage> – To know the memory used by Node application.
+<process.NextTick> – To attach a callback function that will get called during the next loop.
+It can cause a delay in executing a function.
+Buffer.
+The Buffer is a class in Node.js to handle binary data. It is similar to a list of integers but
+stores as a raw memory outside the V8 heap.
+
+We can convert JavaScript string objects into Buffers. But it requires mentioning the encoding
+type explicitly.
+
+<ascii> – Specifies 7-bit ASCII data.
+<utf8> – Represents multibyte encoded Unicode char set.
+<utf16le> – Indicates 2 or 4 bytes, little endian encoded Unicode chars.
+<base64> – Used for Base64 string encoding.
+<hex> – Encodes each byte as two hexadecimal chars.
+Here is the syntax to use the Buffer class.
+
+> var buffer = new Buffer(string, [encoding]);
+The above command will allocate a new buffer holding the string with <utf8> as the default encoding.
+ However, if you like to write a <string> to an existing buffer object, then use the following line
+ of code.
+
+> buffer.write(string)
+This class also offers other methods like <readInt8> and <writeUInt8> that allows read/write from
+ various types of data to the buffer.
+
+ 4)      What does event-driven programming mean?
+
+ In computer programming, event driven programming is a programming paradigm in which the flow of
+  the program is determined by events like messages from other programs or threads.
+   It is an application architecture technique divided into two sections
+   1) Event Selection 2) Event Handling
+
+
+
+The two types of API functions in Node.js are
+
+a)      Asynchronous, non-blocking functions
+
+b)      Synchronous, blocking functions
+
+
+
+12)   Can you access DOM in node?
+
+No, you cannot access DOM in node.
+
+)   Using the event loop what are the tasks that should be done asynchronously?
+
+a)      I/O operations
+
+b)      Heavy computation
+
+c)       Anything requiring blocking
+
+What are the two arguments that async.queue takes?
+
+The two arguments that async.queue takes
+
+a)      Task function
+
+b)      Concurrency value
+
+Mention the steps by which you can async in Node.js?
+
+By following steps you can async Node.js
+
+a)      First class functions
+
+b)      Function composition
+
+c)       Callback Counters
+
+d)      Event loops
+
+
+What tools can be used to assure consistent style?
+You have plenty of options to do so:
+
+JSLint by Douglas Crockford
+JSHint
+ESLint
+JSCS
+
+What's the difference between operational and programmer errors?
+Operation errors are not bugs, but problems with the system, like request timeout or hardware failure.
+
+On the other hand programmer errors are actual bugs.
+
+Why npm shrinkwrap is useful?
+This command locks down the versions of a package's dependencies so that you can control exactly which
+versions of each dependency will be used when your package is installed. - npmjs.com
+
+It is useful when you are deploying your Node.js applications - with it you can be sure which versions
+ of your dependencies are going to be deployed.
+
+ What's a stub? Name a use case.
+Stubs are functions/programs that simulate the behaviours of components/modules.
+Stubs provide canned answers to function calls made during test cases. Also, you can assert on
+with what these stubs were called.
+
+A use-case can be a file read, when you do not want to read an actual file:
+
+var fs = require('fs');
+
+var readFileStub = sinon.stub(fs, 'readFile', function (path, cb) {
+  return cb(null, 'filecontent');
+});
+
+expect(readFileStub).to.be.called;
+readFileStub.restore();
+
+What's a test pyramid? How can you implement it when talking about HTTP APIs?
+A test pyramid describes that when writings test cases there should be a lot more low-level unit tests than high level end-to-end tests.
+
+When talking about HTTP APIs, it may come down to this:
+
+a lot of low-level unit tests for your models
+less integration tests, where your test how your models interact with each other
+a lot less acceptance tests, where you test the actual HTTP endpoints
+
+
+
+What is the purpose of setTimeout function?
+
+The setTimeout(cb, ms) global function is used to run callback cb after at least ms milliseconds.
+The actual delay depends on external factors like OS timer granularity and system load. A timer
+cannot span more than 24.8 days.
+
+This function returns an opaque value that represents the timer which can be used to clear the timer.
+What is the purpose of clearTimeout function?
+
+The clearTimeout( t ) global function is used to stop a timer that was previously created with
+ setTimeout(). Here t is the timer returned by setTimeout() function.
+What is the purpose of setInterval function?
+
+The setInterval(cb, ms) global function is used to run callback cb repeatedly after at least ms
+ milliseconds. The actual delay depends on external factors like OS timer granularity and system
+  load. A timer cannot span more than 24.8 days.
+
+This function returns an opaque value that represents the timer which can be used to clear the
+timer using the function clearInterval(t).
+
+
+What is the purpose of console object?
+
+console object is used to Used to print information on stdout and stderr.
+
+
+The Timers module in Node.js contains functions that execute code after a set period of time.
+
+setTimeout/clearTimeout - can be used to schedule code execution after a designated amount of
+milliseconds
+setInterval/clearInterval - can be used to execute a block of code multiple times
+setImmediate/clearImmediate - will execute code at the end of the current event loop cycle
+process.nextTick - used to schedule a callback function to be invoked in the next iteration
+eof the Event Loop
+
+Q3: Explain what is Reactor Pattern in Node.js?
+Topic: Node.js
+Difficulty: ⭐⭐⭐⭐⭐
+
+Reactor Pattern is an idea of non-blocking I/O operations in Node.js. This pattern provides
+a handler(in case of Node.js,
+a callback function) that is associated with each I/O operation. When an I/O request is
+generated, it is submitted to a demultiplexer.
+
+This demultiplexer is a notification interface that is used to handle concurrency in non-blocking
+ I/O mode and collects every
+request in form of an event and queues each event in a queue. Thus, the demultiplexer provides+
+ the Event Queue.
+
+At the same time, there is an Event Loop which iterates over the items in the Event Queue. Every event has a callback function associated with it, and that callback function is invoked when the Event Loop iterates.
+
+What is LTS releases of Node.js why should you care?
+Topic: Node.js
+Difficulty: ⭐⭐⭐⭐⭐
+
+An LTS(Long Term Support) version of Node.js receives all the critical bug fixes, security updates
+and performance improvements.
+
+LTS versions of Node.js are supported for at least 18 months and are indicated by even version
+ numbers (e.g. 4, 6, 8). They're best for production since the LTS release line is focussed on
+ stability and security, whereas the Current release line has a shorter lifespan and more frequent
+ updates to the code. Changes to LTS versions are limited to bug fixes for stability, security updates,
+ possible npm updates, documentation updates and certain performance improvements that can be
+  demonstrated to not break existing applications.
+
+  Q5: Why should you separate Express 'app' and 'server'?
+Topic: Node.js
+Difficulty: ⭐⭐⭐⭐⭐
+
+Keeping the API declaration separated from the network related configuration (port, protocol, etc)
+ allows testing the API in-process, without performing network calls, with all the benefits that it
+  brings to the table: fast testing execution and getting coverage metrics of the code. It also allows
+  deploying the same API under flexible and different network conditions. Bonus: better separation of
+  concerns and cleaner code.
+
+
+
+===================
+
+Express js
+
+
+    Single-page, multi-page, and hybrid mobile and web apps
+    Common back-end functions for web applications
+    APIs (application programming interfaces)
+
+Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate
+ the flow of data into a website structure.
+
+Because Node.js itself wasn’t intended to build websites, the Express framework is able to layer in
+built-in structure and functions needed to actually build a site. It’s a pretty lightweight framework
+that’s great for giving developers extra, built-in web application features and the Express API without
+ overriding the already robust, feature-packed Node.js platform.
+
+ Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow of data into a website structure.
+
+ Advantages of Express.js
+
+    Makes Node.js web application development fast and easy.
+    Easy to configure and customize.
+    Allows you to define routes of your application based on HTTP methods and URLs.
+    Includes various middleware modules which you can use to perform additional tasks
+     on request and response.
+    Easy to integrate with different template engines like Jade, Vash, EJS etc.
+    Allows you to define an error handling middleware.
+    Easy to serve static files and resources of your application.
+    Allows you to create REST API server.
+    Easy to connect with databases such as MongoDB, Redis, MySQL
+
+Express.js is based on the Node.js middleware module called connect which in turn uses
+++http module. So, any middleware which is based on connect will also work with Express.js.
+
+What is Express.js
+
+Express is a fast, assertive, essential and moderate web framework of Node.js.
+ You can assume express as a layer built on the top of the Node.js that helps manage a server
+ and routes. It provides a robust set of features to develop web and mobile applications.
+
+Let's see some of the core features of Express framework:
+
+    It can be used to design single-page, multi-page and hybrid web applications.
+    It allows to setup middlewares to respond to HTTP Requests.
+    It defines a routing table which is used to perform different actions based on HTTP method and URL.
+    It allows to dynamically render HTML Pages based on passing arguments to templates.
+
+    Why use Express
+
+        Ultra fast I/O
+        Asynchronous and single threaded
+        MVC like structure
+        Robust API makes routing easy
+
+        Express 3.x is a light-weight web application framework to help organize your web application
+         into an MVC architecture on the server side. You can use a variety of choices for your templating
+         language (like EJS, Jade, and Dust.js).
+
+        You can then use a database like MongoDB with Mongoose (for modeling) to provide a backend for your
+        Node.js application.
+        Express.js basically helps you manage everything, from routes, to handling requests and views.
+
+        What is the purpose of it with Node.js?
+
+That you don't have to repeat same code over and over again.
+Node.js is a low-level I/O mechanism which has an HTTP module. If you just use an HTTP module,
+a lot of work like parsing the payload, cookies, storing sessions (in memory or in Redis), selecting
+ the right route pattern based on regular expressions will have to be re-implemented.
+ With Express.js, it is just there for you to use.
+
+
+ Easy integration of third-party services and middleware
+
+
+ Disadvantages-
+ Event-driven nature (callbacks)
+ Philosophy of plugins known as middleware
+
+Express.js is built on this philosophy, that is why it is important to understand its main concepts.
+ In short, middleware is a subset of chained functions that run between the client request and the server answer.
+
+Code organization
+
+Note that the code organization in Express.js is represented by patterns that make your code
+easier to maintain. Here are some useful tips for simplifying the development process.+++
+
+What function are arguments available to Express JS route handlers?
+
+Answer:
+The arguments which are available to an Express JS route handler-function are-
+
+• Req – the request object
+• Res – the response object
+• Next (optional) – a function that is employed to pass management to 1 of the following
+ route handlers.
+
+The third argument is optional and should be omitted, however, in some cases, it’s helpful wherever
+there’s a series of handlers and management will be passed to 1 of the following route handlers
+skipping this one.
+
+6. How to allow CORS in Express JS? Explain with an example?
+
+Answer:
+In order to permit CORS in Express.js, add the subsequent code in server.js:
+For Example –
+app.all(‘*’, function(req, res, next) {
+res.set(‘Access-Control-Allow-Origin’, ‘*’);
+res.set(‘Access-Control-Allow-Methods’, ‘GET, POST, DELETE, PUT’);
+res.set(‘Access-Control-Allow-Headers’, ‘X-Requested-With, Content-Type’);
+if (‘OPTIONS’ == req.method) return res.send(200);
+next();
+});
+
+7.How to enable debugging in express app?
+
+Answer:
+In different operative Systems, we’ve got following commands:
+
+On UNIX operating system the command would be as follows:
+
+$ DEBUG=express:* node index.js
+On Windows the command would be:
+
+set DEBUG=express:* & node index.js
+From Webstrome IDE
+
+C:\Program Files (x86)\JetBrains\WebStorm 2016.2.4\bin\runnerw.exe” “C:\Program Files\nodejs\node.exe”
+–debug-brk=61081 –expose_debug_as=v8debug E:\Development\nodejd\librarey\bin\www
+
+
+Question 8. How To Output Pretty Html In Express.js?
+
+Answer :
+
+app.set('view options', { pretty: true });
+
+How To Get The Full Url In Express?
+
+Answer :
+
+var port = req.app.settings.port || cfg.port;
+
+res.locals.requested_url = req.protocol + '://' + req.host  + ( port == 80 || port == 443 ? '' : ':'+port ) + req.path;
+
+
+
+Question 10. How To Remove Debugging From An Express App?
+
+Answer :
+
+var io = require('socket.io').listen(app, { log: false });
+io.set('log level', 1);
+
+Question 11. How To Do 404 Errors?
+
+Answer :
+
+app.get('*', function(req, res){
+  res.send('what???', 404);
+});
+
+Question 12. How To Download A File?
+
+Answer :
+
+app.get('/download', function(req, res){
+  var file = __dirname + '/download-folder/file.txt';
+  res.download(file);
+});
+
+
+uestion 13. What Is The Parameter “next” Used For In Express?
+
+Answer :
+
+app.get('/userdetails/:id?', function(req, res, next){
+ });
+
+req and res which represent the request and response objects
+
+nextIt passes control to the next matching route.
+
+In this case you need both the middleware functions to be invoked.
+So, the only way you reach the second middleware function is by calling next();
+
+Question 17. How To Redirect 404 Errors To A Page In Expressjs?
+
+Answer :
+
+In server.js add the following code to redirect 404 errors back to a page in our ExpressJS App:
+
+/* Define fallback route */
+app.use(function(req, res, next) {
+    res.status(404).json({errorCode: 404, errorMsg: "route not found"});
+});
+
+let token = jwt.sign({
+  name:#name
+}, #secret, {
+  expiresIn: 120 // expires in 24 hours
+});
+
+jwt.verify(token, config.secrets.session, cb(err, res) {
+
+})
+
+Q.3) What is Scaffolding in Express JS?
+Scaffolding is creating the skeleton structure of application
+
+There are 2 way to do this:
+
+Express application generator
+Yeoman
+
+Q.6) What is routing and how routing works in Express.js?
+Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
+Each route can have one or more handler functions, which are executed when the route is matched.
+
+Route Syntax:
+codesource
+app.METHOD(PATH, HANDLER)
+Where:
+
+app is an instance of express.
+METHOD is an HTTP request method, in lowercase.
+PATH is a path on the server.
+HANDLER is the function executed when the route is matched.
+#Example:
+
+codesource
+app.get('/', function (req, res) {
+  res.send('Express Js Interview Questions')
+})
+
+Dynamic routing and how it works in Express.js?
+When someone pass parameters in URL i.e. Parametrized URL, this routing phenomenon is called dynamic
+ routing.
+
+codesource
+var express = require('express'),
+app = express();
+
+app.get('/article/:id', function(req , res){
+  res.render('article' + req.params.id);
+})
+In above example: id is a parameters, which can be different for different calls.
+
+Q.7) What is middleware in Express Js?
+"A function that is invoked by the Express routing layer before the +
+final request handler."
+Middleware functions can perform the following tasks:
+Execute any code.
+Make changes to the request and the response objects.
+End the request-response cycle.
+Call the next middleware function in the stack.
+If the current middleware function does not end the request-response cycle,+
+ it must call next() to pass control to the next middleware function. Otherwise,
+ the request will be left hanging.
+
+An Express application can use the following types of middleware:
+Application-level middleware
+Router-level middleware
+Error-handling middleware
+Built-in middleware
+Third-party middleware
+ You may also like - React Js Interview Questions
+1. Application-level middleware:
+This kind of middleware method is bind to the app Object using app.use() method.
+
+codesource
+//This middleware will execute for each route.
+app.use(function (req, res, next) {
+  console.log('Current Time:', Date.now())
+  next()
+})
+2. Router-level middleware:
+Router-level middleware works in the same way as application-level middleware, except it is bound to
+an instance of express.Router()
+
+3. Built-in middleware:
+Starting with version 4.x, Express no longer depends on Connect.
+
+Express has the following built-in middleware functions:
+
+express.static serves static assets such as HTML files, images, and so on.
+express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
+express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
+4. Third-party middleware:
+There are a number of third party middleware, such as body-parser cookie-parser, mongoose and so on.
+
+To handle HTTP POST request in Express.js version 4 and above, you need to install middleware
+module called body-parser, body-parser extract the entire body portion of an incoming request stream
+ and exposes it on req.body, The middleware was a part of Express.js earlier but now you have to install it separately.
+
+These can be installed by using command:
+
+codesource
+>> npm install MODULE_NAME
+And they can be loaded using requires and used later.
+
+#Example:
+codesource
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))+
+
+NODE_ENV==
+
+NODE_ENV is an environment variable made popular by the express webserver framework. When a node
+ application is run, it can check the value of the environment variable and do different things
+  based on the value. NODE_ENV specifically is used (by convention) to state whether a particular
+  environment is a production or a development environment. A common use-case is running additional
+   debugging or logging code if running in a development environment.
+
+Accessing NODE_ENV
+You can use the following code to access the environment variable yourself so that you can perform your own checks and logic:
+
+var environment = process.env.NODE_ENV
+
+Or alternatively using express' app.get('env') (note: this defaults to "development")
+
+Be aware that if you haven't explicitly set NODE_ENV for your environment, it will be undefined.
+
+Setting NODE_ENV
+How to actually set the environment variable varies from operating system to operating system, and also depend on your user setup.
+
+If you want to set the environment variable as a one-off, you can do so from the command line:
+
+linux & mac: export NODE_ENV=production
+windows: $env:NODE_ENV = 'production'
+
+GARBAGE COLLECTION-
+
+The JavaScript Engine’s Garbage collector basically looks out for unreachable objects which are
+removed from the memory. There are two garbage collection algorithms that I would like to explain
+ which are as follows:
+Reference-counting garbage collection
+Mark-and-sweep algorithm
+
+Reference-counting garbage collection
+This is a naïve garbage collection algorithm. This algorithm looks out for those objects which
+have no references left. An object becomes eligible for garbage collection if it has no references
+attached to it.
+
+Mark-and-Sweep Algorithm
+This algorithm looks out for objects which are unreachable from the root which is the JavaScript’s
+ global object. This algorithm overcomes the limitations of Reference-counting algorithm.
+ This algorithm starts from the root and traverses down to all other objects while marking them .
+ It further traverses through the traversed objects and marks them. This process continues till the
+  algorithm has no child nodes or any path left to traverse while marking all the nodes that have
+  been traversed. Now the garbage collector ignores all the reachable objects as they were marked
+  while traversing. So all the objects that were not marked were clearly unreachable to the root
+  which makes them eligible for garbage collection and later the memory is freed by removing those
+   objects.

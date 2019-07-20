@@ -1,0 +1,121 @@
+AngularJS is a JavaScript-based open-source front-end web framework mainly maintained by Google and by angular
+community. It aims to simplify both the development and the testing of such applications
+ by providing a framework for client-side model–view–controller (MVC) and model–view–viewmodel (MVVM)
+ architectures.
+ The AngularJS framework works by first reading the Hypertext Markup Language (HTML) page,
+  which has additional custom HTML attributes embedded into it. Angular interprets those attributes as
+  directives to bind input or output parts of the page to a model that is represented by standard
+  JavaScript variables. The values of those JavaScript variables can be manually set within the code,
+  or retrieved from static or dynamic JSON resources.
+
+The framework adapts and extends traditional HTML to present dynamic content through two-way data-binding that allows for the automatic
+ synchronization of models and views. As a result,
+Template reference variables
+What is component decorators
+
+ lifecycle hooks available?
+ between constructor and ngOnInit?
+  dependency injection
+  Dependency Hierarchy formed
+  async pipe
+  interpolation
+  observables
+  HttpClient
+  RxJS
+  difference between promise and observable
+multicasting
+angular elements
+custom elements
+
+
+
+Reactive and Template-Driven Forms
+What Are Angular Reactive Forms?
+Reactive forms are also known as model-driven forms. This means that the HTML content changes depending on the code in the component.
+
+What Are Angular Template-Driven Forms?
+Template-driven forms are driven by derivatives in the template. This means that you will see derivatives such as ngModel in the template as opposed to the code.
+
+Differences Between Template-Driven and Reactive Forms
+Template-driven forms use the FormsModule, while reactive forms use the ReactiveFormsModule.
+Template-driven forms are asynchronous, while reactive forms are synchronous.
+In template-driven forms, most of the interaction occurs in the template, while in reactive-driven forms, most of the interaction occurs in the component.
+Advantages and Disadvantages of Template-Driven Forms
+Although template forms are easier to create, they become a challenge when you want to do unit testing, because testing requires the presence of a DOM.
+
+Advantages and Disadvantages of Reactive Forms
+It's easier to write unit tests in reactive forms since all the form code and functionality is contained in the component. However, reactive forms require more coding implementation in the component.
+
+Simply we can say
+
+Reactive form can be used in the following situation
+
+Complex forms with more number of fields.
+Multiple complex validation are there. Custom validations are required
+Require JSON structure to be send with the values in the form.
+
+Template Driven Form : It can be used when using simple forms. Like login page. With the two way data binding. We can simply assign value to variable from ui and vice versa.
+
+Simple example is if we are givng two way binding for the below input.
+
+Template Driven Forms Features
+
+Easy to use
+Suitable for simple scenarios and fails for complex scenarios
+Similar to AngularJS
+Two way data binding(using [(NgModel)] syntax)
+Minimal component code
+Automatic track of the form and its data(handled by Angular)
+Unit testing is another challenge
+Reactive Forms Features
+
+More flexible, but needs a lot of practice
+Handles any complex scenarios
+No data binding is done (immutable data model preferred by most developers)
+More component code and less HTML markup
+Reactive transformations can be made possible such as
+Handling a event based on a debounce time
+Handling events when the components are distinct until changed
+Adding elements dynamically
+Easier unit testing
+
+FormArray vs FormFroup
+FormArray is a variant of FormGroup. The key difference is that its data gets serialized as
+an array (as opposed to being serialized as an object in case of FormGroup). This might be especially
+useful when you don’t know how many controls will be present within the group, like dynamic forms.
+
+Let me try to explain by a quick example. Say, you have a form where you capture a customer's order
+for Pizza. And you place a button to let them add and remove any special requests. Here is the
+component's html part:
+
+FormArray offers more flexibility than FormGroup in the sense that it is easier to manipulate
+FormControls using "push", "insert" and "removeAt" than using FormGroup's "addControl",
+"removeControl", "setValue" etc. FormArray methods ensure the controls are properly tracked in the
+form's hierarchy.
+
+Form Control
+FormControl are the basic building blocks of a reactive form or a form in general. Think of them as input box, select box, radio buttons, dropdown etc.
+Under the hood it’s a class which tracks a particular form control and keeps track of its validity and values.
+
+Form Group
+FormGroup is a collection/group of FormControls. It also offers many api’s such as tracking validity and values of the whole formGroup.
+
+FormArray
+Verbatim from angular docs It tracks the value and validity state of an array of FormControl instances.
+However I would later show how that definition is not accurate and it should be Tracks the value and validity state of an array of FormControl/FormGroup/FormArray instances.
++
+RULE 1: Whenever there is a formControl(smallest entity of a form like an input) with any other
+ basic block like FormControl, FormGroup, FormArray. We have to nest them under a FormGroup.
+RULE 2: Whenever you find yourself saying something like X has many Y, that is when you should
+know you are looking at a possible FormArray of Y inside X(where X is almost always a FormGroup).
+
+Q16. What is Traceur compiler?
+Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
+Traceur itself is written in ES6, compiled to ES5.
+For more Angular Interview Questions and Answers visit my blog:
+
+
+Observables provide support for passing messages between publishers and subscribers in your application. 
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+An observable can deliver multiple values of any type—literals, messages, or events, depending on the context.
+
