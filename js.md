@@ -248,5 +248,12 @@ Keys
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:
 
 
-A cookie contains specific information that is encrypted for security purposes. Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request. This stored cookie is sent to the HTTP server whenever access to a specific website is required. Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates. Cookies with an expiry date expire when that date is surpassed. 
-The following are the types/variations of cookies: Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session. Persistent Cookies: Normally known as tracking cookies, these cookies have a specific time period before they expire. 
+A cookie contains specific information that is encrypted for security purposes. Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request. This stored cookie is sent to the HTTP server whenever access to a specific website is required. Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates. Cookies with an expiry date expire when that date is surpassed.
+The following are the types/variations of cookies: Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session. Persistent Cookies:
+ Normally known as tracking cookies, these cookies have a specific time period before they expire.
+
+#diff betwn promises and callbacks
+The main difference between callbacks and promises is that with callbacks you tell the executing function what to do when the asynchronous task completes, whereas with promises the executing function returns a special object to you (the promise) and then you tell the promise what to do when the asynchronous task completes.
+
+So, in other words, an async function is itself an asynchronous task (that typically manages the execution of other asynchronous tasks).
+In fact, the main innovation of async/await is to allow to write asynchronous code with promises that “looks like” synchronous code

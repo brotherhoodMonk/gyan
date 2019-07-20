@@ -1,0 +1,73 @@
+Joins-
+
+statement is used to combine data or rows from two or more tables based on a common field between them
+
+Different types of Joins are:
+
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL JOIN
+
+INNER JOIN: The INNER JOIN keyword selects all rows from both the tables as long as the condition satisfies.
+This keyword will create the result-set by combining all rows from both the tables where the condition satisfies
+i.e value of the common field will be same.
+
+LEFT JOIN: This join returns all the rows of the table on the left side of the join and matching rows for the
+table on the right side of join. The rows for which there is no matching row on right side, the result-set
+will contain null. LEFT JOIN is also known as LEFT OUTER JOIN.
+
+RIGHT JOIN: RIGHT JOIN is similar to LEFT JOIN. This join returns all the rows of the table on the right side of the join
+ and matching rows for the table on the left side of join. The rows for which there is no matching row on left side, the result-set
+ will contain null. RIGHT JOIN is also known as RIGHT OUTER JOIN.Syntax:
+
+FULL JOIN: FULL JOIN creates the result-set by combining result of both LEFT JOIN and RIGHT JOIN. The result-set will contain all
+ the rows from both the tables. The rows for which there is no matching, the result-set will contain NULL values.
+ Syntax:
+
+
+RelationShips
+Relationships are defined on the basis of matching key columns. In SQL server, these relationships are defined using Primary Key-Foreign Key
+ constraints. A link is created between two tables where the primary key of one table is associated with the foreign key of another
+  table using database relationships.
+
+  Types of Relationships
+a. One-One Relationship (1-1 Relationship)
+b. One-Many Relationship (1-M Relationship)
+c. Many-Many Relationship (M-M Relationship)
+1. One-One Relationship (1-1 Relationship)
+One-to-One (1-1) relationship is defined as the relationship between two tables where both the tables should be associated with each other based on only one matching row.
+This relationship can be created using Primary key-Unique foreign key constraints.
+
+2. One-Many Relationship (1-M Relationship)
+The One-to-Many relationship is defined as a relationship between two tables where a row from one table can have multiple matching rows in another table. This relationship
+can be created using Primary key-Foreign key relationship.
+
+2. Many-Many Relationship (1-M Relationship)
+The One-to-Many relationship is defined as a relationship between two tables where a multiple row from one table can have multiple matching rows in another table. This relationship
+can be created using Primary key-Foreign key relationship.
+
+
+
+Primary Key	Foreign Key
+Primary Key- The primary key consists of one or more columns whose data contained within is used to uniquely identify each row in the table.
+First, as we mentioned, the columns must be unique. Also, no value in the columns can be blank or NULL.
+
+Foreign Keys
+A foreign key is a set of one or more columns in a table that refers to the primary key in another table.  There isn’t any special code, configurations, or table definitions you need
+to place to officially “designate” a foreign key.
+
+The primary key consists of one or more columns whose data contained within is used to uniquely identify each row in the table.
+Primary key uniquely identify a record in the table.	Foreign key is a field in the table that is primary key in another table.
+Primary Key can't accept null values.	Foreign key can accept multiple null value.
+By default, Primary key is clustered index and data in the database table is physically organized in the sequence of clustered index.	Foreign key do not automatically create an index, clustered or non-clustered. You can manually create an index on foreign key.
+We can have only one Primary key in a table.	We can have more than one foreign key in a table.
+
+
+Where and having-
+WHERE and HAVING clause is used to specify filtering condition in SQL,
+WHERE is used in any SELECT query, while HAVING clause is only used in SELECT queries, which contains aggregate function or group by clause, which is correct.
+1) Apart from SELECT queries, you can use WHERE clause with UPDATE and DELETE clause but HAVING clause can only be used with SELECT query.
+2)WHERE clause is used for filtering rows and it applies on each and every row, while HAVING clause is used to filter groups in SQL.
+3) One syntax level difference between WHERE and HAVING clause is that, former is used before GROUP BY clause, while later is used after GROUP BY clause.
+4) When WHERE and HAVING clause are used together in a SELECT query with aggregate function,  WHERE clause is applied first on individual rows and only rows which pass the condition is included for creating groups. Once group is created, HAVING clause is used to filter groups based upon condition specified.
