@@ -371,7 +371,7 @@ data can be emitted over time. From this we get a pattern of dealing with data b
 array-like operations to parse, modify and maintain data.
 Observables provide support for passing messages between publishers and subscribers
 in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer s ubscribes to it.
 
 An observable can deliver multiple values of any type—literals, messages, or events, depending on the context
 
