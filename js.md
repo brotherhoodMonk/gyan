@@ -257,3 +257,158 @@ The main difference between callbacks and promises is that with callbacks you te
 
 So, in other words, an async function is itself an asynchronous task (that typically manages the execution of other asynchronous tasks).
 In fact, the main innovation of async/await is to allow to write asynchronous code with promises that “looks like” synchronous code
+
+
+43. XMLHttpRequest
+Use XMLHttpRequest (XHR) objects to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in AJAX programming.
+Despite its name, XMLHttpRequest can be used to retrieve any type of data, not just XML.
+
+If your communication needs to involve receiving event data or message data from a server, consider using server-sent events through the EventSource interface. For full-duplex communication, WebSockets may be a better choice.
+Asynchronous JavaScript + XML, while not a technology in itself, is a term coined in 2005 by Jesse James Garrett, that describes a "new" approach to using a number of existing technologies together, including HTML or XHTML, Cascading Style Sheets, JavaScript, The Document Object Model, XML, XSLT, and most importantly the XMLHttpRequest object.
+
+44. AJAX
+AJAX stands for Asynchronous JavaScript and XML. AJAX is a new technique for creating better, faster, and more interactive web applications with the help of XML, HTML, CSS, and Java Script.
+
+Ajax uses XHTML for content, CSS for presentation, along with Document Object Model and JavaScript for dynamic content display.
+AJAX is a web browser technology independent of web server software.
+
+A user can continue to use the application while the client program requests information from the server in the background.
+
+
+45. XML is commonly used as the format for receiving server data, although any format, including plain text, can be used.
+
+XML
+XML is a software- and hardware-independent tool for storing and transporting data.
+XML stands for eXtensible Markup Language
+XML is a markup language much like HTML
+XML was designed to store and transport data
+XML was designed to be self-descriptive
+XML is a W3C Recommendation
+
+XML Does Not DO Anything
+Maybe it is a little hard to understand, but XML does not DO anything.
+
+This note is a note to Tove from Jani, stored as XML:
+
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+The XML above is quite self-descriptive:
+
+It has sender information.
+It has receiver information
+It has a heading
+It has a message body.
+But still, the XML above does not DO anything. XML is just information wrapped in tags.
+
+XML and HTML were designed with different goals:
+
+XML was designed to carry data - with focus on what data is
+HTML was designed to display data - with focus on how data looks
+XML tags are not predefined like HTML tags are
+
+XML Does Not Use Predefined Tags
+The XML language has no predefined tags.
+
+The tags in the example above (like <to> and <from>) are not defined in any XML standard. These tags are "invented" by the author of the XML document.
+
+HTML works with predefined tags like <p>, <h1>, <table>, etc.
+
+With XML, the author must define both the tags and the document structure.
+
+It simplifies data sharing
+It simplifies data transport
+It simplifies platform changes
+It simplifies data availability
+
+W3C Recommendation
+
+46. JSON
+JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types (or any other serializable value). It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in some AJAX-style systems.
+JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages include code to generate and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension .json.
+Data types and syntax
+JSON's basic data types are:
+
+Number:
+String:  syntax.
+Boolean:
+Array:
+Object:
+null:
+
+47. Objects
+objects in JavaScript may be defined as an unordered collection of related data, of primitive or reference types, in the form of “key: value” pairs. These keys can be variables or functions and are called properties and methods, respectively, in the context of an object.
+
+An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer to that value. That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store the value.
+
+48. class
+In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
+When an object is created by a constructor of the class, the resulting object is called an instance of the class, and the member variables specific to the object are called instance variables, to contrast with the class variables shared across the class.
+A JavaScript class is a type of function. Classes are declared with the class keyword. We will use function expression syntax to initialize a function and class expression syntax to initialize a class
+
+class mailer {
+  constructor(name) {
+    this.scheduler = {
+      name: name,
+      startTime: moment().tz('Asia/Kolkata').format()
+    };
+  }
+
+
+
+  49. Data Types in js
+
+  Seven data types that are primitives:
+primitive-
+Boolean
+Null
+Undefined
+Number
+BigInt
+String
+Symbol
+
+Object
+ A Symbol is a unique and immutable primitive value and may be used as the key of an Object property (see below).
+ Symbols are called atoms. For more details see Symbol and the Symbol object wrapper in JavaScript.
+
+ bigInt-
+
+ In JavaScript, BigInt is a numeric data type that can represent integers in the arbitrary precision format.
+
+  module.exports = mailer
+
+  typeof undefined // "undefined"
+
+typeof 0 // "number"
+
+typeof true // "boolean"
+
+typeof "foo" // "string"
+
+typeof Symbol("id") // "symbol"
+
+typeof Math // "object"  (1)
+
+typeof null // "object"  (2)
+
+typeof alert // "function"  (3)
+
+
+50. Call by Value v.s Call by Reference in Js
+
+The concepts “called by value” and “called by reference” refers to the way you pass an argument to a function.
+
+Call by value 
+Javascript passes by value the primitive data types which are: Boolean, null, undefined, String and Number.
+If you pass the argument by value it will make a new copy of variable inside the function, without affection the original variable.
+
+
+Call by reference
+Javascript passes by reference the object data types which are: Array, Function, and Object.
+If you pass the argument by reference the change will be produced not only inside the function, but it will also affect the original variable.
+When you pass an object you are calling by reference

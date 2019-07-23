@@ -368,7 +368,7 @@ But if a pipe is impure and has internal state the same parameters do
 ##Observables
 Observables open up a continuous channel of communication in which multiple values of
 data can be emitted over time. From this we get a pattern of dealing with data by using
-array-like operations to parse, modify and maintain data.
+array-like operations to parse  , modify and maintain data.
 Observables provide support for passing messages between publishers and subscribers
 in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
 Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer s ubscribes to it.
@@ -383,3 +383,26 @@ complete	Optional. A handler for the execution-complete notification. Delayed va
 Multicasting is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
 
 When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values.
+
+38. How to create a service in Angular?
+In Angular, a service is a substitutable object that is wired together using dependency injection. A service is created by registering it in the module it is going to be executed within. There are basically three ways in which you can create an angular service. They are basically three ways in which a service can be created in Angular:
+
+Factory
+Service
+Provider
+
+
+39. What is a singleton pattern and where we can find it in Angular?
+Singleton pattern in Angular is a great pattern which restricts a class from being used more than once. Singleton pattern in Angular is majorly implemented on dependency injection and in the services. Thus, if you use ‘new Object()’ without making it a singleton, then two different memory locations will be allocated for the same object. Whereas, if the object is declared as a singleton, in case it already exists in the memory then simply it will be reused.
+
+40. What do you understand by REST in Angular?
+
+REST stands for REpresentational State Transfer. REST is an API (Application Programming Interface) style that works on the HTTP request. In this, the requested URL pinpoints the data that needs to be processed. Further ahead, an HTTP method then identifies the specific operation that needs to be performed on that requested data. Thus, the APIs which follows this approach are known as RESTful APIs.
+
+41. Http req in angualr
+Most front-end applications communicate with backend services over the HTTP protocol. Modern browsers support two different APIs for making HTTP requests: the XMLHttpRequest interface and the fetch() API.
+
+The HttpClient in @angular/common/http offers a simplified client HTTP API for Angular applications that rests on the XMLHttpRequest interface exposed by browsers. Additional benefits of HttpClient include testability features, typed request and response objects, request and response interception, Observable apis, and streamlined error handling.
+
+import { HttpClientModule } from '@angular/common/http'; import in main module
+import { HttpClient } from '@angular/common/http'; in component
