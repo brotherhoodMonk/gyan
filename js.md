@@ -404,7 +404,7 @@ typeof alert // "function"  (3)
 
 The concepts “called by value” and “called by reference” refers to the way you pass an argument to a function.
 
-Call by value 
+Call by value
 Javascript passes by value the primitive data types which are: Boolean, null, undefined, String and Number.
 If you pass the argument by value it will make a new copy of variable inside the function, without affection the original variable.
 
@@ -413,3 +413,443 @@ Call by reference
 Javascript passes by reference the object data types which are: Array, Function, and Object.
 If you pass the argument by reference the change will be produced not only inside the function, but it will also affect the original variable.
 When you pass an object you are calling by reference
+
+
+51. Ec6 features-
+
+1. Symbols
+
+Symbols enable access control for object state.
+Symbols allow properties to be keyed by either string (as in ES5) or symbol. Symbols are a new primitive type.
+The Symbol() function returns a value of type symbol  which is is unique,
+is incomplete as a constructor because it does not support the syntax "new Symbol()".
+A symbol value may be used as an identifier for object properties; this is the data type's only purpose.
+
+2. proxy
+Proxies
+Proxies enable creation of objects with the full range of behaviors available to host objects. Can be used for interception, object virtualization, logging/profiling, etc.
+
+3. Map
+Map is a collection of keyed data items, just like an Object. But the main difference is that Map allows keys of any type.
+
+Methods and properties are:
+
+new Map() – creates the map.
+map.set(key, value) – stores the value by the key.
+map.get(key) – returns the value by the key, undefined if key doesn’t exist in map.
+map.has(key) – returns true if the key exists, false otherwise.
+map.delete(key) – removes the value by the key.
+map.clear() – removes everything from the map.
+map.size – returns the current element count.
+
+ has static properties that expose several members of built-in objects, has static methods that expose the global symbol registry, and resembles a built-in object class but is incomplete as a constructor because it does not support the syntax "new Symbol()".  
+
+Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties; this is the data type's only purpose.+
+
+Iteration over Map
+For looping over a map, there are 3 methods:
+
+map.keys() – returns an iterable for keys,
+map.values() – returns an iterable for values,
+map.entries() – returns an iterable for entries [key, value], it’s used by default in for..of.
+
+
+4. Set
+A Set is a special type collection – “set of values” (without keys), where each value may occur only once.
+
+Its main methods are:
+
+new Set(iterable) – creates the set, and if an iterable object is provided (usually an array), copies values from it into the set.
+set.add(value) – adds a value, returns the set itself.
+set.delete(value) – removes the value, returns true if value existed at the moment of the call, otherwise false.
+set.has(value) – returns true if the value exists in the set, otherwise false.
+set.clear() – removes everything from the set.
+set.size – is the elements count.
+Iteration over Set
+We can loop over a set either with for..of or using forEach:
+
+
+* WeakMap
+WeakSet is a special kind of Set that does not prevent JavaScript from removing its items from memory. WeakMap is the same thing for Map.
+The first difference from Map is that WeakMap keys must be objects, not primitive values:
+
+let john = { name: "John" };
+
+let weakMap = new WeakMap();
+weakMap.set(john, "...");
+
+john = null;
+// john is removed from memory!
+
+let john = { name: "John" };
+
+let map = new Map();
+map.set(john, "...");
+
+john = null;
+WeakMap has only the following methods:
+
+weakMap.get(key)
+weakMap.set(key, value)
+weakMap.delete(key)
+weakMap.has(key)
+
+
+If we’re working with an object that “belongs” to another code, maybe even a third-party library, and would like to store some data associated with it, that should only exist while the object is alive – then WeakMap is the right choice!
+
+
+WeakSet
+WeakSet behaves similarly:
+
+It is analogous to Set, but we may only add objects to WeakSet (not primitives).
+An object exists in the set while it is reachable from somewhere else.
+Like Set, it supports add, has and delete, but not size, keys() and no iterations.
+Being “weak”, it also serves as an additional storage. But not for an arbitrary data, but rather for “yes/no” facts. A membership in WeakSet may mean something about the object.
+
+For instance, we can use WeakSet to keep track of users that visited our site:  
+WeakMap and WeakSet are used as “secondary” data structures in addition to the “main” object storage. Once the object is removed from the main storage, if it is only found as the key of WeakMap or in a WeakSet, it will be cleaned up automatically.
+
+Asynchronous Module Definition(AMD)
+The problem with CommonJs style module definition is that it is synchronous. When you call ‘var add=require(‘add’);’, the system will be on
+
+ES6 uses ‘import’ and ‘export’ keywords to import and export modules. Here’s the example application written in ES6 modules.
+
+
+Webpack
+Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files. If it is the same as Browserify, why would we need yet another module bundler? Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
+
+Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example, if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js. Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
+Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files, but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
+Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins. For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
+WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code changes detected. It will expedite your development process by providing instant feedback of your code.
+
+
+Genretaor :
+A generator is a function that can stop midway and then continue from where it stopped. In short, a generator appears to be a function but it behaves like an iterator.
+Generators are a special class of functions that simplify the task of writing iterators.
+A generator is a function that produces a sequence of results instead of a single value, i.e you generate ​a series of values.
+
+function * generatorFunction() { // Line 1
+  console.log('This will be executed first.');
+  yield 'Hello, ';   // Line 2
+  console.log('I will be printed after the pause');  
+  yield 'World!';
+}
+const generatorObject = generatorFunction(); // Line 3
+console.log(generatorObject.next().value); // Line 4
+console.log(generatorObject.next().value); // Line 5
+console.log(generatorObject.next().value); // Line 6
+// This will be executed first.
+// Hello,
+// I will be printed after the pause
+// World!
+// undefined
+
+Uses of Generators
+Implementing Iterables
+When you implement an iterator, you have to manually make an iterator object with a next() method. Also, you have to manually save the state.
+
+Better Async functionality
+Infinite Data Streams
+It’s possible to create generators that never end. Consider this example —
+Generators as observers
+Generators can also receive values using the next(val) function. Then the generator is called an observer since it wakes up when it receives new values. In a sense, it keeps observing for values and acts when it gets one. You can read more about this pattern here.
+
+
+IIFE
+An IIFE (Immediately Invoked Function Expression) is a JavaScript function that runs as soon as it is defined.
+
+It is a design pattern which is also known as a Self-Executing Anonymous Function and contains two major parts. The first is the anonymous function with lexical scope enclosed within the Grouping Operator (). This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
+
+The second part creates the immediately executing function expression () through which the JavaScript engine will directly interpret the function.
+
+An Immediately Invoked Function Expression is a good way at protecting the scope of your function and the variables within it.
+Assigning the IIFE to a variable stores the function's return value, not the function definition itself.
+
+var result = (function () {
+    var name = "Barry";
+    return name;
+})();
+
+This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE (like in any other normal function) are not visible outside its scope.
+
+
+To intercept HTTP requests, use the webRequest API. This API enables you to add listeners for various stages of making an HTTP request. In the listeners, you can:
+
+get access to request headers and bodies, and response headers
+cancel and redirect requests
+modify request and response headers
+
+Creating Librairies
+
+Interceptors
+Interceptors have access to response/request before and after the route handler is called.
+
+Middleware
+Middleware is called only before the route handler is called. You have access to the response object, but you don't have the result of the route handler. They are basically express middleware functions.
+
+Exception Filters
+Exception Filters are called after the route handler and after the interceptors. They are the last place to make changes before a response goes out.
+
+Service workers
+Service workers essentially act as proxy servers that sit between web applications, the browser, and the network (when available). They are intended, among other things, to enable the creation of effective offline experiences, intercept network requests and take appropriate action based on whether the network is available, and update assets residing on the server. They will also allow access to push notifications and background sync APIs.
+
+Service worker concepts and usageSection
+A service worker is an event-driven worker registered against an origin and a path. It takes the form of a JavaScript file that can control the web-page/site that it is associated with, intercepting and modifying navigation and resource requests, and caching resources in a very granular fashion to give you complete control over how your app behaves in certain situations (the most obvious one being when the network is not available).
+
+Service workers only run over HTTPS, for security reasons.
+Uses-
+Background data synchronization.
+Responding to resource requests from other origins.
+Receiving centralized updates to expensive-to-calculate data such as geolocation or gyroscope, so multiple pages can make use of one set of data.
+Client-side compiling and dependency management of CoffeeScript, less, CJS/AMD modules, etc. for development purposes.
+Hooks for background services.
+Custom templating based on certain URL patterns.
+Performance enhancements, for example pre-fetching resources that the user is likely to need in the near future, such as the next few pictures in a photo album.
+
+
+Arrow Functions-
+Arrow functions make our code more concise, and simplify function scoping and the this keyword. They are one-line mini functions which work much like Lambdas in other languages like C# or Python. (See also lambdas in JavaScript). By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions), and curly brackets.
+Arrow functions do not have their own arguments object.
+Arrow functions do not have a prototype property.
+Arrow function expressions are ill suited as methods, and they cannot be used as constructors.
+he methods call(), apply(), and bind() will not change the value of this in arrow functions. (In fact, the value of this inside a function simply can’t be changed; it will be the same value as when the function was called.)
+ES6 arrow functions can’t be bound to a this keyword, so it will lexically go up a scope, and use the value of this in the scope in which it was defined.
+
+Two factors influenced the introduction of arrow functions: the need for shorter functions and the behavior of the this keyword.
+Before arrow functions, every new function defined its own this value based on how the function was called:
+
+A new object in the case of a constructor.
+undefined in strict mode function calls.
+The base object if the function was called as an "object method".
+
+
+function Person() {
+  // The Person() constructor defines `this` as an instance of itself.
+  this.age = 0;
+
+  setInterval(function growUp() {
+    // In non-strict mode, the growUp() function defines `this`
+    // as the global object (because it's where growUp() is executed.),
+    // which is different from the `this`
+    // defined by the Person() constructor.
+    this.age++;
+  }, 1000);
+}
+
+var p = new Person();
+
+function Person() {
+  var that = this;
+  that.age = 0;
+
+  setInterval(function growUp() {
+    // The callback refers to the `that` variable of which
+    // the value is the expected object.
+    that.age++;
+  }, 1000);
+}
+
+function Person(){
+  this.age = 0;
+
+  setInterval(() => {
+    this.age++; // |this| properly refers to the Person object
+  }, 1000);
+}
+
+var p = new Person();
+
+When you should use them
+Arrow functions shine best with anything that requires this to be bound to the context, and not the function itself.
+
+Despite the fact that they are anonymous, I also like using them with methods such as map and reduce, because I think it makes my code more readable. To me, the pros outweigh the cons.
+
+When you should not use Arrow Functions
+Object methods
+
+2. Callback functions with dynamic context
+3. When it makes your code less readable
+
+
+Object destructuring-
+The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+The object and array literal expressions provide an easy way to create ad hoc packages of data.
+A variable can be assigned a default, in the case that the value unpacked from the array is undefined.
+When destructuring an array, you can unpack and assign the remaining part of it to a variable using the rest pattern:
+
+we can use alias and default value for property using
+var person = {name: "Sarah", country: "Nigeria", job: "Developer"};
+
+var {name: foo, job: bar} = person;
+===
+var person = {name: "Sarah", country: "Nigeria", job: "Developer"};
+
+var {name = "myName", friend = "Annie"} = person;
+
+console.log(name);//"Sarah"
+console.log(friend);//"Annie"
+Two variables values can be swapped in one destructuring expression.
+var a = 1;
+var b = 3;
+
+[a, b] = [b, a];
+console.log(a); // 3
+console.log(b); // 1
+
+
+JavaScript Object Literal
+
+A JavaScript object literal is a comma-separated list of name-value pairs wrapped in curly braces. Object literals encapsulate data, enclosing it in a tidy package. This minimizes the use of global variables which can cause problems when combining code.
+Object Literal Syntax
+Object literals are defined using the following syntax rules:
+
+A colon separates property name[1] from value.
+A comma separates each name-value pair from the next.
+There should be no comma after the last name-value pair.[2]
+
+No need to invoke constructors directly or maintain the correct order of arguments passed to functions. Object literals are also useful for unobtrusive event handling; they can hold the data that would otherwise be passed in function calls from HTML event handler attributes.
+
+
+Template literals
+Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them.
+Template literals are enclosed by the back-tick (` `)  (grave accent) character instead of double or single quotes. Template literals can contain placeholders. These are indicated by the dollar sign and curly braces (${expression}). The expressions in the placeholders and the text between the back-ticks (` `) get passed to a function. The default function just concatenates the parts into a single string.
+
+hey are unique because they provide a lot of features that normal strings built with quotes do not, in particular:
+
+they offer a great syntax to define multiline strings
+they provide an easy way to interpolate variables and expressions in strings
+they allow you to create DSLs with template tags (DSL means domain specific language, and it’s for example used in React by Styled Components, to define CSS for a component)
+
+Expression interpolation
+In order to embed expressions within normal strings,
+console.log('Fifteen is ' + (a + b) + ' and\nnot ' + (2 * a + b) + '.');
+
+console.log(`Fifteen is ${a + b} and
+not ${2 * a + b}.`);
+
+In order to embed expressions within normal strings,
+
+
+Tagged templates
+
+A more advanced form of template literals are tagged templates. Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions. In the end, your function can return your manipulated string (or it can return something completely different as described in the next example). The name of the function used for the tag can be whatever you want.
+
+
+Object.assign==
+
+The Object.assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.
+It uses [[Get]] on the source and [[Set]] on the target, so it will invoke getters and setters. Therefore it assigns properties versus just copying or defining new properties
+
+Object.assign() Method
+Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and properties from one or more source objects to a target object. It invokes getters and setters since it uses both [[Get]] on the source and [[Set]] on the target. It returns the target object which has properties and values copied from the target object. Object.assign() does not throw on null or undefined source values.
+Applications:
+
+Object.assign() is used for cloning an object.
+Object.assign() is used to merge object with same properties.
+
+
+For Of  vs For in
+Both for..of and for..in statements iterate over lists; the values iterated on are different though, for..in returns a list of keys on the object being iterated, whereas for..of returns a list of values of the numeric properties of the object being iterated.
+
+Another distinction is that for..in operates on any object; it serves as a way to inspect properties on this object. for..of on the other hand, is mainly interested in values of iterable objects. Built-in objects like Map and Set implement Symbol.iterator property allowing access to stored values.
+for of-
+You can also iterate over maps, sets, generators, DOM node collections and the arguments object available inside a functions.+
+
+
+ForEach vs map
+
+Let’s first take a look at the definitions on MDN:
+forEach() — executes a provided function once for each array element.
+map() — creates a new array with the results of calling a provided function on every element in the calling array.
+
+Well, the forEach() method doesn’t actually return anything (undefined). It simply calls a provided function on each element in your array. This callback is allowed to mutate the calling array.
+Meanwhile, the map() method will also call a provided function on every element in the array. The difference is that map() utilizes return values and actually returns a new Array of the same size.
+
+ForEach muteate the array where map not.
+
+hy forEach? Ease of Use and Readability.
+To me, the most compelling case for using .forEach() in favor of a for loop is that it’s easier. Even though it’s the same number of lines, there’s less setup. With a regular for loop you have three steps:
+
+When using the .forEach() you pass an individual function with it’s own scope. In a for loop you’re polluting whatever scope you place the loop in. Most, if not all, of the time, this is a bad thing.
+
+.forEach() is great you need to execute a function for each individual element in an array. Good practice is that you should use .forEach() when you can’t use other array methods to accomplish your goal. I know this may sound vague, but .forEach() is a generic tool… only use it when you can’t use a more specialized tool.
+
+When to use map?
+.map() when you want to transform elements in an array.
+When to use filter?
+.filter() when you want to select a subset of multiple elements from an array.
+When to use find?
+.find() When you want to select a single element from an array.
+When to use reduce?
+.reduce() when you want derive a single value from multiple elements in an array.
+
+Now lets talk about the difference between those methods First of all ,all of them can be used to check if the DOM is fully loaded and ready to be manipulated by your JavaScript code .
+
+Secondly , $(document).ready() and $(window).load() are jQuery methods and not pure JavaScript methods so to use them you need to include jQuery library .But window.onload is a pure JavaScript method that you can use without any external libraries
+
+Thirdly ,the most important difference is that
+
+$(document).ready() uses either the modern browser API event DOMContentLoaded to check if your dom is ready or readyState document variable in older browsers which makes it the best candidate if you need to check if your DOM is fully loaded and ready .On the contrary $(window).load() and window.onload are created to check if the page and its resources are loaded ,resources are images ,texts,css styles and stylesheets and JavaScript files so if you just want to check if the DOM is ready it may be slower than $(document).ready() .
+
+The ready event occurs after the HTML document has been loaded, while the onload event occurs later, when all content (e.g. images) also has been loaded.
+
+The onload event is a standard event in the DOM, while the ready event is specific to jQuery. The purpose of the ready event is that it should occur as early as possible after the document has loaded, so that code that adds functionality to the elements in the page doesn't have to wait for all content to load.
+
+MEta tags
+Metadata is data (information) about data.
+
+The <meta> tag provides metadata about the HTML document. Metadata will not be displayed on the page, but will be machine parsable.
+
+Meta elements are typically used to specify page description, keywords, author of the document, last modified, and other metadata.
+
+The metadata can be used by browsers (how to display content or reload page), search engines (keywords), or other web services.
+
+HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
+
+
+Dependency vs Dev Dependency
+
+The difference between these two, is that devDependencies are modules which are only required during development, while dependencies are modules which are also required at runtime.
+  npm install --save-dev, instead of just an npm install --save.
+  Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and testing frameworks like Chai, Mocha, Enzyme,
+
+migrations
+   Using migrations allows you to easily and safely update your tables and database.Just like you use Git / SVN to manage changes in your source code, you can use migrations to keep track of changes to the database
+   With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.
+
+   Model-
+   Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database
+
+   Suppose we want to insert some data into a few tables by default. If we follow up on previous example we can consider creating a demo user for User table.
+
+Seeders
+To manage all data migrations you can use seeders. Seed files are some change in data that can be used to populate database table with sample data or test data.
+
+Let's create a seed file which will add a demo user to our User table.
+
+sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
+
+postgres vs mysql=
+here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global Development Group. +
+
+Key Differences Between MySQL and PostgreSQL
+The architectural difference between MySQL and PostgreSQL is that MySQL is a relational database management system whereas, PostgresSQL is object-relational database management system.
+MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX, z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
+MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
+My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
+In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However, in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
+In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands, PostgresSQL provides complete backup online.
+MySQL provides temporary tables but does not provide materialized view. However, PostgreSQL provides temporary table and also the materialized view.
+MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
+
+
+View vs materialized view
+Definition of View
+View is a virtual table, created using Create View command. This virtual table contains the data retrieved from a query expression, in Create View command. View can be created from one or more than one base tables or views. A view can be queried like you query the original base tables.
+
+It is not that the View is precomputed and stored on the disk instead, a View is computed each time it is used or accessed. Whenever a view is used the query expression in Create View command is executed at that particular moment. Hence, you always get the updated data in a View.
+
+If you update any content in View, it is reflected in the original table, and if any changes had been done to the original base table, it would reflect in its View. But this makes the performance of a View slower. For example, a view is created from the join of two or more tables. In that case, you have to pay time to resolve Joins each time a View is used.
+
+But it has some advantages like it do not require storage space. You can create a customized view of a complex database. You can restrict the user from accessing sensitive information in a database. Reduces the complexity of queries by getting data from several tables into a single customized View.
