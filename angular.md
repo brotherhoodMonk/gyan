@@ -30,7 +30,8 @@ custom elements
 
 Reactive and Template-Driven Forms
 What Are Angular Reactive Forms?
-Reactive forms are also known as model-driven forms. This means that the HTML content changes depending on the code in the component.
+Reactive forms are also known as model-driven forms. This means that the HTML content changes
+depending on the code in the component.
 
 What Are Angular Template-Driven Forms?
 Template-driven forms are driven by derivatives in the template. This means that you will see derivatives such as ngModel in the template as opposed to the code.
@@ -66,6 +67,7 @@ Two way data binding(using [(NgModel)] syntax)
 Minimal component code
 Automatic track of the form and its data(handled by Angular)
 Unit testing is another challenge
+
 Reactive Forms Features
 
 More flexible, but needs a lot of practice
@@ -111,9 +113,8 @@ know you are looking at a possible FormArray of Y inside X(where X is almost alw
 Q16. What is Traceur compiler?
 Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
 Traceur itself is written in ES6, compiled to ES5.
-For more Angular Interview Questions and Answers visit my blog:
 
-
+Observables
 Observables provide support for passing messages between publishers and subscribers in your application.
 Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
 An observable can deliver multiple values of any type—literals, messages, or events, depending on the context.
@@ -310,7 +311,9 @@ An injector creates dependencies, and maintains a container of dependency instan
 The DI in Angular basically consists of three things:
 
 Injector - The injector object that exposes APIs to us to create instances of dependencies.
-Provider - A provider is like a recipe that tells the injector how to create an instance of a dependency. A provider takes a token and maps that to a factory function that creates an object.
+Provider - A provider is like a recipe that tells the injector how to create an instance of a  
+         dependency. A provider takes a token and maps that to a factory function that creates an
+         object.
 Dependency - A dependency is the type of which an object should be created.\
 
 ##Providers
@@ -371,7 +374,7 @@ data can be emitted over time. From this we get a pattern of dealing with data b
 array-like operations to parse  , modify and maintain data.
 Observables provide support for passing messages between publishers and subscribers
 in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer s ubscribes to it.
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
 
 An observable can deliver multiple values of any type—literals, messages, or events, depending on the context
 

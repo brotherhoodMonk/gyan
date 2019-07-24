@@ -30,7 +30,7 @@ The event loop is the term given to the process of the waiting for the msg queue
 
 To handle the asynchronous nature of program, Node.js uses external “Queue” called as message queue
 where it inserts the
-callback of asynchronous code rather than pushing it into call stack stack.
+callback of asynchronous code rather than pushing it into call stack .
 
 Since that piece of code is not in stack, node runtime will not execute it immediately. Depending
 on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”

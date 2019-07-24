@@ -84,6 +84,7 @@ are used to pass data down from your view-controller
 your top level component
 have better performance
 use this to pass data to child components
+
 State
 
 should be managed in your view-controller
