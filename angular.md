@@ -9,7 +9,8 @@ community. It aims to simplify both the development and the testing of such appl
   or retrieved from static or dynamic JSON resources.
 
 The framework adapts and extends traditional HTML to present dynamic content through two-way data-binding that allows for the automatic
- synchronization of models and views. As a result,
+ synchronization of models and views.
+ As a result,
 Template reference variables
 What is component decorators
 
@@ -39,12 +40,14 @@ Template-driven forms are driven by derivatives in the template. This means that
 Differences Between Template-Driven and Reactive Forms
 Template-driven forms use the FormsModule, while reactive forms use the ReactiveFormsModule.
 Template-driven forms are asynchronous, while reactive forms are synchronous.
-In template-driven forms, most of the interaction occurs in the template, while in reactive-driven forms, most of the interaction occurs in the component.
+In template-driven forms, most of the interaction occurs in the template,
+while in reactive-driven forms, most of the interaction occurs in the component.
 Advantages and Disadvantages of Template-Driven Forms
 Although template forms are easier to create, they become a challenge when you want to do unit testing, because testing requires the presence of a DOM.
 
 Advantages and Disadvantages of Reactive Forms
-It's easier to write unit tests in reactive forms since all the form code and functionality is contained in the component. However, reactive forms require more coding implementation in the component.
+It's easier to write unit tests in reactive forms since all the form code and functionality is contained in the component.
+ However, reactive forms require more coding implementation in the component.
 
 Simply we can say
 
@@ -116,8 +119,11 @@ Traceur itself is written in ES6, compiled to ES5.
 
 Observables
 Observables provide support for passing messages between publishers and subscribers in your application.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until
+ a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes,
+  or until they unsubscribe.
 An observable can deliver multiple values of any type—literals, messages, or events, depending on the context.
+
 
 Angular Life Cycle-
 
@@ -184,7 +190,9 @@ So the parent component can call the property and get the data emitted from it.
 Parent listens for child event
 The child component exposes an EventEmitter property with which it emits events when something happens.
 The parent binds to that event property and reacts to those events.
-The child's EventEmitter property is an output property, typically adorned with an @Output decoration as seen in this VoterComponent:
+The child's EventEmitter property is an output property, typically adorned with an
+ @Output decoration as seen in this VoterComponent:
+
 
 Parent interacts with child via local variable
 A parent component cannot use data binding to read child properties or invoke child methods.

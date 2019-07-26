@@ -7,10 +7,12 @@ Loading an external CSS file using the <link> tag
 
 2. Could you describe the different kinds of selectors?
 A selector in CSS is the bit before the curly bracket, for
-example, body or .nav-item, that selects the content you want to style. The different kinds of selectors include tags, classes & IDs:
+example, body or .nav-item, that selects the content you want to style.
+The different kinds of selectors include tags, classes & IDs:
 
 3. Explain the three main ways to target elements.
-Now, in order to style certain elements on the page, you need to know how to specify those elements. There are three main ways to target something:
+Now, in order to style certain elements on the page, you need to know how
+ to specify those elements. There are three main ways to target something:
 
 By tag, e.g. you can target the body or p or span
 By the class you’ve specified in your HTML. For example, if you have three list items with the class nav-item you can target them with .nav-item
@@ -32,7 +34,9 @@ Want to target a button only if it’s next to another button? The + character h
 
 
 5. What are pseudo elements and what are they used for?
-Pseudo elements are used to style particular parts of an element, rather than the whole thing. For example, you can use it to style the first line or first letter of a paragraph, text you’ve selected, or you can use it to insert text or shapes before or after an element.
+Pseudo elements are used to style particular parts of an element, rather than the whole thing.
+ For example, you can use it to style the first line or first letter of a paragraph, text you’ve selected,
+ or you can use it to insert text or shapes before or after an element.
 
 They always start with a double colon - although a single colon is still allowed for backwards compatibility - and they look like this:
 
@@ -43,9 +47,12 @@ span::first-letter { ... }
 .tooltip::before { ... }
 
 6. What are pseudo classes and what are they used for?
-Pseudo classes are similar to pseudo elements, but instead of styling a part of an element, they apply styles when an element is in a certain state. For example, you could style a button differently based on whether the user has their mouse pointer over it, or when they click the button.
+Pseudo classes are similar to pseudo elements, but instead of styling a part of an element,
+they apply styles when an element is in a certain state. For example, you could style a button differently based on whether
+the user has their mouse pointer over it, or when they click the button.
 
-Another common use case is to style only certain occurrences of elements in a row. For example, styling the first tab in a series of tabs, or every second tab.
+Another common use case is to style only certain occurrences of elements in a row.
+For example, styling the first tab in a series of tabs, or every second tab.
 
 They all start with a single colon and look like this:
 .link:hover { ... }
@@ -56,7 +63,9 @@ They all start with a single colon and look like this:
 
 
 7. What are attributes and how are they used?
-You already know about classes, which means you already know about attributes, seeing as a class is just one of the many attributes that HTML tags can have. There are a few that apply to all tags, like class and id, but a lot of tags have their own ones. For example, input tags can have a type (text, number, radio, etc) and a tags can have href.
+You already know about classes, which means you already know about attributes, seeing as a class is just one of the many
+ attributes that HTML tags can have. There are a few that apply to all tags, like class and id, but a lot of tags have
+  their own ones. For example, input tags can have a type (text, number, radio, etc) and a tags can have href.
 
 You can target elements with particular attributes by using square brackets: [attribute="value"]. For example, you can target all input fields that are of type radio like so:
 
@@ -67,7 +76,8 @@ input[type="radio"] {
 Specificity
 
 
-If you’ve spent any time wrangling CSS, you’ve likely come across the tricky rules around specificity. What that means is which rules override others simply by being more specific.
+If you’ve spent any time wrangling CSS, you’ve likely come across the tricky rules around specificity.
+What that means is which rules override others simply by being more specific.
 
 The following list displays the order of specificity, from low to high:
 
@@ -81,7 +91,10 @@ Likewise, an ID references the id attribute on an HTML tag
 
 9. Should you use !important
 
-What !important does, is make that particular style have the highest specificity possible. Nothing else can override it, apart from another !important. You might be able to see where this is going, but once you start using them, you’ll almost certainly get into a position where you need to override a rule marked as !important, which forces you to use another one. And so the cycle continues.
+What !important does, is make that particular style have the highest specificity possible.
+Nothing else can override it, apart from another !important. You might be able to see where this is going,
+ but once you start using them, you’ll almost certainly get into a position where you need to override a
+ rule marked as !important, which forces you to use another one. And so the cycle continues.
 
 /* high specificity */
 .large .navigation.navigation-large {
@@ -93,19 +106,41 @@ What !important does, is make that particular style have the highest specificity
     font-size: 3em !important;
 }
 
+cm	centimeters
+mm	millimeters
+in	inches (1in = 96px = 2.54cm)
+px *	pixels (1px = 1/96th of 1in)
+pt	points (1pt = 1/72 of 1in)
+pc	picas (1pc = 12 pt)
+
+em	Relative to the font-size of the element (2em means 2 times the size of the current font)
+ex	Relative to the x-height of the current font (rarely used)
+ch	Relative to width of the "0" (zero)
+rem	Relative to font-size of the root element
+vw	Relative to 1% of the width of the viewport*
+vh	Relative to 1% of the height of the viewport*
+vmin	Relative to 1% of viewport's* smaller dimension
+vmax	Relative to 1% of viewport's* larger dimension
+
+%	Relative to the parent element
 The CSS Box Model
-Padding adds bulk to your element, in between the border and the element. This means that if your element has a background color, that color will also fill the padding.
+Padding adds bulk to your element, in between the border and the element. This means that if your element has
+a background color, that color will also fill the padding.
 
 Margin adds empty space around your element. That means that the aforementioned background color will not fill the margin.
 
 ====em vs pix;
 12. What are web safe fonts and fallback fonts?
-Not all operating systems and browsers have the same fonts installed. Web safe fonts are fonts that are commonly pre-installed on many computer systems, such as Arial and Times New Roman. In case the browser or operating system doesn’t recognize the first font you set (e.g. Ubuntu), you should choose a web safe fallback font to display (e.g. Arial), followed by a generic font family (e.g. sans-serif). If your fallback font doesn’t display either, the browser can pick a generic font in the sans-serif family.
+Not all operating systems and browsers have the same fonts installed. Web safe fonts are fonts that are commonly pre-installed
+ on many computer systems, such as Arial and Times New Roman. In case the browser or operating system doesn’t recognize the first
+ font you set (e.g. Ubuntu), you should choose a web safe fallback font to display (e.g. Arial), followed by a generic font family
+  (e.g. sans-serif). If your fallback font doesn’t display either, the browser can pick a generic font in the sans-serif family.
 
 13. How would you use media queries in a mobile-first approach?
 There’s no way to avoid these nowadays, everyone expects their website to work on mobile devices, even if they don’t specifically ask for it.
 
-The most common approach is the mobile-first one. All styles outside of media queries are targeted at mobile devices. Then, through progressively larger media queries, you can style larger screens one step at a time.
+The most common approach is the mobile-first one. All styles outside of media queries are targeted at mobile devices.
+Then, through progressively larger media queries, you can style larger screens one step at a time.
 
 /* mobile styles */
 body {
@@ -121,7 +156,9 @@ body {
 
 
 14. How do you handle browser differences in your user base?
-In the past few years, browsers have come a long way. Modern browsers update automatically and provide pretty good feature coverage. There are still differences between browsers, and while some support certain features (like certain CSS styles), others don’t or display them differently.
+In the past few years, browsers have come a long way. Modern browsers update automatically and provide pretty good feature coverage.
+There are still differences between browsers, and while some support certain features (like certain CSS styles), others don’t
+ or display them differently.
 
 Your biggest concern is legacy browsers. You may have seen jokes about Internet Explorer, and while the newer versions aren’t as bad, there are still a lot of people using older versions. These days it’s not uncommon to still support IE9, sometimes even IE8.
 
@@ -129,55 +166,78 @@ This can severely limit the kind of styles you can use, though most can be appro
 
 
 15. Do you use any tools for browser support?
-One of my favourite online tools is caniuse.com. It’s a website that tells you exactly which browsers support which features, including CSS and JavaScript, which can be extremely helpful in finding out what you can and can’t use!
+One of my favourite online tools is caniuse.com. It’s a website that tells you exactly which browsers support which features,
+including CSS and JavaScript, which can be extremely helpful in finding out what you can and can’t use!
 
-Flexbox is a very useful layout tool, especially for smaller areas within the site. Its main features are to align items in horizontal or vertical axes, space them out automatically, invert the order in which they’re displayed, along with a few other layout options.
+Flexbox is a very useful layout tool, especially for smaller areas within the site. Its main features are to align
+ items in horizontal or vertical axes, space them out automatically, invert the order in which they’re displayed,
+ along with a few other layout options.
 
-CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying out items along a single axis, Grid is better for layouts with both horizontal and vertical axes, i.e. grids!
+CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying out items along a single axis,
+ Grid is better for layouts with both horizontal and vertical axes, i.e. grids!
 
 Preprocessor-
-A CSS preprocessor is a program that lets you generate CSS from the preprocessor's own unique syntax. There are many CSS preprocessors to choose from, however most CSS preprocessors will add some features that don't exist in pure CSS, such as mixin, nesting selector, inheritance selector, and so on. These features make the CSS structure more readable and easier to maintain.
+A CSS preprocessor is a program that lets you generate CSS from the preprocessor's own unique syntax.
+There are many CSS preprocessors to choose from, however most CSS preprocessors will add some features that don't
+exist in pure CSS, such as mixin, nesting selector, inheritance selector, and so on. These features make the CSS
+ structure more readable and easier to maintain.
 
-A preprocessor is a program that takes one type of data and converts it to another type of data. In the case of HTML and CSS, some of the more popular preprocessor languages include Haml and Sass. Haml is processed into HTML and Sass is processed into CSS.
-In time writing HTML and CSS may feel a bit taxing, requiring a lot of the same tasks to be completed over and over again. Tasks such as closing tags in HTML or repetitively having to looking up hexadecimal color values in CSS.
+A preprocessor is a program that takes one type of data and converts it to another type of data. In the case of HTML and CSS,
+ some of the more popular preprocessor languages include Haml and Sass. Haml is processed into HTML and Sass is processed into CSS.
+In time writing HTML and CSS may feel a bit taxing, requiring a lot of the same tasks to be completed over and over again.
+ Tasks such as closing tags in HTML or repetitively having to looking up hexadecimal color values in CSS.
 
-These different tasks, while commonly small, do add up to quite a bit of inefficiency. Fortunately these, and a handful of other inefficiencies, have been recognized and preprocessor solutions have risen to the challenge.
+These different tasks, while commonly small, do add up to quite a bit of inefficiency.
+Fortunately these, and a handful of other inefficiencies, have been recognized and preprocessor solutions have risen to the challenge.
 
-CSS on its own can be fun, but stylesheets are getting larger, more complex, and harder to maintain. This is where a preprocessor can help. Sass lets you use features that don't exist in CSS yet like variables, nesting, mixins, inheritance and other nifty goodies that make writing CSS fun again.
+CSS on its own can be fun, but stylesheets are getting larger, more complex, and harder to maintain.
+This is where a preprocessor can help. Sass lets you use features that don't exist in CSS yet like variables,
+nesting, mixins, inheritance and other nifty goodies that make writing CSS fun again.
 
 scss
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 
-Think of variables as a way to store information that you want to reuse throughout your stylesheet. You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol to make something a variable. Here's an example:
+Think of variables as a way to store information that you want to reuse throughout your stylesheet.
+You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol
+to make something a variable. Here's an example:
 body {
   font: 100% $font-stack;
   color: $primary-color;
 }
 Partials
-You can create partial Sass files that contain little snippets of CSS that you can include in other Sass files. This is a great way to modularize your CSS and help keep things easier to maintain. A partial is simply a Sass file named with a leading underscore. You might name it something like _partial.scss. The underscore lets Sass know that the file is only a partial file and that it should not be generated into a CSS file. Sass partials are used with the @import directive.
+You can create partial Sass files that contain little snippets of CSS that you can include in other Sass files.
+This is a great way to modularize your CSS and help keep things easier to maintain. A partial is simply a Sass file named
+with a leading underscore. You might name it something like _partial.scss. The underscore lets Sass know that the file is
+only a partial file and that it should not be generated into a CSS file. Sass partials are used with the @import directive.
 
 Nesting
 When writing HTML you've probably noticed that it has a clear nested and visual hierarchy. CSS, on the other hand, doesn't.
 
-Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
+Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware
+ that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
 
 https://sass-lang.com/guide
 
 
 18. What is file splitting and why should you use it?
-File splitting helps organize your CSS into multiple files, decreasing page load time and making things easier to manage. If you’re working with any of the preprocessors above, you can start splitting up your files.
+File splitting helps organize your CSS into multiple files, decreasing page load time and making things easier to manage.
+ If you’re working with any of the preprocessors above, you can start splitting up your files.
 
-How you decide to split them up is up to you, but it can be useful to separate files by component. For example, you can have all your button styles in a file called _buttons.scss or all your header-specific styles in a file called _header.scss. Then, in your main file, say _app.scss, you can import those files by writing @import 'buttons';
+How you decide to split them up is up to you, but it can be useful to separate files by component. For example, you can have all
+your button styles in a file called _buttons.scss or all your header-specific styles in a file called _header.scss. Then, in your main file, say _app.scss, you can import those files by writing @import 'buttons';
 
 This way you can also create separate stylesheets for separate areas of your website, where you might not need all styles. For example, if you have a web app, you probably don’t need to load all styles when people land on your homepage, when they haven’t even logged into your app yet. Simply create another file and import only those styles you need.
 
 19. What are variables used for?
-Variables are super useful for things like colors, fonts, font sizes, and certain dimensions, as you can be sure you’re always using the same ones, not 4 different versions of roughly the same color.
+Variables are super useful for things like colors, fonts, font sizes, and certain dimensions, as you can be sure you’re
+always using the same ones, not 4 different versions of roughly the same color.
 
 
 Mixins
-Some things in CSS are a bit tedious to write, especially with CSS3 and the many vendor prefixes that exist. A mixin lets you make groups of CSS declarations that you want to reuse throughout your site. You can even pass in values to make your mixin more flexible. A good use of a mixin is for vendor prefixes. Here's an example for transform.
+Some things in CSS are a bit tedious to write, especially with CSS3 and the many vendor prefixes that exist.
+A mixin lets you make groups of CSS declarations that you want to reuse throughout your site. You can even pass
+in values to make your mixin more flexible. A good use of a mixin is for vendor prefixes. Here's an example for transform.
 
 SCSSSassCSS
 SCSS SYNTAX
@@ -194,12 +254,16 @@ CSS OUTPUT
   transform: rotate(30deg);
 }
 
-To create a mixin you use the @mixin directive and give it a name. We've named our mixin transform. We're also using the variable $property inside the parentheses so we can pass in a transform of whatever we want. After you create your mixin, you can then use it as a CSS declaration starting with @include followed by the name of the mixin.
+To create a mixin you use the @mixin directive and give it a name. We've named our mixin transform.
+We're also using the variable $property inside the parentheses so we can pass in a transform of whatever we want.
+ After you create your mixin, you can then use it as a CSS declaration starting with @include followed by the name of the mixin.
 
 
 
 10) What is semantic HTML?
-Semantic HTML is a coding style. It is the use of HTML markup to reinforce the semantics or meaning of the content. For example: In semantic HTML <b> </b> tag is not used for bold statement as well as <i> </i> tag is used for italic. Instead of these we use <strong></strong> and <em></em> tags.
+Semantic HTML is a coding style. It is the use of HTML markup to reinforce the semantics or meaning of the content.
+For example: In semantic HTML <b> </b> tag is not used for bold statement as well as <i> </i> tag is used for italic.
+Instead of these we use <strong></strong> and <em></em> tags.
 
 
 
@@ -232,9 +296,11 @@ Highlight any color text
 
 
 29) What is the float property of CSS?
-The CSS float property is used to move the image to the right or left along with the texts to be wrapped around it. It doesn't change the property of the elements used before it.
+The CSS float property is used to move the image to the right or left along with the texts to be wrapped around it.
+ It doesn't change the property of the elements used before it.
 
-To understand its purpose and origin, let's take a look at its print display. In the print display, an image is set into the page such that text wraps around it as needed.
+To understand its purpose and origin, let's take a look at its print display. In the print display,
+an image is set into the page such that text wraps around it as needed.
 
 CSS Float Print Layout
 Its web layout is also just similar to print layout.
@@ -248,15 +314,19 @@ Defines the order of the elements on the z-axis. It only works on positioned ele
 
 The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
 Only work with the position prperty.
-The z-index property is used to displace elements on the z axis i.e in or out of the screen. It is used to define the order of elements if they overlap on each other.
+The z-index property is used to displace elements on the z axis i.e in or out of the screen.
+ It is used to define the order of elements if they overlap on each other.
 auto: The stack order is equal to that of the parent(default).
 number: The stack order depends in the number.
 initial: Sets the property to its default value.
 inherit: Inherits the property from the parent element.
 
  Flex vs Grid-
- “The main idea behind the flex layout is to give the container the ability to alter its items’ width/height (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).”
- A flex container expands its items to fill available free space or shrinks them to prevent overflow. It provides a better arrangement of all of the page elements. It is a one-dimensional layout model that offers space allocation between items in an interface and robust alignment capabilities.
+ “The main idea behind the flex layout is to give the container the ability to alter its items’ width/height
+ (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).”
+ A flex container expands its items to fill available free space or shrinks them to prevent overflow. It provides a
+  better arrangement of all of the page elements. It is a one-dimensional layout model that offers space allocation between
+  items in an interface and robust alignment capabilities.
 
 
  Main Axis & Cross Axis
@@ -268,8 +338,10 @@ CSS Grid vs Flexbox
 CSS Grid Layout is a two-dimensional system, meaning it can handle both columns and rows, unlike flexbox which is largely a one-dimensional system (either in a column or a row).
 A core difference between CSS Grid and Flexbox is that — CSS Grid’s approach is layout-first while Flexbox’ approach is content-first.
 If you are well aware of your content before making layout, then blindly opt for Flexbox and if not, opt for CSS Grid.
-Flexbox layout is most appropriate to the components of an application (as most of them are fundamentally linear), and small-scale layouts, while the Grid layout is intended for larger scale layouts which aren’t linear in their design.
-If you only need to define a layout as a row or a column, then you probably need flexbox. If you want to define a grid and fit content into it in two dimensions — you need the grid.
+Flexbox layout is most appropriate to the components of an application (as most of them are fundamentally linear),
+ and small-scale layouts, while the Grid layout is intended for larger scale layouts which aren’t linear in their design.
+If you only need to define a layout as a row or a column, then you probably need flexbox.
+If you want to define a grid and fit content into it in two dimensions — you need the grid.
 
 
 
@@ -376,7 +448,8 @@ consider every time you use absolute positioning. Its overuse or improper use ca
 
 Answer: It is the property which elaborates the transparency of an element.
 
-By this property, we can transparent the image that can take the values from 0.0-1.0, if the value is lower then the image is more transparent. IE8 and earlier version of the browser can take the values from 0-100.
+By this property, we can transparent the image that can take the values from 0.0-1.0, if the value is
+ lower then the image is more transparent. IE8 and earlier version of the browser can take the values from 0-100.
 
 img {
 opacity: 0.6;
@@ -576,7 +649,9 @@ Q #3) Distinguish between CSS2 and CSS3.
 
 Answer: There are several differences between CSS2 and CSS3.
 
-CSS3 is divided into two various sections which are called as a module. Whereas in CSS2 everything accedes into a single document with all the information in it.
+CSS3 is divided into two various sections which are called as a module. Whereas in CSS2 everything accedes
+into a single document with all the information in it.
 CSS3 modules are supported almost on every browser and on the other hand modules of CSS and CSS2 are not supported in every browser.
 In CSS3 we will find that many graphics related characteristics have been introduced like “Border-radius or box-shadow, flexbox.
-In CSS3, a user can precise multiple background images on a webpage by using properties like background-image, background-position, and background-repeat styles
+In CSS3, a user can precise multiple background images on a webpage by using properties like background-image, background-position,
+and background-repeat styles

@@ -10,7 +10,8 @@ Ideally, the data in a component should live in just one component.
 So sharing data among sibling components becomes difficult.
 
 The way Redux works is simple. There is a central store that
-holds the entire state of the application. Each component can access
+holds the entire state of the application.
+Each component can access
 the stored state without having to send down props from one component to another.
 
 There are three building parts:
@@ -18,8 +19,10 @@ actions, store and reducers.
 
 Actions in Redux
 Simply put, actions are events. They are the only way you can send data from your application to your
-Redux store. The data can be from user interactions, API calls or even form submission.
+Redux store.
+The data can be from user interactions, API calls or even form submission.
 Actions are sent using store.dispatch() method.
+
 Actions are plain JavaScript objects and they must have a type property
 to indicate the type of action to be carried out.
 They must also have a payload that contains the information that
@@ -54,11 +57,15 @@ listeners via helper methods.
 Redux makes the state predictable.
 In Redux, the state is always predictable.
 If the same state and action are passed to a reducer,
- the same result is always produced as reducers are pure functions. The state is also immutable and is never changed. This makes it possible to implement arduous tasks like infinite undo and redo. It is also possible to implement time travel that is, the ability to move back and forth among the previous states and view the results in real-time.
+ the same result is always produced as reducers are pure functions.
+ The state is also immutable and is never changed. This makes it possible to implement arduous tasks like infinite undo and redo. It is also possible to implement time travel that is, the ability to move back and forth among the previous states and view the results in real-time.
 Maintainability.
+
 Redux is strict about how code should be organized so it makes it easier for someone with knowledge of Redux to understand the structure of any Redux application. This generally makes it easier to maintain.
+
 Debuggable for days.
 Redux makes it easy to debug an application. By logging actions and state, it is easy to understand coding errors, network errors and other forms of bugs that might come up during production.
+
 Ease of testing
 It is easy to test Redux apps as functions used to change the state of pure functions.
 You can persist some of the app’s state to local storage and restore it after a refresh. This can be really nifty.
@@ -69,7 +76,7 @@ Redux can also be used for server-side rendering. With it, you can handle the in
 
 props and state
 
-The state of one component will often become the props of a child component.  ++
+The state of one component will often become the props of a child component.  
 For parent-child communication, simply pass props.
 
 Use state to store the data your current page needs in your controller-view.
@@ -105,8 +112,8 @@ Most of your components should simply take some data from props and render it.
 
 A common pattern is to create several stateless components that
 just render data, and have a stateful component above them in the hierarchy
-that passes its state to its children via props. The stateful component
-encapsulates all of the interaction logic, while the stateless components
+that passes its state to its children via props.
+ The stateful component encapsulates all of the interaction logic, while the stateless components
 take care of rendering data in a declarative way. - https:
 //facebook.github.io/react/docs/interactivity-and-dynamic-uis.html#what-components-should-have-state
 State should contain data that a component's event handlers may change to trigger a UI update.
@@ -149,6 +156,49 @@ They are in charge of client-server communication (XHR, web sockets, etc.),
 processing data and responding to user events. These sort of logistics should be encapsulated
 in a moderate number of Stateful Components, while all visualization and formatting
 logic should move downstream into as many Stateless Components as possible.
+
+
+Lifecycle-
+Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
+Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
+Updating: Updating is the stage when the state of a component is updated and the application is repainted.
+Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
+
+Stateful and stateless components have many different names.
+
+They are also known as:
+
+– Container vs Presentational components
+
+– Smart vs Dumb components
+The literal difference is that one has state, and the other doesn’t. That means the stateful components are keeping track of changing data, while stateless components print out what is given to them via props, or they always render the same thing.
+
+Functional Component or Stateless component
+
+Functional component is like pure function in JavaScript.
+Functional component is also called as a stateless component.
+The functional component only receives props from parent component and return you JSX elements.
+The functional component doesn’t play with any lifecycle methods of React and doesn’t play with the component state.
+
+Q12. What is PureComponent? When to use PureComponent over Component?
+PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us. When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
+When comparing previous props and state to next, a shallow comparison will check that primitives have the same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more complex javascript values like objects and arrays.
+It is good to prefer PureComponent over Component whenever we never mutate our objects.
+
+Q16. What are controlled and uncontrolled components in React?
+This relates to stateful DOM components (form elements) and the difference:
+A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange. A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component. You could also call this a “dumb component”.
+A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it. This is a bit more like traditional HTML.
+
+18. What is React.cloneElement? And the difference with this.props.children?
+React.cloneElement clone and return a new React element using using the passed element as the starting point. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.
+React.cloneElement only works if our child is a single React element. For almost everything {this.props.children} is the better solution. Cloning is useful in some more advanced scenarios, where a parent send in an element and the child component needs to change some props on that element or add things like ref for accessing the actual DOM element.
+
+Class component or statefull component
+
+React class component is called as a stateful component.
+Stateful component plays with all life cycle methods of React.
+This component will modify state.
 
 
 jsx-
@@ -248,9 +298,12 @@ Inline If-Else with Conditional Operator
 Keys
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:
 
-
-A cookie contains specific information that is encrypted for security purposes. Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request. This stored cookie is sent to the HTTP server whenever access to a specific website is required. Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates. Cookies with an expiry date expire when that date is surpassed.
-The following are the types/variations of cookies: Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session. Persistent Cookies:
+Cookies-
+A cookie contains specific information that is encrypted for security purposes. Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request. This stored cookie is sent to the HTTP server whenever access to a specific website is required.
+Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates. Cookies with an expiry date expire when that date is surpassed.
+The following are the types/variations of cookies:
+Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session.
+ Persistent Cookies:
  Normally known as tracking cookies, these cookies have a specific time period before they expire.
 
 #diff betwn promises and callbacks
@@ -261,14 +314,17 @@ In fact, the main innovation of async/await is to allow to write asynchronous co
 
 
 43. XMLHttpRequest
-Use XMLHttpRequest (XHR) objects to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in AJAX programming.
+Use XMLHttpRequest (XHR) objects to interact with servers.
+ You can retrieve data from a URL without having to do a full page refresh.
+  This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in AJAX programming.
 Despite its name, XMLHttpRequest can be used to retrieve any type of data, not just XML.
 
 If your communication needs to involve receiving event data or message data from a server, consider using server-sent events through the EventSource interface. For full-duplex communication, WebSockets may be a better choice.
 Asynchronous JavaScript + XML, while not a technology in itself, is a term coined in 2005 by Jesse James Garrett, that describes a "new" approach to using a number of existing technologies together, including HTML or XHTML, Cascading Style Sheets, JavaScript, The Document Object Model, XML, XSLT, and most importantly the XMLHttpRequest object.
 
 44. AJAX
-AJAX stands for Asynchronous JavaScript and XML. AJAX is a new technique for creating better, faster, and more interactive web applications with the help of XML, HTML, CSS, and Java Script.
+AJAX stands for Asynchronous JavaScript and XML.
+ AJAX is a new technique for creating better, faster, and more interactive web applications with the help of XML, HTML, CSS, and Java Script.
 
 Ajax uses XHTML for content, CSS for presentation, along with Document Object Model and JavaScript for dynamic content display.
 AJAX is a web browser technology independent of web server software.
@@ -329,13 +385,14 @@ It simplifies data availability
 W3C Recommendation
 
 46. JSON
-JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types (or any other serializable value). It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in some AJAX-style systems.
+JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types (or any other serializable value).
+It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in some AJAX-style systems.
 JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages include code to generate and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension .json.
 Data types and syntax
 JSON's basic data types are:
 
 Number:
-String:  syntax.
+String:  .
 Boolean:
 Array:
 Object:
@@ -424,13 +481,16 @@ Symbols allow properties to be keyed by either string (as in ES5) or symbol. Sym
 The Symbol() function returns a value of type symbol  which is is unique,
 is incomplete as a constructor because it does not support the syntax "new Symbol()".
 A symbol value may be used as an identifier for object properties; this is the data type's only purpose.
+Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties; this is the data type's only purpose.+
+
 
 2. proxy
 Proxies
 Proxies enable creation of objects with the full range of behaviors available to host objects. Can be used for interception, object virtualization, logging/profiling, etc.
 
 3. Map
-Map is a collection of keyed data items, just like an Object. But the main difference is that Map allows keys of any type.
+Map is a collection of keyed data items, just like an Object.
+But the main difference is that Map allows keys of any type.
 
 Methods and properties are:
 
@@ -441,10 +501,12 @@ map.has(key) – returns true if the key exists, false otherwise.
 map.delete(key) – removes the value by the key.
 map.clear() – removes everything from the map.
 map.size – returns the current element count.
+var a = new Map(); a.set('snc', "sdsds");console.log(a);
+
+VM184:1 Map(1) {"snc" => "sdsds"}
 
  has static properties that expose several members of built-in objects, has static methods that expose the global symbol registry, and resembles a built-in object class but is incomplete as a constructor because it does not support the syntax "new Symbol()".  
 
-Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties; this is the data type's only purpose.+
 
 Iteration over Map
 For looping over a map, there are 3 methods:
@@ -453,6 +515,15 @@ map.keys() – returns an iterable for keys,
 map.values() – returns an iterable for values,
 map.entries() – returns an iterable for entries [key, value], it’s used by default in for..of.
 
+converting array into objects-
+var b = {}; var c  = Object.assign({}, [{id : 1, name: "vbv"}, {id : 2, name : "sdsd"}]);console.log(c);
+VM542:1 {0: {…}, 1: {…}}0: {id: 1, name: "vbv"}1: {id: 2, name: "sdsd"}__proto__: Object
+
+converting objects into array-
+var obj = {"1":5,"2":7,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":0,"12":0}
+var result = Object.keys(obj).map(function(key) {
+  return [Number(key), obj[key]];
+});
 
 4. Set
 A Set is a special type collection – “set of values” (without keys), where each value may occur only once.
@@ -466,7 +537,8 @@ set.has(value) – returns true if the value exists in the set, otherwise false.
 set.clear() – removes everything from the set.
 set.size – is the elements count.
 Iteration over Set
-We can loop over a set either with for..of or using forEach:
+We can loop over a set either
+with for..of or using forEach:
 
 
 * WeakMap
@@ -510,22 +582,27 @@ For instance, we can use WeakSet to keep track of users that visited our site:
 WeakMap and WeakSet are used as “secondary” data structures in addition to the “main” object storage. Once the object is removed from the main storage, if it is only found as the key of WeakMap or in a WeakSet, it will be cleaned up automatically.
 
 Asynchronous Module Definition(AMD)
-The problem with CommonJs style module definition is that it is synchronous. When you call ‘var add=require(‘add’);’, the system will be on
+The problem with CommonJs style module definition is that it is synchronous.
+When you call ‘var add=require(‘add’);’, the system will be on
 
 ES6 uses ‘import’ and ‘export’ keywords to import and export modules. Here’s the example application written in ES6 modules.
 
 
 Webpack
-Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files. If it is the same as Browserify, why would we need yet another module bundler? Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
+Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files.
+ Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
 
 Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example, if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js. Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
+
 Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files, but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
+
 Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins. For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
 WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code changes detected. It will expedite your development process by providing instant feedback of your code.
 
 
 Genretaor :
-A generator is a function that can stop midway and then continue from where it stopped. In short, a generator appears to be a function but it behaves like an iterator.
+A generator is a function that can stop midway and then continue from where it stopped.
+In short, a generator appears to be a function but it behaves like an iterator.
 Generators are a special class of functions that simplify the task of writing iterators.
 A generator is a function that produces a sequence of results instead of a single value, i.e you generate ​a series of values.
 
@@ -595,7 +672,8 @@ Service workers
 Service workers essentially act as proxy servers that sit between web applications, the browser, and the network (when available). They are intended, among other things, to enable the creation of effective offline experiences, intercept network requests and take appropriate action based on whether the network is available, and update assets residing on the server. They will also allow access to push notifications and background sync APIs.
 
 Service worker concepts and usageSection
-A service worker is an event-driven worker registered against an origin and a path. It takes the form of a JavaScript file that can control the web-page/site that it is associated with, intercepting and modifying navigation and resource requests, and caching resources in a very granular fashion to give you complete control over how your app behaves in certain situations (the most obvious one being when the network is not available).
+A service worker is an event-driven worker registered against an origin and a path.
+It takes the form of a JavaScript file that can control the web-page/site that it is associated with, intercepting and modifying navigation and resource requests, and caching resources in a very granular fashion to give you complete control over how your app behaves in certain situations (the most obvious one being when the network is not available).
 
 Service workers only run over HTTPS, for security reasons.
 Uses-
@@ -609,11 +687,12 @@ Performance enhancements, for example pre-fetching resources that the user is li
 
 
 Arrow Functions-
-Arrow functions make our code more concise, and simplify function scoping and the this keyword. They are one-line mini functions which work much like Lambdas in other languages like C# or Python. (See also lambdas in JavaScript). By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions), and curly brackets.
+Arrow functions make our code more concise, and simplify function scoping and the this keyword.
+By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions), and curly brackets.
 Arrow functions do not have their own arguments object.
 Arrow functions do not have a prototype property.
 Arrow function expressions are ill suited as methods, and they cannot be used as constructors.
-he methods call(), apply(), and bind() will not change the value of this in arrow functions. (In fact, the value of this inside a function simply can’t be changed; it will be the same value as when the function was called.)
+he methods call(), apply(), and bind() will not change the value of this in arrow functions. (In fact, the value of this inside a function simply can’t be changed; it will be the same value as when the function was called.);
 ES6 arrow functions can’t be bound to a this keyword, so it will lexically go up a scope, and use the value of this in the scope in which it was defined.
 
 Two factors influenced the introduction of arrow functions: the need for shorter functions and the behavior of the this keyword.
@@ -623,6 +702,16 @@ A new object in the case of a constructor.
 undefined in strict mode function calls.
 The base object if the function was called as an "object method".
 
+When you should use them
+Arrow functions shine best with anything that requires this to be bound to the context, and not the function itself.
+
+Despite the fact that they are anonymous, I also like using them with methods such as map and reduce, because I think it makes my code more readable. To me, the pros outweigh the cons.
+
+When you should not use Arrow Functions
+Object methods
+
+2. Callback functions with dynamic context
+3. When it makes your code less readable
 
 function Person() {
   // The Person() constructor defines `this` as an instance of itself.
@@ -660,20 +749,12 @@ function Person(){
 
 var p = new Person();
 
-When you should use them
-Arrow functions shine best with anything that requires this to be bound to the context, and not the function itself.
 
-Despite the fact that they are anonymous, I also like using them with methods such as map and reduce, because I think it makes my code more readable. To me, the pros outweigh the cons.
-
-When you should not use Arrow Functions
-Object methods
-
-2. Callback functions with dynamic context
-3. When it makes your code less readable
 
 
 Object destructuring-
-The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+The destructuring assignment syntax is a JavaScript expression that makes it possible to
+ unpack values from arrays, or properties from objects, into distinct variables.
 The object and array literal expressions provide an easy way to create ad hoc packages of data.
 A variable can be assigned a default, in the case that the value unpacked from the array is undefined.
 When destructuring an array, you can unpack and assign the remaining part of it to a variable using the rest pattern:
@@ -700,7 +781,9 @@ console.log(b); // 1
 
 JavaScript Object Literal
 
-A JavaScript object literal is a comma-separated list of name-value pairs wrapped in curly braces. Object literals encapsulate data, enclosing it in a tidy package. This minimizes the use of global variables which can cause problems when combining code.
+A JavaScript object literal is a comma-separated list of name-value pairs wrapped in curly braces.
+Object literals encapsulate data, enclosing it in a tidy package.
+This minimizes the use of global variables which can cause problems when combining code.
 Object Literal Syntax
 Object literals are defined using the following syntax rules:
 
@@ -712,8 +795,10 @@ No need to invoke constructors directly or maintain the correct order of argumen
 
 
 Template literals
-Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them.
-Template literals are enclosed by the back-tick (` `)  (grave accent) character instead of double or single quotes. Template literals can contain placeholders. These are indicated by the dollar sign and curly braces (${expression}). The expressions in the placeholders and the text between the back-ticks (` `) get passed to a function. The default function just concatenates the parts into a single string.
+Template literals are string literals allowing embedded expressions.
+You can use multi-line strings and string interpolation features with them.
+Template literals are enclosed by the back-tick (` `)  character instead of double or single quotes. Template literals can contain placeholders. These are indicated by the dollar sign and curly braces (${expression}).
+The expressions in the placeholders and the text between the back-ticks (` `) get passed to a function. The default function just concatenates the parts into a single string.
 
 hey are unique because they provide a lot of features that normal strings built with quotes do not, in particular:
 
@@ -723,26 +808,28 @@ they allow you to create DSLs with template tags (DSL means domain specific lang
 
 Expression interpolation
 In order to embed expressions within normal strings,
-console.log('Fifteen is ' + (a + b) + ' and\nnot ' + (2 * a + b) + '.');
+console.log('Fifteen is ' + (a + b) + ' and \n not ' + (2 * a + b) + '.');
 
 console.log(`Fifteen is ${a + b} and
 not ${2 * a + b}.`);
 
 In order to embed expressions within normal strings,
 
-
 Tagged templates
 
-A more advanced form of template literals are tagged templates. Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions. In the end, your function can return your manipulated string (or it can return something completely different as described in the next example). The name of the function used for the tag can be whatever you want.
+A more advanced form of template literals are tagged templates.
+ Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions.
+ In the end, your function can return your manipulated string (or it can return something completely different as described in the next example).
+ The name of the function used for the tag can be whatever you want.
 
 
 Object.assign==
 
-The Object.assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.
-It uses [[Get]] on the source and [[Set]] on the target, so it will invoke getters and setters. Therefore it assigns properties versus just copying or defining new properties
 
 Object.assign() Method
-Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and properties from one or more source objects to a target object. It invokes getters and setters since it uses both [[Get]] on the source and [[Set]] on the target. It returns the target object which has properties and values copied from the target object. Object.assign() does not throw on null or undefined source values.
+Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and properties from one or more source objects to a target object.
+It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target. It returns the target object which has properties and values copied from the source object.
+Object.assign() does not throw on null or undefined source values.
 Applications:
 
 Object.assign() is used for cloning an object.
@@ -752,7 +839,9 @@ Object.assign() is used to merge object with same properties.
 For Of  vs For in
 Both for..of and for..in statements iterate over lists; the values iterated on are different though, for..in returns a list of keys on the object being iterated, whereas for..of returns a list of values of the numeric properties of the object being iterated.
 
-Another distinction is that for..in operates on any object; it serves as a way to inspect properties on this object. for..of on the other hand, is mainly interested in values of iterable objects. Built-in objects like Map and Set implement Symbol.iterator property allowing access to stored values.
+Another distinction is that for..in operates on any object; it serves as a way to inspect properties on this object.
+for..of on the other hand, is mainly interested in values of iterable objects.
+ Built-in objects like Map and Set implement Symbol.iterator property allowing access to stored values.
 for of-
 You can also iterate over maps, sets, generators, DOM node collections and the arguments object available inside a functions.+
 
@@ -808,48 +897,43 @@ The metadata can be used by browsers (how to display content or reload page), se
 HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
 
 
-Dependency vs Dev Dependency
-
-The difference between these two, is that devDependencies are modules which are only required during development, while dependencies are modules which are also required at runtime.
-  npm install --save-dev, instead of just an npm install --save.
-  Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and testing frameworks like Chai, Mocha, Enzyme,
-
-migrations
-   Using migrations allows you to easily and safely update your tables and database.Just like you use Git / SVN to manage changes in your source code, you can use migrations to keep track of changes to the database
-   With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.
-
-   Model-
-   Sequelize will only use Model files, it's the table representation. On the other hand, the migration file is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a log for some change in database
-
-   Suppose we want to insert some data into a few tables by default. If we follow up on previous example we can consider creating a demo user for User table.
-
-Seeders
-To manage all data migrations you can use seeders. Seed files are some change in data that can be used to populate database table with sample data or test data.
-
-Let's create a seed file which will add a demo user to our User table.
-
-sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
-
-postgres vs mysql=
-here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global Development Group. +
-
-Key Differences Between MySQL and PostgreSQL
-The architectural difference between MySQL and PostgreSQL is that MySQL is a relational database management system whereas, PostgresSQL is object-relational database management system.
-MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX, z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
-MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
-My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
-In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However, in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
-In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands, PostgresSQL provides complete backup online.
-MySQL provides temporary tables but does not provide materialized view. However, PostgreSQL provides temporary table and also the materialized view.
-MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
 
 
-View vs materialized view
-Definition of View
-View is a virtual table, created using Create View command. This virtual table contains the data retrieved from a query expression, in Create View command. View can be created from one or more than one base tables or views. A view can be queried like you query the original base tables.
 
-It is not that the View is precomputed and stored on the disk instead, a View is computed each time it is used or accessed. Whenever a view is used the query expression in Create View command is executed at that particular moment. Hence, you always get the updated data in a View.
+Strict mode in JavaScript
+Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
+ This strict context prevents certain actions from being taken and throws more exceptions.
+  The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
+Strict mode eliminates some JavaScript silent errors by changing them to throw errors.
+Strict mode fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that’s not strict mode.
 
-If you update any content in View, it is reflected in the original table, and if any changes had been done to the original base table, it would reflect in its View. But this makes the performance of a View slower. For example, a view is created from the join of two or more tables. In that case, you have to pay time to resolve Joins each time a View is used.
+Strict mode prohibits some syntax likely to be defined in future versions of ECMAScript.
+It prevents, or throws errors, when relatively “unsafe” actions are taken (such as gaining access to the global object)
+It disables features that are confusing or poorly thought out.
+Strict mode makes it easier to write “secure” JavaScript.
+Also note you can apply "strict mode" to the whole file... Or you can use it only for a specific function
 
-But it has some advantages like it do not require storage space. You can create a customized view of a complex database. You can restrict the user from accessing sensitive information in a database. Reduces the complexity of queries by getting data from several tables into a single customized View.
+
+
+typeof null === object why-
+ In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was 0. null was represented as the NULL pointer (0x00 in most platforms). Consequently, null had 0 as type tag, hence the "object" typeof return value.
+
+This is a bug and one that unfortunately can’t be fixed, because it would break existing code. Let’s explore the history of this bug.
+
+function as type of function why---
+why function has a type function not objects
+You can logically think of Function as a subclass of Object. It has all the methods of Object plus some more that are specific to a function (such as .bind(), .call(), .apply(), etc...).
+
+It is extremely useful that Function does report its own type so you can easily check if a property is callable as a function and perhaps that is the main reason why it was done this way.
+
+why typeof NaN is number
+The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is, in computing, NaN is actually technically a numeric data type. However, it is a numeric data type whose value cannot be represented using actual numbers.
+
+
+typeof class Foo {} // "function"
+Classes have always just been a syntactical wrapper around the function method. The same function is actually being created, but just with the author writing it in a different, cleaner way. This is why the typeof a Class, is still just a Function.
+
+...constant cannot change through re-assignment
+...constant cannot be re-declared
+
+When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned, you're just adding to the "list" that the constant points to.

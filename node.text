@@ -35,9 +35,12 @@ callback of asynchronous code rather than pushing it into call stack .
 Since that piece of code is not in stack, node runtime will not execute it immediately. Depending
 on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
 thread and execute it and as soon as thread processing is done and result is ready to process by
- node runtime,event loop checks “is the stack empty ?” If stack is empty and Queue has some data, event loop will take the top most one from it and push it inside of stack for processing.
+ node runtime,event loop checks “is the stack empty ?” If stack is empty and Queue has some data,
+ event loop will take the top most one from it and push it inside of stack for processing.
 Task of event loop is to check is there any item present in Queue and if Stack empty then push
 it on stack else wait for next tick ( Yes process.nextTick ).
+The increment that the event loop moves in is called a ‘tick’, and every time it
+‘ticks’ it checks if the call stack is empty
 
 
 Web Workers
@@ -111,7 +114,6 @@ so we should not use it for cases where the application requires long processing
 If the server is doing some calculation, it won’t be able to process any other requests.
  Hence, Node.js is best when processing needs less dedicated CPU time.
 
-
 What IDEs Can You Use For Node.Js Development?
 
 Cloud9
@@ -122,7 +124,8 @@ Eclipse.
 Atom.
 
 
-Control flow functions ==== A control flow function
+Control flow functions ====
+ A control flow function
  is a lightweight, generic piece of code which runs in between several asynchronous
   function calls and which take care of the necessary housekeeping to:
 
@@ -235,6 +238,7 @@ if (cluster.isMaster) {
 } else {
   childProcess()
 }
+
 What Is <Package.Json>?
 A package is:
 
@@ -328,7 +332,8 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
       Q-17. What Is EventEmitter In Node.Js?
       Answer.
 
-      Events module in Node.js allows us to create and handle custom events. The Event module
+      Events module in Node.js allows us to create and handle custom events.
+      The Event module
       contains “EventEmitter” class which can be used to raise and handle custom events.
       It is accessible via the following code.
 
@@ -346,6 +351,7 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
 
       If we want to break that flow and switch to asynchronous mode then we can use setImmediate()
       or process.nextTick() methods:
+
       =========
 
       Node.js core API is based on asynchronous event-driven architecture in which certain kind of
@@ -532,8 +538,18 @@ it get subscribed to the global object.
 Process.
 It is also one of the global objects but includes additional functionality to turn a synchronous
 function into an async callback. There is no boundation to access it from anywhere in the code.
+
 It is the instance of the EventEmitter class. And each node application object is an instance of the
 Process object.
+The process object is the global object in Node. It can be accessed from anywhere;
+it is an instance of  EventEmitter. Each Node.js has a set of built-in functionality,
+ accessible through the global process object.
+ The process object provides the standard input/output (stdio) streams
+ stdin, stdout and stderr (as in C/C++) as in the following:
+
+ stdin: a readable stream for reading input from the user.
+ stdout: a writable stream, either synchrously or asynchronously.
+ stderr: a blocking synchronous writable stream intended for error messages.
 
 It primarily gives back the information about the application or the environment.
 
@@ -541,13 +557,26 @@ It primarily gives back the information about the application or the environment
 <process.Version> – to get the Node version currently running.
 <process.platform> – to get the server platform.
 Some of the other useful Process methods are as follows.
+process.pid - It's OS process ID.
+process.title: By default a process title is NODE but you can change it.
 
 <process.memoryUsage> – To know the memory used by Node application.
 <process.NextTick> – To attach a callback function that will get called during the next loop.
 It can cause a delay in executing a function.
+The stdout or non-blocking function are: console.log, console.info, util.puts, util.print and Stderr.
+
 Buffer.
-The Buffer is a class in Node.js to handle binary data. It is similar to a list of integers but
+The Buffer is a class in Node.js to handle binary data.
+It represents a fixed-size chunk of memory (can’t be resized) allocated outside of the V8 JavaScript engine.
+ It is similar to a list of integers but
 stores as a raw memory outside the V8 heap.
+
+Buffers were introduced to help developers deal with binary data, in an ecosystem that traditionally only dealt with strings rather than binaries.
+
+Buffers are deeply linked with streams. When a stream processor receives data faster than it can digest, it puts the data in a buffer.
+
+Buffer.from(), Buffer.alloc(memory in kb), Buffer.allocUnsafe()
+const buffer = Buffer.from('heyuuu');
 
 We can convert JavaScript string objects into Buffers. But it requires mentioning the encoding
 type explicitly.
@@ -685,6 +714,13 @@ The setInterval(cb, ms) global function is used to run callback cb repeatedly af
 This function returns an opaque value that represents the timer which can be used to clear the
 timer using the function clearInterval(t).
 
+setImmediate-
+Any function passed as the setImmediate() argument is a callback that’s executed in the next iteration of the event loop.
+A function passed to process.nextTick() is going to be executed on the current iteration of the event loop,
+ after the current operation ends. This means it will always execute before setTimeout and setImmediate.
+
+A setTimeout() callback with a 0ms delay is very similar to setImmediate(). The execution order will depend on
+various factors, but they will be both run in the next iteration of the event loop.
 
 What is the purpose of console object?
 
@@ -692,13 +728,6 @@ console object is used to Used to print information on stdout and stderr.
 
 
 The Timers module in Node.js contains functions that execute code after a set period of time.
-
-setTimeout/clearTimeout - can be used to schedule code execution after a designated amount of
-milliseconds
-setInterval/clearInterval - can be used to execute a block of code multiple times
-setImmediate/clearImmediate - will execute code at the end of the current event loop cycle
-process.nextTick - used to schedule a callback function to be invoked in the next iteration
-eof the Event Loop
 
 Q3: Explain what is Reactor Pattern in Node.js?
 Topic: Node.js
@@ -714,7 +743,8 @@ This demultiplexer is a notification interface that is used to handle concurrenc
 request in form of an event and queues each event in a queue. Thus, the demultiplexer provides+
  the Event Queue.
 
-At the same time, there is an Event Loop which iterates over the items in the Event Queue. Every event has a callback function associated with it, and that callback function is invoked when the Event Loop iterates.
+At the same time, there is an Event Loop which iterates over the items in the Event Queue.
+Every event has a callback function associated with it, and that callback function is invoked when the Event Loop iterates.
 
 What is LTS releases of Node.js why should you care?
 Topic: Node.js
@@ -759,7 +789,8 @@ built-in structure and functions needed to actually build a site. It’s a prett
 that’s great for giving developers extra, built-in web application features and the Express API without
  overriding the already robust, feature-packed Node.js platform.
 
- Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow of data into a website structure.
+ Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow
+  of data into a website structure.
 
  Advantages of Express.js
 
@@ -781,7 +812,8 @@ What is Express.js
 
 Express is a fast, assertive, essential and moderate web framework of Node.js.
  You can assume express as a layer built on the top of the Node.js that helps manage a server
- and routes. It provides a robust set of features to develop web and mobile applications.
+ and routes. I
+ t provides a robust set of features to develop web and mobile applications.
 
 Let's see some of the core features of Express framework:
 
@@ -791,7 +823,6 @@ Let's see some of the core features of Express framework:
     It allows to dynamically render HTML Pages based on passing arguments to templates.
 
     Why use Express
-
         Ultra fast I/O
         Asynchronous and single threaded
         MVC like structure
@@ -844,7 +875,9 @@ there’s a series of handlers and management will be passed to 1 of the followi
 skipping this one.
 
 6. How to allow CORS in Express JS? Explain with an example?
-
+Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a
+browser to let a web application running at one origin (domain) have permission to access selected
+resources from a server at a different origin.
 Answer:
 In order to permit CORS in Express.js, add the subsequent code in server.js:
 For Example –
@@ -854,6 +887,19 @@ res.set(‘Access-Control-Allow-Methods’, ‘GET, POST, DELETE, PUT’);
 res.set(‘Access-Control-Allow-Headers’, ‘X-Requested-With, Content-Type’);
 if (‘OPTIONS’ == req.method) return res.send(200);
 next();
+});
+
+set headers
+res.set({
+  'Content-Type': 'text/plain',
+  'Content-Length': '123',
+  'ETag': '12345'
+})
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['*']);
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
 7.How to enable debugging in express app?
@@ -869,8 +915,6 @@ On Windows the command would be:
 set DEBUG=express:* & node index.js
 From Webstrome IDE
 
-C:\Program Files (x86)\JetBrains\WebStorm 2016.2.4\bin\runnerw.exe” “C:\Program Files\nodejs\node.exe”
-–debug-brk=61081 –expose_debug_as=v8debug E:\Development\nodejd\librarey\bin\www
 
 
 Question 8. How To Output Pretty Html In Express.js?
@@ -938,7 +982,7 @@ In server.js add the following code to redirect 404 errors back to a page in our
 app.use(function(req, res, next) {
     res.status(404).json({errorCode: 404, errorMsg: "route not found"});
 });
-
+jsonwebtoken
 let token = jwt.sign({
   name:#name
 }, #secret, {
@@ -1007,6 +1051,7 @@ Application-level middleware
 Router-level middleware
 Error-handling middleware
 Built-in middleware
+
 Third-party middleware
  You may also like - React Js Interview Questions
 1. Application-level middleware:
@@ -1097,3 +1142,69 @@ This algorithm looks out for objects which are unreachable from the root which i
   while traversing. So all the objects that were not marked were clearly unreachable to the root
   which makes them eligible for garbage collection and later the memory is freed by removing those
    objects.
+
+   Dependency vs Dev Dependency
+
+   The difference between these two, is that devDependencies are modules which are only required during development,
+    while dependencies are modules which are also required at runtime.
+     npm install --save-dev, instead of just an npm install --save.
+     Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and testing frameworks
+     like Chai, Mocha, Enzyme,
+
+   migrations
+      Using migrations allows you to easily and safely update your tables and database.Just like you use Git / SVN
+      to manage changes in your source code, you can use migrations to keep track of changes to the database
+      With migrations you can transfer your existing database into another state and vice versa: Those state
+       transitions are saved in migration files, which describe how to get to the new state and how to revert
+        the changes in order to get back to the old state.
+
+      Model-
+      Sequelize will only use Model files, it's the table representation. On the other hand, the migration file
+      is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a
+      log for some change in database
+
+      Suppose we want to insert some data into a few tables by default. If we follow up on previous example we can consider
+       creating a demo user for User table.
+
+   Seeders
+   To manage all data migrations you can use seeders. Seed files are some change in data that can be used to
+    populate database table with sample data or test data.
+
+   Let's create a seed file which will add a demo user to our User table.
+orm-
+ORM solutions are useful to facilitate data-driven API development. Users have concrete needs which drive the data model of an application. In legacy development, this data architecture is typically implemented and version controlled using database scripts such as SQL scripts. A separate library is then used for the server application to execute CRUD actions on the database.
+
+ORMs work as a high-level API to execute CRUD, and these days quality ORMs also allow us to initialize the data through code. Complex data manipulation, cleaning and so on, is often easier in code. While dedicated Extract, Transform and Load (ETL) tools exist, the same ETL tasks can be easily implemented in ORM.
+   sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
+
+   postgres vs mysql=
+   here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global Development Group. +
+
+   Key Differences Between MySQL and PostgreSQL
+   The architectural difference between MySQL and PostgreSQL is that MySQL is a relational database management system whereas, PostgresSQL is object-relational database management system.
+   MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX, z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
+   MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
+   My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
+   In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However, in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
+   In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands, PostgresSQL provides complete backup online.
+   MySQL provides temporary tables but does not provide materialized view. However, PostgreSQL provides temporary table and also the materialized view.
+   MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
+
+
+   View vs materialized view
+   Definition of View
+   View is a virtual table, created using Create View command. This virtual table contains the data retrieved from a query expression,
+    in Create View command. View can be created from one or more than one base tables or views. A view can be queried like you query
+    the original base tables.
+
+   It is not that the View is precomputed and stored on the disk instead, a View is computed each time it is used or accessed.
+   Whenever a view is used the query expression in Create View command is executed at that particular moment. Hence, you always
+   get the updated data in a View.
+
+   If you update any content in View, it is reflected in the original table, and if any changes had been done to the original
+    base table, it would reflect in its View. But this makes the performance of a View slower. For example, a view is created
+    from the join of two or more tables. In that case, you have to pay time to resolve Joins each time a View is used.
+
+   But it has some advantages like it do not require storage space. You can create a customized view of a complex database.
+   You can restrict the user from accessing sensitive information in a database. Reduces the complexity of queries by getting
+    data from several tables into a single customized View.
