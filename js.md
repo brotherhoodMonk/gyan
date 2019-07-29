@@ -937,3 +937,58 @@ Classes have always just been a syntactical wrapper around the function method. 
 ...constant cannot be re-declared
 
 When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned, you're just adding to the "list" that the constant points to.
+
+Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
+
+Gulp
+Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
+Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks. At a high level, gulp reads files as streams and pipes the streams to different tasks. These tasks are code-based and use plugins. The tasks modify the files, building source files into production files. To get an idea of what gulp can do check the list of gulp recipes on GitHub.
+
+Gulp uses plugins to automate the task and these plugins can be installed and managed by using Node Package Manager (​npm​)
+
+npm install --global gulp-cli
+Gulp and Node rely on plugins (packages) for the majority of their functionality. Node plugins can be installed with the following command line command:
+
+npm install pluginName --save-dev
+
+npm install gulp --save-dev
+
+var gulp = require('gulp');
+gulp.task('hello', function() {
+  console.log('Hello, World!');
+});
+// Include plugins
+var gulp = require('gulp'); // Required
+var pluginA = require('pluginA');
+var pluginB = require('pluginB');
+var pluginC = require('pluginC');
+
+// Define tasks
+gulp.task('task-A', function() {
+  gulp.src('some-source-files')
+  .pipe(pluginA())
+  .pipe(gulp.dest('some-destination'));
+});
+
+gulp.task('uglify', function() {
+  gulp.src(`/**/*.js` )
+  .pipe(uglify())
+  .pipe(gulp.dest('build'));
+});
++Gulp is a build system for automating tasks. The following is few listing which can be achieved with the help of gulpjs
+
+- Minification (Compress/Uglyfy)
+
+your js, css, image files for faster loading of websites and web applications
+
+- Watch files
+
+for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying it gulp does it for you.
+
+- Compile Sass, LESS files for you
+
+- Combining multiple js/css files into single file respectively
+
+- Converting SVG icons to fonts
+
+- Live browser reload

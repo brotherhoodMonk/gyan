@@ -1145,17 +1145,18 @@ This algorithm looks out for objects which are unreachable from the root which i
 
    Dependency vs Dev Dependency
 
-   The difference between these two, is that devDependencies are modules which are only required during development,
+   The difference between these two, is that devDependencies are modules which are only required
+   during development,
     while dependencies are modules which are also required at runtime.
      npm install --save-dev, instead of just an npm install --save.
-     Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and testing frameworks
-     like Chai, Mocha, Enzyme,
+     Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and
+     testing frameworks like Chai, Mocha, Enzyme,
 
    migrations
       Using migrations allows you to easily and safely update your tables and database.Just like you use Git / SVN
       to manage changes in your source code, you can use migrations to keep track of changes to the database
       With migrations you can transfer your existing database into another state and vice versa: Those state
-       transitions are saved in migration files, which describe how to get to the new state and how to revert
+      transitions are saved in migration files, which describe how to get to the new state and how to revert
         the changes in order to get back to the old state.
 
       Model-
