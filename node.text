@@ -147,6 +147,7 @@ can easily communicate with each other with a messaging system.
 The child_process module enables us to access Operating System functionalities
 by running any system command inside a child process.
 
+
 We can control that child process input stream, and listen to its output stream.
 We can also control the arguments to be passed to the underlying OS command,
  and we can do whatever we want with that command’s output.
@@ -172,7 +173,8 @@ the methods in a normal ChildProcess instance.
 Q-26. What Is Chaining Process In Node.Js?
 Answer.
 
-It’s an approach to connect the output of one stream to the input of another stream, thus creating a chain
+It’s an approach to connect the output of one stream to the input of another stream, thus creating a
+chain
 of multiple stream operations.
 In chaining every method return the object, so that we can chain different calls in single line.
 
@@ -541,6 +543,7 @@ function into an async callback. There is no boundation to access it from anywhe
 
 It is the instance of the EventEmitter class. And each node application object is an instance of the
 Process object.
+
 The process object is the global object in Node. It can be accessed from anywhere;
 it is an instance of  EventEmitter. Each Node.js has a set of built-in functionality,
  accessible through the global process object.
@@ -567,13 +570,16 @@ The stdout or non-blocking function are: console.log, console.info, util.puts, u
 
 Buffer.
 The Buffer is a class in Node.js to handle binary data.
-It represents a fixed-size chunk of memory (can’t be resized) allocated outside of the V8 JavaScript engine.
+It represents a fixed-size chunk of memory (can’t be resized) allocated outside of the V8 JavaScript
+engine.
  It is similar to a list of integers but
 stores as a raw memory outside the V8 heap.
 
-Buffers were introduced to help developers deal with binary data, in an ecosystem that traditionally only dealt with strings rather than binaries.
+Buffers were introduced to help developers deal with binary data, in an ecosystem that traditionally
+only dealt with strings rather than binaries.
 
-Buffers are deeply linked with streams. When a stream processor receives data faster than it can digest, it puts the data in a buffer.
+Buffers are deeply linked with streams. When a stream processor receives data faster than it can
+digest, it puts the data in a buffer.
 
 Buffer.from(), Buffer.alloc(memory in kb), Buffer.allocUnsafe()
 const buffer = Buffer.from('heyuuu');
@@ -715,11 +721,16 @@ This function returns an opaque value that represents the timer which can be use
 timer using the function clearInterval(t).
 
 setImmediate-
-Any function passed as the setImmediate() argument is a callback that’s executed in the next iteration of the event loop.
-A function passed to process.nextTick() is going to be executed on the current iteration of the event loop,
- after the current operation ends. This means it will always execute before setTimeout and setImmediate.
+Any function passed as the setImmediate() argument is a callback that’s executed in the next
+iteration of the event loop.
 
-A setTimeout() callback with a 0ms delay is very similar to setImmediate(). The execution order will depend on
+A function passed to process.nextTick() is going to be executed on the current iteration of
+the event loop,
+ after the current operation ends. This means it will always execute before setTimeout and
+ setImmediate.
+
+A setTimeout() callback with a 0ms delay is very similar to setImmediate().+
+ The execution order will depend on
 various factors, but they will be both run in the next iteration of the event loop.
 
 What is the purpose of console object?
@@ -972,6 +983,44 @@ nextIt passes control to the next matching route.
 In this case you need both the middleware functions to be invoked.
 So, the only way you reach the second middleware function is by calling next();
 
+Authentication and Authorization
+Authentication means confirming your own identity, whereas authorization means
+being allowed access to the system. In even more simpler terms
+ authentication is the process of verifying oneself, while authorization is
+ the process of verifying what you have access to.
+
+ Authentication
+ Authentication is about validating your credentials such as Username/User ID
+ and password to verify your identity. The system then checks whether you are what
+  you say you are using your credentials. Whether in public or private networks,
+  the system authenticates the user identity through login passwords. Usually
+  authentication is done by a username and password, although there are other
+  various ways to be authenticated.
+
+  Single- Factor Authentication: This is the simplest form of authentication method which
+  requires a password to grant user access to a particular system such as a website or a network.
+  The person can request access to the system using only one of the credentials to verify one’s identity. For example, only requiring a password against a username would be a way to verify a login credential using single- factor authentication.
+Two- Factor Authentication: This authentication requires a two- step verification process which
+not only requires a username and password, but also a piece of information only the user knows. Using a username and password along with a confidential information makes it that much harder for hackers to steal valuable and personal data.
+Multi- Factor Authentication: This is the most advanced method of authentication which requires
+ two or more levels of security from independent categories of authentication to grant user access to the system. This form of authentication utilizes factors that are independent of each other in order to eliminate any data exposure. It is common for financial organizations, banks, and law enforcement agencies to use multiple- factor authentication.
+
+ Authorization
+ Authorization occurs after your identity is successfully authenticated by the system, which therefore gives you full access to resources such as information, files, databases, funds, etc. However authorization verifies your rights to grant you access to resources only after determining your ability to access the system and up to what extent. In other words, authorization is the process to determine whether the authenticated user has access to the particular resources. A good example of this is, once verifying and confirming employee ID and passwords through authentication, the next step would be determining which employee has access to which floor and that is done through authorization.
+ Access to a system is protected by authentication and authorization, and they are frequently used in conjunction with each other. Although both have different concepts behind then, they are critical to the web service infrastructure, especially when it comes to being granted access to a system. Understanding each term is very important and a key aspect of security.
+
+
+ jsonwebtoken
+ let token = jwt.sign({
+   name:#name
+ }, #secret, {
+   expiresIn: 120 // expires in 24 hours
+ });
+
+ jwt.verify(token, config.secrets.session, cb(err, res) {
+
+ });
+
 Question 17. How To Redirect 404 Errors To A Page In Expressjs?
 
 Answer :
@@ -982,16 +1031,7 @@ In server.js add the following code to redirect 404 errors back to a page in our
 app.use(function(req, res, next) {
     res.status(404).json({errorCode: 404, errorMsg: "route not found"});
 });
-jsonwebtoken
-let token = jwt.sign({
-  name:#name
-}, #secret, {
-  expiresIn: 120 // expires in 24 hours
-});
 
-jwt.verify(token, config.secrets.session, cb(err, res) {
-
-})
 
 Q.3) What is Scaffolding in Express JS?
 Scaffolding is creating the skeleton structure of application
@@ -1022,7 +1062,8 @@ app.get('/', function (req, res) {
 })
 
 Dynamic routing and how it works in Express.js?
-When someone pass parameters in URL i.e. Parametrized URL, this routing phenomenon is called dynamic
+When someone pass parameters in URL i.e. Parametrized URL,
+this routing phenomenon is called dynamic
  routing.
 
 codesource
@@ -1035,7 +1076,7 @@ app.get('/article/:id', function(req , res){
 In above example: id is a parameters, which can be different for different calls.
 
 Q.7) What is middleware in Express Js?
-"A function that is invoked by the Express routing layer before the +
+"A function that is invoked by the Express routing layer before the
 final request handler."
 Middleware functions can perform the following tasks:
 Execute any code.
@@ -1051,10 +1092,9 @@ Application-level middleware
 Router-level middleware
 Error-handling middleware
 Built-in middleware
-
 Third-party middleware
- You may also like - React Js Interview Questions
 1. Application-level middleware:
+
 This kind of middleware method is bind to the app Object using app.use() method.
 
 codesource
@@ -1074,7 +1114,8 @@ Express has the following built-in middleware functions:
 
 express.static serves static assets such as HTML files, images, and so on.
 express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
-express.urlencoded parses incoming requests with URL-encoded payloads. NOTE: Available with Express 4.16.0+
+express.urlencoded parses incoming requests with URL-encoded payloads.
+NOTE: Available with Express 4.16.0+
 4. Third-party middleware:
 There are a number of third party middleware, such as body-parser cookie-parser, mongoose and so on.
 
@@ -1153,59 +1194,162 @@ This algorithm looks out for objects which are unreachable from the root which i
      testing frameworks like Chai, Mocha, Enzyme,
 
    migrations
-      Using migrations allows you to easily and safely update your tables and database.Just like you use Git / SVN
-      to manage changes in your source code, you can use migrations to keep track of changes to the database
-      With migrations you can transfer your existing database into another state and vice versa: Those state
-      transitions are saved in migration files, which describe how to get to the new state and how to revert
+      Using migrations allows you to easily and safely update your tables and database.
+      Just like you use Git / SVN
+      to manage changes in your source code, you can use migrations to keep track of changes
+      to the database
+      With migrations you can transfer your existing database into another state and vice versa:
+      Those state
+      transitions are saved in migration files, which describe how to get to the new state
+      and how to revert
         the changes in order to get back to the old state.
 
       Model-
-      Sequelize will only use Model files, it's the table representation. On the other hand, the migration file
-      is a change in that model or more specifically that table, used by CLI. Treat migrations like a commit or a
+      Sequelize will only use Model files, it's the table representation. On the other hand,
+      the migration file
+      is a change in that model or more specifically that table, used by CLI.
+      Treat migrations like a commit or a
       log for some change in database
 
-      Suppose we want to insert some data into a few tables by default. If we follow up on previous example we can consider
+      Suppose we want to insert some data into a few tables by default.
+       If we follow up on previous example we can consider
        creating a demo user for User table.
 
    Seeders
-   To manage all data migrations you can use seeders. Seed files are some change in data that can be used to
+   To manage all data migrations you can use seeders. Seed files are some change in data that
+    can be used to
     populate database table with sample data or test data.
 
    Let's create a seed file which will add a demo user to our User table.
 orm-
-ORM solutions are useful to facilitate data-driven API development. Users have concrete needs which drive the data model of an application. In legacy development, this data architecture is typically implemented and version controlled using database scripts such as SQL scripts. A separate library is then used for the server application to execute CRUD actions on the database.
+ORM solutions are useful to facilitate data-driven API development.
+Users have concrete needs which drive the data model of an application.
+ In legacy development, this data architecture is typically implemented and version controlled
+ using database scripts such as SQL scripts.
+  A separate library is then used for the server application to execute CRUD actions on the database.
 
-ORMs work as a high-level API to execute CRUD, and these days quality ORMs also allow us to initialize the data through code. Complex data manipulation, cleaning and so on, is often easier in code. While dedicated Extract, Transform and Load (ETL) tools exist, the same ETL tasks can be easily implemented in ORM.
+ORMs work as a high-level API to execute CRUD, and these days quality ORMs also allow us to
+initialize the data through code. Complex data manipulation, cleaning and so on, is often easier
+in code. While dedicated Extract, Transform and Load (ETL) tools exist, the same ETL tasks can
+be easily implemented in ORM.
    sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
 
    postgres vs mysql=
-   here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global Development Group. +
+   here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global
+   Development Group.
 
    Key Differences Between MySQL and PostgreSQL
-   The architectural difference between MySQL and PostgreSQL is that MySQL is a relational database management system whereas, PostgresSQL is object-relational database management system.
-   MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX, z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
+   The architectural difference between MySQL and PostgreSQL is that MySQL
+    is a relational database management system whereas,
+    PostgresSQL is object-relational database management system.
+   MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX,
+   z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux
+    and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
    MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
    My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
-   In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However, in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
-   In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands, PostgresSQL provides complete backup online.
+   In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However,
+    in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
+   In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands,
+   PostgresSQL provides complete backup online.
    MySQL provides temporary tables but does not provide materialized view. However, PostgreSQL provides temporary table and also the materialized view.
    MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
 
 
    View vs materialized view
    Definition of View
-   View is a virtual table, created using Create View command. This virtual table contains the data retrieved from a query expression,
+   View is a virtual table, created using Create View command. This virtual table contains the data
+   retrieved from a query expression,
     in Create View command. View can be created from one or more than one base tables or views. A view can be queried like you query
     the original base tables.
 
-   It is not that the View is precomputed and stored on the disk instead, a View is computed each time it is used or accessed.
-   Whenever a view is used the query expression in Create View command is executed at that particular moment. Hence, you always
+   It is not that the View is precomputed and stored on the disk instead, a View is computed each
+    time it is used or accessed.
+   Whenever a view is used the query expression in Create View command is executed at that particular
+    moment. Hence, you always
    get the updated data in a View.
 
-   If you update any content in View, it is reflected in the original table, and if any changes had been done to the original
-    base table, it would reflect in its View. But this makes the performance of a View slower. For example, a view is created
-    from the join of two or more tables. In that case, you have to pay time to resolve Joins each time a View is used.
+   If you update any content in View, it is reflected in the original table, and if any changes had
+   been done to the original
+    base table, it would reflect in its View. But this makes the performance of a View slower.
+    For example, a view is created
+    from the join of two or more tables. In that case, you have to pay time to resolve Joins each
+    time a View is used.
 
-   But it has some advantages like it do not require storage space. You can create a customized view of a complex database.
-   You can restrict the user from accessing sensitive information in a database. Reduces the complexity of queries by getting
+   But it has some advantages like it do not require storage space. You can create a customized view of
+    a complex database.
+   You can restrict the user from accessing sensitive information in a database. Reduces the complexity
+   of queries by getting
     data from several tables into a single customized View.
+
+
+    Error Handling
+    Catching uncaught exceptions
+
+If an uncaught exception gets thrown during the execution of your program, your program will crash.
+To solve this, you listen for the uncaughtException event on the process object:
+
+process.on('uncaughtException', (err) => {
+    console.error('There was an uncaught error', err)
+    process.exit(1) //mandatory (as per the Node docs)
+})
+
+app.use((err, req, res, next) => {
+if(err) {
+return throw err;
+}
+next();
+})
+
+Error handling with async/await
+
+async function someFunction() {
+  try {
+    await someOtherFunction()
+  }
+  catch (err) {
+    console.error(err.message)
+  }
+}
+
+try {
+  //lines of code
+} catch (e) {
+
+}
+
+Anatomy of an error object
+The first argument for a native error object is its description. The description is the human-readable
+ string of your error object. It’s what pops up in your console when something goes awry.
+
+Second error objects also have a name property, which is the computer-readable part of the object.
+ When you use the native error object, the name property defaults to the generic “Error.” , but you
+  can create your own. The best way to do this is by extending the native error object like so:
+
+  throw new Error('database failed to connect');
+
+  When JavaScript finds a throw keyword, the first thing it does is stop dead in its tracks, which prevents any more functions from running. By stopping like this, it mitigates the risk of any further errors occurring and helps us not to get the state of our program all twisted.
+
+With the program halted, JavaScript will begin to look back up the daisy chain of functions that were called in order to reach a catch statement. This daisy chain is called the call stack (don’t worry—we’ll get to the call stack soon). The nearest catch that JavaScript finds is where the thrown exception will emerge. If no try/catch is found, the exception throws, and the Node.js process will exit, causing the server to restart.
+
+
+
+named and ananomous function = >
+// Anonymous function
+const one = () => {};
+
+// Anonymous functions
+const two = function () {};
+
+// Explicitly named function
+const three = function explicitFunction() {};
+
+
+To catch or not to catch promises?
+At this point, you might be wondering whether adding a catch to your promises is optional. Yes it’s optional, but you should always provide a catch handler.
+
+Why? Because there are many ways your asynchronous calls can fail. Our code might timeout, it could have network issues, or there might be a hardware failure. For all of these reasons, you should always instruct your program what to do in the case of a promise failure.
+
+Remember the golden rule: always handle promise rejections.
+
+
+Try/catch is by default synchronous. That means that if an asynchronous function throws an error in a synchronous try/catch block, no error throws.

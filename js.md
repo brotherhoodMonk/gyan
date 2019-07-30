@@ -1,3 +1,5 @@
+1. redux
+
 Redux is a predictable state container for JavaScript applications.
 It helps you write applications that behave consistently,
 run in different environments (client, server, and native), and are easy to test. 
@@ -17,11 +19,11 @@ the stored state without having to send down props from one component to another
 There are three building parts:
 actions, store and reducers.
 
-Actions in Redux
+1. Actions in Redux
 Simply put, actions are events. They are the only way you can send data from your application to your
 Redux store.
 The data can be from user interactions, API calls or even form submission.
-Actions are sent using store.dispatch() method.
+Actions are sent using `store.dispatch()` method.
 
 Actions are plain JavaScript objects and they must have a type property
 to indicate the type of action to be carried out.
@@ -37,7 +39,7 @@ Here’s an example of an action that can be carried out during login in an app:
     password: "bar"
   }
 }
-reducers-
+2. reducers-
 Reducers are pure functions that take the current state of an application,
 perform an action and returns a new state. These states are stored as objects and they specify
 how the state of an application changes in response to an action sent to the store.
@@ -49,7 +51,7 @@ As pure functions, they do not change the data in the object passed to it or
 perform any side effect in the application.
 Given the same object, it should always produce the same result.
 
-Store in Redux
+3. Store in Redux
 The store holds the application state. There is only one store in any Redux application.
 You can access the state stored, update the state, and register or unregister
 listeners via helper methods.
@@ -210,7 +212,6 @@ Instead of artificially separating technologies by putting markup and logic in s
   JSX is an Expression Too
 After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects.
 
-
 Since JSX is closer to JavaScript than to HTML, React DOM uses camelCase property naming convention instead of HTML attribute names.
 
 For example, class becomes className in JSX, and tabindex becomes tabIndex.
@@ -220,7 +221,9 @@ It is safe to embed user input in JSX:
 const title = response.potentiallyMaliciousInput;
 // This is safe:
 const element = <h1>{title}</h1>;
-By default, React DOM escapes any values embedded in JSX before rendering them. Thus it ensures that you can never inject anything that’s not explicitly written in your application. Everything is converted to a string before being rendered. This helps prevent XSS (cross-site-scripting) attacks.
+By default, React DOM escapes any values embedded in JSX before rendering them. Thus it ensures that
+you can never inject anything that’s not explicitly written in your application. Everything is
+converted to a string before being rendered. This helps prevent XSS (cross-site-scripting) attacks.
 
 JSX Represents Objects
 Babel compiles JSX down to React.createElement() calls.
@@ -516,7 +519,8 @@ map.values() – returns an iterable for values,
 map.entries() – returns an iterable for entries [key, value], it’s used by default in for..of.
 
 converting array into objects-
-var b = {}; var c  = Object.assign({}, [{id : 1, name: "vbv"}, {id : 2, name : "sdsd"}]);console.log(c);
+var b = {}; var c  = Object.assign({}, [{id : 1, name: "vbv"}, {id : 2, name : "sdsd"}]);+
+console.log(c);
 VM542:1 {0: {…}, 1: {…}}0: {id: 1, name: "vbv"}1: {id: 2, name: "sdsd"}__proto__: Object
 
 converting objects into array-
@@ -901,17 +905,19 @@ HTML5 introduced a method to let web designers take control over the viewport (t
 
 
 Strict mode in JavaScript
-Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
- This strict context prevents certain actions from being taken and throws more exceptions.
-  The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
-Strict mode eliminates some JavaScript silent errors by changing them to throw errors.
-Strict mode fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode code can sometimes be made to run faster than identical code that’s not strict mode.
+- Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
+ - This strict context prevents certain actions from being taken and throws more exceptions.
+  - The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
+- Strict mode eliminates some JavaScript silent errors by changing them to throw errors.
+- Strict mode fixes mistakes that make it difficult for JavaScript engines to perform optimizations:
+ - strict mode code can sometimes be made to run faster than identical code that’s not strict mode.
 
 Strict mode prohibits some syntax likely to be defined in future versions of ECMAScript.
 It prevents, or throws errors, when relatively “unsafe” actions are taken (such as gaining access to the global object)
 It disables features that are confusing or poorly thought out.
 Strict mode makes it easier to write “secure” JavaScript.
-Also note you can apply "strict mode" to the whole file... Or you can use it only for a specific function
+Also note you can apply "strict mode" to the whole file... Or you can use it only for a specific
+function
 
 
 
@@ -929,10 +935,6 @@ It is extremely useful that Function does report its own type so you can easily 
 why typeof NaN is number
 The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is, in computing, NaN is actually technically a numeric data type. However, it is a numeric data type whose value cannot be represented using actual numbers.
 
-
-typeof class Foo {} // "function"
-Classes have always just been a syntactical wrapper around the function method. The same function is actually being created, but just with the author writing it in a different, cleaner way. This is why the typeof a Class, is still just a Function.
-
 ...constant cannot change through re-assignment
 ...constant cannot be re-declared
 
@@ -942,9 +944,23 @@ Modern web development has many repetitive tasks like running a local server, mi
 
 Gulp
 Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
-Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks. At a high level, gulp reads files as streams and pipes the streams to different tasks. These tasks are code-based and use plugins. The tasks modify the files, building source files into production files. To get an idea of what gulp can do check the list of gulp recipes on GitHub.
+Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks. At a high level, gulp reads files as streams and pipes the streams to different tasks.
+These tasks are code-based and use plugins.
+The tasks modify the files, building source files into production files.
+
+
+for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying it gulp does it for you.
+
+- Compile Sass, LESS files for you
+
+- Combining multiple js/css files into single file respectively
+
+- Converting SVG icons to fonts
+
+- Live browser reload
 
 Gulp uses plugins to automate the task and these plugins can be installed and managed by using Node Package Manager (​npm​)
+gulp-nodemon  gulp-eslint
 
 npm install --global gulp-cli
 Gulp and Node rely on plugins (packages) for the majority of their functionality. Node plugins can be installed with the following command line command:
@@ -983,12 +999,7 @@ your js, css, image files for faster loading of websites and web applications
 
 - Watch files
 
-for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying it gulp does it for you.
 
-- Compile Sass, LESS files for you
+instanceof
 
-- Combining multiple js/css files into single file respectively
-
-- Converting SVG icons to fonts
-
-- Live browser reload
+The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.
