@@ -1003,3 +1003,31 @@ your js, css, image files for faster loading of websites and web applications
 instanceof
 
 The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.
+
+
+Event bubbling and capturing
+
+Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another element, and both elements have registered a handle for that event.
+
+With bubbling, the event is first captured and handled by the innermost element and then propagated to outer elements.
+
+With capturing, the event is first captured by the outermost element and propagated to the inner elements.
+
+By default javascript is set the event propagation to Bubble . If we want to use capture we have to set the 3rd argument in the addEventListener function to true.
+
+The capturing phase is used very rarely, usually we handle events on bubbling. And there’s a logic behind that.
+
+In real world, when an accident happens, local authorities react first. They know best the area where it happened. Then higher-level authorities if needed.
+
+to stop bubbling
+The method for it is event.stopPropagation().
+* bubbling
+document.querySelector('.box-1').addEventListener('click', e => {
+    console.log('Box-1 is clicked');
+});
+
+* capturing
+
+document.querySelector('.box-1').addEventListener('click', e => {
+    console.log('Box-1 is clicked');
+}, true);

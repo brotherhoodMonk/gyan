@@ -1,4 +1,4 @@
-AngularJS is a JavaScript-based open-source front-end web framework mainly maintained by Google and by angular
+1. AngularJS is a JavaScript-based open-source front-end web framework mainly maintained by Google and by angular
 community. It aims to simplify both the development and the testing of such applications
  by providing a framework for client-side model–view–controller (MVC) and model–view–viewmodel (MVVM)
  architectures.
@@ -29,7 +29,7 @@ custom elements
 
 
 
-Reactive and Template-Driven Forms
+2. Reactive and Template-Driven Forms
 What Are Angular Reactive Forms?
 Reactive forms are also known as model-driven forms. This means that the HTML content changes
 depending on the code in the component.
@@ -42,7 +42,8 @@ Template-driven forms use the FormsModule, while reactive forms use the Reactive
 Template-driven forms are asynchronous, while reactive forms are synchronous.
 In template-driven forms, most of the interaction occurs in the template,
 while in reactive-driven forms, most of the interaction occurs in the component.
-Advantages and Disadvantages of Template-Driven Forms
+
+3. Advantages and Disadvantages of Template-Driven Forms
 Although template forms are easier to create, they become a challenge when you want to do unit testing, because testing requires the presence of a DOM.
 
 Advantages and Disadvantages of Reactive Forms
@@ -83,25 +84,21 @@ Handling events when the components are distinct until changed
 Adding elements dynamically
 Easier unit testing
 
-FormArray vs FormFroup
+4. FormArray vs FormFroup
 FormArray is a variant of FormGroup. The key difference is that its data gets serialized as
 an array (as opposed to being serialized as an object in case of FormGroup). This might be especially
 useful when you don’t know how many controls will be present within the group, like dynamic forms.
-
-Let me try to explain by a quick example. Say, you have a form where you capture a customer's order
-for Pizza. And you place a button to let them add and remove any special requests. Here is the
-component's html part:
 
 FormArray offers more flexibility than FormGroup in the sense that it is easier to manipulate
 FormControls using "push", "insert" and "removeAt" than using FormGroup's "addControl",
 "removeControl", "setValue" etc. FormArray methods ensure the controls are properly tracked in the
 form's hierarchy.
 
-Form Control
+5. Form Control
 FormControl are the basic building blocks of a reactive form or a form in general. Think of them as input box, select box, radio buttons, dropdown etc.
 Under the hood it’s a class which tracks a particular form control and keeps track of its validity and values.
 
-Form Group
+6. Form Group
 FormGroup is a collection/group of FormControls. It also offers many api’s such as tracking validity and values of the whole formGroup.
 
 FormArray
@@ -113,11 +110,11 @@ RULE 1: Whenever there is a formControl(smallest entity of a form like an input)
 RULE 2: Whenever you find yourself saying something like X has many Y, that is when you should
 know you are looking at a possible FormArray of Y inside X(where X is almost always a FormGroup).
 
-Q16. What is Traceur compiler?
+7. What is Traceur compiler?
 Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
 Traceur itself is written in ES6, compiled to ES5.
 
-Observables
+8. Observables
 Observables provide support for passing messages between publishers and subscribers in your application.
 Observables are declarative—that is, you define a function for publishing values, but it is not executed until
  a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes,
@@ -125,7 +122,25 @@ Observables are declarative—that is, you define a function for publishing valu
 An observable can deliver multiple values of any type—literals, messages, or events, depending on the context.
 
 
-Angular Life Cycle-
+Observables open up a continuous channel of communication in which multiple values of
+data can be emitted over time. From this we get a pattern of dealing with data by using
+array-like operations to parse  , modify and maintain data.
+Observables provide support for passing messages between publishers and subscribers
+in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
+Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
+
+An observable can deliver multiple values of any type—literals, messages, or events, depending on the context
+
+next	Required. A handler for each delivered value. Called zero or more times after execution starts.
+error	Optional. A handler for an error notification. An error halts execution of the observable instance.
+complete	Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.
+
+#Multicasting
+Multicasting is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
+
+When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values.
+
+9. Angular Life Cycle-
 
 A component in Angular has a life-cycle, a number of different phases it goes through from birth to death.
 Angular creates it, renders it, creates and renders its children, checks it when its data-bound properties change,
@@ -173,7 +188,7 @@ Called just before Angular destroys the directive/component.
 
 
 
-@input and @output
+10. @input and @output
 
 Pass data from parent to child with input binding
 @Input links a property of a component
@@ -262,7 +277,7 @@ export class ChildTestComponentComponent implements OnInit {
 
 
 
-factories and services
+11. factories and services
  They both allow us to create an object that can then be used anywhere in our app.
  a service is a constructor function whereas a factory is not.
  It turns out that it’s actually better to use services where possible, when it
@@ -284,9 +299,10 @@ A component can delegate certain tasks to services, such as fetching data from t
 
  }
 
- Services
+ 12. Services
  Syntax: module.service( 'serviceName', function );
- Result: When declaring serviceName as an injectable argument you will be provided the actual function reference passed to module.service.
+ Result: When declaring serviceName as an injectable argument you will be provided the
+ actual function reference passed to module.service.
  Usage: Could be useful for sharing utility functions that are useful to invoke by simply appending () to the injected function reference.
  Could also be run with injectedArg.call( this ) or similar.
 
@@ -302,9 +318,10 @@ A component can delegate certain tasks to services, such as fetching data from t
  Usage: Could be useful for returning a 'class' function that can then be new'ed to create instances but that requires some sort of
   configuration before being injected. Perhaps useful for classes that are reusable across projects? Still kind of hazy on this one.
 
-Dependancy Injector-
+13. Dependancy Injector-
 https://blog.thoughtram.io/angular/2015/05/18/dependency-injection-in-angular-2.html
- It allows us to inject dependencies in different components across our applications, without needing to
+ It allows us to inject dependencies in different components across our applications,
+ without needing to
  know, how those dependencies are created, or what dependencies they need themselves.
  An injector creates dependencies using providers. Providers are recipes that know how to create dependencies
  DI is wired into the Angular framework and used everywhere to provide new components with
@@ -324,7 +341,7 @@ Provider - A provider is like a recipe that tells the injector how to create an 
          object.
 Dependency - A dependency is the type of which an object should be created.\
 
-##Providers
+14. Providers
 A provider is an instruction to the DI system on how to obtain a value for a dependency.
 Most of the time, these dependencies are services that you create and provide.
 Provider scope
@@ -332,7 +349,7 @@ When you add a service provider to the root application injector, it’s availab
  all the classes in the app as long they have the lookup token.
 
 
- Pipe
+ 15. Pipe
  A pipe takes in data as input and transforms it to a desired output.
  built in pipes-DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
  Lowercasepipe
@@ -344,7 +361,8 @@ When you add a service provider to the root application injector, it’s availab
  Decimalpipe
  Slicepipe
 
- custom pipesimport { Pipe, PipeTransform } from '@angular/core';
+ custom pipes
+ import { Pipe, PipeTransform } from '@angular/core';
 
 /*
   * Raise the value exponentially
@@ -364,38 +382,18 @@ export class ExponentialStrengthPipe implements PipeTransform {
 }
 
 
-pure and impure pipes
+16. pure and impure pipes
 So if a pipe is pure we know that it’s output (through transform method)
  is strictly determined by the input parameters.
- If the input parameters don’t change the output won’t change. This reasoning allows Angular to optimize
+ If the input parameters don’t change the output won’t change. This reasoning allows Angular to +
+ optimize
  the pipe and call transform method only when input parameters change.
 But if a pipe is impure and has internal state the same parameters do
  not guarantee that same output as demonstrated with the call to impure addFn function in the
   first chapter. It means that Angular is forced to trigger transform function on a pipe instance
   on every digest.
 
-
-
-##Observables
-Observables open up a continuous channel of communication in which multiple values of
-data can be emitted over time. From this we get a pattern of dealing with data by using
-array-like operations to parse  , modify and maintain data.
-Observables provide support for passing messages between publishers and subscribers
-in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
-
-An observable can deliver multiple values of any type—literals, messages, or events, depending on the context
-
-next	Required. A handler for each delivered value. Called zero or more times after execution starts.
-error	Optional. A handler for an error notification. An error halts execution of the observable instance.
-complete	Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.
-
-#Multicasting
-Multicasting is the practice of broadcasting to a list of multiple subscribers in a single execution. With a multicasting observable, you don't register multiple listeners on the document, but instead re-use the first listener and send values out to each subscriber.
-
-When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values.
-
-38. How to create a service in Angular?
+17. How to create a service in Angular?
 In Angular, a service is a substitutable object that is wired together using dependency injection. A service is created by registering it in the module it is going to be executed within. There are basically three ways in which you can create an angular service. They are basically three ways in which a service can be created in Angular:
 
 Factory
@@ -403,17 +401,30 @@ Service
 Provider
 
 
-39. What is a singleton pattern and where we can find it in Angular?
+18. What is a singleton pattern and where we can find it in Angular?
 Singleton pattern in Angular is a great pattern which restricts a class from being used more than once. Singleton pattern in Angular is majorly implemented on dependency injection and in the services. Thus, if you use ‘new Object()’ without making it a singleton, then two different memory locations will be allocated for the same object. Whereas, if the object is declared as a singleton, in case it already exists in the memory then simply it will be reused.
 
-40. What do you understand by REST in Angular?
+19. What do you understand by REST in Angular?
 
 REST stands for REpresentational State Transfer. REST is an API (Application Programming Interface) style that works on the HTTP request. In this, the requested URL pinpoints the data that needs to be processed. Further ahead, an HTTP method then identifies the specific operation that needs to be performed on that requested data. Thus, the APIs which follows this approach are known as RESTful APIs.
 
-41. Http req in angualr
+20. Http req in angualr
 Most front-end applications communicate with backend services over the HTTP protocol. Modern browsers support two different APIs for making HTTP requests: the XMLHttpRequest interface and the fetch() API.
 
 The HttpClient in @angular/common/http offers a simplified client HTTP API for Angular applications that rests on the XMLHttpRequest interface exposed by browsers. Additional benefits of HttpClient include testability features, typed request and response objects, request and response interception, Observable apis, and streamlined error handling.
 
 import { HttpClientModule } from '@angular/common/http'; import in main module
-import { HttpClient } from '@angular/common/http'; in component
+import { HttpClient } from '@angular/common/http'; in component.
+
+21. ngRoute vs ui-router
+ngRoute is a module developed by the AngularJS team which was earlier part of the AngularJS core.
+
+ui-router is a framework which was made outside the AngularJS project to improve and enhance routing capabilities.
+
+ui-router allows for nested views and multiple named views. This is very useful with larger app where you may have pages that inherit from other sections.
+
+ui-router allows for you to have strong-type linking between states based on state names. Change the url in one place will update every link to that state when you build your links with ui-sref. Very useful for larger projects where URLs might change.
+
+states allow you to map and access different information about different states and you can easily pass information between states via $stateParams.
+
+You can easily determine if you are in a state or parent of a state to adjust UI element (highlighting the navigation of the current state) within your templates via $state provided by ui-router which you can expose via setting it in $rootScope on run.
