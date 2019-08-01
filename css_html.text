@@ -32,6 +32,26 @@ Want to target a button only if it’s next to another button? The + character h
 
 .button + .button { ... }
 
+4.
+HTML5 Semantic Elements
+Semantic HTML or semantic markup is HTML that introduces meaning to the web page rather than just presentation.
+Semantic HTML elements clearly describe it’s meaning in a human and machine readable way. Elements such as <header>,
+<footer> and <article> are all considered semantic because they accurately describe the purpose of the element and the type of content that is inside them.
+The semantic elements added in HTML5 are:
+
+    <article>
+    <aside>
+    <details>
+    <figcaption>
+    <figure>
+    <footer>
+    <header>
+    <main>
+    <mark>
+    <nav>
+    <section>
+    <summary>
+    <time>
 
 5. What are pseudo elements and what are they used for?
 Pseudo elements are used to style particular parts of an element, rather than the whole thing.
