@@ -1031,3 +1031,82 @@ document.querySelector('.box-1').addEventListener('click', e => {
 document.querySelector('.box-1').addEventListener('click', e => {
     console.log('Box-1 is clicked');
 }, true);
+
+
+
+how browser works
+
+Browser has following main components
+1. The User Interface:
+2. Browser Engine
+3. Render Engine
+4. Networking layer
+5. javascript enterpreter /
+6. ui backend
+
+the first step  starts with the The network layer.
+Network layer Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
+The browser initially looks for any cache availability on local memory for requested URLs. Otherwise, the network layer creates an HTTP packet with a domain name for requesting a web resource over the internet.
+
+This step involves accepting data from the network layer and feed the display subsystems. Render engine, JS engine and UI backend subsystems are part of the process.
+The rendering engine subsystem processes data from the network layer and displays web content on the screen.
+
+With rendering engines, web resources are parsed. For example, a HTML parser converts a HTML template into an object called the DOM tree.
+Stylesheets are parsed to generate style rules for both external and inline style elements
+A render tree is an object that combines both the parsed HTML and CSS. It is generated with visual instructions and attributes to render elements on the user’s screen.
+Once the render tree is constructed, it undergoes layout and painting processes, and displays the output on the screen.
+The layout process includes calculating dimensions and exact coordinates where each element should appear on the viewport.
+
+The painting process includes filing the layout with style attributes like color, background and other CSS properties.
+
+User Interface and Browser Engine are responsible for data presentation and handling user navigation.
+
+The JavaScript engine
+This is the subsystem for parsing JavaScript code to machine code and then executing it. These JS engines can be standard interpreters or JIT (just in time) compilers.
+
+Browser Engine vs Render Engine
+The Browser Engine: The browser engine works as a bridge between the User interface and the rendering engine. According to the inputs from various user interfaces, it queries and manipulates the rendering engine.
+The Rendering Engine: The rendering engine, as the name suggests is responsible for rendering the requested web page on the browser screen. The rendering engine interprets the HTML, XML documents and images that are formatted using CSS and generates the layout that is displayed in the User Interface. However, using plugins or extensions, it can display other types data also. Different browsers user different rendering
+
+
+Browser Storages
+
+Indexdb
+IndexedDB is a built-in database, much more powerful than localStorage.
+
+Key/value storage: value can be (almost) anything, multiple key types.
+Supports transactions for reliability.
+Supports key range queries, indexes.
+Can store much more data than localStorage.
+
+That power is usually excessive for traditional client-server apps. IndexedDB is intended for offline apps, to be combined with ServiceWorkers and other technologies.
+
+let openRequest = indexedDB.open(name, version);
+let db = openRequest.result;
+
+To store stomething in IndexedDB, we need an object store.
+
+An object store is a core concept of IndexedDB.
+
+db.createObjectStore(name[, keyOptions]);
+
+
+webapps
+Web apps, on the other hand, are accessed via the internet browser and will adapt to whichever device you’re viewing them on. They are not native to a particular system, and don’t need to be downloaded or installed. Due to their responsive nature, they do indeed look and function a lot like mobile apps — and this is where the confusion arises.
+
+Mobile apps have the advantage of being faster and more efficient, but they do require the user to regularly download updates. Web apps will update themselves.
+
+ While standard web apps lack some of the functionality that mobile apps can offer, progressive web apps fall somewhere in between.
+
+ Reliable
+
+ When launched from the user’s home screen, service workers enable a Progressive Web App to load instantly, regardless of the network state.
+
+ A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and how to respond to resource requests. By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable experience for your users.
+
+ Fast
+
+ Progressive Web Apps are installable and live on the user's home screen, without the need for an app store. They offer an immersive full screen experience with help from a web app manifest file and can even re-engage users with web push notifications.
+
+ What is SQL Injection (SQLi) and How to Prevent It
+SQL Injection (SQLi) is a type of an injection attack that makes it possible to execute malicious SQL statements. These statements control a database server behind a web application. Attackers can use SQL Injection vulnerabilities to bypass application security measures. They can go around authentication and authorization of a web page or web application and retrieve the content of the entire SQL database. They can also use SQL Injection to add, modify, and delete records in the database.
