@@ -428,3 +428,98 @@ ui-router allows for you to have strong-type linking between states based on sta
 states allow you to map and access different information about different states and you can easily pass information between states via $stateParams.
 
 You can easily determine if you are in a state or parent of a state to adjust UI element (highlighting the navigation of the current state) within your templates via $state provided by ui-router which you can expose via setting it in $rootScope on run.
+
+22. Feature	AngularJS	Angular
+Architecture-	Supports MVC design model	=-- Uses components and directives
+Language- 	Recommended Language: == JavaScript 	Recommended Language: TypeScript
+Expression Syntax- 	Specific ng directive is required for the image/property and an event
+	Uses () to bind an event and [] for property binding
+Mobile Support- 	Doesn’t provide any mobile support===	Provides mobile support
+Routing- 	$routeprovider.when() is used for routing configs===	@RouteConfig{(…)} is used for routing config
+Dependency Injection- 	Doesn’t supports the concept of Dependency Injection
+	Supports hierarchical Dependency Injection with a unidirectional tree-based change detection
+
+Structure	- Less manageable
+Simplified structure and makes the development and maintenance of large applications easier
+Speed-
+	With two-way data binding development effort and time are reduced
+  Faster than AngularJS with upgraded features
+Support- 	No support or new updates are provided anymore
+	Active support and frequent new updates are made
+
+
+  23. Typescript
+  Microsoft TypeScript is an open-source programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript, and adds optional static typing to the language
+
+  TypeScript is a superset of JavaScript which primarily provides optional static typing, classes and interfaces. One of the big benefits is to enable IDEs to provide a richer environment for spotting common errors as you type the code.
+
+ typescript has some additional features like static typing, class based object oriented programming.
+
+  TypeScript is modern JavaScript + types. It's about catching bugs early and making you a more efficient developer, while at the same time leveraging the JavaScript community.
+
+  You can almost rename your .js files to .ts files and start using TypeScript
+  This means JavaScript does not know what type a variable is until it is actually instantiated at run-time. This also means that it may be too late. TypeScript adds type support to JavaScript.
+
+
+24. how would you optimize angular apps
+1. consider aot compilation
+2. Consider lazi loading instead of full bundle app if app size is bigger
+3. unneccessary import statements
+4. 3rd party unused Librairies
+5. Removing app. dependancies if not Required.
+
+25. Routing in angular apps.
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ListingComponent
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+ng generate module app-routing --flat --module=app
+First, AppRoutingModule imports RouterModule and Routes so the app can have routing functionality.
+
+The following line adds the RouterModule to the AppRoutingModule imports array and configures it with the routes in one step by calling RouterModule.forRoot():
+
+imports: [ RouterModule.forRoot(routes) ],
+
+The method is called forRoot() because you configure the router at the application's root level. The forRoot() method supplies the service providers and directives needed for routing, and performs the initial navigation based on the current browser URL.
+
+Next, AppRoutingModule exports RouterModule so it will be available throughout the app.
+exports: [ RouterModule ]
+
+add <router-outlet></router-outlet>
+
+navigate through routerLink
+<a routerLink="/heroes">Heroes</a>
+[routerLink]="['/setting']
+
+
+Add a default route
+{ path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+
+
+26. Architecture of angular Apps
+NgModule
+Component
+Template
+Directives
+Services and dependancy Injection
+Routing
+
+Together, a component and template define an Angular view

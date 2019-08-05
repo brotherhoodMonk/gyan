@@ -900,6 +900,7 @@ if (‘OPTIONS’ == req.method) return res.send(200);
 next();
 });
 
+
 set headers
 res.set({
   'Content-Type': 'text/plain',
@@ -921,6 +922,7 @@ In different operative Systems, we’ve got following commands:
 On UNIX operating system the command would be as follows:
 
 $ DEBUG=express:* node index.js
+
 On Windows the command would be:
 
 set DEBUG=express:* & node index.js
@@ -933,6 +935,7 @@ Question 8. How To Output Pretty Html In Express.js?
 Answer :
 
 app.set('view options', { pretty: true });
+
 
 How To Get The Full Url In Express?
 
@@ -951,13 +954,6 @@ Answer :
 var io = require('socket.io').listen(app, { log: false });
 io.set('log level', 1);
 
-Question 11. How To Do 404 Errors?
-
-Answer :
-
-app.get('*', function(req, res){
-  res.send('what???', 404);
-});
 
 Question 12. How To Download A File?
 
@@ -972,6 +968,7 @@ app.get('/download', function(req, res){
 uestion 13. What Is The Parameter “next” Used For In Express?
 
 Answer :
+Next simply allows the next route handler in line to handle the request.
 
 app.get('/userdetails/:id?', function(req, res, next){
  });
@@ -999,15 +996,33 @@ being allowed access to the system. In even more simpler terms
 
   Single- Factor Authentication: This is the simplest form of authentication method which
   requires a password to grant user access to a particular system such as a website or a network.
-  The person can request access to the system using only one of the credentials to verify one’s identity. For example, only requiring a password against a username would be a way to verify a login credential using single- factor authentication.
+  The person can request access to the system using only one of the credentials to verify one’s
+   identity. For example, only requiring a password against a username would be a way to verify a
+   login credential using single- factor authentication.
+
 Two- Factor Authentication: This authentication requires a two- step verification process which
-not only requires a username and password, but also a piece of information only the user knows. Using a username and password along with a confidential information makes it that much harder for hackers to steal valuable and personal data.
+not only requires a username and password, but also a piece of information only the user knows.
+Using a username and password along with a confidential information makes it that much harder
+for hackers to steal valuable and personal data.
+
 Multi- Factor Authentication: This is the most advanced method of authentication which requires
- two or more levels of security from independent categories of authentication to grant user access to the system. This form of authentication utilizes factors that are independent of each other in order to eliminate any data exposure. It is common for financial organizations, banks, and law enforcement agencies to use multiple- factor authentication.
+ two or more levels of security from independent categories of authentication to grant user
+ access to the system. This form of authentication utilizes factors that are independent of
+ each other in order to eliminate any data exposure. It is common for financial organizations,
+ banks, and law enforcement agencies to use multiple- factor authentication.
 
  Authorization
- Authorization occurs after your identity is successfully authenticated by the system, which therefore gives you full access to resources such as information, files, databases, funds, etc. However authorization verifies your rights to grant you access to resources only after determining your ability to access the system and up to what extent. In other words, authorization is the process to determine whether the authenticated user has access to the particular resources. A good example of this is, once verifying and confirming employee ID and passwords through authentication, the next step would be determining which employee has access to which floor and that is done through authorization.
- Access to a system is protected by authentication and authorization, and they are frequently used in conjunction with each other. Although both have different concepts behind then, they are critical to the web service infrastructure, especially when it comes to being granted access to a system. Understanding each term is very important and a key aspect of security.
+ Authorization occurs after your identity is successfully authenticated by the system,
+ which therefore gives you full access to resources such as information, files, databases,
+ funds, etc. However authorization verifies your rights to grant you access to resources only
+ after determining your ability to access the system and up to what extent. In other words, authorization
+  is the process to determine whether the authenticated user has access to the particular resources.
+   A good example of this is, once verifying and confirming employee ID and passwords through authentication,
+    the next step would be determining which employee has access to which floor and that is done through authorization.
+ Access to a system is protected by authentication and authorization, and they are frequently used in conjunction
+ with each other. Although both have different concepts behind then, they are critical to the web service
+  infrastructure, especially when it comes to being granted access to a system. Understanding each
+  term is very important and a key aspect of security.
 
 
  jsonwebtoken
@@ -1042,7 +1057,8 @@ Express application generator
 Yeoman
 
 Q.6) What is routing and how routing works in Express.js?
-Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
+Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and
+a specific HTTP request method (GET, POST, and so on).
 Each route can have one or more handler functions, which are executed when the route is matched.
 
 Route Syntax:
@@ -1052,7 +1068,7 @@ Where:
 
 app is an instance of express.
 METHOD is an HTTP request method, in lowercase.
-PATH is a path on the server.
+PATH is a path on the server.⭐
 HANDLER is the function executed when the route is matched.
 #Example:
 

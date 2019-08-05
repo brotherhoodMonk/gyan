@@ -1,0 +1,386 @@
+1. Sorting array- descending
+sortArray(arr) {
+  var done = false;
+  while(!done) {
+    done = true
+    for(let i = 1; i < arr.length ; i += 1){
+    if(arr[i-1] < arr[i]) {
+      // if(arr[i-1] > arr[i]) { //asecinding
+        done = false;
+        var temp = arr[i-1];
+        arr[i-1] = arr[i];
+        arr[i] = temp;
+      }
+    }
+  }
+  return arr;
+}
+
+sortArray.sort(function(a, b) {
+   return (a-b); //ascending
+   return (b - a); //descending
+});
+
+
+2. Factorial
+
+factorial(number) {
+using recirsion
+return (number !== 1) ? number * factorial(number -1) : 1;
+
+without recursion
+let fact = 1
+  for(let i = 1; i <= number ; i++) {
+    fact = fact *i;
+  }
+console.log('number', fact)
+return fact;
+}
+
+
+// palindrome string-
+
+3. palindrome(string) {
+    for(let i = 0; i < parseFloat(string.length / 2) ; i++) {
+      if(string.charAt(i) !== string.charAt(string.length - i- 1)) {
+        return false;
+      }
+    }
+  return true;
+}
+
+
+palindrome(number) {
+let originalNumber = number;
+var temp = 0;
+while(number > 0 ) {
+  var mod = number % 10;
+  number = parseInt(number / 10);
+  temp = temp * 10 + mod;
+}
+if(originalNumber == temp) {
+  return ('palindrome');
+} else {
+  return ('not palindrome');
+}
+}
+
+
+4. Fibbonacci
+Fibbonacci(number) {
+  var fib = [];
+  var fibNew = []
+  fib[0] = 0;
+  fib[1] = 1;
+  for(let i = 2; i <= number ; i ++) {
+    fib[i] = fib[i-2] + fib[i-1];
+    fibNew.push(fib[i]);
+  }
+  return febNew;
+}
+
+5. reverse strings
+
+reverseString(number) {
+  return string.parse("").resverse().join("");
+
+// forloop
+  var newString = ""
+  for(let i = string.length -1 ; i >= 0; i--) {
+    console.log('string.charAt(i)ppp ', string.charAt(i))
+    newString += string.charAt(i);
+  }
+  return newString;
+
+  // /recursion
+
+  var newString = ""
+  if(string == "") {
+    return string;
+  }
+  return (this.dog(string.substring(1)) + string.charAt(0))
+}
+
+6. prime or not
+function test_prime(n)
+{
+
+  if (n===1)
+  {
+    return false;
+  }
+  else if(n === 2)
+  {
+    return true;
+  }else
+  {
+    for(var x = 2; x < n; x++)
+    {
+      if(n % x === 0)
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+
+7. splice vs slice
+splice---Modify the original array
+Array.splice (start, deleteCount, item 1, item 2….);
+remove second last element
+arr1.splice(arr1.length - 2, 1);
+
+slice- doesnt modify the array
+arr.slice(begin, end)
+the array contains the begin element but not the end element. less than last element
+
+8. pop
+remove last element
+
+9. shift()
+remove first element
+
+10. string slice vs substring
+substring()
+If start > stop, then function swaps both arguments.
+If any argument is negative or is NaN, it is treated as 0.
+
+slice()
+Separate results of slice()
+If start > stop, This function will return an empty string. (“”)
+If start is negative, It sets char from the end of string, like substr().
+If stop is negative, It sets stop = string.length – Math.abs(stop) (original value)
+
+11. reduceRight-
+array.reduceRight(accumulator, currentValue)
+
+const arr1 = [[1, 2, 3, 4, 5], [123], [43]];
+const abc = arr1.reduceRight((a, b) => {
+  return a.concat(b);
+});
+
+op- [ 43, 123, 1, 2, 3, 4, 5 ]
+
+JavaScript | Array reduce() Method
+The array reduce() method in JavaScript is used to reduce the array to a single value and
+executes a provided function for each value of the array (from left-to-right) and the return
+ value of the function is stored in an accumulator.
+
+ array.reduce( function(total, currentValue, currentIndex, arr), initialValue )
+
+12. toString()
+The JavaScript method toString() converts an array to a string of (comma separated) array values.
+
+join()
+
+The join() method also joins all array elements into a string.
+
+It behaves just like toString(), but in addition you can specify the separator:
+
+delete arr[0]
+[ <1 empty slot>, 2, 3, 4, 5 ]
+
+13. TO find the greatest or smallest no.
+
+we can use sort method also and return its first or last element
+
+const arr1 = [99, 1, 2, 3, 4, 5];
+const arr2 = [98, 99, 100];
+var a;
+for(let i = 0; i <= arr1.length; i++) {
+  if(a == undefined) {
+    a = arr1[i]
+  } else if(a < arr1[i]) {
+    a = arr1[i]
+  }
+}
+
+14. some()- It returns a Boolean value.
+The some() method tests whether at least one element in the array passes the test
+implemented by the provided function.
+
+15. JavaScript | Array filter()
+arr.filter() function is used to create a new array from a given array consisting
+ of only those elements from the given array which satisfy a condition set by the argument function.
+ The syntax of the given function is as follows;
+
+ 13. JavaScript | Array every() function
+ Array.every() function checks whether all the elements of the array satisfy the given condition or
+  not that is provided by a function passed to it as the argument. The syntax of the function is as follows:
+
+14. Array.of
+const abc = Array.of({a : 1}, {b: 2});
+op- [{a : 1}, {b: 2}];
+
+
+22. find- returns first element that satisfies the condition
+arr.find(function(element, index, array), thisValue)
+JavaScript | Array find() function
+arr.find() function is used to find the first element from the array that satisfies the condition implemented by a function.
+
+
+23. JavaScript | Array.prototype.map() function
+Array.map()
+arr.map() function creates a new array with the results of called function for every array element.
+This function calls the argument function once for each element of the given
+ array in order. The syntax of this function is as follows:
+
+
+24.indexof vs findIndex
+indexOf()
+arr.indexOf(element[, index to be started])
+Array.prototype.indexOf() expects a value as first parameter.
+This makes it a good choice to find the index in arrays of
+primitive types (like string, number, or boolean).
+
+Array.prototype.findIndex()
+array.findIndex(fun(curValue, index, arr), thisValue)
+Array.prototype.findIndex() expects a callback as first parameter. Use this if you need
+ the index in arrays with non-primitive types (e.g. objects) or your find condition
+ is more complex than just a value.
+
+ JavaScript | array.includes() function'===> returns boolean
+ array.includes(searchElement)
+The array.includes() is an inbuilt function in JavaScript which is used to know either a particular element
+ is present in the array or not and accordingly, it returns true or false i.e, if the element
+  is present, then it returns true otherwise false
+
+  JavaScript | Array lastIndexOf()
+  arr.lastIndexOf() function is used to find the index of the last occurrence of the search
+   element provided as the argument to the function. The syntax of the function is as follows:
+
+Array.isArray()- to chek whether given is arrayun or not
+
+The Array.from() method creates a new, shallow-copied Array instance from an array-like or iterable object.
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+  const arr1 = [99, 1, 2, 3, 4, 200, 201, 201, 201];
+var id = Array.from(arr1, x => x*2)
+[ 198, 2, 4, 6, 8, 400, 402, 402, 402 ]
+
+JavaScript | Array copyWithin()
+array.copyWithin(target, start, end)
+The copyWithin() method copies part of an array to the same array and returns it, without modifying its size
+ i.e, copies array element of a array within the same array.
+// Input array
+var array = [ 1, 2, 3, 4, 5, 6, 7 ];
+// placing at index position 0 the element
+// between index 3 and 6
+console.log(array.copyWithin(0, 3, 6));
+Array [4, 5, 6, 4, 5, 6, 7]
+
+substr vs substring
+substr(startIndx, length);
+substring(startIndex, uptoIndex(not include the index));
+
+
+13. substring(from, [to]) Returns the characters in a string between “from” and “to” indexes,
+ NOT including “to” inself. “To” is optional, and if omitted, up to the end of the string is assumed.
+
+ var message="Welcome to jQuery4u"
+ var word=message.split("l", 1)
+ [ "We", "come to jQuery4u" ]
+
+ 8. replace(regexp/substr, replacetext) Searches and replaces the regular expression (or sub string)
+ portion (match) with the replaced text instead.
+
+ 7. match(regexp) Executes a search for a match within a string based on a regular expression.
+  It returns an array of information or null if no match is found.
+
+  4. fromCharCode(c1, c2,…) Returns a string created by using the specified sequence of Unicode
+   values (arguments c1, c2 etc). Method of String object, not String instance. For example: String.fromCharCode().
+   console.log(String.fromCharCode(97,98,99,120,121,122))
+output: abcxyz
+
+2. charCodeAt(x) Returns the Unicode value of the character at position “x” within the string.
+
+11. split(delimiter, [limit])
+ Splits a string into many according to the specified delimiter,
+and returns an array containing each element. The optional “limit” is an integer that lets
+ you specify the maximum number of elements to return.
+15.
+new Date(year, month, date, hours, minutes, seconds, ms)
+milisecond count = This date and time is called the Unix epoch, which is the predominant base value for computer-recorded date and time values.
+new Date ===== date.toLocaleString() - 8/3/2019, 10:22:51 AM
+new Date ===== date.toLocaleTimeString() - 10:22:51 AM
+getFullYear()	Get the year as a four digit number (yyyy)
+getMonth()	Get the month as a number (0-11)
+getDate()	Get the day as a number (1-31)
+getHours()	Get the hour (0-23)
+getMinutes()	Get the minute (0-59)
+getSeconds()	Get the second (0-59)
+getMilliseconds()	Get the millisecond (0-999)
+getDay()	Get the weekday as a number (0-6)
+
+getTime()	Get the time (milliseconds since January 1, 1970)
+Date.now()	Get the time in miliseconds. ECMAScript 5.
+
+
+16. 2 D array
+var twodarr = new Array(2);  //create two empty slots
+for(let i = 0; i < twodarr.length; i++) {
+  twodarr[i] = new Array(2);
+}
+var h = 0;
+for(let i = 0; i < 2; i++) {
+  for(let j = 0; j < 2; j++) {
+    twodarr[i][j] = h++;
+  }
+}
+op-[[ 0, 1 ], [2, 3]]
+
+
+
+17. Comparing Array-
+
+if(JSON.stringify(a)==JSON.stringify(b))
+ document.write("True");
+else
+
+{
+ var a = [1, 2, 3, 5];
+ var b = [1, 2, 3, 5];
+  // if length is not equal
+  if(a.length!=b.length)
+   return "False";
+  else
+  {
+  // comapring each element of array
+   for(var i=0;i<a.length;i++)
+   if(a[i]!=b[i])
+    return "False";
+    return "True";
+  }
+}
+
+18. Math.pow(base, exponent)
+Math.pow(10, 3) === 1000
+
+19. Number.isInteger( ) value is integer or npot
+
+20. JavaScript | toPrecision( ) Function
+The toPrecision() method in Javascript is used to format a number to a specific precision or length.
+If the formatted number requires more number of digits than original number then decimals and nulls
+ are also added to create the specified length
+
+ 21. JavaScript | toFixed( ) Function
+The toFixed() function in JavaScript is used to format a number using fixed-point notation.
+ It can be used to format a number with a specific number of digits to the right of the decimal.
+ Return Value: It returns a number in the string representation. The number has the exact number
+ of digits after the decimal place as mentioned in the toFixed() function.
+
+JavaScript | Array findIndex() function
+array.findIndex(function(element, index, arr), thisValue)
+ Return value
+ This function returns the index value of the first element that satisfies the given condition. If no element satisfies the condition then it returns -1
+ JavaScript | Array fill() function
+
+Array.fill() function is used to fill the array with a given static value. The value can be used to fill the entire array or it can be used to fill a part of the array.
+Syntax:
+
+arr.fill(value, start, end)
