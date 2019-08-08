@@ -1,12 +1,15 @@
 component-
-Components are the most basic building block of an UI in an Angular application.A component controls a patch of screen called a view.
+Components are the most basic building block of an UI in an Angular application.
+A component controls a patch of screen called a view.
 You define a component's application logic—what it does to support the view—inside a class. The class interacts with the view through an API of properties and methods.
- An Angular application is a tree of Angular components. Angular components are a subset of directives. Unlike directives, components always have a template and only one component can be instantiated per an element in a template.
+ An Angular application is a tree of Angular components.
+  Angular components are a subset of directives. Unlike directives, components always have a template and only one component can be instantiated per an element in a template.
 Components are defined using the @component decorator. A component has a selector, template, style and other properties, using which it specifies the metadata required to process the component.
 
 
 Directives-
-At the core, a directive is a function that executes whenever the Angular compiler finds it in the DOM. Angular directives are used to extend the power of the HTML by giving it new syntax.
+At the core, a directive is a function that executes whenever the Angular compiler finds it in the DOM.
+Angular directives are used to extend the power of the HTML by giving it new syntax.
 There are three kinds of directives in Angular:
 Components— directives with a template.
 Structural directives— change the DOM layout by adding and removing DOM elements.asterisk (* ) precedes  NgFor and NgIf,  NgSwitch
@@ -37,7 +40,7 @@ Component	Directive
 To register a component we use @Component meta-data annotation	To register directives we use @Directive meta-data annotation
 Components are typically used to create UI widgets	Directive is used to add behavior to an existing DOM element
 Component is used to break up the application into smaller components	Directive is use to design re-usable components
-Only one component can be present per DOM element	Many directives can be used per DOM element
+Only one component can be present per DOM element.	Many directives can be used per DOM element
 @View decorator or templateurl/template are mandatory	Directive doesn't use View
 
 selector:-

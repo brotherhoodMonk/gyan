@@ -11,7 +11,6 @@ Node.js is single-threaded, that employs a concurrency model based on an event l
  threads of execution so can scale pretty well.
 
  Following are the areas where it’s perfect to use Node.js.
-
 I/O bound Applications
 Data Streaming Applications
 Data Intensive Real-time Applications (DIRT)
@@ -44,6 +43,7 @@ The increment that the event loop moves in is called a ‘tick’, and every tim
 
 
 Web Workers
+
 Using Web Workers enables you to offload an expensive operation to a separate thread of execution,
  freeing up the main thread to do other things. The worker includes a separate message queue, event
  loop, and memory space independent from the original thread that instantiated it. Communication
@@ -603,14 +603,15 @@ The above command will allocate a new buffer holding the string with <utf8> as t
 This class also offers other methods like <readInt8> and <writeUInt8> that allows read/write from
  various types of data to the buffer.
 
+
+blocking and nonblocking Function
+
  4)      What does event-driven programming mean?
 
  In computer programming, event driven programming is a programming paradigm in which the flow of
   the program is determined by events like messages from other programs or threads.
    It is an application architecture technique divided into two sections
    1) Event Selection 2) Event Handling
-
-
 
 The two types of API functions in Node.js are
 
@@ -690,7 +691,8 @@ expect(readFileStub).to.be.called;
 readFileStub.restore();
 
 What's a test pyramid? How can you implement it when talking about HTTP APIs?
-A test pyramid describes that when writings test cases there should be a lot more low-level unit tests than high level end-to-end tests.
+A test pyramid describes that when writings test cases there should be a lot more low-level unit
+ tests than high level end-to-end tests.
 
 When talking about HTTP APIs, it may come down to this:
 
@@ -755,7 +757,8 @@ request in form of an event and queues each event in a queue. Thus, the demultip
  the Event Queue.
 
 At the same time, there is an Event Loop which iterates over the items in the Event Queue.
-Every event has a callback function associated with it, and that callback function is invoked when the Event Loop iterates.
+Every event has a callback function associated with it, and that callback function is invoked when
+the Event Loop iterates.
 
 What is LTS releases of Node.js why should you care?
 Topic: Node.js
@@ -1209,6 +1212,7 @@ This algorithm looks out for objects which are unreachable from the root which i
      Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and
      testing frameworks like Chai, Mocha, Enzyme,
 
+what is orm
    migrations
       Using migrations allows you to easily and safely update your tables and database.
       Just like you use Git / SVN
@@ -1267,7 +1271,8 @@ be easily implemented in ORM.
     in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
    In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands,
    PostgresSQL provides complete backup online.
-   MySQL provides temporary tables but does not provide materialized view. However, PostgreSQL provides temporary table and also the materialized view.
+   MySQL provides temporary tables but does not provide materialized view.
+   However, PostgreSQL provides temporary table and also the materialized view.
    MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
 
 

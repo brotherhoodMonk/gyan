@@ -10,6 +10,66 @@ A selector in CSS is the bit before the curly bracket, for
 example, body or .nav-item, that selects the content you want to style.
 The different kinds of selectors include tags, classes & IDs:
 
+3. display: block, inline, inline-block
+
+respect left & right margins and padding, but not top & bottom
+cannot have a width and height set
+allow other elements to sit to their left and right.
+see very important side notes on this here.
+Block elements:
+
+respect all of those
+force a line break after the block element
+acquires full-width if width not defined
+Inline-block elements:
+
+allow other elements to sit to their left and right
+respect top & bottom margins and padding
+respect height and width
+
+position: fixed always fixates an element to some position within its scrolling
+container or the viewport. No matter how you scroll its container, it will
+remain in the exact same position and not affect the flow of other elements
+within the container.
+
+Without going into specific details, position: sticky basically acts like
+position: relative until an element is scrolled beyond a specific offset, in
+ which case it turns into position: fixed, causing the element to "stick" to
+ its position instead of being scrolled out of view. It eventually gets unstuck
+ as it gets scrolled back toward its original position. At least, that's how I
+  understand it in theory.
+
+transition-
+  These transition properties allow elements to change values over a specified duration,
+   animating the property changes, rather than having them occur immediately. Here is a
+    simple example that transitions the background color of a <div> element on :hover:
+
+    .example {
+    transition: [transition-property] [transition-duration] [transition-timing-function] [transition-delay];
+}
+The transition-timing-function property specifies the speed curve of the transition effect.
+
+The transition-timing-function property can have the following values:
+
+ease - specifies a transition effect with a slow start, then fast, then end slowly (this is default)
+linear - specifies a transition effect with the same speed from start to end
+ease-in - specifies a transition effect with a slow start
+ease-out - specifies a transition effect with a slow end
+ease-in-out - specifies a transition effect with a slow start and end
+cubic-bezier(n,n,n,n) - lets you define your own values in a cubic-bezier function
+
+
+3.<!DOCTYPE>
+ The <!DOCTYPE> declaration must be the very first thing in your HTML document,
+  before the <html> tag.
+
+The <!DOCTYPE> declaration is not an HTML tag; it is an instruction to the
+web browser about what version of HTML the page is written in.
+HTML 5- <!DOCTYPE html>
+HTML 4.01 Strict
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+
 3. Explain the three main ways to target elements.
 Now, in order to style certain elements on the page, you need to know how
  to specify those elements. There are three main ways to target something:
@@ -17,6 +77,7 @@ Now, in order to style certain elements on the page, you need to know how
 By tag, e.g. you can target the body or p or span
 By the class you’ve specified in your HTML. For example, if you have three list items with the class nav-item you can target them with .nav-item
 By the ID you’ve specified in your HTML. For example, if you have a link with the ID home-button you can target it with #home-button
+
 
 
 How do you target something inside or around another element?
@@ -35,8 +96,10 @@ Want to target a button only if it’s next to another button? The + character h
 4.
 HTML5 Semantic Elements
 Semantic HTML or semantic markup is HTML that introduces meaning to the web page rather than just presentation.
-Semantic HTML elements clearly describe it’s meaning in a human and machine readable way. Elements such as <header>,
-<footer> and <article> are all considered semantic because they accurately describe the purpose of the element and the type of content that is inside them.
+Semantic HTML elements clearly describe it’s meaning in a human and machine readable way.
+ Elements such as <header>,
+<footer> and <article> are all considered semantic because they accurately describe the
+purpose of the element and the type of content that is inside them.
 The semantic elements added in HTML5 are:
 
     <article>
@@ -54,11 +117,14 @@ The semantic elements added in HTML5 are:
     <time>
 
 5. What are pseudo elements and what are they used for?
-Pseudo elements are used to style particular parts of an element, rather than the whole thing.
- For example, you can use it to style the first line or first letter of a paragraph, text you’ve selected,
+Pseudo elements are used to style particular parts of an element, rather than the whole
+thing.
+ For example, you can use it to style the first line or first letter of a paragraph,
+ text you’ve selected,
  or you can use it to insert text or shapes before or after an element.
 
-They always start with a double colon - although a single colon is still allowed for backwards compatibility - and they look like this:
+They always start with a double colon - although a single colon is still allowed for
+backwards compatibility - and they look like this:
 
 p::first-line { ... }
 span::first-letter { ... }
@@ -83,9 +149,12 @@ They all start with a single colon and look like this:
 
 
 7. What are attributes and how are they used?
-You already know about classes, which means you already know about attributes, seeing as a class is just one of the many
- attributes that HTML tags can have. There are a few that apply to all tags, like class and id, but a lot of tags have
-  their own ones. For example, input tags can have a type (text, number, radio, etc) and a tags can have href.
+You already know about classes, which means you already know about attributes,
+seeing as a class is just one of the many
+ attributes that HTML tags can have. There are a few that apply to all tags,
+  like class and id, but a lot of tags have
+  their own ones. For example, input tags can have a type (text, number, radio, etc)
+  and a tags can have href.
 
 You can target elements with particular attributes by using square brackets: [attribute="value"]. For example, you can target all input fields that are of type radio like so:
 
@@ -96,7 +165,8 @@ input[type="radio"] {
 Specificity
 
 
-If you’ve spent any time wrangling CSS, you’ve likely come across the tricky rules around specificity.
+If you’ve spent any time wrangling CSS, you’ve likely come across the tricky rules around
+ specificity.
 What that means is which rules override others simply by being more specific.
 
 The following list displays the order of specificity, from low to high:
@@ -112,8 +182,10 @@ Likewise, an ID references the id attribute on an HTML tag
 9. Should you use !important
 
 What !important does, is make that particular style have the highest specificity possible.
-Nothing else can override it, apart from another !important. You might be able to see where this is going,
- but once you start using them, you’ll almost certainly get into a position where you need to override a
+Nothing else can override it, apart from another !important. You might be able to see where
+ this is going,
+ but once you start using them, you’ll almost certainly get into a position where you
+ need to override a
  rule marked as !important, which forces you to use another one. And so the cycle continues.
 
 /* high specificity */
@@ -133,7 +205,8 @@ px *	pixels (1px = 1/96th of 1in)
 pt	points (1pt = 1/72 of 1in)
 pc	picas (1pc = 12 pt)
 
-em	Relative to the font-size of the element (2em means 2 times the size of the current font)
+em	Relative to the font-size of the element (2em means 2 times the size of the
+current font)
 ex	Relative to the x-height of the current font (rarely used)
 ch	Relative to width of the "0" (zero)
 rem	Relative to font-size of the root element
@@ -144,23 +217,30 @@ vmax	Relative to 1% of viewport's* larger dimension
 
 %	Relative to the parent element
 The CSS Box Model
-Padding adds bulk to your element, in between the border and the element. This means that if your element has
+Padding adds bulk to your element, in between the border and the element. This means
+ that if your element has
 a background color, that color will also fill the padding.
 
 Margin adds empty space around your element. That means that the aforementioned background color will not fill the margin.
 
 ====em vs pix;
 12. What are web safe fonts and fallback fonts?
-Not all operating systems and browsers have the same fonts installed. Web safe fonts are fonts that are commonly pre-installed
- on many computer systems, such as Arial and Times New Roman. In case the browser or operating system doesn’t recognize the first
+Not all operating systems and browsers have the same fonts installed.
+ Web safe fonts are fonts that are commonly pre-installed
+ on many computer systems, such as Arial and Times New Roman.
+ In case the browser or operating system doesn’t recognize the first
  font you set (e.g. Ubuntu), you should choose a web safe fallback font to display (e.g. Arial), followed by a generic font family
-  (e.g. sans-serif). If your fallback font doesn’t display either, the browser can pick a generic font in the sans-serif family.
+  (e.g. sans-serif). If your fallback font doesn’t display either,
+  the browser can pick a generic font in the sans-serif family.
 
 13. How would you use media queries in a mobile-first approach?
-There’s no way to avoid these nowadays, everyone expects their website to work on mobile devices, even if they don’t specifically ask for it.
+There’s no way to avoid these nowadays, everyone expects their website to work on
+mobile devices, even if they don’t specifically ask for it.
 
-The most common approach is the mobile-first one. All styles outside of media queries are targeted at mobile devices.
-Then, through progressively larger media queries, you can style larger screens one step at a time.
+The most common approach is the mobile-first one. All styles outside of media queries are
+targeted at mobile devices.
+Then, through progressively larger media queries, you can style larger screens one
+step at a time.
 
 /* mobile styles */
 body {
@@ -176,49 +256,69 @@ body {
 
 
 14. How do you handle browser differences in your user base?
-In the past few years, browsers have come a long way. Modern browsers update automatically and provide pretty good feature coverage.
-There are still differences between browsers, and while some support certain features (like certain CSS styles), others don’t
+In the past few years, browsers have come a long way. Modern browsers update automatically
+ and provide pretty good feature coverage.
+There are still differences between browsers, and while some support certain features
+(like certain CSS styles), others don’t
  or display them differently.
 
-Your biggest concern is legacy browsers. You may have seen jokes about Internet Explorer, and while the newer versions aren’t as bad, there are still a lot of people using older versions. These days it’s not uncommon to still support IE9, sometimes even IE8.
+Your biggest concern is legacy browsers. You may have seen jokes about Internet Explorer,
+and while the newer versions aren’t as bad, there are still a lot of people using older
+versions. These days it’s not uncommon to still support IE9, sometimes even IE8.
 
-This can severely limit the kind of styles you can use, though most can be approximated using fallback styles. The @supports query in CSS can be very useful to scan if the user’s current browser has a certain feature. If they do, you can apply those styles without worry. If not, you can have some fallback styles as a backup.
+This can severely limit the kind of styles you can use, though most can be approximated
+using fallback styles. The @supports query in CSS can be very useful to scan if the user’s
+ current browser has a certain feature. If they do, you can apply those styles without worry. If not, you can have some fallback styles as a backup.
 
 
 15. Do you use any tools for browser support?
 One of my favourite online tools is caniuse.com. It’s a website that tells you exactly which browsers support which features,
-including CSS and JavaScript, which can be extremely helpful in finding out what you can and can’t use!
+including CSS and JavaScript, which can be extremely helpful in finding out what you can
+and can’t use!
 
-Flexbox is a very useful layout tool, especially for smaller areas within the site. Its main features are to align
- items in horizontal or vertical axes, space them out automatically, invert the order in which they’re displayed,
+Flexbox is a very useful layout tool, especially for smaller areas within the site.
+ Its main features are to align
+ items in horizontal or vertical axes, space them out automatically, invert the order
+  in which they’re displayed,
  along with a few other layout options.
 
-CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying out items along a single axis,
+CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying
+out items along a single axis,
  Grid is better for layouts with both horizontal and vertical axes, i.e. grids!
 
 Preprocessor-
-A CSS preprocessor is a program that lets you generate CSS from the preprocessor's own unique syntax.
-There are many CSS preprocessors to choose from, however most CSS preprocessors will add some features that don't
-exist in pure CSS, such as mixin, nesting selector, inheritance selector, and so on. These features make the CSS
+A CSS preprocessor is a program that lets you generate CSS from the preprocessor's
+own unique syntax.
+There are many CSS preprocessors to choose from, however most CSS preprocessors will add
+ some features that don't
+exist in pure CSS, such as mixin, nesting selector, inheritance selector, and so on.
+ These features make the CSS
  structure more readable and easier to maintain.
 
-A preprocessor is a program that takes one type of data and converts it to another type of data. In the case of HTML and CSS,
- some of the more popular preprocessor languages include Haml and Sass. Haml is processed into HTML and Sass is processed into CSS.
-In time writing HTML and CSS may feel a bit taxing, requiring a lot of the same tasks to be completed over and over again.
- Tasks such as closing tags in HTML or repetitively having to looking up hexadecimal color values in CSS.
+A preprocessor is a program that takes one type of data and converts it to another type of
+ data. In the case of HTML and CSS,
+ some of the more popular preprocessor languages include Haml and Sass. Haml is processed
+ into HTML and Sass is processed into CSS.
+In time writing HTML and CSS may feel a bit taxing, requiring a lot of the same tasks to
+ be completed over and over again.
+ Tasks such as closing tags in HTML or repetitively having to looking up hexadecimal
+ color values in CSS.
 
 These different tasks, while commonly small, do add up to quite a bit of inefficiency.
-Fortunately these, and a handful of other inefficiencies, have been recognized and preprocessor solutions have risen to the challenge.
+Fortunately these, and a handful of other inefficiencies, have been recognized and
+preprocessor solutions have risen to the challenge.
 
 CSS on its own can be fun, but stylesheets are getting larger, more complex, and harder to maintain.
-This is where a preprocessor can help. Sass lets you use features that don't exist in CSS yet like variables,
+This is where a preprocessor can help. Sass lets you use features that don't exist in CSS
+yet like variables,
 nesting, mixins, inheritance and other nifty goodies that make writing CSS fun again.
 
 scss
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 
-Think of variables as a way to store information that you want to reuse throughout your stylesheet.
+Think of variables as a way to store information that you want to reuse throughout your
+ stylesheet.
 You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol
 to make something a variable. Here's an example:
 body {
@@ -226,10 +326,14 @@ body {
   color: $primary-color;
 }
 Partials
-You can create partial Sass files that contain little snippets of CSS that you can include in other Sass files.
-This is a great way to modularize your CSS and help keep things easier to maintain. A partial is simply a Sass file named
-with a leading underscore. You might name it something like _partial.scss. The underscore lets Sass know that the file is
-only a partial file and that it should not be generated into a CSS file. Sass partials are used with the @import directive.
+You can create partial Sass files that contain little snippets of CSS that you can include
+ in other Sass files.
+This is a great way to modularize your CSS and help keep things easier to maintain.
+A partial is simply a Sass file named
+with a leading underscore. You might name it something like _partial.scss.
+The underscore lets Sass know that the file is
+only a partial file and that it should not be generated into a CSS file.
+Sass partials are used with the @import directive.
 
 Nesting
 When writing HTML you've probably noticed that it has a clear nested and visual hierarchy. CSS, on the other hand, doesn't.
