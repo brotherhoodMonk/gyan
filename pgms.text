@@ -1,3 +1,18 @@
+https://github.com/kennymkchan/interview-questions-in-javascript
+https://github.com/ganqqwerty/123-Essential-JavaScript-Interview-Questions/blob/master/README.md
+
+: Given an array of integers, find the largest product yielded from three of the integers
+
+ 	Mid
+Q43: Given an array of integers, find the largest difference between two elements such that the element of lesser value must come before the greater element
+Add to PDF/md
+ 	Mid
+Q44: Find the intersection of two arrays. An intersection would be the common elements that exists within both arrays. In this case, these elements should be unique!
+
+ 	Mid
+Q45: Given two strings, return true if they are anagrams of one another
+6: Write a recursive function that returns the binary string of a given decimal number
+
 1. Sorting array- descending
 sortArray(arr) {
   var done = false;

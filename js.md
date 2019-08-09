@@ -6,6 +6,251 @@ Session Cookies: Created for a specific session, these expire upon the terminati
  Persistent Cookies:
  Normally known as tracking cookies, these cookies have a specific time period before they expire.
 
+to check the given array is array or not-
+if(Object.prototype.toString.call(arrayList) === '[object Array]') {
+  console.log('Array!');
+}
+for modern browser
+Array.isArray(arrayList);
+
+Q22: How would you check if a number is an integer?
+ 		 	Junior
+A very simply way to check if a number is a decimal or integer is to see if there is a remainder left when you divide by 1.
+function isInt(num) {
+  return num % 1 === 0;
+}
+
+Q25: What language constructions do you use for iterating over object properties and array items? 	
+Add to PDF/md	 		 	Junior
+For objects:
+
+for loops - for (var property in obj) { console.log(property); }. However, this will also iterate through its inherited properties, and you will add an obj.hasOwnProperty(property) check before using it.
+Object.keys() - Object.keys(obj).forEach(function (property) { ... }). Object.keys() is a static method that will lists all enumerable properties of the object that you pass it.
+Object.getOwnPropertyNames() - Object.getOwnPropertyNames(obj).forEach(function (property) { ... }). Object.getOwnPropertyNames() is a static method that will lists all enumerable and non-enumerable properties of the object that you pass it.
+For arrays:
+
+for loops - for (var i = 0; i < arr.length; i++). The common pitfall here is that var is in the function scope and not the block scope and most of the time you would want block scoped iterator variable. ES2015 introduces let which has block scope and it is recommended to use that instead. So this becomes: for (let i = 0; i < arr.length; i++).
+forEach - arr.forEach(function (el, index) { ... }). This construct can be more convenient at times because you do not have to use the index if all you need is the array elements. There are also the every and some methods which will allow you to terminate the iteration early.
+Most of the time, I would prefer the .forEach method, but it really depends on what you are trying to do. for loops allow more flexibility, such as prematurely terminate the loop using break or incrementing the iterator more than once per loop.
+
+==
+Q27: Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it? 	
+Add to PDF/md	 		 	Junior
+Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
+==
+Load vs DOMContentLoaded
+Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those? 	
+Add to PDF/md	 		 	Junior
+The load event fires at the end of the document loading process. At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
+
+The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed, but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page to be loaded before initializing.
+
+==
+31: Explain the same-origin policy with regards to JavaScript. 	
+Add to PDF/md	 		 	Junior
+The same-origin policy prevents JavaScript from making requests across domain boundaries. An origin is defined as a combination of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access to sensitive data on another web page through that page's Document Object Model.
+
+==
+What's the difference between host objects and native objects? 	
+Add to PDF/md	 		 	Junior
+Native objects are objects that are part of the JavaScript language defined by the ECMAScript specification, such as String, Math, RegExp, Object, Function, etc.
+Host objects are provided by the runtime environment (browser or Node), such as window, XMLHTTPRequest, etc.
+==
+Is there anyway to force using strict mode in Node.js? 	
+Add to PDF/md	 		 	Junior
+you can place
+
+"use strict";
+at the top of your file in node >= 0.10.7, but if you want your whole app to run in strict (including external modules) you can do this
+
+node --use_strict
+==
+The Object.is() method determines whether two values are the same value.
+==
+compare two objects
+
+JSON.stringify(obj1) === JSON.stringify(obj2)
+
+var abc = function(a, b) {
+for (var p in a) {
+if(a.hasOwnProperty(p)) {
+if(a.p !== b.p) {
+return false;
+}
+}
+
+}
+for (var p in b) {
+if(b.hasOwnProperty(p)) {
+if(a.p !== b.p) {
+return false;
+}
+}
+
+}
+return true;
+};
+===========
+named vs anonymous function
+
+named fun are hoisted
+Named functions are also easier to reuse. In both ways (declaration and expression) when a function is named it makes it easier for us to consume it again for similar use cases.
+
+anonymous function
+One of the more famous use cases for anonymous functions are Immediately Invokable Function Expressions (IIFE). IIFE, for short, is a pattern that uses an anonymous function which immediately creates and invokes the contents of the function.
+
+The benefit of doing so is that you could use the function name in recursive situations as well as having the function name in your call stack for easier debugging.
+
+ES6 arrow functions are also known as lambda expressions. In Javascript, not all lambdas are anonymous, and not all anonymous functions are lambdas. Lambda functions are quite similar to anonymous functions but what truly makes them different is that lambda functions are functions used as data.
+
+Arrow functions are best suited for non-method functions, and they cannot be used as constructors.
+==
+purpose of symbols-
+Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows different modules to create properties that don't conflict with one another. Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have direct access to the Symbol.
+
+Symbols are a new primitive. Just like the number, string, and boolean primitives, Symbol have a function which can be used to create them. Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with the Symbol constructor in the following way:
+
+
+Symbols can be used as Object keys
+Symbols can be used as a unique value.
+
+===
+Currying
+Currying is a technique of evaluating function with multiple arguments, into sequence of function with single argument.
+
+Currying helps you to avoid passing the same variable again and again.
+It helps to create a higher order function. It extremely helpful in event handling. See the blog post for more information.
+Little pieces can be configured and reused with ease.
+
+add(1)(2)(3);
+
+====
+higher order function
+A higher-order function is a function that can take another function as an argument, or that returns a function as a result.
+
+First Class Functions
+You may have heard it said that JavaScript treats functions as first-class citizens. What this means is that functions in JavaScript are treated as objects. They have the type Object, they can be assigned as the value of a variable, and they can be passed and returned just like any other reference variable.
+
+This native ability gives JavaScript special powers when it comes to functional programming. Because functions are objects, the language supports a very natural approach to functional programming. In fact, it’s so natural, that I’ll bet you’ve been using it without even thinking about it.
+
+Taking Functions as Arguments
+If you’ve done much web-based JavaScript programming or front-end development, you’ve probably come across functions that use a callback. A callback is a function that gets executed at the end of an operation, once all of the other operations of been completed. Usually this callback function is passed in as the last argument in the function. Frequently, it’s defined inline as an anonymous function.
+====
+ What are the differences between ES6 class and ES5 function constructors?
+
+https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e
+
+
+
+object type in js-
+The object type refers to a compound value where you can set properties (named locations) that each hold their own values of any type.
+
+Bracket notation is also useful if you want to access a property/key but the name is stored in another variable, such as:
+==
+what is coersion in js-
+== is the abstract equality operator while === is the strict equality operator.
+
+*** https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/
+
+Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion. To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
+
+Implicit vs. explicit coercion
+
+Type coercion can be explicit and implicit.
+
+When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called explicit type coercion (or type casting).
+
+Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called implicit type coercion. It usually happens when you apply operators to values of different types, like
+
+String conversion
+String(123) // explicit
+123 + ''    // implicit
+Boolean conversion
+
+To explicitly convert a value to a boolean apply the Boolean() function.
+Implicit conversion happens in logical context, or is triggered by logical operators ( || && !) .
+Boolean('')           // false
+Boolean(0)            // false     
+Boolean(-0)           // false
+Boolean(NaN)          // false
+Boolean(null)         // false
+Boolean(undefined)    // false
+Boolean(false)        // false
+=======
+The simplest case is boolean conversion: any non-primitive value is always
+coerced to true, no matter if an object or an array is empty or not.
+Boolean({})             // true
+Boolean([])             // true
+Boolean(Symbol())       // true
+!!Symbol()              // true
+Boolean(function() {})  // true
+
+Numeric conversion
+
+For an explicit conversion just apply the Number() function, same as you did with Boolean() and String() .
+
+Number('123')   // explicit
++'123'          // implicit
+123 != '456'    // implicit
+4 > '5'         // implicit
+5/null          // implicit
+true | 0        // implicit
+
+
+js operators-
+comparison operators (>, <, <=,>=)
+bitwise operators ( | & ^ ~)
+arithmetic operators (- + * / % ). Note, that binary+ does not trigger numeric conversion, when any operand is a string.
+unary + operator
+loose equality operator == (incl. !=).
+Note that == does not trigger numeric conversion when both operands are strings.
+
+unary opertaors-
+https://scotch.io/tutorials/javascript-unary-operators-simple-and-useful
+==
+Objects are converted to primitives via the internal [[ToPrimitive]] method, which is responsible for both numeric and string conversion.
+
+Here is a pseudo implementation of [[ToPrimitive]] method:
+
+[[ToPrimitive]] is passed with an input value and preferred type of conversion: Number or String. preferredType is optional.
+
+Both numeric and string conversion make use of two methods of the input object: valueOf and toString . Both methods are declared on Object.prototype and thus available for any derived types, such as Date, Array, etc.
+
+In general the algorithm is as follows:
+
+    If input is already a primitive, do nothing and return it.
+
+2. Call input.toString(), if the result is primitive, return it.
+
+3. Call input.valueOf(), if the result is primitive, return it.
+
+4. If neither input.toString() nor input.valueOf() yields primitive, throw TypeError.
+
+Numeric conversion first calls valueOf (3) with a fallback to toString (2). String conversion does the opposite: toString (2) followed by valueOf (3).
+
+Most built-in types do not have valueOf, or have valueOf returning this object itself, so it’s ignored because it’s not a primitive. That’s why numeric and string conversion might work the same — both end up calling toString().
+
+Different operators can trigger either numeric or string conversion with a help of preferredType parameter. But there are two exceptions: loose equality == and binary + operators trigger default conversion modes (preferredType is not specified, or equals to default). In this case, most built-in types assume numeric conversion as a default, except Date that does string conversion.
+==
+unary operator-
+A unary operator is one that takes a single operand/argument and performs an operation.
+A unary operation is an operation with only one operand. This operand comes either before or after the operator. Unary operators are more efficient than standard JavaScript function calls. Additionally, unary operators can not be overridden, therefore their functionality is guaranteed.
+Operator	Explanation
+
+Unary plus (+)	Tries to convert the operand into a number
+
+Unary negation (-) *	Tries to convert the operand into a number and negates after
+Logical Not (!)	Converts to boolean value then negates it
+Increment (++)	Adds one to its operand
+Postfix : - meaning the operator comes after the operand(y++). This returns the value before incrementing.
+Prefix: - the operator comes before the operand (++y). Using it as a prefix, returns the value after incrementing.
+
+Decrement (--)	Decrements by one from its operand
+Bitwise not (~)	Inverts all the bits in the operand and returns a number
+typeof	Returns a string which is the type of the operand
+delete	Deletes specific index of an array or specific property of an object
+void	Discards a return value of an expression. *
+
 #diff betwn promises and callbacks
 The main difference between callbacks and promises is that with callbacks you tell the executing function what to do when the asynchronous task completes, whereas with promises the executing function returns a special object to you (the promise) and then you tell the promise what to do when the asynchronous task completes.
 
