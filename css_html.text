@@ -70,6 +70,13 @@ HTML 5- <!DOCTYPE html>
 HTML 4.01 Strict
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
+What is a DTD?
+A DTD is a Document Type Definition.
+A document type definition (DTD) is a set of markup declarations that define a document type for a SGML-family markup language (GML, SGML, XML, HTML).
+this is for xml for html we use <!DOCTYPE>
+A DTD defines the structure and the legal elements and attributes of an XML document.
+If the DTD is declared inside the XML file, it must be wrapped inside the <!DOCTYPE> definition:
+If the DTD is declared in an external file, the <!DOCTYPE> definition must contain a reference to the DTD file:
 
 3. Explain the three main ways to target elements.
 Now, in order to style certain elements on the page, you need to know how
@@ -257,7 +264,15 @@ body {
     }
 }
 
+==
+keyFrames--
+The @keyframes rule specifies the animation code.
 
+The animation is created by gradually changing from one set of CSS styles to another.
+
+During the animation, you can change the set of CSS styles many times.
+
+===
 14. How do you handle browser differences in your user base?
 In the past few years, browsers have come a long way. Modern browsers update automatically
  and provide pretty good feature coverage.

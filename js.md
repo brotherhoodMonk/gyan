@@ -12,7 +12,23 @@ if(Object.prototype.toString.call(arrayList) === '[object Array]') {
 }
 for modern browser
 Array.isArray(arrayList);
+==
 
+Object.freeze()
+The Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed. In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
+
+const obj = {
+  prop: 42
+};
+
+Object.freeze(obj);
+
+obj.prop = 33;
+// Throws an error in strict mode
+
+console.log(obj.prop);
+// expected output: 42
+==
 Q22: How would you check if a number is an integer?
  		 	Junior
 A very simply way to check if a number is a decimal or integer is to see if there is a remainder left when you divide by 1.
@@ -65,6 +81,19 @@ at the top of your file in node >= 0.10.7, but if you want your whole app to run
 
 node --use_strict
 ==
+transpilation in js
+
+Compiler: is an umbrella term to describe a program that takes source code written in one language and produce a (or many) output file in some other language. In practice we mostly use this term to describe a compiler such as gcc which takes in C code as input and produces a binary executable (machine code) as output.
+
+Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code file and convert it to another source code file in some other language or a different version of the same language. The ouput is generally understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
+
+Some examples of transpilers:
+
+Emscripten: Transpiles C/C++ to JavaScript
+Babel: Transpiles ES6+ code to ES5 (ES6 and ES5 are different versions or generations of the JavaScript language)
+===
+
+
 The Object.is() method determines whether two values are the same value.
 ==
 compare two objects
@@ -1070,3 +1099,11 @@ HTTP operates at application layer, while HTTPS operates at transport layer.
 No SSL certificates are required for HTTP, with HTTPS it is required that you have an SSL certificate and it is signed by a CA.
 HTTP doesn’t require domain validation, where as HTTPS requires at least domain validation and certain certificates even require legal document validation.
 No encryption in HTTP, with HTTPS the data is encrypted before sending.
+
+
+jsonp
+Say you're on domain example.com, and you want to make a request to domain example.net. To do so, you need to cross domain boundaries, a no-no in most of browserland.
+
+The one item that bypasses this limitation is <script> tags. When you use a script tag, the domain limitation is ignored, but under normal circumstances, you can't really do anything with the results, the script just gets evaluated.
+
+Enter JSONP. When you make your request to a server that is JSONP enabled, you pass a special parameter that tells the server a little bit about your page. That way, the server is able to nicely wrap up its response in a way that your page can handle.
