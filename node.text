@@ -25,15 +25,14 @@ The event loop is the term given to the process of the waiting for the msg queue
  ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
  to the call stack and executes it.
 
-
-
 To handle the asynchronous nature of program, Node.js uses external “Queue” called as message queue
 where it inserts the
 callback of asynchronous code rather than pushing it into call stack .
 
 Since that piece of code is not in stack, node runtime will not execute it immediately. Depending
 on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
-thread and execute it and as soon as thread processing is done and result is ready to process by
+thread and using the thread pool it  execute it and as soon as thread processing is done and
+ result is ready to process by
  node runtime,event loop checks “is the stack empty ?” If stack is empty and Queue has some data,
  event loop will take the top most one from it and push it inside of stack for processing.
 Task of event loop is to check is there any item present in Queue and if Stack empty then push
@@ -41,6 +40,9 @@ it on stack else wait for next tick ( Yes process.nextTick ).
 The increment that the event loop moves in is called a ‘tick’, and every time it
 ‘ticks’ it checks if the call stack is empty
 
+
+worker threads
+Workers (threads) are useful for performing CPU-intensive JavaScript operations. They will not help much with I/O-intensive work. Node.js’s built-in asynchronous I/O operations are more efficient than Workers can be.
 
 Web Workers
 
@@ -302,6 +304,7 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
   As a shell, a REPL environment allows users to access relevant features of an operating system
   in addition to providing access to programming capabilities.
 
+
   Q-19. List And Explain The Important REPL Commands?
   Answer.
 
@@ -373,7 +376,7 @@ theory behind Node.js design. In fact, more than the single thread mechanism, it
 and callbacks to handle a large no. of requests asynchronously.
 
 Moreover, Node.js has an optimized design which utilizes both JavaScript and C++ to guarantee maximum
- performance. JavaScript executes at the server-side by Google Chrome v8 engine. And the C++ lib UV
+ performance. JavaScript executes at the server-side by Google Chrome v8 engine. And the C++ libUV
  library takes care of the non-sequential I/O via background workers.
 
 To explain it practically, let’s assume there are 100s of requests lined up in Node.js queue. As per
@@ -691,6 +694,7 @@ expect(readFileStub).to.be.called;
 readFileStub.restore();
 
 What's a test pyramid? How can you implement it when talking about HTTP APIs?
+
 A test pyramid describes that when writings test cases there should be a lot more low-level unit
  tests than high level end-to-end tests.
 
@@ -775,17 +779,11 @@ LTS versions of Node.js are supported for at least 18 months and are indicated b
   demonstrated to not break existing applications.
 
   Q5: Why should you separate Express 'app' and 'server'?
-Topic: Node.js
-Difficulty: ⭐⭐⭐⭐⭐
-
 Keeping the API declaration separated from the network related configuration (port, protocol, etc)
  allows testing the API in-process, without performing network calls, with all the benefits that it
   brings to the table: fast testing execution and getting coverage metrics of the code. It also allows
   deploying the same API under flexible and different network conditions. Bonus: better separation of
   concerns and cleaner code.
-
-
-
 ===================
 
 Express js
@@ -1203,7 +1201,7 @@ This algorithm looks out for objects which are unreachable from the root which i
   which makes them eligible for garbage collection and later the memory is freed by removing those
    objects.
 
-   Dependency vs Dev Dependency
+   Dependency vs Dev Dependency & peerDependaancy?
 
    The difference between these two, is that devDependencies are modules which are only required
    during development,
@@ -1211,6 +1209,11 @@ This algorithm looks out for objects which are unreachable from the root which i
      npm install --save-dev, instead of just an npm install --save.
      Some good examples of when to install devDependencies would be Nodemon, Babel, ESLint,Gulp, and
      testing frameworks like Chai, Mocha, Enzyme,
+
+     peerdependancies -
+     in case u have dependancies which ur app required is of other version and the
+     same dependancy is required or used by another module but of diffrent versions
+     then we define peerDependancy.
 
 what is orm
    migrations
@@ -1374,3 +1377,53 @@ Remember the golden rule: always handle promise rejections.
 
 
 Try/catch is by default synchronous. That means that if an asynchronous function throws an error in a synchronous try/catch block, no error throws.
+
+
+v8 engine-
+In order to obtain speed, V8 translates JavaScript code into more efficient machine code instead of using an interpreter. It compiles JavaScript code into machine code at execution by implementing a JIT (Just-In-Time) compiler like a lot of modern JavaScript engines such as SpiderMonkey or Rhino (Mozilla) are doing. The main difference with V8 is that it doesn’t produce bytecode or any intermediate code.
+Instead of using a dictionary-like data structure for storing object properties and doing a dynamic lookup to resolve the property location (like most JavaScript engines do), V8 creates hidden classes, at runtime, in order to have an internal representation of the type system and to improve the property access time.
+V8 has two compilers!
+
+A “Full” Compiler that can generate good code for any JavaScript: good but not great JIT code. The goal of this compiler is to generate code quickly. To achieve its goal, it doesn’t do any type analysis and doesn’t know anything about types. Instead, it uses an Inline Caches or “IC” strategy to refine knowledge about types while the program runs. IC is very efficient and brings about 20 times speed improvment.
+
+An Optimizing Compiler that produces great code for most of the JavaScript language. It comes later and re-compiles hot functions. The optimizing compiler takes types from the Inline Cache and make decisions about how to optimize the code better. However, some language features are not supported yet like try/catch blocks for instance. (The workaround for try/catch blocks is to write the “non stable” code in a function and call the function in the try block)
+
+
+
+Code optimization: V8 also supports de-optimization: the optimizing compiler makes optimistic assumptions from the Inline Cache about the different types, de-optimization comes if these assumptions are invalid. For example, if a hidden class generated was not the one expected, V8 throws away the optimized code and comes back to the Full Compiler to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions after they are optimized.
+
+
+what us hidden classes & whats the advantage.
+
+https://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html
+
+Javascript is dynamically type language. while accessing the objects and its properties the v8
+engine doesnt follow the disctionary approach, i,e looking for the objects and prperties in the storage
+beacuse object properties can be created and destroyed at run time.
+
+for each object creation and for each property it creates the hidden class and set the offset
+of each property.
+if any property is added to the object the new hidden class is created with the incremental offset and
+old object hidden class is updated with the transition path to the new.
+
+v8 engine makes use of inline cashing while compiling the code.
+v8 eng stores the information about the type of object that is passed
+in the recent method calls and use that information to make assumption for the same
+type of objct that will be passed in the future.
+if v8 makes good assumption about the object it makes use of stored information from
+the previous lookup hidden classes.
+
+Whenever a method is called on a specific object, the V8 engine has to perform a lookup
+ to that objects hidden class to determine the offset for accessing a specific property.
+  After two successful calls of the same method to the same hidden class, V8 omits the hidden
+  class lookup and simply adds the offset of the property to the object pointer itself.
+   For all future calls of that method, the V8 engine assumes that the hidden class hasn’t
+    changed, and jumps directly into the memory address for a specific property using the
+     offsets stored from previous lookups; this greatly increases execution speed.
+
+ Event Loop executes the JavaScript callbacks registered for events, and is also responsible for fulfilling non-blocking asynchronous requests like network I/O.
+ What code runs on the Worker Pool?
+Node's Worker Pool is implemented in libuv (docs), which exposes a general task submission API.
+
+Node uses the Worker Pool to handle "expensive" tasks. This includes I/O for which an operating system does not provide a non-blocking version,
+as well as particularly CPU-intensive tasks.

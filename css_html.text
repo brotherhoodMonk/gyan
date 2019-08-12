@@ -16,6 +16,7 @@ respect left & right margins and padding, but not top & bottom
 cannot have a width and height set
 allow other elements to sit to their left and right.
 see very important side notes on this here.
+
 Block elements:
 
 respect all of those
@@ -95,7 +96,8 @@ Want to target a button only if it’s next to another button? The + character h
 
 4.
 HTML5 Semantic Elements
-Semantic HTML or semantic markup is HTML that introduces meaning to the web page rather than just presentation.
+Semantic HTML or semantic markup is HTML that introduces meaning to the web page rather than just
+presentation.
 Semantic HTML elements clearly describe it’s meaning in a human and machine readable way.
  Elements such as <header>,
 <footer> and <article> are all considered semantic because they accurately describe the
@@ -172,7 +174,8 @@ What that means is which rules override others simply by being more specific.
 The following list displays the order of specificity, from low to high:
 
 Type selectors (e.g. h1) and pseudo-elements (e.g. ::before)
-Class selectors (e.g. .nav-item), attributes selectors (e.g. [type="radio"]) and pseudo-classes (e.g. :hover)
+Class selectors (e.g. .nav-item), attributes selectors (e.g. [type="radio"]) and
+ pseudo-classes (e.g. :hover)
 ID selectors (e.g. #example)
 
 A tag references an HTML tag
@@ -385,7 +388,8 @@ We're also using the variable $property inside the parentheses so we can pass in
 
 
 10) What is semantic HTML?
-Semantic HTML is a coding style. It is the use of HTML markup to reinforce the semantics or meaning of the content.
+Semantic HTML is a coding style. It is the use of HTML markup to reinforce the semantics or
+meaning of the content.
 For example: In semantic HTML <b> </b> tag is not used for bold statement as well as <i> </i> tag is used for italic.
 Instead of these we use <strong></strong> and <em></em> tags.
 
@@ -434,8 +438,8 @@ CSS Float Web Layout More details...
 
 Z index:
 z-index
-Defines the order of the elements on the z-axis. It only works on positioned elements (anything apart from static).
-
+Defines the order of the elements on the z-axis.
+It only works on positioned elements (anything apart from static).
 The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
 Only work with the position prperty.
 The z-index property is used to displace elements on the z axis i.e in or out of the screen.
