@@ -23,3 +23,29 @@ how do u connect mysql/postgres to node
 node repo structure
 angular version 6
 microservicess
+
+logging
+metric support
+partial request -put
+throw error vs throw new error
+soap vs rest
+diff between res.send and res.json
+various statusCode
+nosql vs mysql
+
+'500': 'Internal Server Error',
+ '501': 'Not Implemented',
+ '502': 'Bad Gateway',
+ '503': 'Service Unavailable',
+ '504': 'Gateway Time-out',
+ '505': 'HTTP Version Not Supported',
+ 400 :
+ 401 : unathorized
+ 402 : payment Required
+ 403 : forbidden
+ 404 : not found
+ 405 : method not allowed
+
+ 200 : ok
+ 201 : created
+ 202 : accepted

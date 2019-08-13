@@ -1183,16 +1183,23 @@ app.get('/article/:id', function(req , res){
 In above example: id is a parameters, which can be different for different calls.
 
 Q.7) What is middleware in Express Js?
-"A function that is invoked by the Express routing layer before the
-final request handler."
+
+Middleware functions are functions that have access to the request object (req),
+the response object (res), and the next middleware function in the application’s
+request-response cycle. The next middleware function is commonly denoted by a variable
+ named next.
+
+ As name suggests it comes in middle of something and that is request and response cycle
+Middleware has access to request and response object
+Middleware has access to next function of request-response life cycle.
+
 Middleware functions can perform the following tasks:
 Execute any code.
 Make changes to the request and the response objects.
 End the request-response cycle.
-Call the next middleware function in the stack.
-If the current middleware function does not end the request-response cycle,+
- it must call next() to pass control to the next middleware function. Otherwise,
- the request will be left hanging.
+Call the next middleware in the stack.
+
+If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
 
 An Express application can use the following types of middleware:
 Application-level middleware
