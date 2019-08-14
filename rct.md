@@ -106,6 +106,21 @@ should not be accessed from child components
 pass it down with props instead
 
 ============
+virtual DOM
+
+The virtual DOM is an in-memory representation of the real DOM.  By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have changed are redrawn. Without the virtual DOM, every element is redrawn regardless of whether or not it has changed. This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
+
+What is the Shadow DOM?
+The shadow DOM is a way of encapsulating the implementation of web components. Using the shadow DOM, you can hide the implementation details of a web component from the regular DOM tree. A popular example is the HTML5 slider input. While the regular DOM recognizes this as a simple <input/> tag, there is underlying HTML and CSS that make up the slide feature. This sub-tree of DOM nodes is hidden from the main DOM to encapsulate the implementation of the HTML5 slider. Additionally, the CSS properties for the slider are isolated from the rest of the DOM. This provides an isolated scope that prevents the component's styles from overriding other CSS properties defined elsewhere.
+
+The Difference?
+While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated scope for web components.
+====
+lifting-state-up???
+====
+syntheticEvents???
+==
+
 Most of your components should simply take some data from props and render it.
  However, sometimes you need to respond to user input,
  a server request or the passage of time. For this you use state.
@@ -174,8 +189,23 @@ logic should move downstream into as many Stateless Components as possible.
 Lifecycle-
 Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
 Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
-Updating: Updating is the stage when the state of a component is updated and the application is repainted.
+constructor()
+componentWillMount()
+render()
+componentDidMount()
+
+Updating: Updating is the stage when the state of a component is updated and the application is
+ repainted.
+ shouldComponentUpdate
+componentWillUpdate
+render
+componentDidUpdate
+
 Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
+componentWillUnmount(
+  componentDidCatch()
+
+  ====
 
 Q12. What is PureComponent? When to use PureComponent over Component?
 PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us. When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
@@ -215,6 +245,315 @@ class NameForm extends React.Component {
     );
   }
 }
+
+===
+How would you write an inline style in React?
+
+Add to PDF/md 	  		  	Entry
+
+For example:
+
+<div style={{ height: 10 }}>
+
+
+===
+What is the use of refs?
+
+Add to PDF/md 	  		  	Entry
+
+The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when we need direct access to DOM element or an instance of a component.
+
+===
+What is JEST?
+
+Add to PDF/md 	  		  	Entry
+
+Jest is a JavaScript unit testing framework made by Facebook based on Jasmine and provides automated mock creation and a jsdom environment. It's often used for testing React components.
+
+==
+When rendering a list what is a key and what is it's purpose?
+
+Add to PDF/md 	  		  	Junior
+
+Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
+
+render () {
+  return (
+    <ul>
+      {this.state.todoItems.map(({task, uid}) => {
+        return <li key={uid}>{task}</li>
+      })}
+    </ul>
+  )
+}
+
+Most often you would use IDs from your data as keys. When you don't have stable IDs for rendered items, you may use the item index as a key as a last resort. It is not recommend to use indexes for keys if the items can reorder, as that would be slow.
+======
+Q31: How do you prevent the default behavior in an event callback in React?
+
+Add to PDF/md 	  		  	Junior
+
+You call e.preventDefault(); on the event e passed into the callback.
+=====
+Q32: How would you prevent a component from rendering in React? 	
+           Junior
+
+Return null from the render method.
+=====
+flux
+Flux is an architecture that Facebook uses internally when working with React. It is not a framework or a library. It is simply a new kind of architecture that complements React and the concept of Unidirectional Data Flow.
+
+Actions - Helper methods that facilitate passing data to the Dispatcher
+Dispatcher - Receives actions and broadcasts payloads to registered callbacks
+Stores - Containers for application state & logic that have callbacks registered to the dispatcher
+Controller Views - React Components that grab the state from Stores and pass it down via props to child components.
+==
+Q46: How to create refs?
+
+Add to PDF/md 	  		  	Junior
+
+Refs are created using React.createRef() method and attached to React elements via the ref attribute. In order to use refs throughout the component, just assign the ref to the instance property with in constructor.
+
+class MyComponent extends React.Component {
+ constructor(props) {
+   super(props);
+   this.myRef = React.createRef();
+ }
+ render() {
+   return <div ref={this.myRef} />;
+ }
+}
+
+And:
+
+class UserForm extends Component {
+ handleSubmit = () => {
+   console.log("Input Value is: ", this.input.value)
+ }
+ render () {
+   return (
+     <form onSubmit={this.handleSubmit}>
+       <input
+         type='text'
+         ref={(input) => this.input = input} /> // Access DOM input in handle submit
+       <button type='submit'>Submit</button>
+     </form>
+   )
+ }
+}
+
+We can also use it in functional components with the help of closures.
+===
+What is the purpose of using super constructor with props argument?
+
+Add to PDF/md 	  		  	Junior
+
+A child class constructor cannot make use of this reference until super() method has been called. The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super() call is to access this.props in your child constructors.
+
+
+The above code snippets reveals that this.props behavior is different only with in the constructor. It would be same outside the constructor.
+
+Passing props:
+
+class MyComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(this.props);  // Prints { name: 'sudheer',age: 30 }
+    }
+}
+
+Not passing props:
+
+class MyComponent extends React.Component {
+    constructor(props) {
+        super();
+        console.log(this.props); // Prints undefined
+        // But Props parameter is still available
+        console.log(props); // Prints { name: 'sudheer',age: 30 }
+    }
+
+    render() {
+        // No difference outside constructor
+        console.log(this.props) // Prints { name: 'sudheer',age: 30 }
+    }
+}
+
+===
+What is reconciliation?
+
+Add to PDF/md 	  		  	Junior
+
+When a component’s props or state change, React decides whether an actual DOM update is necessary by comparing the newly returned element with the previously rendered one. When they are not equal, React will update the DOM. This process is called reconciliation.
+
+===
+propTypes
+
+but even if you don’t use those, React has some built-in typechecking abilities. To run typechecking on the props for a component, you can assign the special propTypes property:
+
+Default Prop Values
+You can define default values for your props by assigning to the special defaultProps property:
+
+import PropTypes from 'prop-types';
+
+class Greeting extends React.Component {
+  render() {
+    return (
+      <h1>Hello, {this.props.name}</h1>
+    );
+  }
+}
+
+Greeting.propTypes = {
+  name: PropTypes.string
+};
+
+===
+ReactDOM
+The react-dom package provides DOM-specific methods that can be used at the top level of your app and as an escape hatch to get outside of the React model if you need to. Most of your components should not need to use this module.
+
+render()
+hydrate()
+unmountComponentAtNode()
+findDOMNode()
+createPortal()
+
+render()
+ReactDOM.render(element, container[, callback])
+Render a React element into the DOM in the supplied container and return a reference to the component (or returns null for stateless components).
+
+If the React element was previously rendered into container, this will perform an update on it and only mutate the DOM as necessary to reflect the latest React element.
+===
+
+What are fragments?
+
+Add to PDF/md 	  		  	Junior
+
+It's common pattern in React which is used for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+
+render() {
+  return (
+    <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+  );
+}
+
+There is also a shorter syntax which is not supported in many tools
+
+render() {
+    return (
+      <>
+         <ChildA />
+         <ChildB />
+         <ChildC />
+      </>
+    );
+  }
+
+====
+What are portals in ReactJS?
+
+           Junior
+
+Portal is a recommended way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+
+ReactDOM.createPortal(child, container);
+
+The first argument (child) is any renderable React child, such as an element, string, or fragment. The second argument (container) is a DOM element.
+
+===
+Q56: What are the limitations of ReactJS?
+
+Add to PDF/md 	  		  	Junior
+
+Below are the list of limitations:
+
+   React is just a view library, not a full-blown framework
+   There is a learning curve for beginners who are new to web development.
+   Integrating React.js into a traditional MVC framework requires some additional configuration
+   The code complexity increases with inline templating and JSX.
+   Too many smaller components leading to over-engineering or boilerplate
+
+=====
+Handling error in React
+Introducing Error Boundaries
+A JavaScript error in a part of the UI shouldn’t break the whole app. To solve this problem for React users, React 16 introduces a new concept of an “error boundary”.
+
+Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+
+A class component becomes an error boundary if it defines a new lifecycle method called componentDidCatch(error, info):
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    // Display fallback UI
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+    logErrorToMyService(error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+Then you can use it as a regular component:
+
+<ErrorBoundary>
+  <MyWidget />
+</ErrorBoundary>
+
+=====
+flow
+Static Type Checking
+Static type checkers like Flow and TypeScript identify certain types of problems before you even run your code. They can also improve developer workflow by adding features like auto-completion. For this reason, we recommend using Flow or TypeScript instead of PropTypes for larger code bases.
+
+Flow is a static type checker for your JavaScript code. It is developed at Facebook and is often used with React. It lets you annotate the variables, functions, and React components with a special type syntax, and catch mistakes early. You can read an introduction to Flow to learn its basics.
+
+To use Flow, you need to:
+
+Add Flow to your project as a dependency.
+Ensure that Flow syntax is stripped from the compiled code.
+Add type annotations and run Flow to check them.
+We will explain these steps below in detail.
+====
+60: What is the difference between component and container in react Redux?
+
+Add to PDF/md 	  		  	Junior
+
+Component is part of the React API. A Component is a class or function that describes part of a React UI. Container is an informal term for a React component that is connected to a redux store. Containers receive Redux state updates and dispatch actions, and they usually don't render DOM elements; they delegate rendering to presentational child components.
+===
+How do you tell React to build in Production mode and what will that do?
+https://reactjs.org/docs/optimizing-performance.html
+
+When you want to build your app in production mode, you should use webpack production shortcut. Like this:
+
+webpack -p
+===
+Normally, when we want to update our component we just call setState with a new value by passing in an object to the setState function: this.setState({someField:someValue})
+But, often there is a need to update our component’s state using the current state of the component. Directly accessing this.state to update our component is not a reliable way to update our component’s next state. From the React documentation:
+
+Because this.props and this.state may be updated asynchronously, you should not rely on their values for calculating the next state.
+
+submit(){
+   this.setState(function(prevState, props){
+      return {showForm: !prevState.showForm}
+   });
+}
+Passing in a function into setState instead of an object will give you a reliable value for your component’s state and props.
+
+=====
+
+
 
 18. What is React.cloneElement? And the difference with this.props.children?
 React.cloneElement clone and return a new React element using using the passed element as the starting point. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.

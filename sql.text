@@ -25,6 +25,74 @@ FULL JOIN: FULL JOIN creates the result-set by combining result of both LEFT JOI
  the rows from both the tables. The rows for which there is no matching, the result-set will contain NULL values.
  Syntax:
 
+===
+index=
+
+An index is a schema object.
+It is used by the server to speed up the retrieval of rows by using a pointer.
+It can reduce disk I/O(input/output) by using a rapid path access method to locate data quickly.
+ An index helps to speed up select queries and where clauses, but it slows down data input,
+  with the update and the insert statements.
+
+  CREATE INDEX index
+ ON TABLE column;
+
+ 1. Clustered –
+Clustered index is the type of indexing that established a physical shorting order of rows.
+Suppose you have a table Student_info which contains ROLL_NO as a primary key than
+Clustered index which is self created on that primary key will short the Student_info
+ table as per ROLL_NO. Clustered index is like Dictionary, in the dictionary shorting
+  order is alphabetical there is no separate index page.
+
+  2. Non-clustered:
+The Non-Clustered index is an index structure separate from the data stored in a
+table that reorders one or more selected columns. The non-clustered index is
+created to improve the performance of frequently used queries not covered by
+ clustered index. It’s like a textbook, the index page is created separately
+ . at the beginning of that book.
+==
+SQL Server Stored Procedures
+A SQL Server stored procedure groups one or more Transact-SQL statements into a
+ logical unit and is stored as an object in the Database Server. When a stored
+  procedure is called at the first time, SQL Server creates an execution plan
+  and stores it in the plan cache. In the subsequent executions of the stored
+  procedure, SQL Server reuses the plan so that the stored procedure can execute
+  very fast with reliable performance.
+
+  CREATE PROCEDURE procedure_name
+AS
+sql_statement
+GO;
+EXEC procedure_name;
+
+advantages-
+Maintainability
+Because scripts are in one location, updates and tracking of dependencies based on schema changes becomes easier
+Testing
+Can be tested independent of the application
+Isolation of Business Rules
+Having Stored Procedures in one location means that there’s no confusion of having business rules spread over potentially disparate code files in the application
+Speed / Optimization
+Stored procedures are cached on the server
+Execution plans for the process are easily reviewable without having to run the application
+Utilization of Set-based Processing
+The power of SQL is its ability to quickly and efficiently perform set-based processing on large amounts of data; the coding equivalent is usually iterative looping, which is generally much slower
+Security
+Limit direct access to tables via defined roles in the database
+Provide an “interface” to the underlying data structure so that all implementation and even the data itself is shielded.
+Securing just the data and the code that accesses it is easier than applying that security within the application code itself
+===
+
+Triggers
+A SQL trigger is a set of  SQL statements stored in the database catalog.
+A SQL trigger is executed or fired whenever an event associated with a table occurs e.g.,
+  insert, update or delete.
+
+A SQL trigger is a special type of stored procedure. It is special because it is not
+called directly like a stored procedure. The main difference between a trigger and a
+stored procedure is that a trigger is called automatically when a data modification
+event is made against a table whereas a stored procedure must be called explicitly.
+===
 
 RelationShips
 Relationships are defined on the basis of matching key columns. In SQL server, these relationships are defined using Primary Key-Foreign Key
@@ -86,3 +154,211 @@ An index can be used to efficiently find all rows matching some column in your q
  and check every row to see if it matches, which may be a slow operation on big tables
  .
 select salary from employee order by salary desc limit n-1,1;
+
+
+Difference between SQL and NoSQL
+
+SQL	NOSQL
+RELATIONAL DATABASE MANAGEMENT SYSTEM (RDBMS)	== Non-relational or distributed database system.
+These databases have fixed or static or predefined schema ==	They have have dynamic schema
+These databases are not suited for hierarchical data storage.==	These databases are best suited for hierarchical data storage.
+These databases are best suited for complex queries	== These databases are not so good for complex queries
+Verticlly Scalable ==	Horizontally scalable
+
+The Main Differences:
+
+Type –
+SQL databases are primarily called as Relational Databases (RDBMS); whereas NoSQL database are primarily called as non-relational or distributed database.
+Language –
+SQL databases defines and manipulates data based structured query language (SQL). Seeing from a side this language is extremely powerful. SQL is one of the most versatile and widely-used options available which makes it a safe choice especially for great complex queries. But from other side it can be restrictive. SQL requires you to use predefined schemas to determine the structure of your data before you work with it. Also all of your data must follow the same structure. This can require significant up-front preparation which means that a change in the structure would be both difficult and disruptive to your whole system.
+
+A NoSQL database has dynamic schema for unstructured data. Data is stored in many ways which means it can be document-oriented, column-oriented, graph-based or organized as a KeyValue store. This flexibility means that documents can be created without having defined structure first. Also each document can have its own unique structure. The syntax varies from database to database, and you can add fields as you go.
+The Scalability –
+In almost all situations SQL databases are vertically scalable. This means that you can increase the load on a single server by increasing things like RAM, CPU or SSD. But on the other hand NoSQL databases are horizontally scalable. This means that you handle more traffic by sharding, or adding more servers in your NoSQL database. It is similar to adding more floors to the same building versus adding more buildings to the neighborhood. Thus NoSQL can ultimately become larger and more powerful, making these databases the preferred choice for large or ever-changing data sets.
+The Structure –
+SQL databases are table-based on the other hand NoSQL databases are either key-value pairs, document-based, graph databases or wide-column stores. This makes relational SQL databases a better option for applications that require multi-row transactions such as an accounting system or for legacy systems that were built for a relational structure.
+Property followed –
+SQL databases follow ACID properties (Atomicity, Consistency, Isolation and Durability) whereas the NoSQL database follows the Brewers CAP theorem (Consistency, Availability and Partition tolerance).
+Support –
+Great support is available for all SQL database from their vendors. Also a lot of independent consultations are there who can help you with SQL database for a very large scale deployments but for some NoSQL database you still have to rely on community support and only limited outside experts are available for setting up and deploying your large scale NoSQL deployments.
+
+Some examples of SQL databases include PostgreSQL, MySQL, Oracle and Microsoft SQL Server. NoSQL database examples include Redis, RavenDB Cassandra, MongoDB, BigTable, HBase, Neo4j and CouchDB.
+=====
+temp table=
+A temporary table in SQL Server, as the name suggests, is a database table that exists temporarily on
+ the database server. A temporary table stores a subset of data from a normal table for a certain
+ period of time.
+
+Temporary tables are particularly useful when you have a large number of records in a table and
+you repeatedly need to interact with a small subset of those records. In such cases instead of
+ filtering the data again and again to fetch the subset, you can filter the data once and store
+ it in a temporary table. You can then execute your queries on that temporary table. Temporary
+  tables are stored inside “tempdb” which is a system database. Let’s take a look at how you can
+   use a temporary data in a simple scenario.
+
+   SELECT name, age, gender
+INTO #MaleStudents
+FROM student
+WHERE gender = 'Male'
+
+=====
+SQL | Views
+Views in SQL are kind of virtual tables. A view also has rows and columns as they are
+in a real table in the database. We can create a view by selecting fields from one or
+more tables present in the database. A View can either have all the rows of a table or
+ specific rows based on certain condition.
+
+
+ CREATE VIEW view_name AS
+ SELECT column1, column2.....
+ FROM table_name
+ WHERE condition;
+
+ There are certain conditions needed to be satisfied to update a view. If any one of
+ these conditions is not met, then we will not be allowed to update the view.
+
+ The SELECT statement which is used to create the view should not include GROUP BY
+ clause or ORDER BY clause.
+ The SELECT statement should not have the DISTINCT keyword.
+ The View should have all NOT NULL values.
+ The view should not be created using nested queries or complex queries.
+ The view should be created from a single table. If the view is created using multiple
+ tables then we will not be allowed to update the view.
+
+ Question: Can you update the data in a SQL VIEW?
+
+ Answer: A VIEW in SQL is created by joining one or more tables. When you update
+  record(s) in a view, it updates the records in the underlying tables that make up the SQL View.
+
+ So, yes, you can update the data in a SQL VIEW providing you have the proper
+  privileges to the underlying SQL tables.
+=====
+Normalization
+Normalization is the process of organizing the data in the database.
+Normalization is used to minimize the redundancy and dependancy from a relation or set of relations.
+ It is also used to eliminate the undesirable characteristics like Insertion, Update
+ and Deletion Anomalies.
+Normalization divides the larger table into the smaller table and links
+them using relationship.
+The normal form is used to reduce redundancy from the database table.
+1NF	A relation is in 1NF if it contains an atomic value.
+2NF	A relation will be in 2NF if it is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+3NF	A relation will be in 3NF if it is in 2NF and no transition dependency exists.
+4NF	A relation will be in 4NF if it is in Boyce Codd normal form and has no multi-valued dependency.
+5NF	A relation is in 5NF if it is in 4NF and not contains any join dependency and joining should be lossless.
+==
+ACID properties
+Atomic – In a transaction with two or move pieces of information, either all the information is
+committed to save, or none is saved.  Essentially, an “all or nothing” rule is followed.
+Consistent – The data saved can’t violate any of the database’s integrity.
+Interrupted changes are rolled back to ensure the database is placed in a state prior to the change.
+Isolation – The transaction in question is not affected by any other transactions
+taking place.  This avoids “mid-air collisions.”
+Durable – Once the transaction is committed, any failure or system restart,
+ returns the data in a correct state.  Stated another way, once a transaction is
+  committed, it will remain so, regardless of a subsequent system failure.
+===
+
+cursor
+In this chapter, we will discuss the cursors in PL/SQL. Oracle creates a memory area,
+ known as the context area, for processing an SQL statement, which contains all the information needed for processing the statement; for example, the number of rows processed, etc.
+
+A cursor is a pointer to this context area. PL/SQL controls the context area through a cursor. A cursor holds the rows (one or more) returned by a SQL statement. The set of rows the cursor holds is referred to as the active set.
+
+You can name a cursor so that it could be referred to in a program to fetch and process the rows returned by the SQL statement, one at a time. There are two types of cursors −
+===
+finding duplicate values
+SELECT username, email, COUNT(*)
+FROM users
+GROUP BY username, email
+HAVING COUNT(*) > 1
+======
+if then else statements
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+END;
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END AS QuantityText
+FROM OrderDetails;
+====
+
+
+What is DEFAULT?
+
+Add to PDF/md 	  		  	Junior
+
+Default allows to add values to the column if the value of that column is not set. Default can
+be defined on number and datetime fields. They cannot be defined on timestamp and IDENTITY columns.
+===
+Diff- UNION AND Join
+UNION-
+Definition of UNION
+UNION is a set operation in SQL. UNON combines the result of two queries. The result of
+UNION includes the tuples from both the relations present in the query. The conditions
+that must be satisfied take the UNION of two relations are:
+
+The two relations must have the same number of attributes.
+The domains of the corresponding attribute must be same.
+There are two types of UNION that are UNION and UNION ALL.
+ The result obtained using UNION do not include duplicates.
+ On the other hand, the result obtained using UNION ALL retains duplicate.
+
+ Definition of JOIN
+JOIN clause in SQL combines the tuples from two relations or tables resulting in a
+longer tuple size. The resultant tuple contains attributes from both the relation.
+ Attributes are combined based on the common attributes between them. The different
+ types of JOIN in SQL are INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN.
+==
+Delete and Truncate and Drop
+1. truncate
+Removes All rows from a table.
+Does not require a WHERE clause, so you can not filter rows while Truncating.
+5. No Triggers are fired on this operation because it does not operate on individual rows.
+This command will temporarily delete the data from database.
+Before commit operation ,if we roll back we will get the data.
+
+2.delete 1. Removes Some or All rows from a table based on where .
+Delete is DML, Truncate is DDL
+But in reality both DELETE and TRUNCATE operations can be COMMITTED
+ AND ROLL-BACKED if provided inside a Transaction.
+ This command will permanently delete the data from database.
+If we roll back also we won’t get the data.
+Delete does not recover space, Truncate recovers space
+Delete can be used to remove all rows or only a subset of rows. Truncate removes all rows.
+Delete can be granted on a table to another user or role, but truncate cannot be without
+using a DROP ANY TABLE grant.
+
+
+Drop-
+DROP:
+
+This command will completely destroy table from database.
+command: sql>drop table <table_name>
+====
+
+
+
+Q9: What is blocking?
+           Junior
+
+SQL Server blocking occurs when one connection holds a lock on a record and other connection tries to fetch the record or update the record.
+
+====
+What’s the difference between a local temp table and a global temp table?
+
+Add to PDF/md 	  		  	Junior
+
+    Local tables are accessible to a current user connected to the server.
+    These tables disappear once the user has disconnected from the server.
+    Global temp tables, on the other hand, are available to all users regardless
+     of the connection. These tables stay active until all the global connections are closed.
+
+=====

@@ -223,6 +223,133 @@ The EventEmitter calls all listeners synchronously in the order in which they we
 If we want to break that flow and switch to asynchronous mode then we can use setImmediate()
 or process.nextTick() methods:
 ==
+request status code
+'500': 'Internal Server Error',
+ '501': 'Not Implemented',
+ '502': 'Bad Gateway',
+ '503': 'Service Unavailable',
+ '504': 'Gateway Time-out',
+ '505': 'HTTP Version Not Supported',
+
+ 400 :
+ 401 : unathorized
+ 403 : forbidden
+ 404 : not found
+ 405 : method not allowed
+
+ 200 : ok
+ 201 : created
+ 202 : accepted
+ ====
+
+ Overall it is a broad term that tells us how the communication between two different set of devices or applications held over the World Wide Web (WWW).
+
+This communication system can be categorized into two types, namely Simple Object Access Protocol or SOAP, and Representational State Transfer or REST.
+
+Quite often both are considered to be the terms with same meanings but the how both works and what tools both use for communication purposes creates the fine line between two. Before highlighting the differences between two, it merits to discuss what both actually are.
+
+What Is a REST API?
+REST is basically an architectural style of the web services that work as a channel of communication between different computers or systems on the internet. The term REST API is something else.
+
+Those application programming interfaces that are backed by the architectural style of REST architectural system are called REST APIs. REST API compliant web services, database systems, and computer systems permit requesting systems to get robust access and redefine representations of web based resources by deploying a predefined set of stateless protocols and standard operations.
+
+By these protocols and operations and redeploying the manageable and updatable components without causing the effect on the system, REST API systems deliver fast performance, reliability, and more progression.
+
+What Is a SOAP API?
+SOAP is a standard communication protocol system that permits processes using different operating systems like Linux and Windows to communicate via HTTP and its XML. SOAP based APIs are designed to create, recover, update and delete records like accounts, passwords, leads, and custom objects.
+
+These offers over twenty different kinds of calls that make it easy for the API developers to maintain their accounts, perform accurate searches and much more. These can then be used with all those languages that support web services.
+
+SOAP APIs take the advantages of making web based protocols such as HTTP and its XML that are already operating the all operating systems that are why its developers can easily manipulate web services and get responses without caring about language and platforms at all.
+
+Differences:
+SOAP
+
+REST
+SOAP stands for Simple Object Access Protocol
+REST stands for Representational State Transfer
+
+SOAP is a protocol. SOAP was designed with a specification.
+ It includes a WSDL file which has
+ the required information on what the web service does in
+  addition to the location of the web service.
+-REST is an Architectural style in which a web service
+ can only be treated as a RESTful service if it follows the constraints of being
+Client Server
+Stateless
+Cacheable
+Layered System
+Uniform Interface
+
+SOAP cannot make use of REST since SOAP is a protocol and REST is an architectural pattern.
+-REST can make use of SOAP as the underlying protocol for web services,
+because in the end it is just an architectural pattern.
+
+SOAP uses service interfaces to expose its functionality to client applications.
+ In SOAP, the WSDL file provides the client with the necessary information which
+  can be used to understand what services the web service can offer.
+- REST use Uniform Service locators to access to the components on the
+hardware device. For example, if there is an object which represents
+the data of an employee hosted on a URL as http://demo.guru99 , the below
+ are some of URI that can exist to access them
+http://demo.guru99.com/Employee
+
+http://demo.guru99.com/Employee/1
+
+SOAP requires more bandwidth for its usage.
+Since SOAP Messages contain a lot of information inside of it,
+the amount of data transfer using SOAP is generally a lot.
+-REST does not need much bandwidth when requests are sent to the server.
+ REST messages mostly just consist of JSON messages. Below is an example of
+ a JSON message passed to a web server. You can see that the size of the
+ message is comparatively smaller to SOAP.
+{"city":"Mumbai","state":"Maharastra"}
+
+SOAP can only work with XML format. As seen from SOAP messages,
+all data passed is in XML format.
+REST permits different data format such as Plain text, HTML, XML, JSON, etc.
+But the most preferred format for transferring data is JSON.
+========
+Blocking vs non Blocking
+Blocking
+Blocking is when the execution of additional JavaScript in the Node.js
+process must wait until a non-JavaScript operation completes.
+This happens because the event loop is unable to continue running JavaScript
+while a blocking operation is occurring.
+
+Blocking methods execute synchronously and non-blocking methods execute
+asynchronously.
+
+A process is labeled blocked if it is not ready for execution but is instead
+ waiting for an I/O event to take place. I/O events indicate progress or
+ completion in an I/O operation, for example "resource available" or
+ "write complete".
+
+ Blocking call waits for the I/O operation to complete before returning.
+  Its results are returned synchronously. Nothing else in that process
+  takes place during the waiting. In contrast, non-blocking call returns
+  immediately without results and uses alternate means to check for completion.
+   Other processing can be done while waiting and the results are returned
+   asynchronously. Node.js libraries and core api provide non-blocking calls
+   that can be used to build performant applications. Such applications make
+    use of I/O waiting time to serve other requests.
+
+In Node.js, JavaScript that exhibits poor performance due to being CPU intensive
+ rather than waiting on a non-JavaScript operation, such as I/O, isn't
+ typically referred to as blocking. Synchronous methods in the Node.js
+  standard library that use libuv are the most commonly used blocking operations. Native modules may also have blocking methods.
+
+All of the I/O methods in the Node.js standard library provide asynchronous
+versions, which are non-blocking, and accept callback functions. Some methods
+also have blocking counterparts, which have names that end with Sync.
+
+
+=====
+how does node prevents blocking code??
+
+By providing callback function. Callback function gets called whenever corresponding event triggered.
+===
+
 What IDEs Can You Use For Node.Js Development?
 
 Cloud9
