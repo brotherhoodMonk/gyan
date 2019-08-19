@@ -1,11 +1,17 @@
 Cookies-
-A cookie contains specific information that is encrypted for security purposes. Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request. This stored cookie is sent to the HTTP server whenever access to a specific website is required.
-Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates. Cookies with an expiry date expire when that date is surpassed.
+A cookie contains specific information that is encrypted for security purposes.
+Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request.
+ This stored cookie is sent to the HTTP server whenever access to a specific website is required.
+
+Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates.
+
+ Cookies with an expiry date expire when that date is surpassed.
 The following are the types/variations of cookies:
+
 Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session.
  Persistent Cookies:
  Normally known as tracking cookies, these cookies have a specific time period before they expire.
-
+====
 to check the given array is array or not-
 if(Object.prototype.toString.call(arrayList) === '[object Array]') {
   console.log('Array!');
@@ -13,6 +19,11 @@ if(Object.prototype.toString.call(arrayList) === '[object Array]') {
 for modern browser
 Array.isArray(arrayList);
 ==
+
+DOM
+The W3C Document Object Model (DOM) is a platform and language-neutral interface that allows programs and scripts to dynamically access and update the content, structure, and style of a document."
+
+===
 
 Object.freeze()
 The Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed. In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
@@ -848,7 +859,8 @@ When to use find?
 When to use reduce?
 .reduce() when you want derive a single value from multiple elements in an array.
 
-Now lets talk about the difference between those methods First of all ,all of them can be used to check if the DOM is fully loaded and ready to be manipulated by your JavaScript code .
+Now lets talk about the difference between those methods First of all ,all of them can be used to
+check if the DOM is fully loaded and ready to be manipulated by your JavaScript code .
 
 Secondly , $(document).ready() and $(window).load() are jQuery methods and not pure JavaScript methods so to use them you need to include jQuery library .But window.onload is a pure JavaScript method that you can use without any external libraries
 
@@ -934,7 +946,8 @@ Gulp uses plugins to automate the task and these plugins can be installed and ma
 gulp-nodemon  gulp-eslint
 
 npm install --global gulp-cli
-Gulp and Node rely on plugins (packages) for the majority of their functionality. Node plugins can be installed with the following command line command:
+Gulp and Node rely on plugins (packages) for the majority of their functionality. Node plugins can be installed with the
+following command line command:
 
 npm install pluginName --save-dev
 
@@ -976,7 +989,25 @@ instanceof
 The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.
 
 
-Event bubbling and capturing
+Event bubbling and capturing and event delegation
+
+event delegation
+
+Event delegation is a technique for listening to events where you delegate a parent element as the listener for all of the events that happen inside it.
+
+I often use listening to all clicks in the document as an example, but it can be any element on the page.
+
+For example, if you wanted to detect any time any field changed in value inside a specific form, you could do this:
+var form = document.querySelector('#hogwarts-application');
+
+// Listen for changes to fields inside the form
+form.addEventListener('input', function (event) {
+
+	// Log the field that was changed
+	console.log(event.target);
+
+}, false);
+
 
 Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another element, and both elements have registered a handle for that event.
 

@@ -18,7 +18,6 @@ allow other elements to sit to their left and right.
 see very important side notes on this here.
 
 Block elements:
-
 respect all of those
 force a line break after the block element
 acquires full-width if width not defined
@@ -72,7 +71,8 @@ HTML 4.01 Strict
 
 What is a DTD?
 A DTD is a Document Type Definition.
-A document type definition (DTD) is a set of markup declarations that define a document type for a SGML-family markup language (GML, SGML, XML, HTML).
+A document type definition (DTD) is a set of markup declarations that define a document
+type for a SGML-family markup language (GML, SGML, XML, HTML).
 this is for xml for html we use <!DOCTYPE>
 A DTD defines the structure and the legal elements and attributes of an XML document.
 If the DTD is declared inside the XML file, it must be wrapped inside the <!DOCTYPE> definition:
@@ -83,18 +83,20 @@ Now, in order to style certain elements on the page, you need to know how
  to specify those elements. There are three main ways to target something:
 
 By tag, e.g. you can target the body or p or span
-By the class you’ve specified in your HTML. For example, if you have three list items with the class nav-item you can target them with .nav-item
-By the ID you’ve specified in your HTML. For example, if you have a link with the ID home-button you can target it with #home-button
-
-
+By the class you’ve specified in your HTML. For example, if you have three list
+items with the class nav-item you can target them with .nav-item
+By the ID you’ve specified in your HTML. For example, if you have a link with
+the ID home-button you can target it with #home-button
 
 How do you target something inside or around another element?
-Sometimes you need to target something that’s next to something else or target something only if it’s inside a particular container. Luckily, that’s easy!
+Sometimes you need to target something that’s next to something else or target
+something only if it’s inside a particular container. Luckily, that’s easy!
 
 If you’re wanting to style occurrences of a certain class inside another class, you can write the following:
 
 .nav .nav-item { ... }
-The above targets any .nav-item inside .nav. If you only want those that are immediately inside the .nav as opposed to any level deep, you can add the > character, like so:
+The above targets any .nav-item inside .nav. If you only want those that are
+immediately inside the .nav as opposed to any level deep, you can add the > character, like so:
 
 .nav > .nav-item { ... }
 Want to target a button only if it’s next to another button? The + character has got you covered:
@@ -143,7 +145,8 @@ span::first-letter { ... }
 
 6. What are pseudo classes and what are they used for?
 Pseudo classes are similar to pseudo elements, but instead of styling a part of an element,
-they apply styles when an element is in a certain state. For example, you could style a button differently based on whether
+they apply styles when an element is in a certain state.
+For example, you could style a button differently based on whether
 the user has their mouse pointer over it, or when they click the button.
 
 Another common use case is to style only certain occurrences of elements in a row.
@@ -165,7 +168,8 @@ seeing as a class is just one of the many
   their own ones. For example, input tags can have a type (text, number, radio, etc)
   and a tags can have href.
 
-You can target elements with particular attributes by using square brackets: [attribute="value"]. For example, you can target all input fields that are of type radio like so:
+You can target elements with particular attributes by using square brackets:
+[attribute="value"]. For example, you can target all input fields that are of type radio like so:
 
 input[type="radio"] {
     background-color: #eee;
@@ -239,7 +243,8 @@ Not all operating systems and browsers have the same fonts installed.
  Web safe fonts are fonts that are commonly pre-installed
  on many computer systems, such as Arial and Times New Roman.
  In case the browser or operating system doesn’t recognize the first
- font you set (e.g. Ubuntu), you should choose a web safe fallback font to display (e.g. Arial), followed by a generic font family
+ font you set (e.g. Ubuntu), you should choose a web safe fallback font
+ to display (e.g. Arial), followed by a generic font family
   (e.g. sans-serif). If your fallback font doesn’t display either,
   the browser can pick a generic font in the sans-serif family.
 
@@ -286,7 +291,8 @@ versions. These days it’s not uncommon to still support IE9, sometimes even IE
 
 This can severely limit the kind of styles you can use, though most can be approximated
 using fallback styles. The @supports query in CSS can be very useful to scan if the user’s
- current browser has a certain feature. If they do, you can apply those styles without worry. If not, you can have some fallback styles as a backup.
+ current browser has a certain feature. If they do, you can apply those styles
+ without worry. If not, you can have some fallback styles as a backup.
 
 
 15. Do you use any tools for browser support?
@@ -354,10 +360,13 @@ only a partial file and that it should not be generated into a CSS file.
 Sass partials are used with the @import directive.
 
 Nesting
-When writing HTML you've probably noticed that it has a clear nested and visual hierarchy. CSS, on the other hand, doesn't.
+When writing HTML you've probably noticed that it has a clear nested and visual hierarchy.
+CSS, on the other hand, doesn't.
 
-Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware
- that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
+Sass will let you nest your CSS selectors in a way that follows the same visual
+ hierarchy of your HTML. Be aware
+ that overly nested rules will result in over-qualified CSS that could prove hard
+ to maintain and is generally considered bad practice.
 
 https://sass-lang.com/guide
 
@@ -372,7 +381,8 @@ your button styles in a file called _buttons.scss or all your header-specific st
 This way you can also create separate stylesheets for separate areas of your website, where you might not need all styles. For example, if you have a web app, you probably don’t need to load all styles when people land on your homepage, when they haven’t even logged into your app yet. Simply create another file and import only those styles you need.
 
 19. What are variables used for?
-Variables are super useful for things like colors, fonts, font sizes, and certain dimensions, as you can be sure you’re
+Variables are super useful for things like colors, fonts, font sizes, and certain
+dimensions, as you can be sure you’re
 always using the same ones, not 4 different versions of roughly the same color.
 
 
@@ -401,20 +411,12 @@ We're also using the variable $property inside the parentheses so we can pass in
  After you create your mixin, you can then use it as a CSS declaration starting with @include followed by the name of the mixin.
 
 
-
-10) What is semantic HTML?
-Semantic HTML is a coding style. It is the use of HTML markup to reinforce the semantics or
-meaning of the content.
-For example: In semantic HTML <b> </b> tag is not used for bold statement as well as <i> </i> tag is used for italic.
-Instead of these we use <strong></strong> and <em></em> tags.
-
-
-
 4) How do you keep list elements straight in an HTML file?
 You can keep the list elements straight by using indents.
 
 18) Is it possible to change the color of the bullet?
-The color of the bullet is always the color of the first text of the list. So, if you want to change the color of the bullet, you must change the color of the text.
+The color of the bullet is always the color of the first text of the list. So, if you want to
+change the color of the bullet, you must change the color of the text.
 
 
 19) Explain the layout of HTML?
@@ -455,10 +457,12 @@ Z index:
 z-index
 Defines the order of the elements on the z-axis.
 It only works on positioned elements (anything apart from static).
-The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
+The z-index CSS property sets the z-order of a positioned element and its descendants or flex items.
+ Overlapping elements with a larger z-index cover those with a smaller one.
 Only work with the position prperty.
 The z-index property is used to displace elements on the z axis i.e in or out of the screen.
  It is used to define the order of elements if they overlap on each other.
+
 auto: The stack order is equal to that of the parent(default).
 number: The stack order depends in the number.
 initial: Sets the property to its default value.
@@ -478,8 +482,10 @@ Flexbox features properties that align and justifycontent along one axis or the 
 The main axis is defined by flex-direction, which has fourpossible values:rowrow-reversecolumncolumn-reverse
 
 CSS Grid vs Flexbox
-CSS Grid Layout is a two-dimensional system, meaning it can handle both columns and rows, unlike flexbox which is largely a one-dimensional system (either in a column or a row).
-A core difference between CSS Grid and Flexbox is that — CSS Grid’s approach is layout-first while Flexbox’ approach is content-first.
+CSS Grid Layout is a two-dimensional system, meaning it can handle both columns and rows,
+ unlike flexbox which is largely a one-dimensional system (either in a column or a row).
+A core difference between CSS Grid and Flexbox is that — CSS Grid’s approach is layout-first
+while Flexbox’ approach is content-first.
 If you are well aware of your content before making layout, then blindly opt for Flexbox and if not, opt for CSS Grid.
 Flexbox layout is most appropriate to the components of an application (as most of them are fundamentally linear),
  and small-scale layouts, while the Grid layout is intended for larger scale layouts which aren’t linear in their design.
@@ -598,43 +604,6 @@ img {
 opacity: 0.6;
 filter: alpha(opacity=60); /* For IE8 and earlier */}
 
-Q #24) Explain the concept of pseudo-elements in CSS.
-
-Answer: It is a feature of CSS which is used to style the given parts of an element.
-
-For Example, we can style the first letter or line of an HTML element.
-
-selector::pseudo-element {
-property:value;
-}
-
-
-#23) What is a CSS pseudo class?
-
-Answer: It is a class which is used to define a special state of an HTML element.
-
-This class can be used by styling an element when a user snooped over it and also
-it can style an HTML element when it gets the focus.
-
-selector:pseudo-class {
-property:value;
-}
-ex- :hover,:active, :focus- :checked, :disabled,
-:link
-
-
-Q #24) Explain the concept of pseudo-elements in CSS.
-
-Answer: It is a feature of CSS which is used to style the given parts of an element.
-
-For Example, we can style the first letter or line of an HTML element.
-
-selector::pseudo-element {
-property:value;
-}
-
-::before ::afer ::firs-letter ::first-line ::selection
-
 id & class
 Id is a kind of element which uniquely assigns a name to a particular element whereas class
 has an element with a certain set of properties which can be used for the complete block.
@@ -693,8 +662,6 @@ Example:
 }
 
 specificity-
-
-
 If there are two or more conflicting CSS rules that point to the same element, the browser
  follows some rules to determine which one is most specific and therefore wins out.
 
@@ -734,7 +701,8 @@ To work with CSS counters we will use the following properties:
     Explain the term Responsive web design.
 
 Answer: It is a method in which we design and develop a web page according to the user
-activities and conditions which are based on various components like the size of the screen, portability of the web page on different device etc.
+activities and conditions which are based on various components like the size of the screen,
+ portability of the web page on different device etc.
 
 Hence it is done by using different flexible layouts and grids
 
@@ -770,23 +738,20 @@ Q #6) What are the uses of embedded style sheet?
 
 Answer: Embedded style sheet gives us the privilege to define styles at one place in an HTML document.
 
-We can generate multiple classes using an embedded style sheet to use on multiple tag types of a web page and also there is no extra downloading required for importing the information.
+We can generate multiple classes using an embedded style sheet to use on multiple tag types of
+ a web page and also there is no extra downloading required for importing the information.
 
 
 Q #5) Why is the external style sheet useful?
 
-Answer: External style sheet is very useful as we write all the styling codes in a single file and it can be used anywhere by just referencing the link of that external style sheet file.
+exist in pure CSS, such as mixin, nesting selector, inheritance selector, and so on.
+ These features make the CSS
+ structure more readable and easier to mainta
+Answer: External style sheet is very useful as we write all the styling codes in a single file
+ and it can be used anywhere by just referencing the link of that external style sheet file.
 
-So if we do any changes in that external file, then the changes can also be observed on the webpage. So we can say that it is very useful and it makes your work easy while working on larger files.
-
-
-Q #4) Cite different types of CSS.
-
-Answer: There are three types of CSS as mentioned below.
-
-External – These are written in separate files.
-Internal – These are cited at the top of the web page code document.
-Inline – These are written right next to the text.
+So if we do any changes in that external file, then the changes can also be observed on the webpage.
+ So we can say that it is very useful and it makes your work easy while working on larger files.
 
 Q #3) Distinguish between CSS2 and CSS3.
 

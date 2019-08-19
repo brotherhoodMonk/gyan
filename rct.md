@@ -1,17 +1,93 @@
+props and state
+
+props-
+props are shorthand for properties.
+props allow us to pass custom data to the coomponent.
+Props enables us to create Stateless components which are dumb UI component.
+One of the most important features of props is that they can be passed by a parent component to its child components
+props are fixed throughout its lifecycle.
+
+state-
+ the State of a component is an object that holds some information that may change over the lifetime of the component.
+Components data will be stored in component's State.
+This state can be modified based on user action or other action using setState method.
+when a component state is changed React will re-render the component to the browser.
+
+props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function)
+
+
+
+differnce
+1. Props are immutable i.e. once set the props cannot be changed, state is mutable
+2. States can only be used in Class Components while Props don’t have this limitation.
+3. While Props are set by the parent component, State is generally updated by event handlers.
+
+when to use state
+If a Component needs to alter one of its attributes at some point in time, that attribute should be part of its state, otherwise it should just be a prop for that Component.
+
+why setState is asynchronous
+
+setState actions are asynchronous and are batched for performance gains
+setState() does not immediately mutate this.state but creates a pending state transition.
+
+This is because setState alters the state and causes rerendering. This can be an expensive operation and making it synchronous might leave the browser unresponsive.
+Thus the setState calls are asynchronous as well as batched for better UI experience and performance.
+
+get the latest value of state;
+--
+if we update the state of any component like the following the webpage will not re-render itself because React State will not be able to detect the changes made.
+this.state.attribute = "new-value";
+Thus, React provides its own method setState(). setState() method takes a single parameter and expects an object which should contain the set of values to be updated. Once the update is done the method implicitly calls the render() method to repaint the page. Hence the correct method of updating the value of a state will be similar to the code below.
+
+this.setState({attribute: "new-value"});
+===
+
+HOC-
+a higher-order component is a function that takes a component and returns a new component.
+A higher-order component (HOC) is an advanced technique in React for reusing component logic.
+Note that a HOC doesn’t modify the input component, nor does it use inheritance to copy its behavior. Rather, a HOC composes the original component by wrapping it in a container component. A HOC is a pure function with zero side-effects.
+
+we can pass props to a wrapped component
+
+Don’t Use HOCs Inside the render Method
+React’s diffing algorithm (called reconciliation) uses component identity to determine whether it should update the existing subtree or throw it away and mount a new one. If the component returned from render is identical (===) to the component from the previous render, React recursively updates the subtree by diffing it with the new one. If they’re not equal, the previous subtree is unmounted completely.
+
+Refs Aren’t Passed Through
+If you add a ref to an element whose component is the result of a HOC, the ref refers to an instance of the outermost container component, not the wrapped component.
+The solution for this problem is to use the React.forwardRef API (introduced with React 16.3).
+
+
+// This function takes a component...
+function withSubscription(WrappedComponent, selectData, additionalParams) {
+  // ...and returns another component...
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+      this.state = {
+        data: selectData(DataSource, props)
+      };
+    }
+
+    render() {
+      // ... and renders the wrapped component with the fresh data!
+      // Notice that we pass through any additional props
+      return <WrappedComponent data={this.state.data} {...this.props} />;
+    }
+  };
+==
+
 1. redux
 
 Redux is a predictable state container for JavaScript applications.
-It helps you write applications that behave consistently,
-run in different environments (client, server, and native), and are easy to test. 
-It does well for applications with few components but as the application grows bigger,
-managing states shared across components becomes a chore.
 
 In an app where data is shared among components, it might be confusing to actually
 know where a state should live.
 Ideally, the data in a component should live in just one component.
 So sharing data among sibling components becomes difficult.
 
-The way Redux works is simple. There is a central store that
+The way Redux works is simple.
+There is a central store that
 holds the entire state of the application.
 Each component can access
 the stored state without having to send down props from one component to another.
@@ -41,7 +117,8 @@ Here’s an example of an action that can be carried out during login in an app:
 }
 2. reducers-
 Reducers are pure functions that take the current state of an application,
-perform an action and returns a new state. These states are stored as objects and they specify
+perform an action and returns a new state.
+These states are stored as objects and they specify
 how the state of an application changes in response to an action sent to the store.
 
 It is based on the reduce function in JavaScript where a single value is gotten
@@ -56,13 +133,14 @@ The store holds the application state. There is only one store in any Redux appl
 You can access the state stored, update the state, and register or unregister
 listeners via helper methods.
 
-Redux makes the state predictable.
-In Redux, the state is always predictable.
-If the same state and action are passed to a reducer,
- the same result is always produced as reducers are pure functions.
  The state is also immutable and is never changed. This makes it possible to implement
-  arduous tasks like infinite undo and redo. It is also possible to implement time travel that is, the ability to move back and forth among the previous states and view the results in real-time.
+  arduous tasks like infinite undo and redo.
+  It is also possible to implement time travel
+  that is, the ability to move back and forth among the previous states and view the results in real-time.
   uses/advantages
+
+  advantages-
+
 Maintainability.
 
 Redux is strict about how code should be organized so it makes it easier for someone with knowledge of Redux to understand the structure of any Redux application. This generally makes it easier to maintain.
@@ -77,33 +155,10 @@ Redux can also be used for server-side rendering. With it, you can handle the in
 
 
 
+====
 
-props and state
 
-The state of one component will often become the props of a child component.  
-For parent-child communication, simply pass props.
 
-Use state to store the data your current page needs in your controller-view.
-
-Use props to pass data & event handlers down to your child components.
-
-Props
-
-are immutable
-which lets React do fast reference checks
-are used to pass data down from your view-controller
-your top level component
-have better performance
-use this to pass data to child components
-
-State
-
-should be managed in your view-controller
-your top level component
-is mutable
-has worse performance
-should not be accessed from child components
-pass it down with props instead
 
 ============
 virtual DOM
@@ -121,49 +176,7 @@ lifting-state-up???
 syntheticEvents???
 ==
 
-Most of your components should simply take some data from props and render it.
- However, sometimes you need to respond to user input,
- a server request or the passage of time. For this you use state.
-
- try to keep as many of your components as possible stateless.
- By doing this you'll isolate the state to its most logical place and minimize redundancy,
- making it easier to reason about your application.
-
-A common pattern is to create several stateless components that
-just render data, and have a stateful component above them in the hierarchy
-that passes its state to its children via props.
- The stateful component encapsulates all of the interaction logic, while the stateless components
-take care of rendering data in a declarative way. - https:
-//facebook.github.io/react/docs/interactivity-and-dynamic-uis.html#what-components-should-have-state
-State should contain data that a component's event handlers may change to trigger a UI update.
-In real apps this data tends
- to be very small and JSON-serializable.
- When building a stateful component, think about the minimal possible representation of its state,
- and only store those properties in this.state.
-
- Inside of render() simply compute any other information you need based on this state.
- You'll find that thinking about and writing applications in this way tends to lead to
- the most correct application, since adding redundant or computed values to state means
-  that you need to explicitly keep them in sync rather than rely on React computing them for you.
-
   ==========
-  The main responsibility of a Component is to translate raw data into rich HTML. With that in mind, the props and the state together constitute the raw data that the HTML output derives from.
-
-You could say props + state is the input data for the render() function of a Component, so we need to zoom in and see what each data type represents and where does it come from.
-
-
- If a Component needs to alter one of its attributes at some point in time, that attribute should be part of its state, otherwise it should just be a prop for that Component.
-
- props (short for properties) are a Component's configuration, its options if you may. They are received from above and immutable as far as the Component receiving them is concerned.
-
-A Component cannot change its props, but it is responsible for putting together the props of its child Components.
-The state starts with a default value when a Component mounts and then suffers from mutations in time (mostly generated from user events). It's a serializable* representation of one point in time—a snapshot.
-
-A Component manages its own state internally, but—besides setting an initial state—has no business fiddling with the state of its children. You could say the state is private.
-
-* We didn't say props are also serializable because it's pretty common to pass down callback functions through props.
-
-state is optional. Since state increases complexity and reduces predictability, a Component without state is preferable. Even though you clearly can't do without state in an interactive app, you should avoid having too many Stateful Components.
 ====
 
 Component types
@@ -211,15 +224,17 @@ Q12. What is PureComponent? When to use PureComponent over Component?
 PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us. When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
 When comparing previous props and state to next, a shallow comparison will check that primitives have the same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more complex javascript values like objects and arrays.
 It is good to prefer PureComponent over Component whenever we never mutate our objects.
-
+===
 Q16. What are controlled and uncontrolled components in React?
 This relates to stateful DOM components (form elements) and the difference:
-A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange. A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
+A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange.
+ A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 You could also call this a “dumb component”.
 
 For a controlled component the value is passed in through props. An uncontrolled component would use state to control the value itself internally. This is the key difference
 
-A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it. This is a bit more like traditional HTML.
+A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it.
+This is a bit more like traditional HTML.
 The alternative is uncontrolled components, where form data is handled by the DOM itself.
 class NameForm extends React.Component {
   constructor(props) {
@@ -348,7 +363,9 @@ What is the purpose of using super constructor with props argument?
 
 Add to PDF/md 	  		  	Junior
 
-A child class constructor cannot make use of this reference until super() method has been called. The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super() call is to access this.props in your child constructors.
+A child class constructor cannot make use of this reference until super() method has been called.
+ The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super()
+  call is to access this.props in your child constructors.
 
 
 The above code snippets reveals that this.props behavior is different only with in the constructor. It would be same outside the constructor.
@@ -383,12 +400,15 @@ What is reconciliation?
 
 Add to PDF/md 	  		  	Junior
 
-When a component’s props or state change, React decides whether an actual DOM update is necessary by comparing the newly returned element with the previously rendered one. When they are not equal, React will update the DOM. This process is called reconciliation.
+When a component’s props or state change, React decides whether an actual DOM update is
+necessary by comparing the newly returned element with the previously rendered one.
+ When they are not equal, React will update the DOM. This process is called reconciliation.
 
 ===
 propTypes
 
-but even if you don’t use those, React has some built-in typechecking abilities. To run typechecking on the props for a component, you can assign the special propTypes property:
+but even if you don’t use those, React has some built-in typechecking abilities.
+To run typechecking on the props for a component, you can assign the special propTypes property:
 
 Default Prop Values
 You can define default values for your props by assigning to the special defaultProps property:
@@ -409,7 +429,9 @@ Greeting.propTypes = {
 
 ===
 ReactDOM
-The react-dom package provides DOM-specific methods that can be used at the top level of your app and as an escape hatch to get outside of the React model if you need to. Most of your components should not need to use this module.
+The react-dom package provides DOM-specific methods that can be used at the top
+ level of your app and as an escape hatch to get outside of the React model if
+ you need to. Most of your components should not need to use this module.
 
 render()
 hydrate()
@@ -419,16 +441,17 @@ createPortal()
 
 render()
 ReactDOM.render(element, container[, callback])
-Render a React element into the DOM in the supplied container and return a reference to the component (or returns null for stateless components).
+Render a React element into the DOM in the supplied container and return a
+reference to the component (or returns null for stateless components).
 
-If the React element was previously rendered into container, this will perform an update on it and only mutate the DOM as necessary to reflect the latest React element.
+If the React element was previously rendered into container, this will perform
+an update on it and only mutate the DOM as necessary to reflect the latest React element.
 ===
 
 What are fragments?
 
-Add to PDF/md 	  		  	Junior
-
-It's common pattern in React which is used for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+It's common pattern in React which is used for a component to return multiple elements.
+ Fragments let you group a list of children without adding extra nodes to the DOM.
 
 render() {
   return (
@@ -455,18 +478,16 @@ render() {
 ====
 What are portals in ReactJS?
 
-           Junior
-
-Portal is a recommended way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+Portal is a recommended way to render children into a DOM node that exists
+ outside the DOM hierarchy of the parent component.
 
 ReactDOM.createPortal(child, container);
 
-The first argument (child) is any renderable React child, such as an element, string, or fragment. The second argument (container) is a DOM element.
+The first argument (child) is any renderable React child, such as an element,
+string, or fragment. The second argument (container) is a DOM element.
 
 ===
 Q56: What are the limitations of ReactJS?
-
-Add to PDF/md 	  		  	Junior
 
 Below are the list of limitations:
 
@@ -479,11 +500,16 @@ Below are the list of limitations:
 =====
 Handling error in React
 Introducing Error Boundaries
-A JavaScript error in a part of the UI shouldn’t break the whole app. To solve this problem for React users, React 16 introduces a new concept of an “error boundary”.
+A JavaScript error in a part of the UI shouldn’t break the whole app.
+To solve this problem for React users, React 16 introduces a new concept of an “error boundary”.
 
-Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+Error boundaries are React components that catch JavaScript errors anywhere in
+their child component tree, log those errors, and display a fallback UI instead of
+the component tree that crashed. Error boundaries catch errors during rendering, in
+lifecycle methods, and in constructors of the whole tree below them.
 
-A class component becomes an error boundary if it defines a new lifecycle method called componentDidCatch(error, info):
+A class component becomes an error boundary if it defines a new lifecycle
+method called componentDidCatch(error, info):
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -515,9 +541,14 @@ Then you can use it as a regular component:
 =====
 flow
 Static Type Checking
-Static type checkers like Flow and TypeScript identify certain types of problems before you even run your code. They can also improve developer workflow by adding features like auto-completion. For this reason, we recommend using Flow or TypeScript instead of PropTypes for larger code bases.
+Static type checkers like Flow and TypeScript identify certain types of problems
+before you even run your code. They can also improve developer workflow by adding
+features like auto-completion. For this reason, we recommend using Flow or TypeScript
+ instead of PropTypes for larger code bases.
 
-Flow is a static type checker for your JavaScript code. It is developed at Facebook and is often used with React. It lets you annotate the variables, functions, and React components with a special type syntax, and catch mistakes early. You can read an introduction to Flow to learn its basics.
+Flow is a static type checker for your JavaScript code. It is developed at Facebook
+ and is often used with React. It lets you annotate the variables, functions, and React
+ components with a special type syntax, and catch mistakes early. You can read an introduction to Flow to learn its basics.
 
 To use Flow, you need to:
 
@@ -528,9 +559,10 @@ We will explain these steps below in detail.
 ====
 60: What is the difference between component and container in react Redux?
 
-Add to PDF/md 	  		  	Junior
-
-Component is part of the React API. A Component is a class or function that describes part of a React UI. Container is an informal term for a React component that is connected to a redux store. Containers receive Redux state updates and dispatch actions, and they usually don't render DOM elements; they delegate rendering to presentational child components.
+Component is part of the React API. A Component is a class or function that describes
+ part of a React UI. Container is an informal term for a React component that is connected
+ to a redux store. Containers receive Redux state updates and dispatch actions, and
+  they usually don't render DOM elements; they delegate rendering to presentational child components.
 ===
 How do you tell React to build in Production mode and what will that do?
 https://reactjs.org/docs/optimizing-performance.html
@@ -556,26 +588,34 @@ Passing in a function into setState instead of an object will give you a reliabl
 
 
 18. What is React.cloneElement? And the difference with this.props.children?
-React.cloneElement clone and return a new React element using using the passed element as the starting point. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.
+React.cloneElement clone and return a new React element using using the passed element as the starting point.
+The resulting element will have the original element's props with the new props merged
+in shallowly. New children will replace existing children. key and ref from the original
+element will be preserved.
 React.cloneElement only works if our child is a single React element.
-For almost everything {this.props.children} is the better solution. Cloning is useful in some more advanced scenarios, where a parent send in an element and the child component needs to change some props on that element or add things like ref for accessing the actual DOM element.
+For almost everything {this.props.children} is the better solution. Cloning is useful
+in some more advanced scenarios, where a parent send in an element and the child component
+ needs to change some props on that element or add things like ref for accessing the actual DOM element.
 
 jsx-
 JSX produces React “elements”.
 JSX is simply converting XML-like markup into JavaScript.
-asically, by using JSX you can write concise HTML/XML-like structures (e.g., DOM like tree structures) in the same file as you write JavaScript code,
+asically, by using JSX you can write concise HTML/XML-like structures (e.g., DOM like tree structures)
+ in the same file as you write JavaScript code,
 Unlike the past, instead of putting JavaScript into HTML, JSX allows us to put HTML into JavaScript.
-React embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display.
-Instead of artificially separating technologies by putting markup and logic in separate files, React separates concerns with loosely coupled units called “components” that contain both.
+React embraces the fact that rendering logic is inherently coupled with other UI logic:
+how events are handled, how the state changes over time, and how the data is prepared for display.
+Instead of artificially separating technologies by putting markup and logic in separate files,
+ React separates concerns with loosely coupled units called “components” that contain both.
   It also allows React to show more useful error and warning messages.
 
   JSX is an Expression Too
 After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects.
 
-
 Since JSX is closer to JavaScript than to HTML, React DOM uses camelCase property naming convention instead of HTML attribute names.
 
 For example, class becomes className in JSX, and tabindex becomes tabIndex.
+
 
 It is safe to embed user input in JSX:
 
@@ -590,8 +630,10 @@ JSX Represents Objects
 Babel compiles JSX down to React.createElement() calls.
 
 The merits of JSX in four bullet points:
-Less technical people can still understand and modify the required parts. CSS developers and designers will find JSX more familiar than JavaScript alone. I.e., HTML markup looks like HTML markup.
-You can leverage the full power of JavaScript in HTML and avoid learning or using a templating language. JSX is not a templating solution. It is a declarative syntax used to express a tree structure of UI components.
+Less technical people can still understand and modify the required parts. CSS developers and
+ designers will find JSX more familiar than JavaScript alone. I.e., HTML markup looks like HTML markup.
+You can leverage the full power of JavaScript in HTML and avoid learning or using a templating
+language. JSX is not a templating solution. It is a declarative syntax used to express a tree structure of UI components.
 By adding a JSX transformation step you'll find errors in your HTML you might otherwise miss.
 JSX promotes the idea of inline styles. Which can be a good thing.
 
@@ -606,10 +648,6 @@ You may embed any expressions in JSX by wrapping them in curly braces. This incl
 
 Inline If-Else with Conditional Operator
 
-Keys
-Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:
-
-
 What are the major features of React?
 The major features of React are:
 
@@ -618,9 +656,11 @@ Supports server-side rendering.
 Follows Unidirectional* data flow or data binding.
 Uses reusable/composable UI components to develop the view.
 
-
+====
 What is the difference between Element and Component?
-An Element is a plain object describing what you want to appear on the screen in terms of the DOM nodes or other components. Elements can contain other Elements in their props. Creating a React element is cheap. Once an element is created, it is never mutated.
+An Element is a plain object describing what you want to appear on the screen in terms of
+the DOM nodes or other components. Elements can contain other Elements in their props.
+Creating a React element is cheap. Once an element is created, it is never mutated.
 
 The object representation of React Element would be as follows:
 const element = React.createElement(
