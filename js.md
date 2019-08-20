@@ -1,3 +1,18 @@
+If you have ever extensively worked with callbacks, you'll notice one problem with them. They are difficult to track!
+==
+framework vs library
+a framework is a certain way of writing your software not only a piece of code but your entire application. It’s solving structural and architectural problems on the code level.
+
+You can say you build a standard while developing a framework. And framework consumer follows that standard. A library doesn't force you to follow any standard because it doesn't provide one in the first place.
+When you use a library you have the control over your code. Whenever you need something from the library you simply call it.
+
+So whenever the framework needs the application specific code it calls your code. So here the control is “inverted” from you to the framework. This is called inversion of control.
+
+Library gives you a set of functions/modules/APIs which you can use to solve a certain problem, but it doesn’t change your code on the structural or architectural level.
+
+On the other hand, frameworks also give you a set of functions/modules/APIs but it does change your code on the structural or architectural level. Library - you call it, Framework - it calls you.
+
+===
 Cookies-
 A cookie contains specific information that is encrypted for security purposes.
 Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request.

@@ -163,7 +163,55 @@ know you are looking at a possible FormArray of Y inside X(where X is almost alw
 Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
 Traceur itself is written in ES6, compiled to ES5.
 
+
+RxJS- Reactive Extensions for JavaScript
+RxJS is a popular library among web developers. It provides functional and reactive programming patterns for working with events and streams of data and has been integrated in many web development libraries and frameworks such as Angular.
+
+The observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods. Observer pattern.
+
+An Observable is an entity that emits (or publishes) multiple data values (stream of data) over time and asynchronously.
+
+Observers are also called listeners (or consumers) as they can listen or subscribe to get the observed data.
+Observer is a collection of callbacks that knows how to listen to values delivered by the Observable.
+
+Subscriptions are objects that are returned when you subscribe to an Observable. They contain many methods such as the unsubscribe() method that you can call to unsubscribe from receving published values from the Observable.
+
+A Subject is a special type of Observable that observers can also subscribe to it to receive published values but with one difference: The values are multicasted to many Observers.
+
+Note: By default an RxJS Observable is unicast.
+
+Unicast simply means that each subscribed observer has an independent execution of the Observable while multicast means that the Observable execution is shared by multiple Observers.
+
+Hot and Cold Observables
+
+Unlike regular Observables, Subjects are called hot. A hot Observable starts emitting events even before any observer subscribes to it which means observers may lose previous emitted values if they don’t subscribe at that right time while cold Observables ****start emitting values when at least one observer is subscribed.
+
+ReplaySubject works by using a buffer that keeps the emitted values and re-emit them when new Observers are subscribed.
+
+BehaviorSubject works like ReplaySubject but only re-emits the last emitted value.
+
+An observer is a plain JavaScript object that contains methods such as next(), complete() and error(). This means it knows how to get notified by the Observable.
+
+getItems(): Observable<Item[]> {
+   return this.httpClient.get<Item[]>(this.itemUrl);
+}
+
+getItems(): Observable {
+  this.items$ = this.httpClient.get(this.itemUrl);
+}
+import { Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
+getItems(): Observable> {
+  return this.aService.getItems().pipe(map(response => response.data));
+}
+
 8. Observables
+
+As seen above ... an Observable is a stream of events or data. They are often returned from Angular methods, such as the http.get and the myinputBox.valueChanges.
+Without a subscribe (or an async pipe) the stream won't start emitting values.
+
+Angular makes use of observables as an interface to handle a variety of common asynchronous operations.
+
 Observables provide support for passing messages between publishers and subscribers in your application.
 Observables are declarative—that is, you define a function for publishing values, but it is not executed until
  a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes,

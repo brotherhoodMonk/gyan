@@ -1,3 +1,94 @@
+
+onClick, onMouseHover
+jsx
+
+React allows us to write HTML in JavaScript,
+ if JavaScript files contains JSX, that that file will have to be transpiled using babel.
+
+ JSX produces React “elements”. A React element is simply an object representation of a DOM node. A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
+
+diff between html and jsx
+
+ Tag attributes are camel cased.
+All elements must be balanced.
+The attribute names are based on the DOM API, not on the HTML language specs.
+
+React.createElement(type, [props], [...children])
+
+The first is a tag name string (div, span, etc), the second is any attributes you want the element to have, the third is contents or the children of the element.
+===
+where to fetch data
+
+
+componentWillMount
+aftre the componentWillMount immediately the renders functio executes,
+so if our api call is asynchronous, then we will not get updated data.
+
+This lifecycle is also called at the server side (if you are using SSR). In this case the external data won’t be used. So the api will be called twice unnecessarily.
+
+The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated after React v17. After React v17 only the alias will work fine.
+
+constructor
+
+Fetching data in constructor is considered to be a side effect and it is recommended to avoid that. As you all know we cannot call setState() in the constructor.
+
+A typical react constructor is used for two purpose -
+➀ Initializing local state by assigning an object to this.state .
+➁ Binding event handler methods to an instance.
+
+Warning: Can't call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the App component.
+
+=====
+why do the Component names in JSX start with capital letter?
+
+n JSX, lower-case tag names are considered to be HTML tags. However, lower-case tag names with a dot (property accessor) aren't.
+==
+Mounting
+This process of creating instances and DOM nodes corresponding to React components, and inserting them into the DOM, is called mounting.
+
+React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes already in the DOM).
+
+====
+
+setting default props
+
+class ReactComp extends React.Component {}
+ReactComp.defaultProps = {}
+
+or
+
+class ReactComp extends React.Component {
+    static defaultProps = {}
+}
+
+or using logical || operators
+===
+
+
+react library or frameworks
+
+React does not solve any structural or architectural problems on the app level. It provides us with a set of methods for better (in my opinion) handling of front-end.
+
+React does not have any Template design pattern.
+It does not push app structure in any direction.
+
+It is not only about the fact that React can be V (view) in an MVC, there is no HTML or any other kind of traditional templates in the React.
+
+React approaches building user interfaces differently by breaking them into components. This means React uses a real, full featured programming language to render views (Source)
+
+
+People have different definitions for library and framework
+
+One definition I know is:
+
+a framework is a software where you plug your code into
+a library is a software that you plug into your code
+In terms of this definition, React is a framework.
+
+But some people, especially in the front-end world, say a framework has to bring stuff like routers and/or widgets etc. pp.
+
+So Angular, Ember.js and ExtJS are frameworks, but React isn't, because it only gives you the means to build components and render them into the DOM.
+===
 props and state
 
 props-
@@ -133,6 +224,10 @@ The store holds the application state. There is only one store in any Redux appl
 You can access the state stored, update the state, and register or unregister
 listeners via helper methods.
 
+Redux makes the state predictable.
+
+If the same state and action are passed to a reducer,
+ the same result is always produced as reducers are pure functions.
  The state is also immutable and is never changed. This makes it possible to implement
   arduous tasks like infinite undo and redo.
   It is also possible to implement time travel
@@ -172,6 +267,7 @@ The Difference?
 While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated scope for web components.
 ====
 lifting-state-up???
+Answers ranging from “it allows to pass data between siblings” to “it allows you to have more pure-presentational components, which make re-usability easier” are preferred.
 ====
 syntheticEvents???
 ==
@@ -180,6 +276,7 @@ syntheticEvents???
 ====
 
 Component types
+
 Stateless Component/Presentational components/Dumb components/Functional Component —
 Only props, no state. There's not much going on besides the render()
 function and all their logic revolves around the props they receive.
@@ -198,8 +295,21 @@ processing data and responding to user events. These sort of logistics should be
 in a moderate number of Stateful Components, while all visualization and formatting
 logic should move downstream into as many Stateless Components as possible.
 
-
+===
 Lifecycle-
+Flow
+constructor
+UNSAFE_componentWillMount
+render
+componentDidMount
+shouldComponentUpdate
+UNSAFE_componentWillUpdate
+renders
+componentDidUpdate
+UNSAFE_componentWillReceiveProps
+
+These lifecycle methods have often been misunderstood and subtly misused; furthermore, we anticipate that their potential misuse may be more problematic with async rendering. Because of this, we will be adding an “UNSAFE_” prefix to these lifecycles in an upcoming release. (Here, “unsafe” refers not to security but instead conveys that code using these lifecycles will be more likely to have bugs in future versions of React, especially once async rendering is enabled.)
+
 Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
 Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
 constructor()
@@ -209,13 +319,12 @@ componentDidMount()
 
 Updating: Updating is the stage when the state of a component is updated and the application is
  repainted.
- shouldComponentUpdate
+shouldComponentUpdate
 componentWillUpdate
-render
 componentDidUpdate
 
 Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
-componentWillUnmount(
+componentWillUnmount()
   componentDidCatch()
 
   ====
@@ -231,7 +340,9 @@ A Controlled Component is one that takes its current value through props and not
  A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 You could also call this a “dumb component”.
 
-For a controlled component the value is passed in through props. An uncontrolled component would use state to control the value itself internally. This is the key difference
+For a controlled component the value is passed in through props.
+
+An uncontrolled component would use state to control the value itself internally. This is the key difference
 
 A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it.
 This is a bit more like traditional HTML.
@@ -272,16 +383,77 @@ For example:
 
 
 ===
-What is the use of refs?
+context
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
 
-Add to PDF/md 	  		  	Entry
+Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language.
+
+const MyContext = React.createContext(defaultValue);
+<MyContext.Provider value={/* some value }> in app.js
+
+const ThemeContext = React.createContext('light');
+
+components
+
+static contextType = ThemeContext;
+
+  render() {
+    return <Button theme={this.context} />;
+  }
+}
+
+Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+
+If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.
+
+component composition
+
+<Page user={user} avatarSize={avatarSize} />
+// ... which renders ...
+<PageLayout user={user} avatarSize={avatarSize} />
+// ... which renders ...
+<NavigationBar user={user} avatarSize={avatarSize} />
+// ... which renders ...
+<Link href={user.permalink}>
+  <Avatar user={user} size={avatarSize} />
+</Link>
+
+One way to solve this issue without context is to pass down the Avatar component itself so that the intermediate components don’t need to know about the user or avatarSize props:
+
+function Page(props) {
+  const user = props.user;
+  const userLink = (
+    <Link href={user.permalink}>
+      <Avatar user={user} size={props.avatarSize} />
+    </Link>
+  );
+  return <PageLayout userLink={userLink} />;
+}
+
+// Now, we have:
+<Page user={user} avatarSize={avatarSize} />
+// ... which renders ...
+<PageLayout userLink={...} />
+// ... which renders ...
+<NavigationBar userLink={...} />
+// ... which renders ...
+{props.userLink}
+
+===
+How to pass a parameter to an event handler or callback?
+<button onClick={() => this.handleClick(id)} />
+<button onClick={this.handleClick.bind(this, id)} />
+<button onClick={this.handleClick(id)} />
+handleClick = (id) => () => {
+    console.log("Hello, your ticket number is", id)
+};
+===
+What is the use of refs?
 
 The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when we need direct access to DOM element or an instance of a component.
 
 ===
 What is JEST?
-
-Add to PDF/md 	  		  	Entry
 
 Jest is a JavaScript unit testing framework made by Facebook based on Jasmine and provides automated mock creation and a jsdom environment. It's often used for testing React components.
 
