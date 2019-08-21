@@ -94,7 +94,7 @@ props and state
 props-
 props are shorthand for properties.
 props allow us to pass custom data to the coomponent.
-Props enables us to create Stateless components which are dumb UI component.
+Props enables us to create Stateless components which are dumb UI component or preseentational component.
 One of the most important features of props is that they can be passed by a parent component to its child components
 props are fixed throughout its lifecycle.
 
@@ -111,7 +111,7 @@ props get passed to the component (similar to function parameters) whereas state
 differnce
 1. Props are immutable i.e. once set the props cannot be changed, state is mutable
 2. States can only be used in Class Components while Props don’t have this limitation.
-3. While Props are set by the parent component, State is generally updated by event handlers.
+3. While Props are set by the parent component, State is generally updated by event handlers using setState.
 
 when to use state
 If a Component needs to alter one of its attributes at some point in time, that attribute should be part of its state, otherwise it should just be a prop for that Component.
@@ -258,7 +258,24 @@ Redux can also be used for server-side rendering. With it, you can handle the in
 ============
 virtual DOM
 
-The virtual DOM is an in-memory representation of the real DOM.  By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have changed are redrawn. Without the virtual DOM, every element is redrawn regardless of whether or not it has changed. This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
+Virtual Dom is node tree that lists attribute , elements to properties and object.
+
+The virtual DOM is an in-memory representation of the real DOM.  
+The Virtual DOM is an abstraction of the HTML DOM. It is lightweight and detached from the browser-specific implementation details. Since the DOM itself was already an abstraction, the virtual DOM is, in fact, an abstraction of an abstraction.
+
+By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have changed are redrawn. Without the virtual DOM, every element is redrawn regardless of whether or not it has changed. This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
+
+Manipulating the DOM is slow. Manipulating the virtual DOM is much faster, because nothing gets drawn onscreen.
+
+
+Dom
+
+The DOM is an interface to an HTML document. It is used by browsers as a first step towards determining what to render in the viewport, and
+Javascript programs can modifyit to change  the content, structure, or styling of the page.
+
+The DOM is an object-based representation of the source HTML document. I
+The object structure of the DOM is represented by what is called a “node tree”.
+
 
 What is the Shadow DOM?
 The shadow DOM is a way of encapsulating the implementation of web components. Using the shadow DOM, you can hide the implementation details of a web component from the regular DOM tree. A popular example is the HTML5 slider input. While the regular DOM recognizes this as a simple <input/> tag, there is underlying HTML and CSS that make up the slide feature. This sub-tree of DOM nodes is hidden from the main DOM to encapsulate the implementation of the HTML5 slider. Additionally, the CSS properties for the slider are isolated from the rest of the DOM. This provides an isolated scope that prevents the component's styles from overriding other CSS properties defined elsewhere.
@@ -266,10 +283,46 @@ The shadow DOM is a way of encapsulating the implementation of web components. U
 The Difference?
 While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated scope for web components.
 ====
+reactElement and ReactComponent
+What differs ReactComponent from ReactElement is - ReactComponents are stateful.
+A ReactElement is a light, stateless, immutable, virtual representation of a DOM Element.
+
+The biggest takeaway is that React elements are simply plain old JavaScript objects used to describe how the HTML for the component should look — there are no methods on the object, just data.
+
+key — the key property is used to uniquely identify specific React elements within an array of the same element types. You don’t have to provide a value for it, but if you do, React will be able to perform optimizations making the re-rendering process more efficient.
+props — the props property is exactly what you think it is: it’s a mapping of all the props and values passed down to child components.
+ref — the ref property is used to access the underlying DOM element associated with a rendered version of this React element.
+type
+
+ReactElements lives in the virtual DOM. They make the basic nodes here. Their immutability makes them easy and fast to compare and update. This is the reason of great React performance.
+
+===
 lifting-state-up???
+
+When several components need to share the same changing data then it is recommended to lift the shared state up to their closest common ancestor. That means if two child components share the same data from its parent, then move the state to parent instead of maintaining local state in both of the child components.
+
 Answers ranging from “it allows to pass data between siblings” to “it allows you to have more pure-presentational components, which make re-usability easier” are preferred.
 ====
 syntheticEvents???
+SyntheticEvent is a wrapper that forms part of React’s Event System.
+ Event handlers will be passed instances of SyntheticEvent in react,
+ which is a cross-browser wrapper around the browser’s native event
+the events work identically across all browsers.
+
+boolean bubbles
+boolean cancelable
+DOMEventTarget currentTarget
+boolean defaultPrevented
+number eventPhase
+boolean isTrusted
+DOMEvent nativeEvent
+void preventDefault()
+boolean isDefaultPrevented()
+void stopPropagation()
+boolean isPropagationStopped()
+DOMEventTarget target
+number timeStamp
+string type
 ==
 
   ==========
@@ -304,6 +357,7 @@ render
 componentDidMount
 shouldComponentUpdate
 UNSAFE_componentWillUpdate
+getSnapshotBeforeUpdate
 renders
 componentDidUpdate
 UNSAFE_componentWillReceiveProps
@@ -327,9 +381,29 @@ Unmounting: As the name suggests Unmounting is the final step of the component l
 componentWillUnmount()
   componentDidCatch()
 
+  What are the lifecycle methods of React?
+  React 16.3+
+
+  getDerivedStateFromProps: Invoked right before calling render() and is invoked on every render. This exists for rare use cases where you need derived state. Worth reading if you need derived state.
+  componentDidMount: Executed after first rendering and here all AJAX requests, DOM or state updates, and set up event listeners should occur.
+  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
+  getSnapshotBeforeUpdate: Executed right before rendered output is committed to the DOM. Any value returned by this will be passed into componentDidUpdate(). This is useful to capture information from the DOM i.e. scroll position.
+  componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes. This will not fire if shouldComponentUpdate() returns false.
+  componentWillUnmount It will be used to cancel any outgoing network requests, or remove all event listeners associated with the component.
+  Before 16.3
+
+  componentWillMount: Executed before rendering and is used for App level configuration in your root component.
+  componentDidMount: Executed after first rendering and here all AJAX requests, DOM or state updates, and set up event listeners should occur.
+  componentWillReceiveProps: Executed when particular prop updates to trigger state transitions.
+  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
+  componentWillUpdate: Executed before re-rendering the component when there are props & state changes confirmed by shouldComponentUpdate() which returns true.
+  componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes.
+  componentWillUnmount: It will be used to cancel any outgoing network requests, or remove all event listeners associated with the component.
+
   ====
 
 Q12. What is PureComponent? When to use PureComponent over Component?
+
 PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us. When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
 When comparing previous props and state to next, a shallow comparison will check that primitives have the same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more complex javascript values like objects and arrays.
 It is good to prefer PureComponent over Component whenever we never mutate our objects.
@@ -339,6 +413,8 @@ This relates to stateful DOM components (form elements) and the difference:
 A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange.
  A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 You could also call this a “dumb component”.
+
+A component that controls the input elements within the forms on subsequent user input is called Controlled Component, i.e, every state mutation will have an associated handler function.
 
 For a controlled component the value is passed in through props.
 
@@ -570,11 +646,13 @@ class MyComponent extends React.Component {
 ===
 What is reconciliation?
 
-Add to PDF/md 	  		  	Junior
 
 When a component’s props or state change, React decides whether an actual DOM update is
 necessary by comparing the newly returned element with the previously rendered one.
  When they are not equal, React will update the DOM. This process is called reconciliation.
+
+ The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.
+
 
 ===
 propTypes
@@ -599,6 +677,24 @@ Greeting.propTypes = {
   name: PropTypes.string
 };
 
+import React from 'react'
+import PropTypes from 'prop-types'
+
+class User extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    age: PropTypes.number.isRequired
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{`Welcome, ${this.props.name}`}</h1>
+        <h2>{`Age, ${this.props.age}`}</h2>
+      </>
+    )
+  }
+}
 ===
 ReactDOM
 The react-dom package provides DOM-specific methods that can be used at the top
@@ -618,6 +714,12 @@ reference to the component (or returns null for stateless components).
 
 If the React element was previously rendered into container, this will perform
 an update on it and only mutate the DOM as necessary to reflect the latest React element.
+===
+What is the purpose of render method of react-dom?
+This method is used to render a React element into the DOM in the supplied container and return a reference to the component. If the React element was previously rendered into container, it will perform an update on it and only mutate the DOM as necessary to reflect the latest changes.
+
+ReactDOM.render(element, container[, callback])
+If the optional callback is provided, it will be executed after the component is rendered or updated.
 ===
 
 What are fragments?
@@ -670,6 +772,7 @@ Below are the list of limitations:
    Too many smaller components leading to over-engineering or boilerplate
 
 =====
+
 Handling error in React
 Introducing Error Boundaries
 A JavaScript error in a part of the UI shouldn’t break the whole app.
@@ -768,6 +871,10 @@ React.cloneElement only works if our child is a single React element.
 For almost everything {this.props.children} is the better solution. Cloning is useful
 in some more advanced scenarios, where a parent send in an element and the child component
  needs to change some props on that element or add things like ref for accessing the actual DOM element.
+
+this.props.children
+
+this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
 
 jsx-
 JSX produces React “elements”.
