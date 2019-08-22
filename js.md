@@ -1,7 +1,7 @@
 If you have ever extensively worked with callbacks, you'll notice one problem with them. They are difficult to track!
 ==
 framework vs library
-a framework is a certain way of writing your software not only a piece of code but your entire application. It’s solving structural and architectural problems on the code level.
+1.a framework is a certain way of writing your software not only a piece of code but your entire application. It’s solving structural and architectural problems on the code level.
 
 You can say you build a standard while developing a framework. And framework consumer follows that standard. A library doesn't force you to follow any standard because it doesn't provide one in the first place.
 When you use a library you have the control over your code. Whenever you need something from the library you simply call it.
