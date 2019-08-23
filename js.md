@@ -13,6 +13,15 @@ Library gives you a set of functions/modules/APIs which you can use to solve a c
 On the other hand, frameworks also give you a set of functions/modules/APIs but it does change your code on the structural or architectural level. Library - you call it, Framework - it calls you.
 
 ===
+class
+In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
+
+Classes provide "super" keyword for that.
+
+super.method(...) to call a parent method.
+super(...) to call a parent constructor (inside our constructor only).
+
+===
 Cookies-
 A cookie contains specific information that is encrypted for security purposes.
 Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request.
@@ -77,13 +86,13 @@ Most of the time, I would prefer the .forEach method, but it really depends on w
 
 ==
 Q27: Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it? 	
-Add to PDF/md	 		 	Junior
 Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
 ==
 Load vs DOMContentLoaded
 Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those? 	
 Add to PDF/md	 		 	Junior
-The load event fires at the end of the document loading process. At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
+The load event fires at the end of the document loading process.
+At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
 
 The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed, but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page to be loaded before initializing.
 
@@ -96,6 +105,7 @@ The same-origin policy prevents JavaScript from making requests across domain bo
 What's the difference between host objects and native objects? 	
 Add to PDF/md	 		 	Junior
 Native objects are objects that are part of the JavaScript language defined by the ECMAScript specification, such as String, Math, RegExp, Object, Function, etc.
+
 Host objects are provided by the runtime environment (browser or Node), such as window, XMLHTTPRequest, etc.
 ==
 Is there anyway to force using strict mode in Node.js? 	
@@ -116,7 +126,8 @@ Transpilers are also known as source-to-source compilers. So in essence they are
 Some examples of transpilers:
 
 Emscripten: Transpiles C/C++ to JavaScript
-Babel: Transpiles ES6+ code to ES5 (ES6 and ES5 are different versions or generations of the JavaScript language)
+Babel: Transpiles ES6+ code to ES5 (ES6 and ES5 are different versions or generations of
+   the JavaScript language)
 ===
 
 
@@ -160,28 +171,33 @@ ES6 arrow functions are also known as lambda expressions. In Javascript, not all
 
 Arrow functions are best suited for non-method functions, and they cannot be used as constructors.
 ==
+
 purpose of symbols-
-Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows different modules to create properties that don't conflict with one another. Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have direct access to the Symbol.
 
-Symbols are a new primitive. Just like the number, string, and boolean primitives, Symbol have a function which can be used to create them. Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with the Symbol constructor in the following way:
+Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows different modules to create properties that don't conflict with one another.
+Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have direct access to the Symbol.
 
+Symbols are a new primitive. Just like the number, string, and boolean primitives, Symbol have a function which can be used to create them.
+Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with the Symbol constructor in the following way:
 
 Symbols can be used as Object keys
 Symbols can be used as a unique value.
 
 ===
 Currying
-Currying is a technique of evaluating function with multiple arguments, into sequence of function with single argument.
+Currying is a technique of evaluating function with multiple arguments, into sequence of function
+ with single argument.
 
 Currying helps you to avoid passing the same variable again and again.
-It helps to create a higher order function. It extremely helpful in event handling. See the blog post for more information.
+It helps to create a higher order function. It extremely helpful in event handling.
 Little pieces can be configured and reused with ease.
 
 add(1)(2)(3);
 
 ====
 higher order function
-A higher-order function is a function that can take another function as an argument, or that returns a function as a result.
+A higher-order function is a function that can take another function as an argument, or
+that returns a function as a result.
 
 First Class Functions
 You may have heard it said that JavaScript treats functions as first-class citizens. What this means is that functions in JavaScript are treated as objects. They have the type Object, they can be assigned as the value of a variable, and they can be passed and returned just like any other reference variable.
@@ -189,10 +205,11 @@ You may have heard it said that JavaScript treats functions as first-class citiz
 This native ability gives JavaScript special powers when it comes to functional programming. Because functions are objects, the language supports a very natural approach to functional programming. In fact, it’s so natural, that I’ll bet you’ve been using it without even thinking about it.
 
 Taking Functions as Arguments
-If you’ve done much web-based JavaScript programming or front-end development, you’ve probably come across functions that use a callback. A callback is a function that gets executed at the end of an operation, once all of the other operations of been completed. Usually this callback function is passed in as the last argument in the function. Frequently, it’s defined inline as an anonymous function.
+If you’ve done much web-based JavaScript programming or front-end development, you’ve probably come across functions that use a callback. A callback is a function that gets executed at the end of an operation, once all of the other operations of been completed. Usually this callback function is passed in as the last argument in the function.
+ Frequently, it’s defined inline as an anonymous function.
 ====
- What are the differences between ES6 class and ES5 function constructors?
 
+ What are the differences between ES6 class and ES5 function constructors?
 https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e
 
 
@@ -207,7 +224,8 @@ what is coersion in js-
 
 *** https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/
 
-Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion. To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
+Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion.
+ To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
 
 Implicit vs. explicit coercion
 
@@ -360,7 +378,8 @@ It has sender information.
 It has receiver information
 It has a heading
 It has a message body.
-But still, the XML above does not DO anything. XML is just information wrapped in tags.
+But still, the XML above does not DO anything.
+XML is just information wrapped in tags.
 
 XML and HTML were designed with different goals:
 
@@ -505,7 +524,8 @@ var a = new Map(); a.set('snc', "sdsds");console.log(a);
 
 VM184:1 Map(1) {"snc" => "sdsds"}
 
- has static properties that expose several members of built-in objects, has static methods that expose the global symbol registry, and resembles a built-in object class but is incomplete as a constructor because it does not support the syntax "new Symbol()".  
+ has static properties that expose several members of built-in objects,
+ has static methods that expose the global symbol registry, and resembles a built-in object class but is incomplete as a constructor because it does not support the syntax "new Symbol()".  
 
 
 Iteration over Map
@@ -516,7 +536,7 @@ map.values() – returns an iterable for values,
 map.entries() – returns an iterable for entries [key, value], it’s used by default in for..of.
 
 converting array into objects-
-var b = {}; var c  = Object.assign({}, [{id : 1, name: "vbv"}, {id : 2, name : "sdsd"}]);+
+var b = {}; var c  = Object.assign({}, [{id : 1, name: "vbv"}, {id : 2, name : "sdsd"}]);
 console.log(c);
 VM542:1 {0: {…}, 1: {…}}0: {id: 1, name: "vbv"}1: {id: 2, name: "sdsd"}__proto__: Object
 
@@ -650,7 +670,6 @@ var result = (function () {
 })();
 
 This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE (like in any other normal function) are not visible outside its scope.
-
 
 To intercept HTTP requests, use the webRequest API. This API enables you to add listeners for various stages of making an HTTP request. In the listeners, you can:
 
@@ -898,10 +917,6 @@ The metadata can be used by browsers (how to display content or reload page), se
 
 HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
 
-
-
-
-
 Strict mode in JavaScript
 - Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
  - This strict context prevents certain actions from being taken and throws more exceptions.
@@ -916,8 +931,6 @@ It disables features that are confusing or poorly thought out.
 Strict mode makes it easier to write “secure” JavaScript.
 Also note you can apply "strict mode" to the whole file... Or you can use it only for a specific
 function
-
-
 
 typeof null === object why-
  In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was 0. null was represented as the NULL pointer (0x00 in most platforms). Consequently, null had 0 as type tag, hence the "object" typeof return value.
@@ -1003,6 +1016,8 @@ instanceof
 
 The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.
 
+Class checking: "instanceof"
+The instanceof operator allows to check whether an object belongs to a certain class. It also takes inheritance into account.
 
 Event bubbling and capturing and event delegation
 
@@ -1096,7 +1111,8 @@ Supports transactions for reliability.
 Supports key range queries, indexes.
 Can store much more data than localStorage.
 
-That power is usually excessive for traditional client-server apps. IndexedDB is intended for offline apps, to be combined with ServiceWorkers and other technologies.
+That power is usually excessive for traditional client-server apps. IndexedDB is intended for
+offline apps, to be combined with ServiceWorkers and other technologies.
 
 let openRequest = indexedDB.open(name, version);
 let db = openRequest.result;

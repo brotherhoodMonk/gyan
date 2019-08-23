@@ -609,11 +609,19 @@ We can also use it in functional components with the help of closures.
 ===
 What is the purpose of using super constructor with props argument?
 
-Add to PDF/md 	  		  	Junior
-
 A child class constructor cannot make use of this reference until super() method has been called.
  The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super()
   call is to access this.props in your child constructors.
+
+  In JavaScript, there’s a distinction between a “constructor function of an inheriting class” and all others. In an inheriting class, the corresponding constructor function is labelled with a special internal property [[ConstructorKind]]:"derived".
+
+The difference is:
+
+When a normal constructor runs, it creates an empty object and assigns it to this.
+But when a derived constructor runs, it doesn’t do this. It expects the parent constructor to do this job.
+So if we’re making a constructor of our own, then we must call super, because otherwise the object for this won’t be created. And we’ll get an error.
+
+====
 
 
 The above code snippets reveals that this.props behavior is different only with in the constructor. It would be same outside the constructor.
@@ -716,7 +724,8 @@ If the React element was previously rendered into container, this will perform
 an update on it and only mutate the DOM as necessary to reflect the latest React element.
 ===
 What is the purpose of render method of react-dom?
-This method is used to render a React element into the DOM in the supplied container and return a reference to the component. If the React element was previously rendered into container, it will perform an update on it and only mutate the DOM as necessary to reflect the latest changes.
+This method is used to render a React element into the DOM in the supplied container and return a reference to the component. If the React element was previously rendered into container,
+ it will perform an update on it and only mutate the DOM as necessary to reflect the latest changes.
 
 ReactDOM.render(element, container[, callback])
 If the optional callback is provided, it will be executed after the component is rendered or updated.
@@ -863,7 +872,7 @@ Passing in a function into setState instead of an object will give you a reliabl
 
 
 18. What is React.cloneElement? And the difference with this.props.children?
-React.cloneElement clone and return a new React element using using the passed element as the starting point.
+React.cloneElement clone and return a new React element  using the passed element as the starting point.
 The resulting element will have the original element's props with the new props merged
 in shallowly. New children will replace existing children. key and ref from the original
 element will be preserved.
@@ -875,7 +884,7 @@ in some more advanced scenarios, where a parent send in an element and the child
 this.props.children
 
 this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
-
+====
 jsx-
 JSX produces React “elements”.
 JSX is simply converting XML-like markup into JavaScript.
@@ -950,3 +959,50 @@ const element = React.createElement(
 And finally it renders to the DOM using ReactDOM.render():
 
 <div id='login-btn'>Login</div>
+
+
+====
+react new features
+fragment
+portal
+error boundary
+getDerivedStateFromError()
+static getDerivedStateFromProps
+Fiber: React 16.0 introduced a brand new reconciliation engine known as Fiber. This new engine is a generation leap over the previous generation of React’s core and is also responsible for the many new features that were introduced in this release. Fiber also introduces the concept of async rendering which results in more responsive apps because React prevents blocking the main thread. Fiber incorporates a smart scheduling algorithm that batches updates instead of synchronously re-
+
+React.memo() is the functional component solution to React.PureComponent as used in class components. It's a higher order component that is wrapped around functional components to create memoized components.
+
+React.lazy() allows us to render dynamic imports as regular components.
+It takes a function that must call a dynamic import().
+This must return a Promise which resolves to a module with a default export
+containing a React component.
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+const AnotherComponent = React.lazy(() => import('./AnotherComponent'));
+
+function MyComponent() {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <section>
+          <OtherComponent />
+          <AnotherComponent />
+        </section>
+      </Suspense>
+    </div>
+  );
+}
+==
+
+static method
+
+We can also assign a method to the class function itself, not to its "prototype". Such methods are called static.
+
+Usually, static methods are used to implement functions that belong to the class, but not to any particular object of it.
+
+Static properties are used when we’d like to store class-level data, also not bound to an instance.
+
+As MDN describes it, “Static methods are called without instantiating their class and are also not callable when the class is instantiated. Static methods are often used to create utility functions for an application.” In other words, static methods have no access to data stored in specific objects.
+Since these methods operate on the class instead of instances of the class, they are called on the class. There are two ways to call static methods:

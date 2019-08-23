@@ -3,7 +3,14 @@ You will, of course, need to know how to add CSS to a page, and there are three 
 
 Using the inline style attribute on an element
 Using a <style> block in the <head> section of your HTML
+<style>
+body {background-color: powderblue;}
+h1   {color: blue;}
+p    {color: red;}
+</style>
+
 Loading an external CSS file using the <link> tag
+<link rel="stylesheet" href="../text.css">
 
 2. Could you describe the different kinds of selectors?
 A selector in CSS is the bit before the curly bracket, for
@@ -763,3 +770,139 @@ CSS3 modules are supported almost on every browser and on the other hand modules
 In CSS3 we will find that many graphics related characteristics have been introduced like “Border-radius or box-shadow, flexbox.
 In CSS3, a user can precise multiple background images on a webpage by using properties like background-image, background-position,
 and background-repeat styles
+===
+The required alt attribute specifies an alternate text for an image, if the image cannot be displayed.
+
+The alt attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection, an error in the src attribute, or if the user uses a screen reader).
+==
+Meta tag
+Metadata is data (information) about data.
+
+The <meta> tag provides metadata about the HTML document. Metadata will not be displayed on the page,
+but will be machine parsable.
+
+Meta elements are typically used to specify page description, keywords, author of the document,
+last modified, and other metadata.
+
+The metadata can be used by browsers (how to display content or reload page), search engines (keywords), or other web services.
+
+HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
+
+<meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  The viewport is the user's visible area of a web page. It varies with the device, and will be smaller on a mobile phone than on a computer screen.
+
+You should include the following <meta> viewport element in all your web pages:
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+======
+What is Character Encoding?
+
+Add to PDF/md 	  		  	Junior
+
+To display an HTML page correctly, a web browser must know which character set (character encoding) to use. This is specified in the tag:
+
+HTML4:
+
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+
+HTML5:
+
+<meta charset="UTF-8">
+
+=======
+Q10: What is a self closing tag?
+
+
+In HTML5 it is not strictly necessary to close certain HTML tags. The tags that aren’t required to have specific closing tags are called “self closing” tags.
+
+An example of a self closing tag is something like a line break (<br />) or the meta tag (<meta>). This means that the following are both acceptable:
+
+<meta charset="UTF-8">
+...
+<meta charset="UTF-8" />
+===
+Briefly describe the correct usage of the following HTML5 semantic elements: <header>, <article>, <section>, <footer>
+
+Add to PDF/md 	  		  	Junior
+
+    <header> is used to contain introductory and navigational information about a section of the page. This can include the section heading, the author’s name, time and date of publication, table of contents, or other navigational information.
+
+    <article> is meant to house a self-contained composition that can logically be independently recreated outside of the page without losing it’s meaining. Individual blog posts or news stories are good examples.
+
+    <section> is a flexible container for holding content that shares a common informational theme or purpose.
+
+    <footer> is used to hold information that should appear at the end of a section of content and contain additional information about the section. Author’s name, copyright information, and related links are typical examples of such content.
+===
+
+Attributes – is what’s written in HTML.
+Properties – is what’s in DOM objects.
+
+
+HTML attributes
+In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes standard attributes and creates DOM properties from them.
+When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.
+
+elem.hasAttribute(name) – to check for existence.
+elem.getAttribute(name) – to get the value.
+elem.setAttribute(name, value) – to set the value.
+elem.removeAttribute(name) – to remove the attribute.
+elem.attributes is a collection of all attributes.
+
+Attributes are defined on the HTML markup but properties are defined on the DOM. To illustrate the difference, imagine we have this text field in our HTML: <input type="text" value="Hello">
+
+==
+What are `data-` attributes good for?
+
+The data-* attribute is used to store custom data private to the page or application.
+
+The data-* attribute gives us the ability to embed custom data attributes on all HTML elements.
+
+==
+
+<section> means that the content inside is grouped (i.e. relates to a single theme), and should appear as an entry in an outline of the page.
+
+<div>, on the other hand, does not convey any meaning, aside from any found in its class, lang and title attributes.
+
+====
+script with and without difer and async
+<script       src="myscript.js"></script>
+
+<script async src="myscript.js"></script>
+
+<script defer src="myscript.js"></script>
+Without async or defer, browser will run your script immediately, before rendering the elements that's below your script tag.
+
+With async (asynchronous), browser will continue to load the HTML page and render it while the browser load and execute the script at the same time.
+
+With defer, browser will run your script when the page finished parsing. (not necessary finishing downloading all image files. This is good.)
+
+=======
+Web SQL
+
+The Web SQL Database API isn't actually part of the HTML5 specification but it is a separate specification which introduces a set of APIs to manipulate client-side databases using SQL.
+openDatabase − This method creates the database object either using existing database or creating new one.
+
+transaction − This method gives us the ability to control a transaction and performing either commit or rollback based on the situation.
+
+executeSql − This method is used to execute actual SQL query.
+===
+markup validation
+World Wide Web Consortium (W3C) allows internet users to check HTML and XHTML documents for
+ well-formatted markup. Markup validation is an important step towards ensuring the technical
+  quality of web pages. W3C validation is the process of checking a websites code to determine
+   if it follows the formatting standards.
+====
+main
+The <main> tag specifies the main content of a document.
+
+The content inside the <main> element should be unique to the document.
+It should not contain any content that is repeated across documents such as sidebars,
+navigation links, copyright information, site logos, and search forms.
+
+Note: There must not be more than one <main> element in a document. The <main> element
+must NOT be a descendant of an <article>, <aside>, <footer>, <header>, or <nav> element.
+====
