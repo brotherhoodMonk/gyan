@@ -45,6 +45,132 @@ position: relative until an element is scrolled beyond a specific offset, in
  its position instead of being scrolled out of view. It eventually gets unstuck
  as it gets scrolled back toward its original position. At least, that's how I
   understand it in theory.
+====
+Explain the CSS “box model” and the layout components that it consists of
+Add to PDF/md	 		 	Junior
+The CSS box model is a rectangular layout paradigm for HTML elements that consists of the following:
+
+Content - The content of the box, where text and images appear
+Padding - A transparent area surrounding the content (i.e., the amount of space between the border and the content)
+Border - A border surrounding the padding (if any) and content
+Margin - A transparent area surrounding the border (i.e., the amount of space between the border and any neighboring elements)
+====
+
+What is a CSS rule?
+Web browsers apply CSS rules to a document to affect how they are displayed. A CSS rule is formed from:
+
+A set of properties, which have values set to update how the HTML content is displayed,
+A selector, which selects the element(s) you want to apply the updated property values to.
+A set of CSS rules contained within a stylesheet determines how a webpage should look.
+===
+What is Sass?
+Add to PDF/md	 		 	Junior
+Sass or Syntactically Awesome StyleSheets is a CSS preprocessor that adds power and elegance to the basic language.
+ It allows you to use variables, nested rules, mixins, inline imports, and more, all with a fully CSS-compatible
+ syntax. Sass helps keep large stylesheets well-organized, and get small stylesheets up and running quickly.
+
+ A CSS preprocessor is a scripting language that extends CSS by allowing developers to write code in one language and then compile it into CSS.
+
+====
+List out the key features for Sass?
+Add to PDF/md	 		 	Junior
+Key features for Sass include
+
+Full CSS3-compatible
+Language extensions such as nesting, variables, and mixins
+Many useful functions for manipulating colors and other values
+Advanced features like control directives for libraries
+Well-formatted, customizable output
+===
+What is variable interpolation in Sass? Provide some examples.
+Add to PDF/md	 		 	Junior
+If you want to use variables inside a string, you will have to use a process called variable interpolation. To use it you will have to wrap your variables in #{}.
+
+$name: 'Gajendar';
+$author: 'Author : $name'; // 'Author : $name'
+
+$author: 'Author : #{$name}';
+// 'Author : Gajendar'
+
+====
+List out the data types that Sass supports- 7
+numbers,
+string,
+boolean
+colors,
+map,
+list,
+number
+null
+====
+Explain what is a @extend directive used for in Sass?
+Add to PDF/md	 		 	Junior
+Using @extend lets you share a set of CSS properties from one selector to another. It helps keep your Sass very dry.
+%message-shared {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.message {
+  @extend %message-shared;
+}
+
+
+======
+float and clear
+The CSS float property specifies how an element should float.
+Float is a CSS positioning property. Floated elements remain a part of the flow of the web page.
+
+The CSS clear property specifies what elements can float beside the cleared element and on which side.
+The CSS clear property can be used to be positioned below left/right/both floated elements.
+===
+Explain CSS sprites, and how you would implement them on a page or site.
+
+Add to PDF/md 	  		  	Junior
+
+CSS sprites combine multiple images into one single larger image. It is commonly used technique for icons (Gmail uses it).
+
+   Use a sprite generator that packs multiple images into one and generate the appropriate CSS for it.
+   Each image would have a corresponding CSS class with background-image, background-position and background-size properties defined.
+   To use that image, add the corresponding class to your element.
+
+   advantages:
+
+       Reduce the number of HTTP requests for multiple images (only one single request is required per spritesheet). But with HTTP2, loading multiple images is no longer much of an issue.
+       Advance downloading of assets that won’t be downloaded until needed, such as images that only appear upon :hover pseudo-states. Blinking wouldn't be seen.
+
+   =====
+
+   table-layout
+   The table-layout property defines the algorithm used to lay out table cells, rows, and columns.
+
+Tip: The main benefit of table-layout: fixed; is that the table renders much faster. On large tables,
+users will not see any part of the table until the browser has rendered the whole table.
+So, if you use table-layout: fixed, users will see the
+top of the table while the browser loads and renders rest of the table. This gives the impression that the page loads a lot quicker!
+=======
+how does css works
+The browser converts HTML and CSS into the DOM (Document Object Model).
+The DOM represents the document in the computer's memory. It combines the document's content with its style.
+Web browsers apply CSS rules to a document to affect how they are displayed. A CSS rule is formed from:
+A set of properties,
+A selector,
+
+===
+
+Normalize css vs reset
+Normalize CSS
+Normalize.css is a small CSS file that provides cross-browser consistency in the default styling of HTML elements.
+
+Reset CSS
+Reset CSS takes a different approach and says that we don’t need the browsers’ default styles at all.
+ Whatever styles we need, we’ll define in the project according to our needs. So “CSS Reset”
+ resets all of the styles that come with the browser’s user agent.
+===
+clearfix
+A clearfix is a way for an element to automatically clear its child elements,
+so that you don't need to add additional markup. It's generally used in float layouts where elements are floated to be stacked horizontally.
 
 transition-
   These transition properties allow elements to change values over a specified duration,
@@ -285,6 +411,7 @@ The animation is created by gradually changing from one set of CSS styles to ano
 During the animation, you can change the set of CSS styles many times.
 
 ===
+
 14. How do you handle browser differences in your user base?
 In the past few years, browsers have come a long way. Modern browsers update automatically
  and provide pretty good feature coverage.
@@ -733,6 +860,8 @@ In CSS, selectors are patterns used to select the element(s) you want to style.
 
 Use our CSS Selector Tester to demonstrate the different selectors.
 
+https://www.w3schools.com/cssref/css_selectors.asp
+
 .class
 .class1.class2
 #id
@@ -740,6 +869,12 @@ Use our CSS Selector Tester to demonstrate the different selectors.
 :active
 ::after
 ::before
+===
+zebra style table
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+===
 
 Q #6) What are the uses of embedded style sheet?
 

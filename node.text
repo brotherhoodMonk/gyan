@@ -363,7 +363,51 @@ how does node prevents blocking code??
 
 By providing callback function. Callback function gets called whenever corresponding event triggered.
 ===
+npx
+npx : An npm package runner — helps to execute packages without installing explicitly.
 
+There are times you wanted to try some CLI tools but it’s annoying to have it
+installed globally (or) locally just to run it once. npx is a great way for solving this.
+Using npx <command> to initiate the execution of a package. If <command> is not already
+in your $PATH, npx will install the package from npm registry and invoke it. npx will not maintain
+the packages in the globals, So you don't have to worry about polluting your globals.
+
+difference
+NPM by itself does not simply run any package. it doesn't run any package in a matter of fact. If you
+want to run a package using NPM, you must specify that package in your package.json file.
+
+npx will check whether <command> exists in $PATH, or in the local project binaries, and execute it.
+==
+yarn
+https://engineering.fb.com/web/yarn-a-new-package-manager-for-javascript/
+
+
+Yarn resolves these issues around versioning and non-determinism by using lockfiles and an install
+algorithm that is deterministic and reliable. These lockfiles lock the installed dependencies to a
+specific version, and ensure that every install results in the exact same file structure in node_modules
+ across all machines. The written lockfile uses a concise format with ordered keys to ensure that changes
+ are minimal and review is simple.
+
+Fast, reliable, and secure dependency management.
+Resolution: Yarn starts resolving dependencies by making requests to the registry and recursively looking up each dependency.
+Fetching: Next, Yarn looks in a global cache directory to see if the package needed has already been downloaded. If it hasn't, Yarn fetches the tarball for the package and places it in the global cache so it can work offline and won't need to download dependencies more than once. Dependencies can also be placed in source control as tarballs for full offline installs.
+Linking: Finally, Yarn links everything together by copying all the files needed from the global cache into the local node_modules directory.
+
+makes the install process faster.
+
+Fast: Yarn caches every package it downloads so it never needs to again. It also parallelizes operations to maximize resource utilization so install times are faster than ever.
+
+Reliable: Using a detailed, but concise, lockfile format, and a deterministic algorithm for installs, Yarn is able to guarantee that an install that worked on one system will work exactly the same way on any other system.
+
+Secure: Yarn uses checksums to verify the integrity of every installed package before its code is executed.
+
+Offline Mode: If you've installed a package before, you can install it again without any internet connection.
+Deterministic: The same dependencies will be installed the same exact way across every machine regardless of install order.
+Network Performance: Yarn efficiently queues up requests and avoids request waterfalls in order to maximize network utilization.
+Multiple Registries: Install any package from either npm or Bower and keep your package workflow the same.
+Network Resilience: A single request failing won't cause an install to fail. Requests are retried upon failure.
+Flat Mode: Resolve mismatching versions of dependencies to a single version to avoid creating duplicates.
+====
 What IDEs Can You Use For Node.Js Development?
 
 Cloud9

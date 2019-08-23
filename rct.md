@@ -1,11 +1,14 @@
 
 onClick, onMouseHover
+
 jsx
 
 React allows us to write HTML in JavaScript,
  if JavaScript files contains JSX, that that file will have to be transpiled using babel.
 
- JSX produces React “elements”. A React element is simply an object representation of a DOM node. A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
+ JSX produces React “elements”. A React element is simply an object representation of a DOM node.
+  A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
+
 
 diff between html and jsx
 
@@ -15,28 +18,33 @@ The attribute names are based on the DOM API, not on the HTML language specs.
 
 React.createElement(type, [props], [...children])
 
-The first is a tag name string (div, span, etc), the second is any attributes you want the element to have, the third is contents or the children of the element.
+The first is a tag name string (div, span, etc), the second is any attributes you want the element to have,
+the third is contents or the children of the element.
 ===
 where to fetch data
 
-
 componentWillMount
-aftre the componentWillMount immediately the renders functio executes,
+aftre the componentWillMount immediately the renders function executes,
 so if our api call is asynchronous, then we will not get updated data.
 
-This lifecycle is also called at the server side (if you are using SSR). In this case the external data won’t be used. So the api will be called twice unnecessarily.
+This lifecycle is also called at the server side (if you are using SSR).
+In this case the external data won’t be used. So the api will be called twice unnecessarily.
 
 The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated after React v17. After React v17 only the alias will work fine.
 
 constructor
 
-Fetching data in constructor is considered to be a side effect and it is recommended to avoid that. As you all know we cannot call setState() in the constructor.
+Fetching data in constructor is considered to be a side effect and it is recommended to avoid that.
+ As you all know we cannot call setState() in the constructor.
 
 A typical react constructor is used for two purpose -
 ➀ Initializing local state by assigning an object to this.state .
 ➁ Binding event handler methods to an instance.
 
-Warning: Can't call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the App component.
+Warning: Can't call setState on a component that is not yet mounted.
+ This is a no-op, but it might indicate a bug in your application.
+  Instead, assign to `this.state` directly or define a `state = {};`
+    class property with the desired state in the App component.
 
 =====
 why do the Component names in JSX start with capital letter?
@@ -63,18 +71,19 @@ class ReactComp extends React.Component {
 
 or using logical || operators
 ===
-
-
 react library or frameworks
 
-React does not solve any structural or architectural problems on the app level. It provides us with a set of methods for better (in my opinion) handling of front-end.
+React does not solve any structural or architectural problems on the app level.
+It provides us with a set of methods for better (in my opinion) handling of front-end.
 
 React does not have any Template design pattern.
 It does not push app structure in any direction.
 
-It is not only about the fact that React can be V (view) in an MVC, there is no HTML or any other kind of traditional templates in the React.
+It is not only about the fact that React can be V (view) in an MVC, there is no HTML
+ or any other kind of traditional templates in the React.
 
-React approaches building user interfaces differently by breaking them into components. This means React uses a real, full featured programming language to render views (Source)
+React approaches building user interfaces differently by breaking them into components.
+ This means React uses a real, full featured programming language to render views (Source)
 
 
 People have different definitions for library and framework
@@ -87,7 +96,8 @@ In terms of this definition, React is a framework.
 
 But some people, especially in the front-end world, say a framework has to bring stuff like routers and/or widgets etc. pp.
 
-So Angular, Ember.js and ExtJS are frameworks, but React isn't, because it only gives you the means to build components and render them into the DOM.
+So Angular, Ember.js and ExtJS are frameworks, but React isn't, because it only gives you
+the means to build components and render them into the DOM.
 ===
 props and state
 
@@ -104,9 +114,8 @@ Components data will be stored in component's State.
 This state can be modified based on user action or other action using setState method.
 when a component state is changed React will re-render the component to the browser.
 
-props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function)
-
-
+props get passed to the component (similar to function parameters) whereas state is managed within the component
+(similar to variables declared within a function)
 
 differnce
 1. Props are immutable i.e. once set the props cannot be changed, state is mutable
@@ -114,14 +123,16 @@ differnce
 3. While Props are set by the parent component, State is generally updated by event handlers using setState.
 
 when to use state
-If a Component needs to alter one of its attributes at some point in time, that attribute should be part of its state, otherwise it should just be a prop for that Component.
+If a Component needs to alter one of its attributes at some point in time, that attribute should be part of
+ its state, otherwise it should just be a prop for that Component.
 
 why setState is asynchronous
 
 setState actions are asynchronous and are batched for performance gains
 setState() does not immediately mutate this.state but creates a pending state transition.
 
-This is because setState alters the state and causes rerendering. This can be an expensive operation and making it synchronous might leave the browser unresponsive.
+This is because setState alters the state and causes rerendering.
+This can be an expensive operation and making it synchronous might leave the browser unresponsive.
 Thus the setState calls are asynchronous as well as batched for better UI experience and performance.
 
 get the latest value of state;
@@ -136,7 +147,8 @@ this.setState({attribute: "new-value"});
 HOC-
 a higher-order component is a function that takes a component and returns a new component.
 A higher-order component (HOC) is an advanced technique in React for reusing component logic.
-Note that a HOC doesn’t modify the input component, nor does it use inheritance to copy its behavior. Rather, a HOC composes the original component by wrapping it in a container component. A HOC is a pure function with zero side-effects.
+Note that a HOC doesn’t modify the input component, nor does it use inheritance to copy its behavior.
+ Rather, a HOC composes the original component by wrapping it in a container component. A HOC is a pure function with zero side-effects.
 
 we can pass props to a wrapped component
 
@@ -206,6 +218,7 @@ Here’s an example of an action that can be carried out during login in an app:
     password: "bar"
   }
 }
+
 2. reducers-
 Reducers are pure functions that take the current state of an application,
 perform an action and returns a new state.
@@ -238,17 +251,17 @@ If the same state and action are passed to a reducer,
 
 Maintainability.
 
-Redux is strict about how code should be organized so it makes it easier for someone with knowledge of Redux to understand the structure of any Redux application. This generally makes it easier to maintain.
+Redux is strict about how code should be organized so it makes it easier for someone with knowledge of Redux
+to understand the structure of any Redux application. This generally makes it easier to maintain.
 
 Debuggable for days.
-Redux makes it easy to debug an application. By logging actions and state, it is easy to understand coding errors, network errors and other forms of bugs that might come up during production.
+Redux makes it easy to debug an application. By logging actions and state, it is easy to understand coding errors,
+ network errors and other forms of bugs that might come up during production.
 
 Ease of testing
 It is easy to test Redux apps as functions used to change the state of pure functions.
 You can persist some of the app’s state to local storage and restore it after a refresh. This can be really nifty.
 Redux can also be used for server-side rendering. With it, you can handle the initial render of the app by sending the state of an app to the server along with its response to the server request. The required components are then rendered in HTML and sent to the clients.
-
-
 
 ====
 
@@ -258,12 +271,18 @@ Redux can also be used for server-side rendering. With it, you can handle the in
 ============
 virtual DOM
 
-Virtual Dom is node tree that lists attribute , elements to properties and object.
+Virtual Dom is node tree that lists attribute , elements, contents  as a properties and object.
+render method in react creates the node tree from react component and updates this tree in response to the change in the data model.
+Each times it undergoes the data changes react creates a new virtual Dom representatuion of user interface.
 
 The virtual DOM is an in-memory representation of the real DOM.  
-The Virtual DOM is an abstraction of the HTML DOM. It is lightweight and detached from the browser-specific implementation details. Since the DOM itself was already an abstraction, the virtual DOM is, in fact, an abstraction of an abstraction.
+The Virtual DOM is an abstraction of the HTML DOM. It is lightweight and detached from the browser-specific implementation details.
+ Since the DOM itself was already an abstraction, the virtual DOM is, in fact, an abstraction of an abstraction.
 
-By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have changed are redrawn. Without the virtual DOM, every element is redrawn regardless of whether or not it has changed. This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
+By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently
+determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have
+changed are redrawn. Without the virtual DOM, every element is redrawn regardless of whether or not it has changed.
+This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
 
 Manipulating the DOM is slow. Manipulating the virtual DOM is much faster, because nothing gets drawn onscreen.
 
@@ -284,6 +303,7 @@ The Difference?
 While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated scope for web components.
 ====
 reactElement and ReactComponent
+
 What differs ReactComponent from ReactElement is - ReactComponents are stateful.
 A ReactElement is a light, stateless, immutable, virtual representation of a DOM Element.
 
@@ -294,8 +314,9 @@ props — the props property is exactly what you think it is: it’s a mapping o
 ref — the ref property is used to access the underlying DOM element associated with a rendered version of this React element.
 type
 
-ReactElements lives in the virtual DOM. They make the basic nodes here. Their immutability makes them easy and fast to compare and update. This is the reason of great React performance.
-
+ReactElements lives in the virtual DOM. They make the basic nodes here.
+Their immutability makes them easy and fast to compare and update.
+This is the reason of great React performance.
 ===
 lifting-state-up???
 
@@ -404,8 +425,11 @@ componentWillUnmount()
 
 Q12. What is PureComponent? When to use PureComponent over Component?
 
-PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us. When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
-When comparing previous props and state to next, a shallow comparison will check that primitives have the same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more complex javascript values like objects and arrays.
+PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us.
+ When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
+When comparing previous props and state to next, a shallow comparison will check that primitives have the
+same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more
+complex javascript values like objects and arrays.
 It is good to prefer PureComponent over Component whenever we never mutate our objects.
 ===
 Q16. What are controlled and uncontrolled components in React?
@@ -414,7 +438,8 @@ A Controlled Component is one that takes its current value through props and not
  A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 You could also call this a “dumb component”.
 
-A component that controls the input elements within the forms on subsequent user input is called Controlled Component, i.e, every state mutation will have an associated handler function.
+A component that controls the input elements within the forms on subsequent user input is called Controlled Component, i.e,
+ every state mutation will have an associated handler function.
 
 For a controlled component the value is passed in through props.
 
@@ -451,8 +476,6 @@ class NameForm extends React.Component {
 ===
 How would you write an inline style in React?
 
-Add to PDF/md 	  		  	Entry
-
 For example:
 
 <div style={{ height: 10 }}>
@@ -460,6 +483,7 @@ For example:
 
 ===
 context
+
 Context provides a way to pass data through the component tree without having to pass props down manually at every level.
 
 Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language.
@@ -527,7 +551,6 @@ handleClick = (id) => () => {
 What is the use of refs?
 
 The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when we need direct access to DOM element or an instance of a component.
-
 ===
 What is JEST?
 
@@ -535,8 +558,6 @@ Jest is a JavaScript unit testing framework made by Facebook based on Jasmine an
 
 ==
 When rendering a list what is a key and what is it's purpose?
-
-Add to PDF/md 	  		  	Junior
 
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
 
@@ -554,13 +575,9 @@ Most often you would use IDs from your data as keys. When you don't have stable 
 ======
 Q31: How do you prevent the default behavior in an event callback in React?
 
-Add to PDF/md 	  		  	Junior
-
 You call e.preventDefault(); on the event e passed into the callback.
 =====
-Q32: How would you prevent a component from rendering in React? 	
-           Junior
-
+Q32: How would you prevent a component from rendering in React?
 Return null from the render method.
 =====
 flux
