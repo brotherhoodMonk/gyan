@@ -3,6 +3,22 @@ onClick, onMouseHover
 
 jsx
 
+1. it's just an extension to JavaScript that allows to write XML-like code for simplicity and elegance, and then you transpile the JSX into pure JavaScript function calls with React.createElement.
+3. React allows us to write HTML in JavaScript,
+ if JavaScript files contains JSX, that that file will have to be transpiled using babel.
+
+ 4. JSX produces React “elements”. which is simply an object representation of a DOM node.
+  A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
+
+diff between html and jsx
+
+1. HTML is a markup language which is used for creating attractive web pages with the help of styling, and which looks in a nice format on a web browser.
+where as JSX is extension to javascript that allows to write html-like syntax code to represent the web page.
+2. The attribute names are based on the DOM API, not on the HTML language specs.
+3. Tag attributes are camel cased.
+4. All elements must be balanced.
+5. className attribute instead of class
+
 React allows us to write HTML in JavaScript,
  if JavaScript files contains JSX, that that file will have to be transpiled using babel.
 
@@ -63,7 +79,6 @@ setting default props
 class ReactComp extends React.Component {}
 ReactComp.defaultProps = {}
 
-or
 
 class ReactComp extends React.Component {
     static defaultProps = {}
@@ -86,15 +101,10 @@ React approaches building user interfaces differently by breaking them into comp
  This means React uses a real, full featured programming language to render views (Source)
 
 
-People have different definitions for library and framework
+======
+React.createElement(type, [props], [...children])
 
-One definition I know is:
-
-a framework is a software where you plug your code into
-a library is a software that you plug into your code
-In terms of this definition, React is a framework.
-
-But some people, especially in the front-end world, say a framework has to bring stuff like routers and/or widgets etc. pp.
+React.createElement(tag, property, [...children])
 
 So Angular, Ember.js and ExtJS are frameworks, but React isn't, because it only gives you
 the means to build components and render them into the DOM.
@@ -102,30 +112,30 @@ the means to build components and render them into the DOM.
 props and state
 
 props-
-props are shorthand for properties.
-props allow us to pass custom data to the coomponent.
-Props enables us to create Stateless components which are dumb UI component or preseentational component.
-One of the most important features of props is that they can be passed by a parent component to its child components
-props are fixed throughout its lifecycle.
+1. props are shorthand for properties of the component.
+2. props allow us to pass custom data between coomponents.
+3. Props enables us to create Stateless components which are just presentational component.
+4. One of the most important features of props is that they can be passed by a parent component to its child components.
+5. props are fixed throughout its lifecycle.
 
 state-
- the State of a component is an object that holds some information that may change over the lifetime of the component.
-Components data will be stored in component's State.
-This state can be modified based on user action or other action using setState method.
-when a component state is changed React will re-render the component to the browser.
 
-props get passed to the component (similar to function parameters) whereas state is managed within the component
-(similar to variables declared within a function)
+1. The State of a component is an object that holds some information that may change over the lifetime of the component.
+2. Components data is stored in component's State.
+3. State can be modified based on user action or other action using setState method.
+4. when a component state is changed React will re-render the component to the browser.
 
 differnce
 1. Props are immutable i.e. once set the props cannot be changed, state is mutable
 2. States can only be used in Class Components while Props don’t have this limitation.
 3. While Props are set by the parent component, State is generally updated by event handlers using setState.
+4. props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function)
 
 when to use state
 If a Component needs to alter one of its attributes at some point in time, that attribute should be part of
  its state, otherwise it should just be a prop for that Component.
 
+=====
 why setState is asynchronous
 
 setState actions are asynchronous and are batched for performance gains
@@ -262,12 +272,6 @@ Ease of testing
 It is easy to test Redux apps as functions used to change the state of pure functions.
 You can persist some of the app’s state to local storage and restore it after a refresh. This can be really nifty.
 Redux can also be used for server-side rendering. With it, you can handle the initial render of the app by sending the state of an app to the server along with its response to the server request. The required components are then rendered in HTML and sent to the clients.
-
-====
-
-
-
-
 ============
 virtual DOM
 
@@ -318,6 +322,46 @@ ReactElements lives in the virtual DOM. They make the basic nodes here.
 Their immutability makes them easy and fast to compare and update.
 This is the reason of great React performance.
 ===
+=====
+why do the Component names in JSX start with capital letter?
+n JSX, lower-case tag names are considered to be HTML tags. However, lower-case tag names with a dot (property accessor) aren't.
+==
+Mounting
+
+This process of creating instances of the component and DOM nodes corresponding to React components, and inserting them into the DOM, is called mounting.
+
+React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes already in the DOM).
+
+====
+
+setting default props
+
+class ReactComp extends React.Component {}
+ReactComp.defaultProps = {}
+
+or
+
+class ReactComp extends React.Component {
+    static defaultProps = {}
+}
+
+or using logical || operators
+===
+react library or frameworks
+
+React does not solve any structural or architectural problems on the app level.
+It provides us with a set of methods for better (in my opinion) handling of front-end.
+react only gives you the means to build components and render them into the DOM.
+
+React does not have any Template design pattern.
+It does not push app structure in any direction.
+
+It is not only about the fact that React can be V (view) in an MVC, there is no HTML or any other kind of traditional templates in the React.
+
+React approaches building user interfaces differently by breaking them into components. This means React uses a real, full featured programming language to render views (Source)
+
+But some people, especially in the front-end world, say a framework has to bring stuff like routers and/or widgets etc. pp.
+======
 lifting-state-up???
 
 When several components need to share the same changing data then it is recommended to lift the shared state up to their closest common ancestor. That means if two child components share the same data from its parent, then move the state to parent instead of maintaining local state in both of the child components.
@@ -560,6 +604,8 @@ Jest is a JavaScript unit testing framework made by Facebook based on Jasmine an
 When rendering a list what is a key and what is it's purpose?
 
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
+
+React uses the key to match children in the original tree with children in the subsequent tree. For example, adding a key to our inefficient example above can make the tree conversion efficient:
 
 render () {
   return (
@@ -977,6 +1023,27 @@ And finally it renders to the DOM using ReactDOM.render():
 
 <div id='login-btn'>Login</div>
 
+==
+where to fetch data
+
+componentWillMount
+
+aftre the componentWillMount immediately the renders functio executes,
+so if our api call is asynchronous, then we will not get updated data.
+
+This lifecycle is also called at the server side (if you are using SSR). In this case the external data won’t be used. So the api will be called twice unnecessarily.
+
+The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated after React v17. After React v17 only the alias will work fine.
+
+constructor
+
+Fetching data in constructor is considered to be a side effect and it is recommended to avoid that. As you all know we cannot call setState() in the constructor.
+
+A typical react constructor is used for two purpose -
+➀ Initializing local state by assigning an object to this.state .
+➁ Binding event handler methods to an instance.
+
+Warning: Can't call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the App component.
 
 ====
 react new features

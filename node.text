@@ -2,12 +2,11 @@ Q-1. What Is Node.Js?
 
 Node.js is a JavaScript runtime or platform which is built on Google Chrome’s JavaScript v8 engine.
 This runtime allows executing the JavaScript code on any machine outside a browser.
-(this means that
-it is the server that executes the Javascript and not the browser).
 
-Node.js is single-threaded, that employs a concurrency model based on an event loop.
- It doesn’t block the execution instead registers a callback which allows the application
- to continue. It means Node.js can handle concurrent operations without creating multiple
+Node.js is single-threaded, that implements a concurrency model based on an event loop.
+ It doesn’t block the execution thread instead registers a callback which allows the application
+ to continue.
+ It means Node.js can handle concurrent operations without creating multiple
  threads of execution so can scale pretty well.
 
  Following are the areas where it’s perfect to use Node.js.
@@ -19,27 +18,29 @@ Single Page Applications
 At the same time, it’s not suitable for heavy applications involving more of CPU usage.
 
 eventloop-
-The event loop on every iteration looks if there’s something in the call stack, and executes it:
-The event loop is the term given to the process of the waiting for the msg queue to receive a message
- synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
- ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
- to the call stack and executes it.
 
 To handle the asynchronous nature of program, Node.js uses external “Queue” called as message queue
 where it inserts the
 callback of asynchronous code rather than pushing it into call stack .
 
-Since that piece of code is not in stack, node runtime will not execute it immediately. Depending
+Since that piece of code is not in call stack, node runtime will not execute it immediately.
+Depending
 on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
 thread and using the thread pool it  execute it and as soon as thread processing is done and
- result is ready to process by
- node runtime,event loop checks “is the stack empty ?” If stack is empty and Queue has some data,
+ result is ready to process by node runtime,
+ event loop checks “is the stack empty ?” If stack is  empty and Queue has some data,
  event loop will take the top most one from it and push it inside of stack for processing.
 Task of event loop is to check is there any item present in Queue and if Stack empty then push
 it on stack else wait for next tick ( Yes process.nextTick ).
 The increment that the event loop moves in is called a ‘tick’, and every time it
 ‘ticks’ it checks if the call stack is empty
 
+
+The event loop on every iteration looks if there’s something in the call stack, and executes it:
+The event loop is the term given to the process of the waiting for the msg queue to receive a message
+ synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
+ ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
+ to the call stack and executes it.
 
 worker threads
 Workers (threads) are useful for performing CPU-intensive JavaScript operations.
@@ -1022,10 +1023,8 @@ console object is used to Used to print information on stdout and stderr.
 
 
 The Timers module in Node.js contains functions that execute code after a set period of time.
-
+===
 Q3: Explain what is Reactor Pattern in Node.js?
-Topic: Node.js
-Difficulty: ⭐⭐⭐⭐⭐
 
 Reactor Pattern is an idea of non-blocking I/O operations in Node.js. This pattern provides
 a handler(in case of Node.js,
@@ -1040,7 +1039,7 @@ request in form of an event and queues each event in a queue. Thus, the demultip
 At the same time, there is an Event Loop which iterates over the items in the Event Queue.
 Every event has a callback function associated with it, and that callback function is invoked when
 the Event Loop iterates.
-
+===
 What is LTS releases of Node.js why should you care?
 Topic: Node.js
 Difficulty: ⭐⭐⭐⭐⭐
@@ -1164,10 +1163,11 @@ there’s a series of handlers and management will be passed to 1 of the followi
 skipping this one.
 
 6. How to allow CORS in Express JS? Explain with an example?
+
 Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a
 browser to let a web application running at one origin (domain) have permission to access selected
 resources from a server at a different origin.
-Answer:
+
 In order to permit CORS in Express.js, add the subsequent code in server.js:
 For Example –
 app.all(‘*’, function(req, res, next) {
@@ -1192,56 +1192,7 @@ app.use((req, res, next) => {
     next();
 });
 
-7.How to enable debugging in express app?
-
-Answer:
-In different operative Systems, we’ve got following commands:
-
-On UNIX operating system the command would be as follows:
-
-$ DEBUG=express:* node index.js
-
-On Windows the command would be:
-
-set DEBUG=express:* & node index.js
-From Webstrome IDE
-
-
-
-Question 8. How To Output Pretty Html In Express.js?
-
-Answer :
-
-app.set('view options', { pretty: true });
-
-
-How To Get The Full Url In Express?
-
-Answer :
-
-var port = req.app.settings.port || cfg.port;
-
-res.locals.requested_url = req.protocol + '://' + req.host  + ( port == 80 || port == 443 ? '' : ':'+port ) + req.path;
-
-
-
-Question 10. How To Remove Debugging From An Express App?
-
-Answer :
-
-var io = require('socket.io').listen(app, { log: false });
-io.set('log level', 1);
-
-
-Question 12. How To Download A File?
-
-Answer :
-
-app.get('/download', function(req, res){
-  var file = __dirname + '/download-folder/file.txt';
-  res.download(file);
-});
-
+====
 
 uestion 13. What Is The Parameter “next” Used For In Express?
 
@@ -1257,7 +1208,7 @@ nextIt passes control to the next matching route.
 
 In this case you need both the middleware functions to be invoked.
 So, the only way you reach the second middleware function is by calling next();
-
+====
 Authentication and Authorization
 Authentication means confirming your own identity, whereas authorization means
 being allowed access to the system. In even more simpler terms
@@ -1271,6 +1222,20 @@ being allowed access to the system. In even more simpler terms
   the system authenticates the user identity through login passwords. Usually
   authentication is done by a username and password, although there are other
   various ways to be authenticated.
+
+  Authorization
+  Authorization occurs after your identity is successfully authenticated by the system,
+  which therefore gives you full access to resources such as information, files, databases,
+  funds, etc. However authorization verifies your rights to grant you access to resources only
+  after determining your ability to access the system and up to what extent.
+   In other words, authorization
+   is the process to determine whether the authenticated user has access to the particular resources.
+    A good example of this is, once verifying and confirming employee ID and passwords through authentication,
+     the next step would be determining which employee has access to which floor and that is done through authorization.
+  Access to a system is protected by authentication and authorization, and they are frequently used in conjunction
+  with each other. Although both have different concepts behind then, they are critical to the web service
+   infrastructure, especially when it comes to being granted access to a system. Understanding each
+   term is very important and a key aspect of security.
 
   Single- Factor Authentication: This is the simplest form of authentication method which
   requires a password to grant user access to a particular system such as a website or a network.
@@ -1289,18 +1254,7 @@ Multi- Factor Authentication: This is the most advanced method of authentication
  each other in order to eliminate any data exposure. It is common for financial organizations,
  banks, and law enforcement agencies to use multiple- factor authentication.
 
- Authorization
- Authorization occurs after your identity is successfully authenticated by the system,
- which therefore gives you full access to resources such as information, files, databases,
- funds, etc. However authorization verifies your rights to grant you access to resources only
- after determining your ability to access the system and up to what extent. In other words, authorization
-  is the process to determine whether the authenticated user has access to the particular resources.
-   A good example of this is, once verifying and confirming employee ID and passwords through authentication,
-    the next step would be determining which employee has access to which floor and that is done through authorization.
- Access to a system is protected by authentication and authorization, and they are frequently used in conjunction
- with each other. Although both have different concepts behind then, they are critical to the web service
-  infrastructure, especially when it comes to being granted access to a system. Understanding each
-  term is very important and a key aspect of security.
+
 
 
  jsonwebtoken
@@ -1313,7 +1267,7 @@ Multi- Factor Authentication: This is the most advanced method of authentication
  jwt.verify(token, config.secrets.session, cb(err, res) {
 
  });
-
+===
 Question 17. How To Redirect 404 Errors To A Page In Expressjs?
 
 Answer :
@@ -1325,7 +1279,7 @@ app.use(function(req, res, next) {
     res.status(404).json({errorCode: 404, errorMsg: "route not found"});
 });
 
-
+===
 Q.3) What is Scaffolding in Express JS?
 Scaffolding is creating the skeleton structure of application
 
@@ -1333,7 +1287,7 @@ There are 2 way to do this:
 
 Express application generator
 Yeoman
-
+====
 Q.6) What is routing and how routing works in Express.js?
 Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and
 a specific HTTP request method (GET, POST, and so on).
@@ -1368,7 +1322,7 @@ app.get('/article/:id', function(req , res){
   res.render('article' + req.params.id);
 })
 In above example: id is a parameters, which can be different for different calls.
-
+===
 Q.7) What is middleware in Express Js?
 
 Middleware functions are functions that have access to the request object (req),
@@ -1386,7 +1340,8 @@ Make changes to the request and the response objects.
 End the request-response cycle.
 Call the next middleware in the stack.
 
-If the current middleware function does not end the request-response cycle, it must call next() to pass
+If the current middleware function does not end the request-response cycle,
+it must call next() to pass
  control to the next middleware function. Otherwise, the request will be left hanging.
 
 An Express application can use the following types of middleware:
@@ -1435,8 +1390,8 @@ And they can be loaded using requires and used later.
 codesource
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }))+
-
+app.use(bodyParser.urlencoded({ extended: false }))
+====
 NODE_ENV==
 
 NODE_ENV is an environment variable made popular by the express webserver framework. When a node
@@ -1551,7 +1506,8 @@ be easily implemented in ORM.
     is a relational database management system whereas,
     PostgresSQL is object-relational database management system.
    MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX,
-   z/OS, Symbian, AmigaOS. However, the PostgreSQL  is supported by Windows, Mac OS X, Linux
+   z/OS, Symbian, AmigaOS.
+   However, the PostgreSQL  is supported by Windows, Mac OS X, Linux
     and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
    MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
    My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
@@ -1568,7 +1524,8 @@ be easily implemented in ORM.
    Definition of View
    View is a virtual table, created using Create View command. This virtual table contains the data
    retrieved from a query expression,
-    in Create View command. View can be created from one or more than one base tables or views. A view can be queried like you query
+    in Create View command. View can be created from one or more than one base tables or views.
+    A view can be queried like you query
     the original base tables.
 
    It is not that the View is precomputed and stored on the disk instead, a View is computed each
@@ -1677,7 +1634,7 @@ An Optimizing Compiler that produces great code for most of the JavaScript langu
 
 Code optimization: V8 also supports de-optimization: the optimizing compiler makes optimistic assumptions from the Inline Cache about the different types, de-optimization comes if these assumptions are invalid. For example, if a hidden class generated was not the one expected, V8 throws away the optimized code and comes back to the Full Compiler to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions after they are optimized.
 
-
+====
 what us hidden classes & whats the advantage.
 
 https://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html
@@ -1721,3 +1678,55 @@ running in its own process and are independently deployable. These services may 
  in different programming languages and may use different data storage techniques. While this
   results in the development of systems that are scalable and flexible, it needs a dynamic
    makeover
+==
+7.How to enable debugging in express app?
+
+Answer:
+In different operative Systems, we’ve got following commands:
+
+On UNIX operating system the command would be as follows:
+
+$ DEBUG=express:* node index.js
+
+On Windows the command would be:
+
+set DEBUG=express:* & node index.js
+From Webstrome IDE
+
+
+====
+Question 8. How To Output Pretty Html In Express.js?
+
+Answer :
+
+app.set('view options', { pretty: true });
+
+===
+How To Get The Full Url In Express?
+
+Answer :
+
+var port = req.app.settings.port || cfg.port;
+
+res.locals.requested_url = req.protocol + '://' + req.host  + ( port == 80 || port == 443 ? '' : ':'+port ) + req.path;
+
+===
+
+Question 10. How To Remove Debugging From An Express App?
+
+Answer :
+
+var io = require('socket.io').listen(app, { log: false });
+io.set('log level', 1);
+
+====
+Question 12. How To Download A File?
+
+Answer :
+
+app.get('/download', function(req, res){
+  var file = __dirname + '/download-folder/file.txt';
+  res.download(file);
+});
+
+====

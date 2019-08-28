@@ -34,8 +34,12 @@ It can reduce disk I/O(input/output) by using a rapid path access method to loca
  An index helps to speed up select queries and where clauses, but it slows down data input,
   with the update and the insert statements.
 
-  CREATE INDEX index
- ON TABLE column;
+  An index is used to speed up searching in the database.w
+  An index can be used to efficiently find all rows matching some column in your query and then walk through only that subset of the table to find
+   exact matches. If you don't have indexes on any column in the WHERE clause, the SQL server has to walk through the whole table
+   and check every row to see if it matches, which may be a slow operation on big tables
+
+  CREATE INDEX index ON TABLE column;
 
  1. Clustered –
 Clustered index is the type of indexing that established a physical shorting order of rows.
@@ -82,21 +86,20 @@ Limit direct access to tables via defined roles in the database
 Provide an “interface” to the underlying data structure so that all implementation and even the data itself is shielded.
 Securing just the data and the code that accesses it is easier than applying that security within the application code itself
 ===
-
 Triggers
 A SQL trigger is a set of  SQL statements stored in the database catalog.
 A SQL trigger is executed or fired whenever an event associated with a table occurs e.g.,
   insert, update or delete.
-
 A SQL trigger is a special type of stored procedure. It is special because it is not
 called directly like a stored procedure. The main difference between a trigger and a
 stored procedure is that a trigger is called automatically when a data modification
 event is made against a table whereas a stored procedure must be called explicitly.
 ===
-
 RelationShips
-Relationships are defined on the basis of matching key columns. In SQL server, these relationships are defined using Primary Key-Foreign Key
- constraints. A link is created between two tables where the primary key of one table is associated with the foreign key of another
+Relationships are defined on the basis of matching key columns. In SQL server, these relationships
+are defined using Primary Key-Foreign Key
+ constraints. A link is created between two tables where the primary key of one table is associated
+ with the foreign key of another
   table using database relationships.
 
   Types of Relationships
@@ -118,40 +121,47 @@ The One-to-Many relationship is defined as a relationship between two tables whe
 a multiple row from one table can have multiple matching rows in another table. This relationship
 can be created using Primary key-Foreign key relationship.
 
-
-
 Primary Key	Foreign Key
-Primary Key- The primary key consists of one or more columns whose data contained within is used to uniquely identify each row in the table.
-First, as we mentioned, the columns must be unique. Also, no value in the columns can be blank or NULL.
+Primary Key- The primary key consists of one or more columns whose data contained within is
+used to uniquely identify each row in the table.
+First, as we mentioned, the columns must be unique.
+Also, no value in the columns can be blank or NULL.
 
 Foreign Keys
-A foreign key is a set of one or more columns in a table that refers to the primary key in another table.  There isn’t any special code, configurations, or table definitions you need
+A foreign key is a set of one or more columns in a table that refers to the primary key in
+ another table.  There isn’t any special code, configurations, or table definitions you need
 to place to officially “designate” a foreign key.
 
-The primary key consists of one or more columns whose data contained within is used to uniquely identify each row in the table.
-Primary key uniquely identify a record in the table.	Foreign key is a field in the table that is primary key in another table.
+The primary key consists of one or more columns whose data contained within is used to uniquely
+identify each row in the table.
+Primary key uniquely identify a record in the table. Foreign key is a field in the table that
+ is primary key in another table.
 Primary Key can't accept null values.	Foreign key can accept multiple null value.
-By default, Primary key is clustered index and data in the database table is physically organized in the sequence of clustered index.
-	Foreign key do not automatically create an index, clustered or non-clustered. You can manually create an index on foreign key.
+By default, Primary key is clustered index and data in the database table is physically
+organized in the sequence of clustered index.
+	Foreign key do not automatically create an index, clustered or non-clustered. You can manually
+  create an index on foreign key.
 We can have only one Primary key in a table.	We can have more than one foreign key in a table.
-
 
 Where and having-
 WHERE and HAVING clause is used to specify filtering condition in SQL,
-WHERE is used in any SELECT query, while HAVING clause is only used in SELECT queries, which contains aggregate function or group by clause
+WHERE is used in any SELECT query, while HAVING clause is only used in SELECT queries,
+which contains aggregate function or group by clause
 , which is correct.
-1) Apart from SELECT queries, you can use WHERE clause with UPDATE and DELETE clause but HAVING clause can only be used with SELECT query.
-2)WHERE clause is used for filtering rows and it applies on each and every row, while HAVING clause is used to filter groups in SQL.
-3) One syntax level difference between WHERE and HAVING clause is that, former is used before GROUP BY clause, while later is used after
+1) Apart from SELECT queries, you can use WHERE clause with UPDATE and DELETE clause but
+HAVING clause can only be used with SELECT query.
+2)WHERE clause is used for filtering rows and it applies on each and every row, while
+ HAVING clause is used to filter groups in SQL.
+3) One syntax level difference between WHERE and HAVING clause is that, former is used
+before GROUP BY clause, while later is used after
  GROUP BY clause.
-4) When WHERE and HAVING clause are used together in a SELECT query with aggregate function,  WHERE clause is applied first on
-individual rows and only rows which pass the condition is included for creating groups. Once group is created, HAVING clause is
+4) When WHERE and HAVING clause are used together in a SELECT query with aggregate function,
+WHERE clause is applied first on
+individual rows and only rows which pass the condition is included for creating groups. +
+Once group is created, HAVING clause is
 used to filter groups based upon condition specified.
 
-An index is used to speed up searching in the database.w
-An index can be used to efficiently find all rows matching some column in your query and then walk through only that subset of the table to find
- exact matches. If you don't have indexes on any column in the WHERE clause, the SQL server has to walk through the whole table
- and check every row to see if it matches, which may be a slow operation on big tables
+
  .
 select salary from employee order by salary desc limit n-1,1;
 
@@ -170,9 +180,14 @@ The Main Differences:
 Type –
 SQL databases are primarily called as Relational Databases (RDBMS); whereas NoSQL database are primarily called as non-relational or distributed database.
 Language –
-SQL databases defines and manipulates data based structured query language (SQL). Seeing from a side this language is extremely powerful. SQL is one of the most versatile and widely-used options available which makes it a safe choice especially for great complex queries. But from other side it can be restrictive. SQL requires you to use predefined schemas to determine the structure of your data before you work with it. Also all of your data must follow the same structure. This can require significant up-front preparation which means that a change in the structure would be both difficult and disruptive to your whole system.
+SQL databases defines and manipulates data based structured query language (SQL). Seeing from a side
+this language is extremely powerful. SQL is one of the most versatile and widely-used options available which makes it a safe choice especially for great complex queries. But from other side it can be restrictive. SQL requires you to use predefined schemas to determine the structure of your data before you work with it. Also all of your data must follow the same structure. This can require significant up-front preparation which means that a change in the structure would be both difficult and disruptive to your whole system.
 
-A NoSQL database has dynamic schema for unstructured data. Data is stored in many ways which means it can be document-oriented, column-oriented, graph-based or organized as a KeyValue store. This flexibility means that documents can be created without having defined structure first. Also each document can have its own unique structure. The syntax varies from database to database, and you can add fields as you go.
+A NoSQL database has dynamic schema for unstructured data. Data is stored in many ways which means
+it can be document-oriented, column-oriented, graph-based or organized as a KeyValue store.
+This flexibility means that documents can be created without having defined structure first.
+Also each document can have its own unique structure. The syntax varies from database to database,
+ and you can add fields as you go.
 The Scalability –
 In almost all situations SQL databases are vertically scalable. This means that you can increase the load on a single server by increasing things like RAM, CPU or SSD. But on the other hand NoSQL databases are horizontally scalable. This means that you handle more traffic by sharding, or adding more servers in your NoSQL database. It is similar to adding more floors to the same building versus adding more buildings to the neighborhood. Thus NoSQL can ultimately become larger and more powerful, making these databases the preferred choice for large or ever-changing data sets.
 The Structure –
@@ -261,11 +276,15 @@ Durable – Once the transaction is committed, any failure or system restart,
 
 cursor
 In this chapter, we will discuss the cursors in PL/SQL. Oracle creates a memory area,
- known as the context area, for processing an SQL statement, which contains all the information needed for processing the statement; for example, the number of rows processed, etc.
+ known as the context area, for processing an SQL statement, which contains all the
+ information needed for processing the statement; for example, the number of rows processed, etc.
 
-A cursor is a pointer to this context area. PL/SQL controls the context area through a cursor. A cursor holds the rows (one or more) returned by a SQL statement. The set of rows the cursor holds is referred to as the active set.
+A cursor is a pointer to this context area. PL/SQL controls the context area through a cursor.
+A cursor holds the rows (one or more) returned by a SQL statement. The set of rows the cursor
+holds is referred to as the active set.
 
-You can name a cursor so that it could be referred to in a program to fetch and process the rows returned by the SQL statement, one at a time. There are two types of cursors −
+You can name a cursor so that it could be referred to in a program to fetch and process
+the rows returned by the SQL statement, one at a time. There are two types of cursors −
 ===
 finding duplicate values
 SELECT username, email, COUNT(*)
@@ -292,8 +311,6 @@ FROM OrderDetails;
 
 
 What is DEFAULT?
-
-Add to PDF/md 	  		  	Junior
 
 Default allows to add values to the column if the value of that column is not set. Default can
 be defined on number and datetime fields. They cannot be defined on timestamp and IDENTITY columns.
@@ -349,13 +366,11 @@ command: sql>drop table <table_name>
 Q9: What is blocking?
            Junior
 
-SQL Server blocking occurs when one connection holds a lock on a record and other connection tries to fetch the record or update the record.
+SQL Server blocking occurs when one connection holds a lock on a record and other connection tries
+to fetch the record or update the record.
 
 ====
 What’s the difference between a local temp table and a global temp table?
-
-Add to PDF/md 	  		  	Junior
-
     Local tables are accessible to a current user connected to the server.
     These tables disappear once the user has disconnected from the server.
     Global temp tables, on the other hand, are available to all users regardless
