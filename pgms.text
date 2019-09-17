@@ -170,7 +170,7 @@ If start is negative, It sets char from the end of string, like substr().
 If stop is negative, It sets stop = string.length – Math.abs(stop) (original value)
 
 11. reduceRight-
-array.reduceRight(accumulator, currentValue)
+array.reduceRight(accumulator, currentValue);
 
 const arr1 = [[1, 2, 3, 4, 5], [123], [43]];
 const abc = arr1.reduceRight((a, b) => {
@@ -314,7 +314,7 @@ substring(startIndex, uptoIndex(not include the index));
 output: abcxyz
 
 2. charCodeAt(x) Returns the Unicode value of the character at position “x” within the string.
-
+  q
 11. split(delimiter, [limit])
  Splits a string into many according to the specified delimiter,
 and returns an array containing each element. The optional “limit” is an integer that lets
@@ -393,7 +393,8 @@ The toFixed() function in JavaScript is used to format a number using fixed-poin
 JavaScript | Array findIndex() function
 array.findIndex(function(element, index, arr), thisValue)
  Return value
- This function returns the index value of the first element that satisfies the given condition. If no element satisfies the condition then it returns -1
+ This function returns the index value of the first element that satisfies the given condition.
+  If no element satisfies the condition then it returns -1
  JavaScript | Array fill() function
 
 Array.fill() function is used to fill the array with a given static value. The value can be used to fill the entire array or it can be used to fill a part of the array.

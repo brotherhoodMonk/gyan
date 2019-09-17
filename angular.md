@@ -451,13 +451,14 @@ Injector - The injector object that exposes APIs to us to create instances of de
 Provider - A provider is like a recipe that tells the injector how to create an instance of a  
          dependency. A provider takes a token and maps that to a factory function that creates an
          object.
-Dependency - A dependency is the type of which an object should be created.\
+Dependency - A dependency is the type of which an object should be created.
 
 14. Providers
 A provider is an instruction to the DI system on how to obtain a value for a dependency.
 Most of the time, these dependencies are services that you create and provide.
 Provider scope
-When you add a service provider to the root application injector, it’s available throughout the app. Additionally, these providers are also available to
+When you add a service provider to the root application injector, it’s available throughout the app.
+ Additionally, these providers are also available to
  all the classes in the app as long they have the lookup token.
 
 

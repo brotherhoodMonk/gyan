@@ -64,7 +64,7 @@ A selector, which selects the element(s) you want to apply the updated property 
 A set of CSS rules contained within a stylesheet determines how a webpage should look.
 ===
 What is Sass?
-Add to PDF/md	 		 	Junior
+
 Sass or Syntactically Awesome StyleSheets is a CSS preprocessor that adds power and elegance to the basic language.
  It allows you to use variables, nested rules, mixins, inline imports, and more, all with a fully CSS-compatible
  syntax. Sass helps keep large stylesheets well-organized, and get small stylesheets up and running quickly.
@@ -83,8 +83,8 @@ Advanced features like control directives for libraries
 Well-formatted, customizable output
 ===
 What is variable interpolation in Sass? Provide some examples.
-Add to PDF/md	 		 	Junior
-If you want to use variables inside a string, you will have to use a process called variable interpolation. To use it you will have to wrap your variables in #{}.
+If you want to use variables inside a string, you will have to use a process called variable interpolation.
+ To use it you will have to wrap your variables in #{}.
 
 $name: 'Gajendar';
 $author: 'Author : $name'; // 'Author : $name'
@@ -170,7 +170,8 @@ Reset CSS takes a different approach and says that we don’t need the browsers�
 ===
 clearfix
 A clearfix is a way for an element to automatically clear its child elements,
-so that you don't need to add additional markup. It's generally used in float layouts where elements are floated to be stacked horizontally.
+so that you don't need to add additional markup. It's generally used in float
+layouts where elements are floated to be stacked horizontally.
 
 transition-
   These transition properties allow elements to change values over a specified duration,
@@ -627,8 +628,6 @@ If you only need to define a layout as a row or a column, then you probably need
 If you want to define a grid and fit content into it in two dimensions — you need the grid.
 
 
-
-
 <header>: It is used to define a header for a document or a section.
 <nav>: It is used to define a container for navigation links
 <section>: It is used to define a section in a document
@@ -665,9 +664,11 @@ Normal weight of style sheet of a particular provider will be overridden by the 
 Stylesheet rules of a particular user will be overridden by the normal width of the provider’s style sheet.
 #2) Sort by selector's specificity: Less specific selector is been overridden by the more specific selector.
 
-Example, A Contextual selector is less specific in comparison to the ID selector which is a more specific one and with that contextual selector is been overridden by the ID selector.
+Example, A Contextual selector is less specific in comparison to the ID selector which is a more specific one and with that
+contextual selector is been overridden by the ID selector.
 
-#3) Sort by order specified: This comes in the scenario when the two selectors are same in weight and the other properties than the specification which will be seen for overriding.
+#3) Sort by order specified: This comes in the scenario when the two selectors are same in weight and the other properties
+than the specification which will be seen for overriding.
 
 Example:
 
@@ -771,6 +772,7 @@ flex-flow
 justify-content
 align-items
 align-content
+
 
 Q #16) What are gradients in CSS?
 
@@ -921,13 +923,15 @@ last modified, and other metadata.
 
 The metadata can be used by browsers (how to display content or reload page), search engines (keywords), or other web services.
 
-HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
+HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page),
+ through the <meta> tag (See "Setting The Viewport" example below).
 
 <meta charset="UTF-8">
   <meta name="description" content="Free Web tutorials">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  The viewport is the user's visible area of a web page. It varies with the device, and will be smaller on a mobile phone than on a computer screen.
+  The viewport is the user's visible area of a web page. It varies with the device,
+  and will be smaller on a mobile phone than on a computer screen.
 
 You should include the following <meta> viewport element in all your web pages:
 
@@ -935,8 +939,6 @@ You should include the following <meta> viewport element in all your web pages:
 
 ======
 What is Character Encoding?
-
-Add to PDF/md 	  		  	Junior
 
 To display an HTML page correctly, a web browser must know which character set (character encoding) to use. This is specified in the tag:
 
@@ -951,7 +953,6 @@ HTML5:
 =======
 Q10: What is a self closing tag?
 
-
 In HTML5 it is not strictly necessary to close certain HTML tags. The tags that aren’t required to have specific closing tags are called “self closing” tags.
 
 An example of a self closing tag is something like a line break (<br />) or the meta tag (<meta>). This means that the following are both acceptable:
@@ -962,15 +963,15 @@ An example of a self closing tag is something like a line break (<br />) or the 
 ===
 Briefly describe the correct usage of the following HTML5 semantic elements: <header>, <article>, <section>, <footer>
 
-Add to PDF/md 	  		  	Junior
-
     <header> is used to contain introductory and navigational information about a section of the page. This can include the section heading, the author’s name, time and date of publication, table of contents, or other navigational information.
 
-    <article> is meant to house a self-contained composition that can logically be independently recreated outside of the page without losing it’s meaining. Individual blog posts or news stories are good examples.
+    <article> is meant to house a self-contained composition that can logically be independently recreated outside of
+    the page without losing it’s meaining. Individual blog posts or news stories are good examples.
 
     <section> is a flexible container for holding content that shares a common informational theme or purpose.
 
-    <footer> is used to hold information that should appear at the end of a section of content and contain additional information about the section. Author’s name, copyright information, and related links are typical examples of such content.
+    <footer> is used to hold information that should appear at the end of a section of content and contain additional
+    information about the section. Author’s name, copyright information, and related links are typical examples of such content.
 ===
 
 Attributes – is what’s written in HTML.
@@ -978,7 +979,8 @@ Properties – is what’s in DOM objects.
 
 
 HTML attributes
-In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes standard attributes and creates DOM properties from them.
+In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes standard
+attributes and creates DOM properties from them.
 When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.
 
 elem.hasAttribute(name) – to check for existence.
@@ -987,7 +989,8 @@ elem.setAttribute(name, value) – to set the value.
 elem.removeAttribute(name) – to remove the attribute.
 elem.attributes is a collection of all attributes.
 
-Attributes are defined on the HTML markup but properties are defined on the DOM. To illustrate the difference, imagine we have this text field in our HTML: <input type="text" value="Hello">
+Attributes are defined on the HTML markup but properties are defined on the DOM. To illustrate the difference,
+imagine we have this text field in our HTML: <input type="text" value="Hello">
 
 ==
 What are `data-` attributes good for?
@@ -1041,3 +1044,10 @@ navigation links, copyright information, site logos, and search forms.
 Note: There must not be more than one <main> element in a document. The <main> element
 must NOT be a descendant of an <article>, <aside>, <footer>, <header>, or <nav> element.
 ====
+
+media queries
+
+Media queries always begin with the @media “at-rule” followed by some kind of conditional statement, and then some curly braces.
+@media only screen and (max-width: 400px)
+@media only screen and (min-width: 401px) and (max-width: 960px)
+@media only screen and (min-width: 961px)

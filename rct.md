@@ -1,12 +1,11 @@
 
 onClick, onMouseHover
 
-jsx
+jsx- JavaScript XML.
 
 1. it's just an extension to JavaScript that allows to write XML-like code for simplicity and elegance, and then you transpile the JSX into pure JavaScript function calls with React.createElement.
 3. React allows us to write HTML in JavaScript,
- if JavaScript files contains JSX, that that file will have to be transpiled using babel.
-
+if JavaScript files contains JSX, that that file will have to be transpiled using babel.
  4. JSX produces React “elements”. which is simply an object representation of a DOM node.
   A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
 
@@ -19,48 +18,11 @@ where as JSX is extension to javascript that allows to write html-like syntax co
 4. All elements must be balanced.
 5. className attribute instead of class
 
-React allows us to write HTML in JavaScript,
- if JavaScript files contains JSX, that that file will have to be transpiled using babel.
-
- JSX produces React “elements”. A React element is simply an object representation of a DOM node.
-  A React element isn’t actually the thing we see on our screen, instead, it’s just an object representation of it.
-
-
-diff between html and jsx
-
- Tag attributes are camel cased.
-All elements must be balanced.
-The attribute names are based on the DOM API, not on the HTML language specs.
-
+=======
 React.createElement(type, [props], [...children])
 
 The first is a tag name string (div, span, etc), the second is any attributes you want the element to have,
 the third is contents or the children of the element.
-===
-where to fetch data
-
-componentWillMount
-aftre the componentWillMount immediately the renders function executes,
-so if our api call is asynchronous, then we will not get updated data.
-
-This lifecycle is also called at the server side (if you are using SSR).
-In this case the external data won’t be used. So the api will be called twice unnecessarily.
-
-The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated after React v17. After React v17 only the alias will work fine.
-
-constructor
-
-Fetching data in constructor is considered to be a side effect and it is recommended to avoid that.
- As you all know we cannot call setState() in the constructor.
-
-A typical react constructor is used for two purpose -
-➀ Initializing local state by assigning an object to this.state .
-➁ Binding event handler methods to an instance.
-
-Warning: Can't call setState on a component that is not yet mounted.
- This is a no-op, but it might indicate a bug in your application.
-  Instead, assign to `this.state` directly or define a `state = {};`
-    class property with the desired state in the App component.
 
 =====
 why do the Component names in JSX start with capital letter?
@@ -73,7 +35,6 @@ This process of creating instances and DOM nodes corresponding to React componen
 React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes already in the DOM).
 
 ====
-
 setting default props
 
 class ReactComp extends React.Component {}
@@ -100,17 +61,10 @@ It is not only about the fact that React can be V (view) in an MVC, there is no 
 React approaches building user interfaces differently by breaking them into components.
  This means React uses a real, full featured programming language to render views (Source)
 
-
-======
-React.createElement(type, [props], [...children])
-
-React.createElement(tag, property, [...children])
-
 So Angular, Ember.js and ExtJS are frameworks, but React isn't, because it only gives you
 the means to build components and render them into the DOM.
 ===
 props and state
-
 props-
 1. props are shorthand for properties of the component.
 2. props allow us to pass custom data between coomponents.
@@ -119,7 +73,6 @@ props-
 5. props are fixed throughout its lifecycle.
 
 state-
-
 1. The State of a component is an object that holds some information that may change over the lifetime of the component.
 2. Components data is stored in component's State.
 3. State can be modified based on user action or other action using setState method.
@@ -158,7 +111,8 @@ HOC-
 a higher-order component is a function that takes a component and returns a new component.
 A higher-order component (HOC) is an advanced technique in React for reusing component logic.
 Note that a HOC doesn’t modify the input component, nor does it use inheritance to copy its behavior.
- Rather, a HOC composes the original component by wrapping it in a container component. A HOC is a pure function with zero side-effects.
+ Rather, a HOC composes the original component by wrapping it in a container component.
+ A HOC is a pure function with zero side-effects.
 
 we can pass props to a wrapped component
 
@@ -194,18 +148,10 @@ function withSubscription(WrappedComponent, selectData, additionalParams) {
 
 Redux is a predictable state container for JavaScript applications.
 
-In an app where data is shared among components, it might be confusing to actually
-know where a state should live.
-Ideally, the data in a component should live in just one component.
-So sharing data among sibling components becomes difficult.
+There is a central store that holds the entire state of the application.
+Each component can access the stored state without having to send down props from one component to another.
 
-The way Redux works is simple.
-There is a central store that
-holds the entire state of the application.
-Each component can access
-the stored state without having to send down props from one component to another.
-
-There are three building parts:
+There are three building parts pf the redux:
 actions, store and reducers.
 
 1. Actions in Redux
@@ -217,10 +163,9 @@ Actions are sent using `store.dispatch()` method.
 Actions are plain JavaScript objects and they must have a type property
 to indicate the type of action to be carried out.
 They must also have a payload that contains the information that
-should be worked on by the action. Actions are created via an action creator.
+should be worked on by the action, i,e the data of the state. Actions are created via an action creator.
 
 Here’s an example of an action that can be carried out during login in an app:
-
 {
   type: "LOGIN",
   payload: {
@@ -276,7 +221,7 @@ Redux can also be used for server-side rendering. With it, you can handle the in
 virtual DOM
 
 Virtual Dom is node tree that lists attribute , elements, contents  as a properties and object.
-render method in react creates the node tree from react component and updates this tree in response to the change in the data model.
+Render method in react creates the node tree from react component and updates this tree in response to the change in the data model.
 Each times it undergoes the data changes react creates a new virtual Dom representatuion of user interface.
 
 The virtual DOM is an in-memory representation of the real DOM.  
@@ -290,17 +235,16 @@ This adds a huge performance boost to DOM manipulation since redrawing elements 
 
 Manipulating the DOM is slow. Manipulating the virtual DOM is much faster, because nothing gets drawn onscreen.
 
-
 Dom
-
-The DOM is an interface to an HTML document. It is used by browsers as a first step towards determining what to render in the viewport, and
+The DOM is an interface to an HTML document.
+ It is used by browsers as a first step towards determining what to render in the viewport, and
 Javascript programs can modifyit to change  the content, structure, or styling of the page.
 
 The DOM is an object-based representation of the source HTML document. I
 The object structure of the DOM is represented by what is called a “node tree”.
 
-
 What is the Shadow DOM?
+
 The shadow DOM is a way of encapsulating the implementation of web components. Using the shadow DOM, you can hide the implementation details of a web component from the regular DOM tree. A popular example is the HTML5 slider input. While the regular DOM recognizes this as a simple <input/> tag, there is underlying HTML and CSS that make up the slide feature. This sub-tree of DOM nodes is hidden from the main DOM to encapsulate the implementation of the HTML5 slider. Additionally, the CSS properties for the slider are isolated from the rest of the DOM. This provides an isolated scope that prevents the component's styles from overriding other CSS properties defined elsewhere.
 
 The Difference?
@@ -321,47 +265,7 @@ type
 ReactElements lives in the virtual DOM. They make the basic nodes here.
 Their immutability makes them easy and fast to compare and update.
 This is the reason of great React performance.
-===
-=====
-why do the Component names in JSX start with capital letter?
-n JSX, lower-case tag names are considered to be HTML tags. However, lower-case tag names with a dot (property accessor) aren't.
-==
-Mounting
-
-This process of creating instances of the component and DOM nodes corresponding to React components, and inserting them into the DOM, is called mounting.
-
-React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes already in the DOM).
-
-====
-
-setting default props
-
-class ReactComp extends React.Component {}
-ReactComp.defaultProps = {}
-
-or
-
-class ReactComp extends React.Component {
-    static defaultProps = {}
-}
-
-or using logical || operators
-===
-react library or frameworks
-
-React does not solve any structural or architectural problems on the app level.
-It provides us with a set of methods for better (in my opinion) handling of front-end.
-react only gives you the means to build components and render them into the DOM.
-
-React does not have any Template design pattern.
-It does not push app structure in any direction.
-
-It is not only about the fact that React can be V (view) in an MVC, there is no HTML or any other kind of traditional templates in the React.
-
-React approaches building user interfaces differently by breaking them into components. This means React uses a real, full featured programming language to render views (Source)
-
-But some people, especially in the front-end world, say a framework has to bring stuff like routers and/or widgets etc. pp.
-======
+=======
 lifting-state-up???
 
 When several components need to share the same changing data then it is recommended to lift the shared state up to their closest common ancestor. That means if two child components share the same data from its parent, then move the state to parent instead of maintaining local state in both of the child components.
@@ -430,26 +334,29 @@ UNSAFE_componentWillReceiveProps
 These lifecycle methods have often been misunderstood and subtly misused; furthermore, we anticipate that their potential misuse may be more problematic with async rendering. Because of this, we will be adding an “UNSAFE_” prefix to these lifecycles in an upcoming release. (Here, “unsafe” refers not to security but instead conveys that code using these lifecycles will be more likely to have bugs in future versions of React, especially once async rendering is enabled.)
 
 Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
-Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
 constructor()
-componentWillMount()
+
+Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
+UNSAFE_componentWillMount()
+getDerivedStateFromProps
 render()
 componentDidMount()
 
 Updating: Updating is the stage when the state of a component is updated and the application is
  repainted.
 shouldComponentUpdate
-componentWillUpdate
+UNSAFE_componentWillUpdate
+getSnapshotBeforeUpdate
 componentDidUpdate
 
 Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
 componentWillUnmount()
-  componentDidCatch()
+componentDidCatch()
 
   What are the lifecycle methods of React?
-  React 16.3+
 
-  getDerivedStateFromProps: Invoked right before calling render() and is invoked on every render. This exists for rare use cases where you need derived state. Worth reading if you need derived state.
+  getDerivedStateFromProps:
+  Invoked right before calling render() and is invoked on every render. This exists for rare use cases where you need derived state. Worth reading if you need derived state.
   componentDidMount: Executed after first rendering and here all AJAX requests, DOM or state updates, and set up event listeners should occur.
   shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
   getSnapshotBeforeUpdate: Executed right before rendered output is committed to the DOM. Any value returned by this will be passed into componentDidUpdate(). This is useful to capture information from the DOM i.e. scroll position.
@@ -463,12 +370,10 @@ componentWillUnmount()
   shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
   componentWillUpdate: Executed before re-rendering the component when there are props & state changes confirmed by shouldComponentUpdate() which returns true.
   componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes.
-  componentWillUnmount: It will be used to cancel any outgoing network requests, or remove all event listeners associated with the component.
 
   ====
 
 Q12. What is PureComponent? When to use PureComponent over Component?
-
 PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us.
  When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
 When comparing previous props and state to next, a shallow comparison will check that primitives have the
@@ -478,6 +383,7 @@ It is good to prefer PureComponent over Component whenever we never mutate our o
 ===
 Q16. What are controlled and uncontrolled components in React?
 This relates to stateful DOM components (form elements) and the difference:
+
 A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange.
  A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
 You could also call this a “dumb component”.
@@ -492,6 +398,7 @@ An uncontrolled component would use state to control the value itself internally
 A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it.
 This is a bit more like traditional HTML.
 The alternative is uncontrolled components, where form data is handled by the DOM itself.
+
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
@@ -523,8 +430,6 @@ How would you write an inline style in React?
 For example:
 
 <div style={{ height: 10 }}>
-
-
 ===
 context
 
@@ -599,10 +504,8 @@ The ref is used to return a reference to the element. They should be avoided in 
 What is JEST?
 
 Jest is a JavaScript unit testing framework made by Facebook based on Jasmine and provides automated mock creation and a jsdom environment. It's often used for testing React components.
-
 ==
 When rendering a list what is a key and what is it's purpose?
-
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
 
 React uses the key to match children in the original tree with children in the subsequent tree. For example, adding a key to our inefficient example above can make the tree conversion efficient:
@@ -634,10 +537,14 @@ Dispatcher - Receives actions and broadcasts payloads to registered callbacks
 Stores - Containers for application state & logic that have callbacks registered to the dispatcher
 Controller Views - React Components that grab the state from Stores and pass it down via props to child components.
 ==
+why import react in functional component
+
+After reading more about it and after seeing the code which get’s generated after transpilation, I could finally understand why it’s needed 😯
+
+The reason is because of JSX 😃The code which looked like plain html to me is actually JSX 🙇
+The important thing to focus here is React.createElement and this is the reason why we need to import React at the start of any functional component.
+==
 Q46: How to create refs?
-
-Add to PDF/md 	  		  	Junior
-
 Refs are created using React.createRef() method and attached to React elements via the ref attribute. In order to use refs throughout the component, just assign the ref to the instance property with in constructor.
 
 class MyComponent extends React.Component {
@@ -682,11 +589,9 @@ The difference is:
 
 When a normal constructor runs, it creates an empty object and assigns it to this.
 But when a derived constructor runs, it doesn’t do this. It expects the parent constructor to do this job.
-So if we’re making a constructor of our own, then we must call super, because otherwise the object for this won’t be created. And we’ll get an error.
-
+So if we’re making a constructor of our own, then we must call super, because otherwise the object for
+this won’t be created. And we’ll get an error.
 ====
-
-
 The above code snippets reveals that this.props behavior is different only with in the constructor. It would be same outside the constructor.
 
 Passing props:
@@ -717,14 +622,12 @@ class MyComponent extends React.Component {
 ===
 What is reconciliation?
 
-
 When a component’s props or state change, React decides whether an actual DOM update is
 necessary by comparing the newly returned element with the previously rendered one.
  When they are not equal, React will update the DOM. This process is called reconciliation.
 
- The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.
-
-
+ The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation
+ of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.
 ===
 propTypes
 
@@ -836,13 +739,11 @@ string, or fragment. The second argument (container) is a DOM element.
 Q56: What are the limitations of ReactJS?
 
 Below are the list of limitations:
-
    React is just a view library, not a full-blown framework
    There is a learning curve for beginners who are new to web development.
    Integrating React.js into a traditional MVC framework requires some additional configuration
    The code complexity increases with inline templating and JSX.
    Too many smaller components leading to over-engineering or boilerplate
-
 =====
 
 Handling error in React
@@ -895,7 +796,8 @@ features like auto-completion. For this reason, we recommend using Flow or TypeS
 
 Flow is a static type checker for your JavaScript code. It is developed at Facebook
  and is often used with React. It lets you annotate the variables, functions, and React
- components with a special type syntax, and catch mistakes early. You can read an introduction to Flow to learn its basics.
+ components with a special type syntax, and catch mistakes early.
+ You can read an introduction to Flow to learn its basics.
 
 To use Flow, you need to:
 
@@ -1054,7 +956,8 @@ getDerivedStateFromError()
 static getDerivedStateFromProps
 Fiber: React 16.0 introduced a brand new reconciliation engine known as Fiber. This new engine is a generation leap over the previous generation of React’s core and is also responsible for the many new features that were introduced in this release. Fiber also introduces the concept of async rendering which results in more responsive apps because React prevents blocking the main thread. Fiber incorporates a smart scheduling algorithm that batches updates instead of synchronously re-
 
-React.memo() is the functional component solution to React.PureComponent as used in class components. It's a higher order component that is wrapped around functional components to create memoized components.
+React.memo() is the functional component solution to React.PureComponent as used in class components.
+ It's a higher order component that is wrapped around functional components to create memoized components.
 
 React.lazy() allows us to render dynamic imports as regular components.
 It takes a function that must call a dynamic import().
