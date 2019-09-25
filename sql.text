@@ -377,3 +377,80 @@ What’s the difference between a local temp table and a global temp table?
      of the connection. These tables stay active until all the global connections are closed.
 
 =====
+
+Normalization
+
+2NF
+For a table to be in the Second Normal Form, it must satisfy two conditions:
+Now as we just discussed that the primary key for this table is a composition of two columns
+which is student_id & subject_id but the teacher's name only depends on subject, hence the
+subject_id, and has nothing to do with student_id.
+
+This is Partial Dependency, where an attribute in a table depends on only a part of the
+ primary key and not on the whole key.
+
+The table should be in the First Normal Form.
+There should be no Partial Dependency.
+
+3NF
+It should be in the Second Normal form.
+And it should not have Transitive Dependency.
+But, exam_name is just another column in the score table. It is not a primary key or even a part of the primary key, and total_marks depends on it
+This is Transitive Dependency. When a non-prime attribute depends on other non-prime attributes rather than depending upon the prime attributes or primary key.
+
+BCNF Boyce COde
+For a table to satisfy the Boyce-Codd Normal Form, it should satisfy the following two conditions:
+
+It should be in the Third Normal Form.
+And, for any dependency A → B, A should be a super key.
+The second point sounds a bit tricky, right? In simple words, it means, that for a dependency
+ A → B, A cannot be a non-prime attribute, if B is a prime attribute.
+
+4NF
+It should be in the Boyce-Codd Normal Form.
+And, the table should not have any Multi-valued Dependency
+What is Multi-valued Dependency?
+A table is said to have multi-valued dependency, if the following conditions are true,
+
+For a dependency A → B, if for a single value of A, multiple value of B exists, then the table may have multi-valued dependency.
+Also, a table should have at-least 3 columns for it to have a multi-valued dependency.
+And, for a relation R(A,B,C), if there is a multi-valued dependency between, A and B, then B and C should be independent of each other.
+If all these conditions are true for any relation(table), it is said to have multi-valued dependency.
+
+SET Operations in SQL
+SQL supports few Set operations which can be performed on the table data. These are used to get meaningful results from data stored in the table, under different special conditions.
+UNION
+UNION ALL
+INTERSECT
+MINUS
+
+
+JOins vs UNION
+
+Joins and Unions can be used to combine data from one or more tables. The difference lies in how the data is combined.
+
+In simple terms, joins combine data into new columns. If two tables are joined together, then the data from the first table is shown in one set of column alongside the second table’s column in the same row.
+
+Unions combine data into new rows. If two tables are “unioned” together, then the data from the first table is in one set of rows, and the data from the second table in another set. The rows are in the same result.
+
+Keys
+Super Key
+Super Key is defined as a set of attributes within a table that can uniquely identify each record within a table. Super Key is a superset of Candidate key.
+
+Candidate Key
+Candidate keys are defined as the minimal set of fields which can uniquely identify each record in a table. It is an attribute or a set of attributes that can act as a Primary Key for a table to uniquely identify each record in that table. There can be more than one candidate key.
+
+Primary Key
+Primary key is a candidate key that is most appropriate to become the main key for any table. It is a key that can uniquely identify each record in a table.
+
+Composite Key
+Key that consists of two or more attributes that uniquely identify any record in a table is called Composite key. But the attributes which together form the Composite key are not a key independentely or individually.
+
+Secondary or Alternative key
+The candidate key which are not selected as primary key are known as secondary keys or alternative keys.
+
+Non-key Attributes
+Non-key attributes are the attributes or fields of a table, other than candidate key attributes/fields in a table.
+
+Non-prime Attributes
+Non-prime Attributes are attributes other than Primary Key attribute(s)..
