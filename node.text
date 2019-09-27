@@ -17,9 +17,9 @@ JSON APIs based Applications
 Single Page Applications
 At the same time, it’s not suitable for heavy applications involving more of CPU usage.
 
-eventloop-
+event loop-
 
-To handle the asynchronous nature of program, Node.js uses external “Queue” called as message queue
+To handle the asynchronous nature of program, Node.js uses external “Queue” called as event queue
 where it inserts the
 callback of asynchronous code rather than pushing it into call stack .
 
@@ -35,20 +35,96 @@ it on stack else wait for next tick ( Yes process.nextTick ).
 The increment that the event loop moves in is called a ‘tick’, and every time it
 ‘ticks’ it checks if the call stack is empty.
 
-
 The event loop on every iteration looks if there’s something in the call stack, and executes it:
 The event loop is the term given to the process of the waiting for the msg queue to receive a message
  synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
  ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
  to the call stack and executes it.
 
+1. The event loop gives Node the capability to handle highly concurrent requests while still running “single-threaded”.
+2 .The event loop on every iteration looks if there’s something in the call stack, and executes it:
+3.  when node receives any request it is placed in the call stack,   node js process the request and send it ot client ,0
+4.  If the request is asynchronous or  contains blocking io, event loop delegate it to worker thread and thread pool.
+  Worker thread will prepare the response and send it back to event loop which then runs the callback function
+  and sends the response to client.
+5. The loop gives priority to the call stack, and it first processes everything it finds in the call stack, and once there’s
+ nothing in there, it goes to pick up things in the message queue.
 
-The event loop on every iteration looks if there’s something in the call stack, and executes it:
-The event loop is the term given to the process of the waiting for the msg queue to receive a message
- synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
- ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
- to the call stack and executes it.
+ Phases Overview
+ timers:              this phase executes callbacks scheduled by setTimeout() and setInterval().
+ pending callbacks:   executes I/O callbacks deferred to the next loop iteration.
+ idle, prepare:       only used internally.
+ poll:                retrieve new I/O events; execute I/O related callbacks (almost all with the exception of
+                      close callbacks, the ones scheduled by timers, and setImmediate()); node will block here when appropriate.
+ check:               setImmediate() callbacks are invoked here.
+ close callbacks:     some close callbacks, e.g. socket.on('close', ...)
 
+poll phase
+ If the poll queue is empty, one of two more things will happen:
+
+ If scripts have been scheduled by setImmediate(), the event loop will end the poll phase and continue
+  to the check phase to execute those scheduled scripts.
+
+ If scripts have not been scheduled by setImmediate(), the event loop will wait for callbacks to be
+  added to the queue, then execute them immediately.
+
+  Generally, as the code is executed, the event loop will eventually hit the poll phase where it will wait
+  for an incoming connection, request, etc. However, if a callback has been scheduled with setImmediate()
+  and the poll phase becomes idle, it will end and continue to the check phase rather than waiting for poll events.
+
+  setImmediate() is designed to execute a script once the current poll phase completes.
+  setTimeout() schedules a script to be run after a minimum threshold in ms has elapsed.
+
+  setTimeout vs setImmediate execution sequence
+  setTimeout(() => {
+    console.log('timeout');
+  }, 0);
+
+  setImmediate(() => {
+    console.log('immediate');
+  });
+  if we run the following script which is not within an I/O cycle (i.e. the main module),
+   the order in which the two timers are executed is non-deterministic, as it is bound by
+   the performance of the process: print- timeout, immediate
+
+   However, if you move the two calls within an I/O cycle, the immediate callback is always executed first:
+   The main advantage to using setImmediate() over setTimeout() is setImmediate() will always be executed
+   before any timers if scheduled within an I/O cycle, independently of how many timers are present.
+
+   fs.readFile(__filename, () => {
+  setTimeout(() => {
+    console.log('timeout');
+  }, 0);
+  setImmediate(() => {
+    console.log('immediate');
+  });
+});
+The main advantage to using setImmediate() over setTimeout() is setImmediate() will always be executed
+before any timers if scheduled within an I/O cycle, independently of how many timers are present.
+-----
+process.nextTick()
+
+This is because process.nextTick() is not technically part of the event loop. Instead, the nextTickQueue will be
+ processed after the current operation is completed, regardless of the current phase of the event loop. Here, an
+ operation is defined as a transition from the underlying C/C++ handler, and handling the JavaScript that needs to be executed.
+
+Looking back at our diagram, any time you call process.nextTick() in a given phase,
+ all callbacks passed to process.nextTick() will be resolved before the event loop continues.
+ This can create some bad situations because it allows you to "starve"/ freeze your I/O by making
+  recursive process.nextTick() calls, which prevents the event loop from reaching the poll phase.
+
+  Why use process.nextTick()?
+There are two main reasons:
+
+Allow users to handle errors, cleanup any then unneeded resources, or perhaps try the request again before the event loop continues.
+
+At times it's necessary to allow a callback to run after the call stack has unwound but before the event loop continues.
+ ====
+
+ "I/O" refers primarily to interaction with the system's disk and network supported by libuv.
+
+
+ ===
 worker threads
 Workers (threads) are useful for performing CPU-intensive JavaScript operations.
 They will not help much with I/O-intensive work. Node.js’s built-in asynchronous I/O operations are more efficient than Workers can be.
@@ -304,6 +380,7 @@ But the most preferred format for transferring data is JSON.
 ========
 Blocking vs non Blocking
 Blocking
+
 1. Blocking is when the execution of additional JavaScript in the Node.js
 process must wait until a non-JavaScript operation completes.
 2. This happens because the event loop is unable to continue running JavaScript
@@ -326,6 +403,10 @@ while a blocking operation is occurring.
    asynchronously. Node.js libraries and core api provide non-blocking calls
    that can be used to build performant applications. Such applications make
     use of I/O waiting time to serve other requests.
+
+    Non-blocking functions are used in regards with I/O operations. They immediately respond with whatever data is
+     available and keeps on running as per the requests. In case, any answer couldn’t be retrieved then the API returns
+     immediately with an error
 =====
 how does node prevents blocking code??
 
@@ -409,6 +490,18 @@ we can use this in
 3: Limited parallel - an asynchronous, parallel, concurrency limited for loop
 
 The Child Processes Module
+A child process is the creation of a parent process, which can be defined as the main process
+ that creates child or subprocesses to perform certain operations. Each process can have many
+ child processes but only one parent. A child process inherits most of its parent's attributes.
+
+ Node.js, in its essence, is a single thread process. It does not expose child threads and thread
+ management methods to the developer. Technically, Node.js does spawn child threads for certain
+ tasks such as asynchronous I/O, but these run behind the scenes and do not execute any application
+ JavaScript code, nor block the main event loop.
+
+If threading support is desired in a Node.js application, there are tools available to enable it,
+ such as the ChildProcess module. In fact, Node.js 12 has experimental support for threads.
+
 We can easily spin a child process using Node’s child_process module and those child processes
 can easily communicate with each other with a messaging system.
 
@@ -436,7 +529,65 @@ The child_process.fork method is a special case of the spawn() to create Node pr
 This method returns object with a built-in communication channel in addition to having all
 the methods in a normal ChildProcess instance.
 
+differnce between spawn and fork
 
+spawn
+Spawn is a command designed to run system commands. When you run spawn, you send it a system
+ command that will be run on its own process, but does not execute any further code within your
+ node process. You can add listeners for the process you have spawned, to allow your code interact
+  with the spawned process, but no new V8 instance is created(unless of course your command is
+  another Node command, but in this case you should use fork!) and only one copy of your node
+   module is active on the processor.
+
+   When a spawn is created - It creates a streaming interface between parent and child process.
+streaming interface means - buffering data in binary format
+
+
+Fork is a special instance of spawn, that runs a fresh instance of the V8 engine.
+Meaning, you can essentially create multiple workers, running on the exact same Node code base,
+ or perhaps a different module for a specific task. This is most useful for creating a worker pool.
+ While node's async event model allows a single core of a machine to be used fairly efficiently,
+  it doesn't allow a node process to make use of multi core machines. Easiest way to accomplish
+  this is to run multiple copies of the same program, on a single processor.
+
+  When a fork is created - It creates a communication channel between parent and child process
+communication channel means - messaging
+
+spawn will be useful when you want to do continuous kind of operation like data read/write in stream
+
+fork will be useful when you want to do messaging
+
+spawn should be used for streaming big data/files/images FROM spawn process TO parent process
+
+fork should be used for doing Json/Xml Data messaging .
+
+==
+How assert works in Node.js?
+In Node.js, assert is used to write tests. It only provides feedback only when any of the running
+test cases fails. This module gives you a set of assertion tests which are then used for testing invariants.
+It is basically used internally by Node.js but using require(‘assert’) code, it can be used in other applications as well.
+===
+36. Explain the purpose of ExpressJS package?
+Express.js is a framework built on top of Node.js that facilitates the management of the
+ flow of data between server and routes in the server-side applications.
+  It is a lightweight and flexible framework that provides a wide range of features required
+   for the web as well as mobile application development. Express.js is developed on the
+   middleware module of Node.js called connect. The connect module further makes use of http
+   module to communicate with Node.js. Thus, if you are working with any of the connect based
+   middleware modules, then you can easily integrate with Express.js.
+===
+Why Node.js is single threaded?
+Node.js uses a single threaded model in order to support async processing to handleing callbacks.
+With async processing,
+an application can perform better and is more scalable under web loads. Also can handle concurerent requests
+ Thus, Node.js makes use of a
+single-threaded model approach rather than typical thread-based implementation.
+
+==
+asynchronous vs non Blocking
+synchronous / asynchronous is to describe the relation between two modules.
+blocking / non-blocking is to describe the situation of one module.
+===
 Q-26. What Is Chaining Process In Node.Js?
 Answer.
 
@@ -588,7 +739,8 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
 
   Streams are objects that let you read data from a source or write data to
   a destination in continuous fashion. In Node.js, there are four types of streams −
-
+The difference is that streams might not be available all at once, and they don’t have to fit in memory.
+This makes streams really powerful when working with large amounts of data, or data that’s coming from an external source one chunk at a time.
       Readable − Stream which is used for read operation.
 
       Writable − Stream which is used for write operation.
@@ -596,7 +748,39 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
       Duplex − Stream which can be used for both read and write operation.
 
       Transform − A type of duplex stream where the output is computed based on input.
+      A transform stream is basically a duplex stream that can be used to modify or transform the data as
+       it is written and read. An example of that is the zlib.createGzip stream to compress the data using
+       gzip. You can think of a transform stream as a function where the input is the writable stream part
+        and the output is readable stream part. You might also hear transform streams referred to as
+         “through streams.”
+
+The pipe method returns the destination stream, which enabled us to do the chaining above. For streams a (readable), b and c (duplex), and d (writable), we can:
       =========
+      Differentiate between readFile vs createReadStream in Node.js?
+
+Node.js provides two ways to read and execute files which are using readFile and CreateStream.
+
+readFile() is a fully buffered process which returns the response only when the complete file is
+ pushed into the buffer and is read. It is a memory intensive process and in case of large files,
+  the processing can be very slow.
+
+  Whereas createReadStream is a partially buffered which treats the entire process as an event series.
+   The entire file is split into chunks which are then processed and sent back as a response one by one.
+    Once done, they are finally removed from the buffer.
+    Unlike readFile, createReadStream is really effective for the processing of the large files.
+====
+Explain the concept of Punycode in Node.js?
+In Node.js, Punycode is an encoding syntax that is used for converting Unicode (UTF-8) string of
+ characters into a basic ASCII string of characters. It is important as the hostnames can only
+ understand the ASCII characters. Thus, Node.js version 0.6.2 onwards, it was bundled up with
+ the default Node package. If you want to use it with any previous versions, you can easily do
+ that by using the following code:
+
+Syntax:
+
+1
+punycode = require('punycode');
+===
       Q-7. Is Node.Js Entirely Based On A Single-Thread?
 
 Yes, it’s true that Node.js processes all requests on a single thread. But it’s just a part of the
@@ -798,6 +982,9 @@ stores as a raw memory outside the V8 heap.
 Buffers were introduced to help developers deal with binary data, in an ecosystem that traditionally
 only dealt with strings rather than binaries.
 
+ Buffer class is used because pure JavaScript is not compatible with binary data. So, when
+  dealing with TCP streams or the file system, it’s necessary to handle octet streams
+
 Buffers are deeply linked with streams. When a stream processor receives data faster than it can
 digest, it puts the data in a buffer.
 
@@ -825,10 +1012,36 @@ This class also offers other methods like <readInt8> and <writeUInt8> that allow
 
  4)      What does event-driven programming mean?
 
- In computer programming, event driven programming is a programming paradigm in which the flow of
-  the program is determined by events like messages from other programs or threads.
+ event-driven programming is a programming paradigm in which the flow of the program is
+ determined by events such as user actions (mouse clicks, key presses), sensor outputs,
+ or messages from other programs or threads.
+
+ In an event-driven application, there is generally a main loop that listens for events,
+  and then triggers a callback function when one of those events is detected.
+
    It is an application architecture technique divided into two sections
    1) Event Selection 2) Event Handling
+   ----
+   Creating event handlers
+The first step in developing an event-driven program is to write a series of subroutines,
+or methods, called event-handler routines. These routines handle the events to which the main
+ program will respond. For example, a single left-button mouse-click on a command button in a GUI
+ program may trigger a routine that will open another window, save data to a database or exit the
+ application. Many modern-day programming environments provide the programmer with event templates,
+  allowing the programmer to focus on writing the event code.
+
+The second step is to bind event handlers to events so that the correct function is called when
+ the event takes place. Graphical editors combine the first two steps: double-click on a button
+  and the editor creates an (empty) event handler associated with the user clicking the button
+  and opens a text window so you can edit the event handler.
+
+The third step in developing an event-driven program is to write the main loop. This is a function
+that checks for the occurrence of events, and then calls the matching event handler to process it.
+Most event-driven programming environments already provide this main loop, so it need not be specifically
+provided by the application programmer. RPG, an early programming language from IBM, whose 1960s design
+concept was similar to event-driven programming discussed above, provided a built-in main I/O loop
+(known as the "program cycle") where the calculations responded in accordance to 'indicators' (flags)
+that were set earlier in the cycle
 
 The two types of API functions in Node.js are
 
@@ -836,6 +1049,91 @@ a)      Asynchronous, non-blocking functions
 
 b)      Synchronous, blocking functions
 ==
+Describe the exit codes of Node.js.
+In Node.js, exit codes are a set of specific codes which are used for finishing a specific process. These processes can include the global object as well. Below are some of the exit codes used in Node.js:
+
+Uncaught fatal exception
+Unused
+Fatal Error
+Internal Exception handler Run-time failure
+Internal JavaScript Evaluation Failure
+===
+Explain the reason as to why Express ‘app’ and ‘server’ must be kept separate.
+Express ‘app’ and ‘server’ must be kept separate as by doing this, you will be separating the
+ API declaration from the network related configuration which benefits in the below listed ways:
+
+It allows testing the API in-process without having to perform the network calls
+Faster testing execution
+Getting wider coverage metrics of the code
+Allows deploying the same API under flexible and different network conditions
+Better separation of concerns and cleaner code
+API declaration should reside in app.js:
+
+var app = express();
+app.use(bodyParser.json());
+app.use("/api/events", events.API);
+app.use("/api/forms", forms);
+Server network declaration should reside in /bin/www:
+
+var app = require('../app');
+var http = require('http');
+//Get port from environment and store in Express
+var port = normalizePort(process.env.PORT || '8000');
+app.set('port', port);
+//Create HTTP server.
+var server = http.createServer(app);
+
+======
+Is cryptography supported in Node.js?
+Yes, Node.js does support cryptography through a module called Crypto.
+ This module provides various cryptographic functionalities like cipher, decipher, sign and
+ verify functions, a set of wrappers for open SSL’s hash HMAC etc. For example
+
+ ===
+
+diff between exports and module.exports
+
+module is a plain JavaScript object with an exports property. exports is a plain JavaScript variable
+ that happens to be set to module.exports. At the end of your file, node.js will basically 'return'
+ module.exports to the require function.
+ Initially, exports and module.exports point at the same empty object.
+
+so if you attach property a to an exports it will be automatically attach to module.exports because of
+the same refernce
+
+so then exports and module.exports are the same object.
+
+but, what if you want to export a function, or a string, or a unicorn?
+
+This is when the difference between exports and module.exports is important.
+
+If you remember nothing else from this article, remember this:
+
+module.exports wins
+
+What this means is that whatever object module.exports is assigned to is the object that is exported from your module.
+
+If you want to export a function from your module and you assign it to exports and not module.exports then this happens:
+
+then your code will return {} object as module.exports = {} not exports = function.
+
+====
+export vs export defaults
+
+Named Export: (export)
+With named exports, one can have multiple named exports per file. Then import the specific exports they want
+surrounded in braces. The name of imported module has to be the same as the name of the exported module.
+
+Default Export: (export default)
+One can have only one default export per file. When we import we have to specify a name and import like:
+
+// import
+import MyDefaultComponent from "./MyDefaultExport";
+// export
+const MyComponent = () => {}
+export default MyComponent;
+The naming of import is completely independent in default export and we can use any name we like.
+
 12)   Can you access DOM in node?
 
 No, you cannot access DOM in node.
@@ -920,6 +1218,7 @@ What is the purpose of setTimeout function?
 The setTimeout(cb, ms) global function is used to run callback cb after at least ms milliseconds.
 The actual delay depends on external factors like OS timer granularity and system load. A timer
 cannot span more than 24.8 days.
+The time value represents the (minimum) delay after which the message will actually be pushed into the queue.
 
 This function returns an opaque value that represents the timer which can be used to clear the timer.
 What is the purpose of clearTimeout function?
@@ -970,6 +1269,18 @@ At the same time, there is an Event Loop which iterates over the items in the Ev
 Every event has a callback function associated with it, and that callback function is invoked when
 the Event Loop iterates.
 ===
+Explain libuv.
+Libuv is a multi-platform support library of Node.js which majorly is used for asynchronous I/O.
+It was primarily developed for Node.js,  with time it is popularly practiced with other systems
+like as Luvit, pyuv, Julia, etc. Libuv is basically an abstraction around libev/ IOCP depending
+on the platform, providing users an API based on libev. A few of the important features of libuv are:
+
+Full-featured event loop backed
+File system events
+Asynchronous file & file system operations
+Asynchronous TCP & UDP sockets
+Child processes
+==
 What is LTS releases of Node.js why should you care?
 Topic: Node.js
 Difficulty: ⭐⭐⭐⭐⭐
@@ -1252,7 +1563,8 @@ Middleware functions are functions that have access to the request object (req),
 the response object (res), and the next middleware function in the application’s
 request-response cycle. The next middleware function is commonly denoted by a variable
  named next.
-
+ The next function is a function in the Express router which, when invoked,
+ executes the middleware succeeding the current middleware.
  As name suggests it comes in middle of something and that is request and response cycle
 Middleware has access to request and response object
 Middleware has access to next function of request-response life cycle.
@@ -1315,6 +1627,163 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 ====
+bodyParser
+Node.js body parsing middleware.
+
+Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+====
+app.set(name, value)
+Assigns setting name to value. You may store any value that you want, but certain names can be used to configure the behavior of the server. These special names are listed in the app settings table.
+
+Calling app.set('foo', true) for a Boolean property is the same as calling app.enable('foo'). Similarly, calling app.set('foo', false) for a Boolean property is the same as calling app.disable('foo').
+===
+req.body
+Contains key-value pairs of data submitted in the request body. By default, it is undefined,
+and is populated when you use body-parsing middleware such as express.json() or express.urlencoded().
+---
+req.params
+This property is an object containing properties mapped to the named route “parameters”.
+For example, if you have the route /user/:name, then the “name” property is available as
+req.params.name. This object defaults to {}.
+===
+req.query
+This property is an object containing a property for each query string parameter
+in the route. If there is no query string, it is the empty object, {}.
+// GET /search?q=tobi+ferret
+console.dir(req.query.q)
+
+===
+
+response object methods
+
+res.append(field [, value])
+res.append() is supported by Express v4.11.0+
+
+Appends the specified value to the HTTP response header field. If the header is not already set, it creates the header with the specified value. The value parameter can be a string or an array.
+
+Note: calling res.set() after res.append() will reset the previous
+
+---
+res.download(path [, filename] [, options] [, fn])
+The optional options argument is supported by Express v4.16.0 onwards.
+
+Transfers the file at path as an “attachment”. Typically, browsers will prompt the user for download.
+By default, the Content-Disposition header “filename=” parameter is path (this typically appears
+in the browser dialog). Override this default with the filename parameter.
+
+--
+res.end([data] [, encoding])
+Ends the response process. This method actually comes from Node core, specifically the response.end() method of http.ServerResponse.
+--
+res.format(object)
+Performs content-negotiation on the Accept HTTP header on the request object, when present. It uses req.accepts() to select a handler for the request, based on the acceptable types ordered by their quality values. If the header is not specified, the first callback is invoked. When no match is found, the server responds with 406 “Not Acceptable”, or invokes the default callback.
+
+The Content-Type response header is set when a callback is selected. However, you may alter this within the callback using methods such as res.set() or res.type().
+
+res.format({
+  'text/plain': function () {
+    res.send('hey')
+  },
+---
+res.get(field)
+Returns the HTTP response header specified by field. The match is case-insensitive.
+---
+res.json([body])
+Sends a JSON response. This method sends a response (with the correct content-type) that is the parameter converted to a JSON string using JSON.stringify().
+
+The parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you can also use it to convert other values to JSON.
+---
+res.jsonp([body])
+Sends a JSON response with JSONP support. This method is identical to res.json(), except that it opts-in to JSONP callback support.
+=--
+res.render(view [, locals] [, callback])
+Renders a view and sends the rendered HTML string to the client. Optional parameters:
+---
+res.send([body])
+Sends the HTTP response.
+
+The body parameter can be a Buffer object, a String, an object, or an Array. For example:
+--
+res.sendStatus(statusCode)
+Sets the response HTTP status code to statusCode and send its string representation as the response body.
+res.sendStatus(200) // equivalent to res.status(200).send('OK')
+res.sendStatus(403) // equivalent to res.status(403).send('Forbidden')
+---
+res.set(field [, value])
+Sets the response’s HTTP header field to value. To set multiple fields at once, pass an object as the parameter.
+--
+res.status(code)
+Sets the HTTP status for the response. It is a chainable alias of Node’s response.statusCode.
+
+res.status(403).end()
+---
+Http methods
+idempotent - does produce the same result when hit multiple times
+Get
+Simply put, the GET method is used to retreive data from a server at the specified resource.
+Since a GET request is only requesting data and not modifying any resources, it's considered a safe and idempotent method.
+
+Post
+POST
+In web services, POST requests are used to send data to the API sever to create or udpate a resource.
+ The data sent to the server is stored in the request body of the HTTP request.
+It's worth noting that a POST request is non-idempotent. It mutates data on the backend server (by creating or updating a resource),
+
+Put
+PUT
+Simlar to POST, PUT requests are used to send data to the API to create or update a resource. The difference is that PUT requests
+are idempotent. That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a
+ POST request repeatedly make have side effects of creating the same resource multiple times.
+
+Patch
+The difference with PATCH is that you only apply partial modifications to the resource.
+
+The difference between PATCH and PUT, is that a PATCH request is non-idempotent (like a POST request).
+
+Delete
+
+The DELETE method is exactly as it sounds: delete the resource at the specified URL.
+
+
+HEad
+HEAD
+The HEAD method is almost identical to GET, except without the response body.
+ In other words, if GET /users returns a list of users,
+ then HEAD /users will make the same request but won't get back the list of users.
+ HEAD requests are useful for checking what a GET request will return before actually
+  making a GET request -- like before downloading a large file or response body
+
+Options
+PTIONS request should return data describing what other methods and operations the server supports at the given URL.
+
+OPTIONS requests are more loosely defined and used than the others, making them a good candidate to test for fatal API errors.
+---
+not following the Methods
+HTTP GET method is specified as idempotent, a GET request, by specification, can be resubmitted
+with the assumption that it will not change anything on the server.
+This is not the case for a HTTP POST which by specification can change the status of the application running on the server.
+
+as a last example, web browsers warn users when they try to refresh a page that was reached by a
+HTTP POST request warning that some data might be resubmitted. You do not get that layer of protection
+built-in browsers if the page is reached by a HTTP GET request.
+====
+26. Explain the concept of URL module.
+The URL module of Node.js provides various utilities for URL resolution and parsing.
+ It is a built-in module that helps in splitting up the web address into a readable format:
+
+1
+var url = require('url');
+For example:
+var url = require('url');
+var adrs = '<a href="http://localhost:8082/default.htm?year=2019&month=april">http://localhost:8082/default.htm?year=2019&month=april</a>';
+var q = url.parse(adr, true);
+console.log(q.host); //returns 'localhost:8082'
+console.log(q.pathname); //returns '/default.htm'
+console.log(q.search); //returns '?year=2019 and month=april'
+var qdata = q.query; //returns an object: { year: 2019, month: 'april' }
+console.log(qdata.month); //returns 'april'
+====
+
 NODE_ENV==
 
 NODE_ENV is an environment variable made popular by the express webserver framework. When a node
