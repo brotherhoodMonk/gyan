@@ -553,7 +553,8 @@ Its main methods are:
 new Set(iterable) – creates the set, and if an iterable object is provided (usually an array), copies values from it into the set.
 set.add(value) – adds a value, returns the set itself.
 set.delete(value) – removes the value, returns true if value existed at the moment of the call, otherwise false.
-set.has(value) – returns true if the value exists in the set, otherwise false.
+set.has(value) – returns true if the value exists in the
+ set, otherwise false.
 set.clear() – removes everything from the set.
 set.size – is the elements count.
 Iteration over Set
@@ -938,7 +939,8 @@ This is a bug and one that unfortunately can’t be fixed, because it would brea
 
 function as type of function why---
 why function has a type function not objects
-You can logically think of Function as a subclass of Object. It has all the methods of Object plus some more that are specific to a function (such as .bind(), .call(), .apply(), etc...).
+You can logically think of Function as a subclass of Object. It has all the methods of Object plus
+ some more that are specific to a function (such as .bind(), .call(), .apply(), etc...).
 
 It is extremely useful that Function does report its own type so you can easily check if a property is callable as a function and perhaps that is the main reason why it was done this way.
 

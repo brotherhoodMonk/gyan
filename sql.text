@@ -193,11 +193,16 @@ In almost all situations SQL databases are vertically scalable. This means that 
 The Structure –
 SQL databases are table-based on the other hand NoSQL databases are either key-value pairs, document-based, graph databases or wide-column stores. This makes relational SQL databases a better option for applications that require multi-row transactions such as an accounting system or for legacy systems that were built for a relational structure.
 Property followed –
-SQL databases follow ACID properties (Atomicity, Consistency, Isolation and Durability) whereas the NoSQL database follows the Brewers CAP theorem (Consistency, Availability and Partition tolerance).
+SQL databases follow ACID properties (Atomicity, Consistency, Isolation and Durability) whereas the NoSQL database follows the
+ Brewers CAP theorem (Consistency, Availability and Partition tolerance).
 Support –
-Great support is available for all SQL database from their vendors. Also a lot of independent consultations are there who can help you with SQL database for a very large scale deployments but for some NoSQL database you still have to rely on community support and only limited outside experts are available for setting up and deploying your large scale NoSQL deployments.
+Great support is available for all SQL database from their vendors. Also a lot of independent consultations are
+ there who can help you with SQL database for a very large scale deployments but for som
+ e NoSQL database you still have to rely on community support and only limited outside experts are available
+  for setting up and deploying your large scale NoSQL deployments.
 
-Some examples of SQL databases include PostgreSQL, MySQL, Oracle and Microsoft SQL Server. NoSQL database examples include Redis, RavenDB Cassandra, MongoDB, BigTable, HBase, Neo4j and CouchDB.
+Some examples of SQL databases include PostgreSQL, MySQL, Oracle and Microsoft SQL Server. NoSQL database examples
+include Redis, RavenDB Cassandra, MongoDB, BigTable, HBase, Neo4j and CouchDB.
 =====
 temp table=
 A temporary table in SQL Server, as the name suggests, is a database table that exists temporarily on
@@ -429,9 +434,11 @@ JOins vs UNION
 
 Joins and Unions can be used to combine data from one or more tables. The difference lies in how the data is combined.
 
-In simple terms, joins combine data into new columns. If two tables are joined together, then the data from the first table is shown in one set of column alongside the second table’s column in the same row.
+In simple terms, joins combine data into new columns. If two tables are joined together,
+ then the data from the first table is shown in one set of column alongside the second table’s column in the same row.
 
-Unions combine data into new rows. If two tables are “unioned” together, then the data from the first table is in one set of rows, and the data from the second table in another set. The rows are in the same result.
+Unions combine data into new rows. If two tables are “unioned” together, then the data from the f
+irst table is in one set of rows, and the data from the second table in another set. The rows are in the same result.
 
 Keys
 Super Key

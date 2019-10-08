@@ -1,13 +1,14 @@
 Q-1. What Is Node.Js?
 
-Node.js is a JavaScript runtime or platform which is built on Google Chrome’s JavaScript v8 engine.
+1. Node.js is a JavaScript runtime or platform which is built on Google Chrome’s JavaScript v8 engine.
 This runtime allows executing the JavaScript code on any machine outside a browser.
 
-Node.js is single-threaded, that implements a concurrency model based on an event loop.
- It doesn’t block the execution thread instead registers a callback which allows the application
+2. Node.js is single-threaded, that implements a concurrency model based on an event loop.
+ It doesn’t block the main thread  execution thread instead registers a callback which allows the application
  to continue.
- It means Node.js can handle concurrent operations without creating multiple
- threads of execution so can scale pretty well.
+
+3. It means Node.js can handle concurrent operations without creating multiple
+threads of execution so can scale pretty well.
 
  Following are the areas where it’s perfect to use Node.js.
 I/O bound Applications
@@ -16,9 +17,8 @@ Data Intensive Real-time Applications (DIRT)
 JSON APIs based Applications
 Single Page Applications
 At the same time, it’s not suitable for heavy applications involving more of CPU usage.
-
+===
 event loop-
-
 To handle the asynchronous nature of program, Node.js uses external “Queue” called as event queue
 where it inserts the
 callback of asynchronous code rather than pushing it into call stack .
@@ -35,7 +35,7 @@ it on stack else wait for next tick ( Yes process.nextTick ).
 The increment that the event loop moves in is called a ‘tick’, and every time it
 ‘ticks’ it checks if the call stack is empty.
 
-The event loop on every iteration looks if there’s something in the call stack, and executes it:
+1. The event loop on every iteration looks if there’s something in the call stack, and executes it:
 The event loop is the term given to the process of the waiting for the msg queue to receive a message
  synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
  ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
@@ -43,12 +43,13 @@ The event loop is the term given to the process of the waiting for the msg queue
 
 1. The event loop gives Node the capability to handle highly concurrent requests while still running “single-threaded”.
 2 .The event loop on every iteration looks if there’s something in the call stack, and executes it:
-3.  when node receives any request it is placed in the call stack,   node js process the request and send it ot client ,0
-4.  If the request is asynchronous or  contains blocking io, event loop delegate it to worker thread and thread pool.
+3.  when node receives any request it is placed in the call stack,  node js process the request and send it ot client ,
+4.  If the request is asynchronous or contains blocking io, event loop delegate it to worker thread and thread pool via event que.
   Worker thread will prepare the response and send it back to event loop which then runs the callback function
   and sends the response to client.
 5. The loop gives priority to the call stack, and it first processes everything it finds in the call stack, and once there’s
  nothing in there, it goes to pick up things in the message queue.
+ ===
 
  Phases Overview
  timers:              this phase executes callbacks scheduled by setTimeout() and setInterval().
@@ -72,13 +73,49 @@ poll phase
   for an incoming connection, request, etc. However, if a callback has been scheduled with setImmediate()
   and the poll phase becomes idle, it will end and continue to the check phase rather than waiting for poll events.
 
-  setImmediate() is designed to execute a script once the current poll phase completes.
-  setTimeout() schedules a script to be run after a minimum threshold in ms has elapsed.
 
-  setTimeout vs setImmediate execution sequence
-  setTimeout(() => {
-    console.log('timeout');
-  }, 0);
+timer function----
+  What is the purpose of setTimeout function?
+
+  The setTimeout(cb, ms) global function is used to run callback cb after at least ms milliseconds.
+  The actual delay depends on external factors like OS timer granularity and system load. A timer
+  cannot span more than 24.8 days.
+  The time value represents the (minimum) delay after which the message will actually be pushed into the queue.
+
+  This function returns an opaque value that represents the timer which can be used to clear the timer.
+  What is the purpose of clearTimeout function?
+
+  The clearTimeout( t ) global function is used to stop a timer that was previously created with
+   setTimeout(). Here t is the timer returned by setTimeout() function.
+  What is the purpose of setInterval function?
+``
+  var t = setInterval(() => {
+    console.log('---------');
+  }, 1000);
+  var t1 = setTimeout(() => {
+    clearInterval(t);
+  }, 4000);
+  clearTimeout(t1);
+
+
+  The setInterval(cb, ms) global function is used to run callback cb repeatedly after at least ms
+   milliseconds. The actual delay depends on external factors like OS timer granularity and system
+    load. A timer cannot span more than 24.8 days.
+
+  This function returns an opaque value that represents the timer which can be used to clear the
+  timer using the function clearInterval(t).
+
+  setImmediate-
+  Any function passed as the setImmediate() argument is a callback that’s executed in the next
+  iteration of the event loop.
+  setImmediate() is designed to execute a script once the current poll phase completes.
+
+  The main advantage to using setImmediate() over setTimeout() is setImmediate() will always be executed
+  before any timers if scheduled within an I/O cycle, independently of how many timers are present.
+
+  A setTimeout() callback with a 0ms delay is very similar to setImmediate().+
+   The execution order will depend on
+  various factors, but they will be both run in the next iteration of the event loop.
 
   setImmediate(() => {
     console.log('immediate');
@@ -90,52 +127,89 @@ poll phase
    However, if you move the two calls within an I/O cycle, the immediate callback is always executed first:
    The main advantage to using setImmediate() over setTimeout() is setImmediate() will always be executed
    before any timers if scheduled within an I/O cycle, independently of how many timers are present.
+   Browsers have timers. setTimeout() creates a timer, waits until it fires and then adds a task to the queue. It has the signature:
 
-   fs.readFile(__filename, () => {
-  setTimeout(() => {
-    console.log('timeout');
-  }, 0);
-  setImmediate(() => {
-    console.log('immediate');
-  });
-});
-The main advantage to using setImmediate() over setTimeout() is setImmediate() will always be executed
-before any timers if scheduled within an I/O cycle, independently of how many timers are present.
------
 process.nextTick()
+  A function passed to process.nextTick() is going to be executed on the current iteration of
+  the event loop, after the current operation ends. This means it will always execute before setTimeout and
+   setImmediate.
 
-This is because process.nextTick() is not technically part of the event loop. Instead, the nextTickQueue will be
- processed after the current operation is completed, regardless of the current phase of the event loop. Here, an
- operation is defined as a transition from the underlying C/C++ handler, and handling the JavaScript that needs to be executed.
+   This is because process.nextTick() is not technically part of the event loop. Instead, the nextTickQueue will be
+    processed after the current operation is completed,
+    regardless of the current phase of the event loop.
+    Here, an  operation is defined as a transition from the underlying C/C++ handler, and handling the JavaScript that needs to be executed.
 
-Looking back at our diagram, any time you call process.nextTick() in a given phase,
- all callbacks passed to process.nextTick() will be resolved before the event loop continues.
- This can create some bad situations because it allows you to "starve"/ freeze your I/O by making
-  recursive process.nextTick() calls, which prevents the event loop from reaching the poll phase.
-
-  Why use process.nextTick()?
-There are two main reasons:
-
-Allow users to handle errors, cleanup any then unneeded resources, or perhaps try the request again before the event loop continues.
-
-At times it's necessary to allow a callback to run after the call stack has unwound but before the event loop continues.
+   all callbacks passed to process.nextTick() will be resolved before the event loop continues.
+   This can create some bad situations because it allows you to "starve"/ freeze your I/O by making
+    recursive process.nextTick() calls, which prevents the event loop from reaching the poll phase.
+    Why use process.nextTick()?
+  There are two main reasons:
+  Allow users to handle errors, cleanup any then unneeded resources, or perhaps try the request again before the event loop continues.
+  At times it's necessary to allow a callback to run after the call stack has unwound but before the event loop continues.
  ====
-
  "I/O" refers primarily to interaction with the system's disk and network supported by libuv.
-
-
  ===
 worker threads
-Workers (threads) are useful for performing CPU-intensive JavaScript operations.
-They will not help much with I/O-intensive work. Node.js’s built-in asynchronous I/O operations are more efficient than Workers can be.
 
+Workers (threads) are useful for performing CPU-intensive JavaScript operations.
+They will not help much with I/O-intensive work.
+The worker_threads module enables the use of threads that execute JavaScript in parallel.:
+worker_threads can share memory.
+
+Worker threads have:
+
+One process
+Multiple threads
+One event loop per thread
+One JS Engine Instance per thread
+One Node.js Instance per thread
+
+What makes Worker Threads special:
+
+ArrayBuffers-  to transfer memory from one thread to another
+MessagePort- used for communicating between different threads. It can be used to transfer structured data, memory regions and
+other MessagePorts between different Workers.
+MessageChannel represents an asynchronous, two-way communications channel used for communicating between different threads.
+SharedArrayBuffer- that will be accessible from either thread. It lets you share memory between threads (limited to binary data).
+Atomics available, it lets you do some processes concurrently, more efficiently and allows you to implement conditions variables in JavaScript
+WorkerData is used to pass startup data. An arbitrary JavaScript value that contains a clone of the data passed to this thread’s
+Worker constructor. The data is cloned as if using postMessage()
+
+What is expected for Workers (hopefully):
+1. Passing native handles around (e.g. sockets, http request)
+2. Deadlock detection. Deadlock is a situation where a set of processes are blocked because each process is
+ holding a resource and waiting for another resource acquired by some other process. Deadlock detention will
+ be useful for Worker threads in this case.
+3. More isolation, so if one process is affected, it won’t affect others.
+====
+https://nodesource.com/blog/worker-threads-nodejs/
+https://nodejs.org/uk/docs/guides/dont-block-the-event-loop/ ****
+worker pool thread pool
+1. Node js uses Worker Pool to handle expensive i/o tasks like file I/O
+2. Node uses the Event-Driven Architecture: it has an Event Loop for orchestration and a Worker Pool for expensive tasks.
+3. Node's Worker Pool is implemented in libuv library, which exposes a general task submission API.
+4. Node uses the Worker Pool to handle "expensive" tasks. This includes I/O for which an operating system does not provide
+ a non-blocking version, as well as particularly CPU-intensive tasks.
+5. the Worker Pool uses a real queue whose entries are tasks to be processed.
+   A Worker pops a task from this queue and works on it,
+   and when finished the Worker raises an "At least one task is finished" event for the Event Loop.
+6.  These are the Node module APIs that make use of this Worker Pool:
+ I/O-intensive
+ DNS: dns.lookup(), dns.lookupService().
+ File System: All file system APIs except fs.FSWatcher() and those that are explicitly synchronous use libuv's threadpool.
+
+ CPU-intensive
+ Crypto: crypto.pbkdf2(), crypto.scrypt(), crypto.randomBytes(), crypto.randomFill(), crypto.generateKeyPair().
+ Zlib: All zlib APIs except those that are explicitly synchronous use libuv's threadpool.
+
+===
 Web Workers
 Using Web Workers enables you to offload an expensive operation to a separate thread of execution,
  freeing up the main thread to do other things. The worker includes a separate message queue, event
  loop, and memory space independent from the original thread that instantiated it. Communication
  between the worker and the main thread is done via message passing, which looks very much like the
   traditional, evented code-examples we’ve already seen.
-
+===
 Q-2. What Are The Key Features Of Node.Js?
 
 1.Asynchronous event driven IO helps concurrent request handling –
@@ -173,20 +247,20 @@ dedicated CPU time.
 
 Last but not the least, since Node.js uses JavaScript internally, so it fits best for building
 client-side applications that also use JavaScript.
-
+===
 When To Not Use Node.Js?
 However, we can use Node.js for a variety of applications. But it is a single threaded framework,
 so we should not use it for cases where the application requires long processing time.
 If the server is doing some calculation, it won’t be able to process any other requests.
  Hence, Node.js is best when processing needs less dedicated CPU time.
-
 ===
 node modules-
 Module in Node.js is a simple or complex functionality organized in single or multiple
 JavaScript files which can be reused throughout the Node.js application.
 
 Each module in Node.js has its own context, so it cannot interfere with other modules
-or pollute global scope. Also, each module can be placed in a separate .js file under a separate folder.
+or pollute global scope.
+Also, each module can be placed in a separate .js file under a separate folder.
 
 Node.js Module Types
 Node.js includes three types of modules:
@@ -218,12 +292,13 @@ Q-17. What Is EventEmitter In Node.Js?
 Answer.
 1. Node.js core API is based on asynchronous event-driven architecture in which certain kind of
 objects called emitters periodically emit events that cause listener objects to be called.
-2. Events module in Node.js allows us to create and handle custom events.
-3. All objects that emit events are members of EventEmitter class.
-4. These objects provides multiple properties like “on” and “emit”. The “on” property is used
+2. this objects that emit events are members of EventEmitter class.
+3. And provides multiple properties like “on” and “emit”. The “on” property is used
     to bind a function to the event and “emit” is used to fire an event.
+4. Events module in Node.js allows us to create and handle custom events.
 5. When the EventEmitter object emits an event, all of the functions attached to that specific
-    event are called synchronously. All values returned by the called listeners are ignored and
+    event are called synchronously.
+     All values returned by the called listeners are ignored and
     will be discarded.
 6.The EventEmitter calls all listeners synchronously in the order in which they were registered.
 
@@ -281,8 +356,6 @@ objects called emitters periodically emit events that cause listener objects to 
   // Raising SecondEvent
   em.emit('SecondEvent', 'This is my second Node.js event emitter example.');
 
-If we want to break that flow and switch to asynchronous mode then we can use setImmediate()
-or process.nextTick() methods:
 ==
 request status code
 '500': 'Internal Server Error',
@@ -305,7 +378,8 @@ request status code
 Web Services;
 
 Web services tells us how the communication between two different set of devices or applications held over the World Wide Web (WWW).
-This communication system can be categorized into two types, namely Simple Object Access Protocol or SOAP, and Representational State Transfer or REST.
+This communication system can be categorized into two types, namely Simple Object Access Protocol or SOAP,
+and Representational State Transfer or REST.
 
 What Is a REST API?
 1. REST is basically an architectural style of the web services that work as a channel of communication between different
@@ -315,8 +389,7 @@ computers or systems on the internet. The term REST API is something else.
  are called REST APIs.
  3. REST API proides web services, database systems, and computer systems permit requesting
   systems to get robust access
-4. it provides web based resources by deploying a predefined set
-  of stateless protocols and standard operations.
+4. it provides web based resources by deploying a predefined set of stateless protocols and standard operations.
 5. REST API systems deliver fast performance, reliability, and more progression.
 
 What Is a SOAP API?
@@ -329,6 +402,11 @@ perform accurate searches and much more. These can then be used with all those l
 4. SOAP APIs take the advantages of making web based protocols such as HTTP and its XML that are already operating the all
  operating systems thats  why its developers can easily manipulate web services and get responses without caring about
   language and platforms at all.
+5/ It includes a WSDL file which has
+the required information on what the web service does in
+ addition to the location of the web service.
+
+ SOAP uses service interfaces to expose its functionality to client applications.
 
 Differences:
 SOAP
@@ -377,6 +455,7 @@ SOAP can only work with XML format. As seen from SOAP messages,
 all data passed is in XML format.
 REST permits different data format such as Plain text, HTML, XML, JSON, etc.
 But the most preferred format for transferring data is JSON.
+
 ========
 Blocking vs non Blocking
 Blocking
@@ -441,7 +520,9 @@ specific version, and ensure that every install results in the exact same file s
 
 Fast, reliable, and secure dependency management.
 Resolution: Yarn starts resolving dependencies by making requests to the registry and recursively looking up each dependency.
-Fetching: Next, Yarn looks in a global cache directory to see if the package needed has already been downloaded. If it hasn't, Yarn fetches the tarball for the package and places it in the global cache so it can work offline and won't need to download dependencies more than once. Dependencies can also be placed in source control as tarballs for full offline installs.
+Fetching: Next, Yarn looks in a global cache directory to see if the package needed has already been downloaded.
+ If it hasn't, Yarn fetches the tarball for the package and places it in the global cache so it can work offline
+ and won't need to download dependencies more than once. Dependencies can also be placed in source control as tarballs for full offline installs.
 Linking: Finally, Yarn links everything together by copying all the files needed from the global cache into the local node_modules directory.
 
 makes the install process faster.
@@ -488,7 +569,7 @@ we can use this in
 1: Series - an asynchronous for loop
 2: Full parallel - an asynchronous, parallel for loop
 3: Limited parallel - an asynchronous, parallel, concurrency limited for loop
-
+====
 The Child Processes Module
 A child process is the creation of a parent process, which can be defined as the main process
  that creates child or subprocesses to perform certain operations. Each process can have many
@@ -740,7 +821,8 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
   Streams are objects that let you read data from a source or write data to
   a destination in continuous fashion. In Node.js, there are four types of streams −
 The difference is that streams might not be available all at once, and they don’t have to fit in memory.
-This makes streams really powerful when working with large amounts of data, or data that’s coming from an external source one chunk at a time.
+This makes streams really powerful when working with large amounts of data, or data that’s
+coming from an external source one chunk at a time.
       Readable − Stream which is used for read operation.
 
       Writable − Stream which is used for write operation.
@@ -754,7 +836,8 @@ This makes streams really powerful when working with large amounts of data, or d
         and the output is readable stream part. You might also hear transform streams referred to as
          “through streams.”
 
-The pipe method returns the destination stream, which enabled us to do the chaining above. For streams a (readable), b and c (duplex), and d (writable), we can:
+The pipe method returns the destination stream, which enabled us to do the chaining above. For streams a (readable), b and c (duplex),
+and d (writable), we can:
       =========
       Differentiate between readFile vs createReadStream in Node.js?
 
@@ -845,6 +928,84 @@ the contents of the file as its arguments. Hence, there is no blocking or wait, 
 This functionality makes Node.js as highly scalable, using it processes a high number of requests
 without waiting for any function to return the expected result.
 
+;
+24.3.5 Pros and cons of callbacks
+Using callbacks results in a radically different programming style, CPS  Continuation-passing style . The main advantage of CPS is that its basic mechanisms are easy to understand. But there are also disadvantages:
+
+Error handling becomes more complicated: There are now two ways in which errors are reported – via callbacks and via exceptions. You have to be careful to combine both properly.
+Less elegant signatures: In synchronous functions, there is a clear separation of concerns between input (parameters) and output (function result). In asynchronous functions that use callbacks, these concerns are mixed: the function result doesn’t matter and some parameters are used for input, others for output.
+Composition is more complicated: Because the concern “output” shows up in the parameters, it is more complicated to compose code via combinators.
+Callbacks in Node.js style have three disadvantages (compared to those in a functional style):
+
+The if statement for error handling adds verbosity.
+Reusing error handlers is harder.
+Providing a default error handler is also harder. A default error handler is useful if you make a function call and don’t want to write your own handler. It could also be used by a function if a caller doesn’t specify a handler.
+
+promises
+then() always returns a Promise, which enables you to chain method calls:
+
+asyncFunc1()
+.then(result1 => {
+    // Use result1
+    return asyncFunction2(); // (A)
+})
+.then(result2 => { // (B)
+    // Use result2
+})
+.catch(error => {
+    // Handle errors of asyncFunc1() and asyncFunc2()
+});
+How the Promise P returned by then() is settled depends on what its callback does:
+
+If it returns a Promise (as in line A), the settlement of that Promise is forwarded to P. That’s why the callback from line B can pick up the settlement of asyncFunction2’s Promise.
+If it returns a different value, that value is used to settle P.
+If throws an exception then P is rejected with that exception.
+Furthermore, note how catch() handles the errors of two asynchronous function calls (asyncFunction1() and asyncFunction2()). That is, uncaught errors are passed on until there is an error handler.
+
+Promise.all() enables you to be notified once all results are in (a join in Unix process terminology). Its input is an Array of Promises, its output a single Promise that is fulfilled with an Array of the results.
+
+The Promise API is about delivering results asynchronously. A Promise object (short: Promise) is a stand-in for the result, which is delivered via that object.
+
+States:
+
+A Promise is always in one of three mutually exclusive states:
+Before the result is ready, the Promise is pending.
+If a result is available, the Promise is fulfilled.
+If an error happened, the Promise is rejected.
+A Promise is settled if “things are done” (if it is either fulfilled or rejected).
+A Promise is settled exactly once and then remains unchanged.
+
+Reacting to state changes:
+
+Promise reactions are callbacks that you register with the Promise method then(), to be notified of a fulfillment or a rejection.
+A thenable is an object that has a Promise-style then() method. Whenever the API is only interested in being notified of settlements, it only demands thenables (e.g. the values returned from then() and catch(); or the values handed to Promise.all() and Promise.race()).
+
+Promises are a pattern that helps with one particular kind of asynchronous programming: a function (or method) that returns a single result asynchronously. One popular way of receiving such a result is via a callback (“callbacks as continuations”):
+Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result:
+
+Compared to callbacks as continuations, Promises have the following advantages:
+
+No inversion of control: similarly to synchronous code, Promise-based functions return results, they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
+Chaining is simpler: If the callback of then() returns a Promise (e.g. the result of calling another Promise-based function) then then() returns that Promise (how this really works is more complicated and explained later). As a consequence, you can chain then() method calls:
+Composing asynchronous calls (loops, mapping, etc.): is a little easier, because you have data (Promise objects) you can work with.
+Error handling: As we shall see later, error handling is simpler with Promises, because, once again, there isn’t an inversion of control. Furthermore, both exceptions and asynchronous errors are managed the same way.
+Cleaner signatures: With callbacks, the parameters of a function are mixed; some are input for the function, others are responsible for delivering its output. With Promises, function signatures become cleaner; all parameters are input.
+Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.). With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1]. Since ES6, an increasing number of APIs is based on Promises.
+
+25.5.3 Consuming a Promise #
+As a consumer of promise, you are notified of a fulfillment or a rejection via reactions – callbacks that you register with the methods then() and catch():
+
+A thenable is any object that has a method then() that works like Promise.prototype.then(). Thus, Promises are thenables. Resolving with R (e.g. by returning it from onFulfilled) means that it is inserted “after” Q: R’s settlement is forwarded to Q’s onFulfilled and onRejected callbacks. In a way, Q becomes R
+
+diff
+Compared to callbacks, Promises have cleaner function (or method) signatures. With callbacks, parameters are used for input and output:
+With Promises, all parameters are used for input:
+
+Unified handling of both asynchronous errors and normal exceptions.
+Easier composition, because you can reuse synchronous tools such as Array.prototype.map().
+Chaining of then() and catch().
+Guarding against notifying callbacks more than once. Some development environments also warn about rejections that are never handled.
+
 Q-11. What Is Callback Hell?
 Initially, you may praise Callback after learning about it. Callback hell is heavily nested callbacks
 which make the code unreadable and difficult to maintain.
@@ -906,6 +1067,81 @@ Generators are lightweight routines, they make a function wait and resume via th
 Generator functions uses a special syntax <function* ()>. They can also suspend and resume asynchronous
 operations using constructs such as promises or <thunks> and turn a synchronous code into asynchronous.
 
+====
+https://codeburst.io/javascript-unit-testing-using-mocha-and-chai-1d97d9f18e71
+Testing in nodejs
+
+The smallest parts of an application are called units, testing of those units to check whether it is fit for use or not is called unit testing.
+
+assert module
+The assert module provides a set of assertion functions for verifying invariants. The module provides a recommended strict mode and a more lenient legacy mode.
+deepEqual
+Test Assertion
+Assertion is an expression which helps system (Mocha in this case) to know code under test failed.
+Assert’s job is to just throw an error when things are not correct or right.
+Assert tests the expression and it does nothing when expression passes but throws exception in case of failure to tell the test framework about it.
+We can just throw an exception to fail the test as well.
+
+assert.strictEqual().
+assert.Equal()
+
+testing asynchronous function--
+Mocha waits for the done() function to be get called to complete the test.
+done();
+
+Chai
+Chai is BDD/TDD assertion library.
+Can be paired with any javascript testing framework.
+Assertion with Chai provides natural language assertions, expressive and readable style.
+
+Assertion interfaces and styles
+There are two popular way of assertion in Chai, expect and should
+The expect interface provides function for assertion.
+The should interface extends each object with a should property for assertion.
+should property gets added to the Object.Prototype, so that all object can access it through prototype chain.
+You can go through article JavaScript —
+
+
+var assert = require('assert');
+var {expect, should} = require('chai')
+
+describe('Basic Mocha String Test', function () {
+ it('should return number of charachters in a string', function () {
+        assert.equal("Hello".length, 4);
+    });
+ it('should return first charachter of the string', function () {
+        assert.equal("Hello".charAt(0), 'H');
+    });
+});
+
+
+describe('ArrayCheck', () => {
+  it('checks the array', () => {
+    const test = productsController.checkArray([1, 3, 2], 3);
+    assert.equal(test, true);
+  })
+})
+describe('ArrayCheck1', () => {
+  it('checks the array1', () => {
+    const test = productsController.checkArray([1, 3, 2], 3);
+    expect(test).to.be.true;
+  })
+})
+
+describe('ArrayCheck2', () => {
+  it('checks the array2', () => {
+    const test = productsController.checkArray([1, 3, 2], 3);
+    test.should.equal(true);
+  })
+})
+
+
+
+assert=== helps to determine the status of the test, it determines failure of the test.
+describe === is a function which holds the collection of tests. It takes two parameters, first one is the meaningful name to functionality under test and second one is the function which contains one or multiple tests. We can have nested describe as well.
+it === is a function again which is actually a test itself and takes two parameters, first parameter is name to the test and second parameter is function which holds the body of the test.
+
+
 
 Q-14. What Is The Difference Between Nodejs, AJAX, And JQuery?
 Answer.
@@ -959,8 +1195,7 @@ Each Node.js has a set of built-in functionality,
 
 It primarily gives back the information about the application or the environment.
 
-<process.execPath> – to get the execution path of the No
-de app.
+<process.execPath> – to get the execution path of the Node app.
 <process.Version> – to get the Node version currently running.
 <process.platform> – to get the server platform.
 Some of the other useful Process methods are as follows.
@@ -1050,7 +1285,8 @@ a)      Asynchronous, non-blocking functions
 b)      Synchronous, blocking functions
 ==
 Describe the exit codes of Node.js.
-In Node.js, exit codes are a set of specific codes which are used for finishing a specific process. These processes can include the global object as well. Below are some of the exit codes used in Node.js:
+In Node.js, exit codes are a set of specific codes which are used for finishing a specific process.
+These processes can include the global object as well. Below are some of the exit codes used in Node.js:
 
 Uncaught fatal exception
 Unused
@@ -1659,7 +1895,8 @@ response object methods
 res.append(field [, value])
 res.append() is supported by Express v4.11.0+
 
-Appends the specified value to the HTTP response header field. If the header is not already set, it creates the header with the specified value. The value parameter can be a string or an array.
+Appends the specified value to the HTTP response header field. If the header is not already set, it creates the header
+with the specified value. The value parameter can be a string or an array.
 
 Note: calling res.set() after res.append() will reset the previous
 
@@ -1689,9 +1926,11 @@ res.get(field)
 Returns the HTTP response header specified by field. The match is case-insensitive.
 ---
 res.json([body])
-Sends a JSON response. This method sends a response (with the correct content-type) that is the parameter converted to a JSON string using JSON.stringify().
+Sends a JSON response. This method sends a response (with the correct content-type) that is the parameter converted
+to a JSON string using JSON.stringify().
 
-The parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you can also use it to convert other values to JSON.
+The parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you
+can also use it to convert other values to JSON.
 ---
 res.jsonp([body])
 Sends a JSON response with JSONP support. This method is identical to res.json(), except that it opts-in to JSONP callback support.
@@ -1985,9 +2224,23 @@ Second error objects also have a name property, which is the computer-readable p
 
   throw new Error('database failed to connect');
 
-  When JavaScript finds a throw keyword, the first thing it does is stop dead in its tracks, which prevents any more functions from running. By stopping like this, it mitigates the risk of any further errors occurring and helps us not to get the state of our program all twisted.
+  When JavaScript finds a throw keyword, the first thing it does is stop dead in its tracks,
+  which prevents any more functions from running. By stopping like this, it mitigates the risk of any
+  further errors occurring and helps us not to get the state of our program all twisted.
 
-With the program halted, JavaScript will begin to look back up the daisy chain of functions that were called in order to reach a catch statement. This daisy chain is called the call stack (don’t worry—we’ll get to the call stack soon). The nearest catch that JavaScript finds is where the thrown exception will emerge. If no try/catch is found, the exception throws, and the Node.js process will exit, causing the server to restart.
+With the program halted, JavaScript will begin to look back up the daisy chain of functions that were
+called in order to reach a catch statement. This daisy chain is called the call stack (don’t worry—we’ll
+ get to the call stack soon). The nearest catch that JavaScript finds is where the thrown exception will
+ emerge. If no try/catch is found, the exception throws, and the Node.js process will exit, causing the server to restart.
+
+
+Error vs Throw New Error()
+
+The Error constructor creates an error object. Instances of Error objects are thrown when runtime errors occur.
+The Error object can also be used as a base object for user-defined exceptions. See below for standard built-in error types.
+
+When Error is used like a function -- without new, it will return an Error object. Therefore, a mere call to
+Error will produce the same output that constructing an Error object via the new keyword would.
 
 
 
@@ -2003,9 +2256,11 @@ const three = function explicitFunction() {};
 
 
 To catch or not to catch promises?
-At this point, you might be wondering whether adding a catch to your promises is optional. Yes it’s optional, but you should always provide a catch handler.
+At this point, you might be wondering whether adding a catch to your promises is optional. Yes it’s optional,
+but you should always provide a catch handler.
 
-Why? Because there are many ways your asynchronous calls can fail. Our code might timeout, it could have network issues, or there might be a hardware failure. For all of these reasons, you should always instruct your program what to do in the case of a promise failure.
+Why? Because there are many ways your asynchronous calls can fail. Our code might timeout, it could have network issues,
+or there might be a hardware failure. For all of these reasons, you should always instruct your program what to do in the case of a promise failure.
 
 Remember the golden rule: always handle promise rejections.
 
@@ -2014,17 +2269,31 @@ Try/catch is by default synchronous. That means that if an asynchronous function
 
 
 v8 engine-
-In order to obtain speed, V8 translates JavaScript code into more efficient machine code instead of using an interpreter. It compiles JavaScript code into machine code at execution by implementing a JIT (Just-In-Time) compiler like a lot of modern JavaScript engines such as SpiderMonkey or Rhino (Mozilla) are doing. The main difference with V8 is that it doesn’t produce bytecode or any intermediate code.
-Instead of using a dictionary-like data structure for storing object properties and doing a dynamic lookup to resolve the property location (like most JavaScript engines do), V8 creates hidden classes, at runtime, in order to have an internal representation of the type system and to improve the property access time.
+In order to obtain speed, V8 translates JavaScript code into more efficient machine code instead of using an interpreter.
+It compiles JavaScript code into machine code at execution by implementing a JIT (Just-In-Time) compiler like a lot of
+modern JavaScript engines such as SpiderMonkey or Rhino (Mozilla) are doing.
+ The main difference with V8 is that it doesn’t produce bytecode or any intermediate code.
+Instead of using a dictionary-like data structure for storing object properties and doing a dynamic lookup
+to resolve the property location (like most JavaScript engines do), V8 creates hidden classes, at runtime,
+in order to have an internal representation of the type system and to improve the property access time.
 V8 has two compilers!
 
-A “Full” Compiler that can generate good code for any JavaScript: good but not great JIT code. The goal of this compiler is to generate code quickly. To achieve its goal, it doesn’t do any type analysis and doesn’t know anything about types. Instead, it uses an Inline Caches or “IC” strategy to refine knowledge about types while the program runs. IC is very efficient and brings about 20 times speed improvment.
+A “Full” Compiler that can generate good code for any JavaScript: good but not great JIT code.
+The goal of this compiler is to generate code quickly. To achieve its goal, it doesn’t do any type analysis
+and doesn’t know anything about types. Instead, it uses an Inline Caches or “IC” strategy to refine knowledge
+about types while the program runs. IC is very efficient and brings about 20 times speed improvment.
 
-An Optimizing Compiler that produces great code for most of the JavaScript language. It comes later and re-compiles hot functions. The optimizing compiler takes types from the Inline Cache and make decisions about how to optimize the code better. However, some language features are not supported yet like try/catch blocks for instance. (The workaround for try/catch blocks is to write the “non stable” code in a function and call the function in the try block)
+An Optimizing Compiler that produces great code for most of the JavaScript language. It comes later and
+re-compiles hot functions. The optimizing compiler takes types from the Inline Cache and make decisions about
+how to optimize the code better. However, some language features are not supported yet like try/catch blocks for instance.
+ (The workaround for try/catch blocks is to write the “non stable” code in a function and call the function in the try block)
 
 
 
-Code optimization: V8 also supports de-optimization: the optimizing compiler makes optimistic assumptions from the Inline Cache about the different types, de-optimization comes if these assumptions are invalid. For example, if a hidden class generated was not the one expected, V8 throws away the optimized code and comes back to the Full Compiler to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions after they are optimized.
+Code optimization: V8 also supports de-optimization: the optimizing compiler makes optimistic assumptions from the Inline
+Cache about the different types, de-optimization comes if these assumptions are invalid. For example, if a hidden
+class generated was not the one expected, V8 throws away the optimized code and comes back to the Full Compiler
+to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions after they are optimized.
 
 ====
 what us hidden classes & whats the advantage.
@@ -2124,7 +2393,8 @@ app.get('/download', function(req, res){
 ====
 How can you make sure your dependencies are safe?
 When writing Node.js applications, ending up with hundreds or even thousands of dependencies can easily happen.
-For example, if you depend on Express, you depend on 27 other modules directly, and of course on those dependencies' as well, so manually checking all of them is not an option!
+For example, if you depend on Express, you depend on 27 other modules directly, and of course on those dependencies'
+as well, so manually checking all of them is not an option!
 
 The only option is to automate the update / security audit of your dependencies. For that there are free and paid options:
 
