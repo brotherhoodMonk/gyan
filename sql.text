@@ -364,6 +364,11 @@ DROP:
 
 This command will completely destroy table from database.
 command: sql>drop table <table_name>
+
+DELETE CASCADE
+ON DELETE CASCADE specifies constraint option. In your case (suppose you have table_x and table_y
+that depends on table_x) when you delete row in table_x and this row is referenced from table_y,
+row from table_x would be deleted and all rows that referenced this row in table_y would be deleted as well.
 ====
 
 
@@ -461,3 +466,67 @@ Non-key attributes are the attributes or fields of a table, other than candidate
 
 Non-prime Attributes
 Non-prime Attributes are attributes other than Primary Key attribute(s)..
+
+====
+postgres vs mysql=
+
+pg - The world’s most advanced open source database
+my- The world’s most popular open source database
+
+No TEMP or TEMPORARY keyword in DROP TABLE statement
+MySQL supports the TEMP or TEMPORARY keyword in the DROP TABLE statement that allows you to remove the temporary table only.
+
+Support CASCADE option to drop table’s dependent objects e.g., tables, views, etc
+Does not support CASCADE option
+
+Support many advanced types such as array, hstore, and user-defined type.
+SQL-standard types
+
+programming language for stored procedure
+Ruby, Perl, Python, TCL, PL/pgSQL, SQL, JavaScript, etc.
+SQL:2003 syntax for stored procedures
+
+ FULL OUTER JOIN
+ yes
+ no
+
+ Partial indexes
+ yes
+ no
+
+
+
+   here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global
+   Development Group.
+postgres is free/opensource
+   Key Differences Between MySQL and PostgreSQL
+   The architectural difference between MySQL and PostgreSQL is that MySQL
+    is a relational database management system whereas,
+    PostgresSQL is object-relational database management system.
+   MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX,
+   z/OS, Symbian, AmigaOS.
+   However, the PostgreSQL  is supported by Windows, Mac OS X, Linux
+    and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
+   MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
+   My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
+   In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However,
+    in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
+   In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands,
+   PostgresSQL provides complete backup online.
+   MySQL provides temporary tables but does not provide materialized view.
+   However, PostgreSQL provides temporary table and also the materialized view.
+   MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
+   ===
+sql vs mysql
+
+SQL stands for Structured Query Language. It’s a standard language for accessing and manipulating databases.
+MySQL is a database management system, like SQL Server, Oracle, Informix, Postgres, etc. MySQL is a RDMS (Relational Database Management System).
+
+MYSQL available for free since it is open source, But SQL is not open source.
+
+User defined functions are not supported in MYSQL, But supported in SQL.
+
+Transaction support is very much limited in MYSQL, But extensively and fully offered in SQL.
+
+	sql - To query and operate database system.
+  mysql- Allows data handling, storing, modifying, deleting in a tabular format.

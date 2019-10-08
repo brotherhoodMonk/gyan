@@ -486,6 +486,11 @@ while a blocking operation is occurring.
     Non-blocking functions are used in regards with I/O operations. They immediately respond with whatever data is
      available and keeps on running as per the requests. In case, any answer couldn’t be retrieved then the API returns
      immediately with an error
+
+     ==
+     asynchronous vs non Blocking
+     synchronous / asynchronous is to describe the relation between two modules.
+     blocking / non-blocking is to describe the situation of one module.
 =====
 how does node prevents blocking code??
 
@@ -555,6 +560,7 @@ the callback function is called with the Error object (if any) passed as the fir
   have already exited. Throwing an error inside the callback can crash the Node.js process in most cases.
    If domains are enabled, or a handler has been registered with process.on('uncaughtException'), such errors can be intercepted.
 ==
+http://book.mixu.net/node/ch7.html
 Control flow functions ====
  A control flow function
  is a lightweight, generic piece of code which runs in between several asynchronous
@@ -569,19 +575,23 @@ we can use this in
 1: Series - an asynchronous for loop
 2: Full parallel - an asynchronous, parallel for loop
 3: Limited parallel - an asynchronous, parallel, concurrency limited for loop
+
+Nest callbacks to get serial behavior.
+Collocate method calls to get parallel behavior.
+Use callbacks to untangle nested serial actions.
+Use counters to know when groups of parallel actions are finished.
+Use libraries like Combo to ease the pain.
 ====
 The Child Processes Module
 A child process is the creation of a parent process, which can be defined as the main process
- that creates child or subprocesses to perform certain operations. Each process can have many
+ that creates child or subprocesses to perform certain operations.
+ Each process can have many
  child processes but only one parent. A child process inherits most of its parent's attributes.
 
  Node.js, in its essence, is a single thread process. It does not expose child threads and thread
  management methods to the developer. Technically, Node.js does spawn child threads for certain
  tasks such as asynchronous I/O, but these run behind the scenes and do not execute any application
  JavaScript code, nor block the main event loop.
-
-If threading support is desired in a Node.js application, there are tools available to enable it,
- such as the ChildProcess module. In fact, Node.js 12 has experimental support for threads.
 
 We can easily spin a child process using Node’s child_process module and those child processes
 can easily communicate with each other with a messaging system.
@@ -623,7 +633,6 @@ Spawn is a command designed to run system commands. When you run spawn, you send
    When a spawn is created - It creates a streaming interface between parent and child process.
 streaming interface means - buffering data in binary format
 
-
 Fork is a special instance of spawn, that runs a fresh instance of the V8 engine.
 Meaning, you can essentially create multiple workers, running on the exact same Node code base,
  or perhaps a different module for a specific task. This is most useful for creating a worker pool.
@@ -642,11 +651,6 @@ spawn should be used for streaming big data/files/images FROM spawn process TO p
 
 fork should be used for doing Json/Xml Data messaging .
 
-==
-How assert works in Node.js?
-In Node.js, assert is used to write tests. It only provides feedback only when any of the running
-test cases fails. This module gives you a set of assertion tests which are then used for testing invariants.
-It is basically used internally by Node.js but using require(‘assert’) code, it can be used in other applications as well.
 ===
 36. Explain the purpose of ExpressJS package?
 Express.js is a framework built on top of Node.js that facilitates the management of the
@@ -663,15 +667,9 @@ With async processing,
 an application can perform better and is more scalable under web loads. Also can handle concurerent requests
  Thus, Node.js makes use of a
 single-threaded model approach rather than typical thread-based implementation.
-
-==
-asynchronous vs non Blocking
-synchronous / asynchronous is to describe the relation between two modules.
-blocking / non-blocking is to describe the situation of one module.
 ===
 Q-26. What Is Chaining Process In Node.Js?
 Answer.
-
 It’s an approach to connect the output of one stream to the input of another stream, thus creating a
 chain
 of multiple stream operations.
@@ -799,7 +797,7 @@ A read–eval–print loop (REPL), also termed an interactive toplevel or langua
 
   As a shell, a REPL environment allows users to access relevant features of an operating system
   in addition to providing access to programming capabilities.
-
+  ===
   Q-19. List And Explain The Important REPL Commands?
   Answer.
 
@@ -930,16 +928,21 @@ without waiting for any function to return the expected result.
 
 ;
 24.3.5 Pros and cons of callbacks
-Using callbacks results in a radically different programming style, CPS  Continuation-passing style . The main advantage of CPS is that its basic mechanisms are easy to understand. But there are also disadvantages:
+Using callbacks results in a radically different programming style, CPS  Continuation-passing style .
+The main advantage of CPS is that its basic mechanisms are easy to understand. But there are also disadvantages:
 
-Error handling becomes more complicated: There are now two ways in which errors are reported – via callbacks and via exceptions. You have to be careful to combine both properly.
-Less elegant signatures: In synchronous functions, there is a clear separation of concerns between input (parameters) and output (function result). In asynchronous functions that use callbacks, these concerns are mixed: the function result doesn’t matter and some parameters are used for input, others for output.
+Error handling becomes more complicated: There are now two ways in which errors are reported – via callbacks and via exceptions.
+ You have to be careful to combine both properly.
+Less elegant signatures: In synchronous functions, there is a clear separation of concerns between input (parameters)
+and output (function result). In asynchronous functions that use callbacks, these concerns are mixed:
+ the function result doesn’t matter and some parameters are used for input, others for output.
 Composition is more complicated: Because the concern “output” shows up in the parameters, it is more complicated to compose code via combinators.
 Callbacks in Node.js style have three disadvantages (compared to those in a functional style):
 
 The if statement for error handling adds verbosity.
 Reusing error handlers is harder.
-Providing a default error handler is also harder. A default error handler is useful if you make a function call and don’t want to write your own handler. It could also be used by a function if a caller doesn’t specify a handler.
+Providing a default error handler is also harder. A default error handler is useful if you make a function call
+ and don’t want to write your own handler. It could also be used by a function if a caller doesn’t specify a handler.
 
 promises
 then() always returns a Promise, which enables you to chain method calls:
@@ -957,14 +960,18 @@ asyncFunc1()
 });
 How the Promise P returned by then() is settled depends on what its callback does:
 
-If it returns a Promise (as in line A), the settlement of that Promise is forwarded to P. That’s why the callback from line B can pick up the settlement of asyncFunction2’s Promise.
+If it returns a Promise (as in line A), the settlement of that Promise is forwarded to P.
+ That’s why the callback from line B can pick up the settlement of asyncFunction2’s Promise.
 If it returns a different value, that value is used to settle P.
 If throws an exception then P is rejected with that exception.
-Furthermore, note how catch() handles the errors of two asynchronous function calls (asyncFunction1() and asyncFunction2()). That is, uncaught errors are passed on until there is an error handler.
+Furthermore, note how catch() handles the errors of two asynchronous function calls
+(asyncFunction1() and asyncFunction2()). That is, uncaught errors are passed on until there is an error handler.
 
-Promise.all() enables you to be notified once all results are in (a join in Unix process terminology). Its input is an Array of Promises, its output a single Promise that is fulfilled with an Array of the results.
+Promise.all() enables you to be notified once all results are in (a join in Unix process terminology). '
+Its input is an Array of Promises, its output a single Promise that is fulfilled with an Array of the results.
 
-The Promise API is about delivering results asynchronously. A Promise object (short: Promise) is a stand-in for the result, which is delivered via that object.
+The Promise API is about delivering results asynchronously. A Promise object (short: Promise) is a stand-in for
+the result, which is delivered via that object.
 
 States:
 
@@ -978,24 +985,41 @@ A Promise is settled exactly once and then remains unchanged.
 Reacting to state changes:
 
 Promise reactions are callbacks that you register with the Promise method then(), to be notified of a fulfillment or a rejection.
-A thenable is an object that has a Promise-style then() method. Whenever the API is only interested in being notified of settlements, it only demands thenables (e.g. the values returned from then() and catch(); or the values handed to Promise.all() and Promise.race()).
+A thenable is an object that has a Promise-style then() method. Whenever the API is only interested
+in being notified of settlements, it only demands thenables (e.g. the values returned from then() and catch();
+ or the values handed to Promise.all() and Promise.race()).
 
-Promises are a pattern that helps with one particular kind of asynchronous programming: a function (or method) that returns a single result asynchronously. One popular way of receiving such a result is via a callback (“callbacks as continuations”):
-Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise, an object that serves as a placeholder and container for the final result. Callbacks registered via the Promise method then() are notified of the result:
+Promises are a pattern that helps with one particular kind of asynchronous programming:
+a function (or method) that returns a single result asynchronously. One popular way of receiving such a
+ result is via a callback (“callbacks as continuations”):
+Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise,
+an object that serves as a placeholder and container for the final result.
+ Callbacks registered via the Promise method then() are notified of the result:
 
 Compared to callbacks as continuations, Promises have the following advantages:
 
-No inversion of control: similarly to synchronous code, Promise-based functions return results, they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
-Chaining is simpler: If the callback of then() returns a Promise (e.g. the result of calling another Promise-based function) then then() returns that Promise (how this really works is more complicated and explained later). As a consequence, you can chain then() method calls:
+No inversion of control: similarly to synchronous code, Promise-based functions return results,
+they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
+Chaining is simpler: If the callback of then() returns a Promise (e.g. the result of calling another Promise-based function)
+ then then() returns that Promise (how this really works is more complicated and explained later).
+  As a consequence, you can chain then() method calls:
 Composing asynchronous calls (loops, mapping, etc.): is a little easier, because you have data (Promise objects) you can work with.
 Error handling: As we shall see later, error handling is simpler with Promises, because, once again, there isn’t an inversion of control. Furthermore, both exceptions and asynchronous errors are managed the same way.
-Cleaner signatures: With callbacks, the parameters of a function are mixed; some are input for the function, others are responsible for delivering its output. With Promises, function signatures become cleaner; all parameters are input.
-Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.). With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1]. Since ES6, an increasing number of APIs is based on Promises.
+Cleaner signatures: With callbacks, the parameters of a function are mixed;
+ some are input for the function, others are responsible for delivering its output.
+ With Promises, function signatures become cleaner; all parameters are input.
+Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results
+ (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.).
+  With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1].
+  Since ES6, an increasing number of APIs is based on Promises.
 
 25.5.3 Consuming a Promise #
-As a consumer of promise, you are notified of a fulfillment or a rejection via reactions – callbacks that you register with the methods then() and catch():
+As a consumer of promise, you are notified of a fulfillment or a rejection via reactions – callbacks that you register
+with the methods then() and catch():
 
-A thenable is any object that has a method then() that works like Promise.prototype.then(). Thus, Promises are thenables. Resolving with R (e.g. by returning it from onFulfilled) means that it is inserted “after” Q: R’s settlement is forwarded to Q’s onFulfilled and onRejected callbacks. In a way, Q becomes R
+A thenable is any object that has a method then() that works like Promise.prototype.then().
+ Thus, Promises are thenables. Resolving with R (e.g. by returning it from onFulfilled) means that it is inserted
+ “after” Q: R’s settlement is forwarded to Q’s onFulfilled and onRejected callbacks. In a way, Q becomes R
 
 diff
 Compared to callbacks, Promises have cleaner function (or method) signatures. With callbacks, parameters are used for input and output:
@@ -1018,7 +1042,9 @@ if (error) console.error('Download error!', error)
 else console.log('Download finished', photo)
 }
 console.log('Download started')
-In this scenario, Node.js first declares the “displayPhoto” function. After that, it calls the “downloadPhoto” function and pass the “displayPhoto” function as its callback. Finally, the code prints ‘Download started’ on the console. The “displayPhoto” will be executed only after “downloadPhoto” completes the execution of all its tasks.
+In this scenario, Node.js first declares the “displayPhoto” function. After that, it calls the “downloadPhoto”
+function and pass the “displayPhoto” function as its callback. Finally, the code prints ‘Download started’ on the console.
+The “displayPhoto” will be executed only after “downloadPhoto” completes the execution of all its tasks.
 
 
 
@@ -1068,13 +1094,21 @@ Generator functions uses a special syntax <function* ()>. They can also suspend 
 operations using constructs such as promises or <thunks> and turn a synchronous code into asynchronous.
 
 ====
+
+==
+How assert works in Node.js?
+In Node.js, assert is used to write tests. It only provides feedback only when any of the running
+test cases fails. This module gives you a set of assertion tests which are then used for testing invariants.
+It is basically used internally by Node.js but using require(‘assert’) code, it can be used in other applications as well.
+===
 https://codeburst.io/javascript-unit-testing-using-mocha-and-chai-1d97d9f18e71
 Testing in nodejs
 
 The smallest parts of an application are called units, testing of those units to check whether it is fit for use or not is called unit testing.
 
 assert module
-The assert module provides a set of assertion functions for verifying invariants. The module provides a recommended strict mode and a more lenient legacy mode.
+The assert module provides a set of assertion functions for verifying invariants.
+The module provides a recommended strict mode and a more lenient legacy mode.
 deepEqual
 Test Assertion
 Assertion is an expression which helps system (Mocha in this case) to know code under test failed.
@@ -1138,14 +1172,14 @@ describe('ArrayCheck2', () => {
 
 
 assert=== helps to determine the status of the test, it determines failure of the test.
-describe === is a function which holds the collection of tests. It takes two parameters, first one is the meaningful name to functionality under test and second one is the function which contains one or multiple tests. We can have nested describe as well.
-it === is a function again which is actually a test itself and takes two parameters, first parameter is name to the test and second parameter is function which holds the body of the test.
-
-
+describe === is a function which holds the collection of tests. It takes two parameters,
+ first one is the meaningful name to functionality under test and second one is the function which contains one
+ or multiple tests. We can have nested describe as well.
+it === is a function again which is actually a test itself and takes two parameters, first parameter is name to the
+ test and second parameter is function which holds the body of the test.
 
 Q-14. What Is The Difference Between Nodejs, AJAX, And JQuery?
 Answer.
-
 The one common trait between Node.js, AJAX, and jQuery is that all of them are the advanced
 implementation of JavaScript. However, they serve completely different purposes.
 
@@ -1182,10 +1216,10 @@ it get subscribed to the global object.
 
 Process.
 The process object is the global object in Node. It can be accessed from anywhere;
-it is an instance of  EventEmitter. And each node application object is an instance of the
+it is an instance of  EventEmitter class. And each node application object is an instance of the
 Process object.
-Each Node.js has a set of built-in functionality,
- accessible through the global process object.
+Each Node.js has a set of built-in functionality, accessible through the global process object.
+
  The process object provides the standard input/output (stdio) streams
  stdin, stdout and stderr (as in C/C++) as in the following:
 
@@ -1206,7 +1240,7 @@ process.title: By default a process title is NODE but you can change it.
 <process.NextTick> – To attach a callback function that will get called during the next loop.
 It can cause a delay in executing a function.
 The stdout or non-blocking function are: console.log, console.info, util.puts, util.print and Stderr.
-
+====
 Buffer.
 The Buffer is a class in Node.js to handle binary data.
 It represents a fixed-size chunk of memory (can’t be resized) allocated outside of the V8 JavaScript
@@ -1224,7 +1258,7 @@ Buffers are deeply linked with streams. When a stream processor receives data fa
 digest, it puts the data in a buffer.
 
 Buffer.from(), Buffer.alloc(memory in kb), Buffer.allocUnsafe()
-const buffer = Buffer.from('heyuuu');
+const buffer = Buffer.from('heyuuu', 'ascii');
 
 We can convert JavaScript string objects into Buffers. But it requires mentioning the encoding
 type explicitly.
@@ -1236,15 +1270,26 @@ type explicitly.
 <hex> – Encodes each byte as two hexadecimal chars.
 Here is the syntax to use the Buffer class.
 
+deprecated
 > var buffer = new Buffer(string, [encoding]);
+use
+> var buffer =buffer.from(string, [encoding]);
+
 The above command will allocate a new buffer holding the string with <utf8> as the default encoding.
  However, if you like to write a <string> to an existing buffer object, then use the following line
  of code.
+buffer.alloc(5);
+Allocates a new Buffer of size bytes. If fill is undefined, the Buffer will be zero-filled.
+
+buffer.allocUnsafe(5);
+ size <integer> The desired length of the new Buffer.
+ Allocates a new Buffer of size bytes. If size is larger than buffer.constants.MAX_LENGTH or smaller than 0,
+ ERR_INVALID_OPT_VALUE is thrown. A zero-length Buffer is created if size is 0.
 
 > buffer.write(string)
 This class also offers other methods like <readInt8> and <writeUInt8> that allows read/write from
  various types of data to the buffer.
-
+====
  4)      What does event-driven programming mean?
 
  event-driven programming is a programming paradigm in which the flow of the program is
@@ -1277,7 +1322,7 @@ provided by the application programmer. RPG, an early programming language from 
 concept was similar to event-driven programming discussed above, provided a built-in main I/O loop
 (known as the "program cycle") where the calculations responded in accordance to 'indicators' (flags)
 that were set earlier in the cycle
-
+===
 The two types of API functions in Node.js are
 
 a)      Asynchronous, non-blocking functions
@@ -1293,6 +1338,7 @@ Unused
 Fatal Error
 Internal Exception handler Run-time failure
 Internal JavaScript Evaluation Failure
+
 ===
 Explain the reason as to why Express ‘app’ and ‘server’ must be kept separate.
 Express ‘app’ and ‘server’ must be kept separate as by doing this, you will be separating the
@@ -1304,6 +1350,13 @@ Getting wider coverage metrics of the code
 Allows deploying the same API under flexible and different network conditions
 Better separation of concerns and cleaner code
 API declaration should reside in app.js:
+
+Q5: Why should you separate Express 'app' and 'server'?
+Keeping the API declaration separated from the network related configuration (port, protocol, etc)
+allows testing the API in-process, without performing network calls, with all the benefits that it
+brings to the table: fast testing execution and getting coverage metrics of the code. It also allows
+deploying the same API under flexible and different network conditions. Bonus: better separation of
+concerns and cleaner code.
 
 var app = express();
 app.use(bodyParser.json());
@@ -1402,7 +1455,26 @@ c)       Callback Counters
 
 d)      Event loops
 
+===
+Function composition
+Function composition is the process of combining two or more functions to produce a new function.
+Composing functions together is like snapping together a series of pipes for our data to flow through.
 
+const add = (a, b) => a + b;
+const mult = (a, b) => a * b;
+add(2, mult(3, 5))
+
+const users = [
+  { name: "Jeff", age: 14 },
+    { name: "Jack", age: 18 },
+    { name: "Milady", age: 22 },
+]
+const filter = (cb, arr) => arr.filter(cb);
+const map = (cb, arr) => arr.map(cb);
+
+map(u => u.name, filter(u => u.age >= 18, users)); //["Jack", "Milady"]
+
+==
 What tools can be used to assure consistent style?
 You have plenty of options to do so:
 
@@ -1410,19 +1482,19 @@ JSLint by Douglas Crockford
 JSHint
 ESLint
 JSCS
-
+===
 What's the difference between operational and programmer errors?
 Operation errors are not bugs, but problems with the system, like request timeout or hardware failure.
 
 On the other hand programmer errors are actual bugs.
-
+===
 Why npm shrinkwrap is useful?
 This command locks down the versions of a package's dependencies so that you can control exactly which
 versions of each dependency will be used when your package is installed. - npmjs.com
 
 It is useful when you are deploying your Node.js applications - with it you can be sure which versions
  of your dependencies are going to be deployed.
-
+====
  What's a stub? Name a use case.
 Stubs are functions/programs that simulate the behaviours of components/modules.
 Stubs provide canned answers to function calls made during test cases. Also, you can assert on
@@ -1438,7 +1510,7 @@ var readFileStub = sinon.stub(fs, 'readFile', function (path, cb) {
 
 expect(readFileStub).to.be.called;
 readFileStub.restore();
-
+===
 What's a test pyramid? How can you implement it when talking about HTTP APIs?
 A test pyramid describes that when writings test cases there should be a lot more low-level unit
  tests than high level end-to-end tests.
@@ -1447,42 +1519,8 @@ When talking about HTTP APIs, it may come down to this:
 
 a lot of low-level unit tests for your models
 less integration tests, where your test how your models interact with each other
-a lot less acceptance tests, where you test the actual HTTP endpoints
-
-What is the purpose of setTimeout function?
-
-The setTimeout(cb, ms) global function is used to run callback cb after at least ms milliseconds.
-The actual delay depends on external factors like OS timer granularity and system load. A timer
-cannot span more than 24.8 days.
-The time value represents the (minimum) delay after which the message will actually be pushed into the queue.
-
-This function returns an opaque value that represents the timer which can be used to clear the timer.
-What is the purpose of clearTimeout function?
-
-The clearTimeout( t ) global function is used to stop a timer that was previously created with
- setTimeout(). Here t is the timer returned by setTimeout() function.
-What is the purpose of setInterval function?
-
-The setInterval(cb, ms) global function is used to run callback cb repeatedly after at least ms
- milliseconds. The actual delay depends on external factors like OS timer granularity and system
-  load. A timer cannot span more than 24.8 days.
-
-This function returns an opaque value that represents the timer which can be used to clear the
-timer using the function clearInterval(t).
-
-setImmediate-
-Any function passed as the setImmediate() argument is a callback that’s executed in the next
-iteration of the event loop.
-
-A function passed to process.nextTick() is going to be executed on the current iteration of
-the event loop,
- after the current operation ends. This means it will always execute before setTimeout and
- setImmediate.
-
-A setTimeout() callback with a 0ms delay is very similar to setImmediate().+
- The execution order will depend on
-various factors, but they will be both run in the next iteration of the event loop.
-
+a lot less acceptance tests / end to end test, where you test the actual HTTP endpoints
+===
 What is the purpose of console object?
 
 console object is used to Used to print information on stdout and stderr.
@@ -1491,15 +1529,13 @@ The Timers module in Node.js contains functions that execute code after a set pe
 ===
 Q3: Explain what is Reactor Pattern in Node.js?
 
-Reactor Pattern is an idea of non-blocking I/O operations in Node.js. This pattern provides
-a handler(in case of Node.js,
-a callback function) that is associated with each I/O operation. When an I/O request is
-generated, it is submitted to a demultiplexer.
+Reactor Pattern is an idea of non-blocking I/O operations in Node.js.
+ This pattern provides a handler(in case of Node.js, a callback function) that is associated with each I/O operation.
+  When an I/O request is generated, it is submitted to a demultiplexer.
 
-This demultiplexer is a notification interface that is used to handle concurrency in non-blocking
- I/O mode and collects every
-request in form of an event and queues each event in a queue. Thus, the demultiplexer provides+
- the Event Queue.
+This demultiplexer is a notification interface that is used to handle concurrency in non-blocking I/O mode.
+it collects every request in form of an event and queues each event in a queue.
+Thus, the demultiplexer provides  the Event Queue.
 
 At the same time, there is an Event Loop which iterates over the items in the Event Queue.
 Every event has a callback function associated with it, and that callback function is invoked when
@@ -1516,7 +1552,64 @@ File system events
 Asynchronous file & file system operations
 Asynchronous TCP & UDP sockets
 Child processes
-==
+
+===
+node current - 12.11.1
+node lts- 10.16.3
+
+changes in node 10
+1. Support for Modern Cryptography
+cryptographic support now includes the ChaCha20 cipher and the Poly1305 authenticator.
+According to IETF documentation, ChaCha20 is a high-speed cipher (much faster than AES in software only-implementations)
+that is not sensitive to timing attacks. The same organization defines Poly1305 as a high-speed message authentication
+ code with a straight-forward and easy implementation.
+
+2. Experimental Promisified fs Functions
+The experimental fs/promises API gives us a set of alternative asynchronous file system methods that return a Promise
+ object instead of using callbacks. We can access this API through require('fs/promises').
+Now, we are going to create a function called doTruncate that asynchronously opens the file using open()
+ and truncates the content of the file using ftruncate, both methods of the fs/promises library.
+ftruncate();
+open()
+3.
+Function.prototype.toString()
+This method now returns exact slices of source text which include whitespace and comments.
+
+4.
+The catch clause of try statements no longer requires a parameter. Here's an example from the release notes:
+
+5.
+Non-standard methods trimLeft() and trimRight() becomes aliases for the newly implemented String.prototype.trimStart()
+and String.prototype.trimEnd() to ensure backward compatibility:
+
+6.Performance Improvements
+Promises and async functions get a performance boost. The V8 Engineering team has been able to close
+the gap between async functions and raw promise chains.
+7.
+"Node v10 will integrate with NPM v6 before it goes into LTS status in October 2018.
+ Get ready to witness up to 17x the speed of last year's npm!"
+
+8.Full Support of N-API
+N-API is an API that allows developers to build native Addons.
+Node.js Addons are used to provide a performance boost to our codebase when JavaScript performance
+ isn't enough. Node.js Addons provide us with an interface between JavaScript running in Node.js and C/C++ libraries.
+
+If an API is a contract between code modules, an ABI is a contract between pieces of binary code as explained
+ by Google Engineer Robert Love: an Application Binary Interface (ABI) "defines the mechanisms by which
+  functions are invoked, how parameters are passed between caller and callee, how return values are provided to
+   callers, how libraries are implemented, and how programs are loaded into memory." A stable ABI for Addons
+    will make upgrading codebases that rely on native modules much easier.
+----
+deprecation
+
+Using non-string values for process.env has been deprecated in documentation.
+Passing more than one argument to assert.fail() will emit a runtime deprecation warning
+The crypto.createCipher() and crypto.createDecipher() methods have been deprecated in documentation
+Previously deprecated internal getters/setters on net.Server has reached end-of-life and have been removed. [3701b02309]
+Previously deprecated legacy async_hooks APIs have reached end-of-life and have been removed.
+Previously deprecated internal getters/setters on net.Server have reached end-of-life and have been removed.
+Using require() to access several of Node.js' own internal dependencies will emit a runtime deprecation.
+===
 What is LTS releases of Node.js why should you care?
 Topic: Node.js
 Difficulty: ⭐⭐⭐⭐⭐
@@ -1530,30 +1623,35 @@ LTS versions of Node.js are supported for at least 18 months and are indicated b
  updates to the code. Changes to LTS versions are limited to bug fixes for stability, security updates,
  possible npm updates, documentation updates and certain performance improvements that can be
   demonstrated to not break existing applications.
-
-  Q5: Why should you separate Express 'app' and 'server'?
-Keeping the API declaration separated from the network related configuration (port, protocol, etc)
- allows testing the API in-process, without performing network calls, with all the benefits that it
-  brings to the table: fast testing execution and getting coverage metrics of the code. It also allows
-  deploying the same API under flexible and different network conditions. Bonus: better separation of
-  concerns and cleaner code.
 ===================
-
 Express js
-    Single-page, multi-page, and hybrid mobile and web apps
-    Common back-end functions for web applications
-    APIs (application programming interfaces)
+
+Express is a fast, assertive, essential lightweight and moderate web framework of Node.js.
+You can assume express as a layer built on the top of the Node.js that helps manage a server
+and routes.
+It provides a robust set of features to develop web and mobile applications.
+
+    wxpress js is userd to build Single-page, multi-page, and hybrid mobile and web apps
+    Common back-end functions for web applications APIs (application programming interfaces)
+
+    Because Node.js itself wasn’t intended to build websites, the Express framework is able to layer in
+    built-in structure and functions needed to actually build a site.
 
 Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate
  the flow of data into a website structure.
 
-Because Node.js itself wasn’t intended to build websites, the Express framework is able to layer in
-built-in structure and functions needed to actually build a site. It’s a pretty lightweight framework
+ It’s a pretty lightweight framework
 that’s great for giving developers extra, built-in web application features and the Express API without
  overriding the already robust, feature-packed Node.js platform.
 
  Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow
   of data into a website structure.
+
+
+      It can be used to design single-page, multi-page and hybrid web applications.
+      It allows to setup middlewares to respond to HTTP Requests.
+      It defines a routing table which is used to perform different actions based on HTTP method and URL.
+      It allows to dynamically render HTML Pages based on passing arguments to templates.
 
  Advantages of Express.js
     Makes Node.js web application development fast and easy.
@@ -1569,19 +1667,11 @@ that’s great for giving developers extra, built-in web application features an
 
 Express.js is based on the Node.js middleware module called connect which in turn uses
 ++http module. So, any middleware which is based on connect will also work with Express.js.
-
+===
 What is Express.js
-
-Express is a fast, assertive, essential and moderate web framework of Node.js.
- You can assume express as a layer built on the top of the Node.js that helps manage a server
- and routes. It provides a robust set of features to develop web and mobile applications.
 
 Let's see some of the core features of Express framework:
 
-    It can be used to design single-page, multi-page and hybrid web applications.
-    It allows to setup middlewares to respond to HTTP Requests.
-    It defines a routing table which is used to perform different actions based on HTTP method and URL.
-    It allows to dynamically render HTML Pages based on passing arguments to templates.
 
     Why use Express
         Ultra fast I/O
@@ -1617,9 +1707,8 @@ Code organization
 
 Note that the code organization in Express.js is represented by patterns that make your code
 easier to maintain. Here are some useful tips for simplifying the development process
-
+===
 What function are arguments available to Express JS route handlers?
-
 Answer:
 The arguments which are available to an Express JS route handler-function are-
 
@@ -1631,7 +1720,7 @@ The arguments which are available to an Express JS route handler-function are-
 The third argument is optional and should be omitted, however, in some cases, it’s helpful wherever
 there’s a series of handlers and management will be passed to 1 of the following route handlers
 skipping this one.
-
+===
 6. How to allow CORS in Express JS? Explain with an example?
 
 Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a
@@ -1723,10 +1812,7 @@ Multi- Factor Authentication: This is the most advanced method of authentication
  access to the system. This form of authentication utilizes factors that are independent of
  each other in order to eliminate any data exposure. It is common for financial organizations,
  banks, and law enforcement agencies to use multiple- factor authentication.
-
-
-
-
+====
  jsonwebtoken
  let token = jwt.sign({
    name:#name
@@ -1739,7 +1825,6 @@ Multi- Factor Authentication: This is the most advanced method of authentication
  });
 ===
 Question 17. How To Redirect 404 Errors To A Page In Expressjs?
-
 Answer :
 
 In server.js add the following code to redirect 404 errors back to a page in our ExpressJS App:
@@ -1788,6 +1873,9 @@ codesource
 var express = require('express'),
 app = express();
 
+
+const Router = express.Router({mergeParams : true});
+
 app.get('/article/:id', function(req , res){
   res.render('article' + req.params.id);
 })
@@ -1821,8 +1909,7 @@ Router-level middleware
 Error-handling middleware
 Built-in middleware
 Third-party middleware
-1. Application-level middleware:
-
+1. Application-level middleware
 This kind of middleware method is bind to the app Object using app.use() method.
 
 codesource
@@ -1844,6 +1931,7 @@ express.static serves static assets such as HTML files, images, and so on.
 express.json parses incoming requests with JSON payloads. NOTE: Available with Express 4.16.0+
 express.urlencoded parses incoming requests with URL-encoded payloads.
 NOTE: Available with Express 4.16.0+
+
 4. Third-party middleware:
 There are a number of third party middleware, such as body-parser cookie-parser, mongoose and so on.
 
@@ -1852,7 +1940,6 @@ module called body-parser, body-parser extract the entire body portion of an inc
  and exposes it on req.body, The middleware was a part of Express.js earlier but now you have to install it separately.
 
 These can be installed by using command:
-
 codesource
 >> npm install MODULE_NAME
 And they can be loaded using requires and used later.
@@ -1864,12 +1951,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 ====
 bodyParser
+parsing - analyse (a string or text) into logical syntactic components.
+
 Node.js body parsing middleware.
 
 Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 ====
 app.set(name, value)
-Assigns setting name to value. You may store any value that you want, but certain names can be used to configure the behavior of the server. These special names are listed in the app settings table.
+Assigns setting name to value. You may store any value that you want, but certain names can be used
+to configure the behavior of the server. These special names are listed in the app settings table.
 
 Calling app.set('foo', true) for a Boolean property is the same as calling app.enable('foo'). Similarly, calling app.set('foo', false) for a Boolean property is the same as calling app.disable('foo').
 ===
@@ -1889,7 +1979,6 @@ in the route. If there is no query string, it is the empty object, {}.
 console.dir(req.query.q)
 
 ===
-
 response object methods
 
 res.append(field [, value])
@@ -1907,15 +1996,18 @@ The optional options argument is supported by Express v4.16.0 onwards.
 Transfers the file at path as an “attachment”. Typically, browsers will prompt the user for download.
 By default, the Content-Disposition header “filename=” parameter is path (this typically appears
 in the browser dialog). Override this default with the filename parameter.
-
 --
 res.end([data] [, encoding])
 Ends the response process. This method actually comes from Node core, specifically the response.end() method of http.ServerResponse.
 --
 res.format(object)
-Performs content-negotiation on the Accept HTTP header on the request object, when present. It uses req.accepts() to select a handler for the request, based on the acceptable types ordered by their quality values. If the header is not specified, the first callback is invoked. When no match is found, the server responds with 406 “Not Acceptable”, or invokes the default callback.
+Performs content-negotiation on the Accept HTTP header on the request object, when present.
+ It uses req.accepts() to select a handler for the request, based on the acceptable types ordered
+  by their quality values. If the header is not specified, the first callback is invoked.
+  When no match is found, the server responds with 406 “Not Acceptable”, or invokes the default callback.
 
-The Content-Type response header is set when a callback is selected. However, you may alter this within the callback using methods such as res.set() or res.type().
+The Content-Type response header is set when a callback is selected. However, you may alter this within the
+callback using methods such as res.set() or res.type().
 
 res.format({
   'text/plain': function () {
@@ -2022,14 +2114,13 @@ console.log(q.search); //returns '?year=2019 and month=april'
 var qdata = q.query; //returns an object: { year: 2019, month: 'april' }
 console.log(qdata.month); //returns 'april'
 ====
-
 NODE_ENV==
 
 NODE_ENV is an environment variable made popular by the express webserver framework. When a node
  application is run, it can check the value of the environment variable and do different things
-  based on the value. NODE_ENV specifically is used (by convention) to state whether a particular
-  environment is a production or a development environment. A common use-case is running additional
-   debugging or logging code if running in a development environment.
+based on the value. NODE_ENV specifically is used (by convention) to state whether a particular
+environment is a production or a development environment. A common use-case is running additional
+debugging or logging code if running in a development environment.
 
 Accessing NODE_ENV
 You can use the following code to access the environment variable yourself so that you can perform your own checks and logic:
@@ -2085,8 +2176,38 @@ This algorithm looks out for objects which are unreachable from the root which i
      in case u have dependancies which ur app required is of other version and the
      same dependancy is required or used by another module but of diffrent versions
      then we define peerDependancy.
+===
+orm-
+1. orm  is a programming technique for converting data between incompatible type systems using object-oriented programming languages.
+2. This creates, in effect, a "virtual object database" that can be used, accessed and modified from within the programming language.
+3. ORM hides and encapsulates change in the data source itself, so that when data sources or their APIs change, only ORM needs to
+ change to keep up—not the applications that use ORM to insulate themselves from this kind of effort.
 
-what is orm
+node orm-
+Sequelize
+NOde-Orm2
+bookshelf
+objection.js
+caminte.js
+sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
+
+why to use/advantage
+ we dont need to do database language specific query to perform db operation
+ it hides the database asbstraction so we can sweetch betwwen the orm supproted db
+ Depending on the ORM you get a lot of advanced features out of the box, such as
+  support for transactions, connection pooling, migrations, seeds, streams, and all sorts of other goodies.
+
+ORM solutions are useful to facilitate data-driven API development.
+Users have concrete needs which drive the data model of an application.
+In legacy development, this data architecture is typically implemented and version controlled
+ using database scripts such as SQL scripts.
+  A separate library is then used for the server application to execute CRUD actions on the database.
+
+ORMs work as a high-level API to execute CRUD, and these days quality ORMs also allow us to
+initialize the data through code. Complex data manipulation, cleaning and so on, is often easier
+in code. While dedicated Extract, Transform and Load (ETL) tools exist, the same ETL tasks can
+be easily implemented in ORM.
+===
    migrations
       Using migrations allows you to easily and safely update your tables and database.
       Just like you use Git / SVN
@@ -2095,8 +2216,7 @@ what is orm
       With migrations you can transfer your existing database into another state and vice versa:
       Those state
       transitions are saved in migration files, which describe how to get to the new state
-      and how to revert
-        the changes in order to get back to the old state.
+      and how to revert the changes in order to get back to the old state.
 
       Model-
       Sequelize will only use Model files, it's the table representation. On the other hand,
@@ -2113,44 +2233,39 @@ what is orm
    To manage all data migrations you can use seeders. Seed files are some change in data that
     can be used to
     populate database table with sample data or test data.
+===
+how to connect to the database
 
-   Let's create a seed file which will add a demo user to our User table.
-orm-
-ORM solutions are useful to facilitate data-driven API development.
-Users have concrete needs which drive the data model of an application.
- In legacy development, this data architecture is typically implemented and version controlled
- using database scripts such as SQL scripts.
-  A separate library is then used for the server application to execute CRUD actions on the database.
+sequelize
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+});
+----
+postgres
+var pg = require('pg');
+var client = new pg.Client(conString);
+client.connect();
+----
+mysql
+let mysql = require('mysql');
 
-ORMs work as a high-level API to execute CRUD, and these days quality ORMs also allow us to
-initialize the data through code. Complex data manipulation, cleaning and so on, is often easier
-in code. While dedicated Extract, Transform and Load (ETL) tools exist, the same ETL tasks can
-be easily implemented in ORM.
-   sequelize support PostgreSQL, MySQL, MariaDB, SQLite and MSSQL
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'todoapp'
+});
+connection.connect(function(err) {
+  if (err) {
+    return console.error('error: ' + err.message);
+  }
 
-   postgres vs mysql=
-   here MySQL is the product of Oracle Corporation and PostgreSQL is the product of Global
-   Development Group.
-
-   Key Differences Between MySQL and PostgreSQL
-   The architectural difference between MySQL and PostgreSQL is that MySQL
-    is a relational database management system whereas,
-    PostgresSQL is object-relational database management system.
-   MySQL is supported by the following operating system, Windows, Mac OS X, Linux, BSD, UNIX,
-   z/OS, Symbian, AmigaOS.
-   However, the PostgreSQL  is supported by Windows, Mac OS X, Linux
-    and BSD but not by UNIX, z/OS, Symbian, AmigaOS.
-   MySQL is the product of Oracle Corporation while PostgreSQL is a product of Global Development Group.
-   My SQL programming language is not extensible whereas, the programming language PostgreSQL is highly extensible.
-   In MySQL, the phpMyAdmin tool provides GUI and SQL interface. However,
-    in PostgreSQL, the pgAdmin tool provides GUI and SQL interface.
-   In MySQL, Mysqldump, and XtraBackup tools provides backup. On the other hands,
-   PostgresSQL provides complete backup online.
-   MySQL provides temporary tables but does not provide materialized view.
-   However, PostgreSQL provides temporary table and also the materialized view.
-   MySQL does not offers data domain object whereas, PostgreSQL provide data domain object.
+  console.log('Connected to the MySQL server.');
+});
 
 
+==
    View vs materialized view
    Definition of View
    View is a virtual table, created using Create View command. This virtual table contains the data
@@ -2177,11 +2292,9 @@ be easily implemented in ORM.
    You can restrict the user from accessing sensitive information in a database. Reduces the complexity
    of queries by getting
     data from several tables into a single customized View.
-
-
+===
     Error Handling
     Catching uncaught exceptions
-
 If an uncaught exception gets thrown during the execution of your program, your program will crash.
 To solve this, you listen for the uncaughtException event on the process object:
 
@@ -2190,6 +2303,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1) //mandatory (as per the Node docs)
 })
 
+using error catching middleware
 app.use((err, req, res, next) => {
 if(err) {
 return throw err;
@@ -2213,7 +2327,7 @@ try {
 } catch (e) {
 
 }
-
+===
 Anatomy of an error object
 The first argument for a native error object is its description. The description is the human-readable
  string of your error object. It’s what pops up in your console when something goes awry.
@@ -2232,8 +2346,7 @@ With the program halted, JavaScript will begin to look back up the daisy chain o
 called in order to reach a catch statement. This daisy chain is called the call stack (don’t worry—we’ll
  get to the call stack soon). The nearest catch that JavaScript finds is where the thrown exception will
  emerge. If no try/catch is found, the exception throws, and the Node.js process will exit, causing the server to restart.
-
-
+===
 Error vs Throw New Error()
 
 The Error constructor creates an error object. Instances of Error objects are thrown when runtime errors occur.
@@ -2241,8 +2354,6 @@ The Error object can also be used as a base object for user-defined exceptions. 
 
 When Error is used like a function -- without new, it will return an Error object. Therefore, a mere call to
 Error will produce the same output that constructing an Error object via the new keyword would.
-
-
 
 named and ananomous function = >
 // Anonymous function
@@ -2260,10 +2371,10 @@ At this point, you might be wondering whether adding a catch to your promises is
 but you should always provide a catch handler.
 
 Why? Because there are many ways your asynchronous calls can fail. Our code might timeout, it could have network issues,
-or there might be a hardware failure. For all of these reasons, you should always instruct your program what to do in the case of a promise failure.
+or there might be a hardware failure. For all of these reasons, you should always instruct
+your program what to do in the case of a promise failure.
 
 Remember the golden rule: always handle promise rejections.
-
 
 Try/catch is by default synchronous. That means that if an asynchronous function throws an error in a synchronous try/catch block, no error throws.
 
@@ -2288,13 +2399,11 @@ re-compiles hot functions. The optimizing compiler takes types from the Inline C
 how to optimize the code better. However, some language features are not supported yet like try/catch blocks for instance.
  (The workaround for try/catch blocks is to write the “non stable” code in a function and call the function in the try block)
 
-
-
 Code optimization: V8 also supports de-optimization: the optimizing compiler makes optimistic assumptions from the Inline
 Cache about the different types, de-optimization comes if these assumptions are invalid. For example, if a hidden
 class generated was not the one expected, V8 throws away the optimized code and comes back to the Full Compiler
-to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions after they are optimized.
-
+to get types again from the Inline Cache. This process is slow and should be avoided by trying to not change functions
+after they are optimized.
 ====
 what us hidden classes & whats the advantage.
 
@@ -2326,19 +2435,14 @@ Whenever a method is called on a specific object, the V8 engine has to perform a
 
  Event Loop executes the JavaScript callbacks registered for events, and is also responsible for
  fulfilling non-blocking asynchronous requests like network I/O.
- What code runs on the Worker Pool?
-Node's Worker Pool is implemented in libuv (docs), which exposes a general task submission API.
-
-Node uses the Worker Pool to handle "expensive" tasks. This includes I/O for which an operating system does not provide a non-blocking version,
-as well as particularly CPU-intensive tasks.
 =======
 microservicess -
 Microservices solve these challenges of monolithic systems by being as modular as possible.
 In the simplest form, they help build an application as a suite of small services, each
 running in its own process and are independently deployable. These services may be written
- in different programming languages and may use different data storage techniques. While this
-  results in the development of systems that are scalable and flexible, it needs a dynamic
-   makeover
+in different programming languages and may use different data storage techniques. While this
+results in the development of systems that are scalable and flexible, it needs a dynamic
+makeover
 ==
 7.How to enable debugging in express app?
 
@@ -2418,8 +2522,10 @@ maxAge: a number representing the milliseconds from Date.now() for expiry
 expires: a Date object indicating the cookie's expiration date (expires at the end of session by default).
 path: a string indicating the path of the cookie (/ by default).
 domain: a string indicating the domain of the cookie (no default).
-secure: a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS). Read more about this option below.
+secure: a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
+    Read more about this option below.
 httpOnly: a boolean indicating whether the cookie is only to be sent over HTTP(S), and not made available to client JavaScript (true by default).
 sameSite: a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
 signed: a boolean indicating whether the cookie is to be signed (false by default). If this is true, another cookie of the same name with the .sig suffix appended will also be sent, with a 27-byte url-safe base64 SHA1 value representing the hash of cookie-name=cookie-value against the first Keygrip key. This signature key is used to detect tampering the next time a cookie is received.
 overwrite: a boolean indicating whether to overwrite previously set cookies of the same name (false by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
+==
