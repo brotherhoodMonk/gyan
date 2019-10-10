@@ -1,5 +1,70 @@
 If you have ever extensively worked with callbacks, you'll notice one problem with them. They are difficult to track!
 ==
+https://exploringjs.com/es6/ch_variables.html#sec_let-const-loop-heads
+9.1.3 Ways of declaring variables #
+The following table gives an overview of six ways in which variables can be declared in ES6 (inspired by a table by kangax):
+
+ 	Hoisting	Scope	Creates global properties
+var	Declaration	Function	Yes
+let	Temporal dead zone	Block	No
+const	Temporal dead zone	Block	No
+function	Complete	Block	Yes
+class	No	Block	No
+import	Complete	Module-global	No
+
+==
+Why use strict mode?
+
+JavaScript will generate a new global variable anytime a new one is named in a function. In strict mode, this will generate an error, since you cannot create a new variable in strict mode. The benefit is that a mistyped variable name will not create a new one, which can eliminate errors caused by typos.
+
+Programmers can avoid potential coding errors through the use of strict mode:
+
+Assignment to getter-only or non-writable properties
+Reference to a non-existing property or variable
+Use of an object that does not exist
+Since objects are also variables, strict mode disallows the use of any object that has not been declared, and prevents deletion of an object or variable.
+
+Caveats – use strict in JavaScript must be declared at the beginning of a script, to be recognized. There are also strings and keywords that are not available when strict mode has been declared, such as:
+======
+What is Javascript minification?
+
+
+
+Minification in Javascript is the process of removing all characters that are not necessary from the Javascript source code. That is why it is called “minification” – because all of the data that is not necessary to the functioning of the Javascript is removed from the source code, and therefore the Javascript is “minimized”. Even though these characters are removed from the Javascript source code, the functionality of the Javascript code does not change at all. So, your Javascript code will behave exactly the same even after it goes through the minification process. Code that has gone through the minification process is also known as “minified” code.
+
+
+The goal of obfuscation is to try to hide your original source code from other people
+
+
+
+Obfuscation in Javascript is also a process in which Javascript files are modified. But, in obfuscation, the files are modified to deliberately make them difficult to understand and read. The goal is to make it so that people can not reverse engineer Javascript source code and use it for their own projects, or whatever else. But, if someone is determined enough they can and will reverse engineer any obfuscated Javascript code so that they can see the original source code – obfuscation will just slow them down a bit. Remember that browsers have to be able to translate the obfuscated Javascript source code to it’s original form so that they can understand it. And if browsers can do it, then any individual can also do it with some effort.
+===
+What is a wrapper object in Javascript? Provide an example of how a wrapper object would work.
+In order to best explain what wrapper objects are and how they work in Javascript, let’s first consider a simple example of a string in Javascript.
+
+var strng = "ProgrammerInterview is Great!";
+//the letter variable will hold a "P":
+var letter = strng.charAt(0);
+In the code above, the strng variable is set to a string – “ProgrammerInterview is Great!”. Then, the first letter of that string is retrieved and stored in the letter variable – this would be the letter “P”.
+
+Strings are not objects in Javascript
+You may or may not know that in Javascript, objects are composed of properties. Those properties are accessed by using the dot notation – the “.”. And, if there is a function defined inside an object, that function is called a method. A method is also considered to be a property of an object.
+
+In Javascript, Strings are not actually objects. So, the question is in our example above, why does it appear that charAt is a method belonging to a string object named strng?
+
+Well, what’s actually happening is that a wrapper object is being created. What is a wrapper object? Well, as soon as we make the call to charAt – in effect, what looks like a method access of a String object named strng – then Javascript will actually convert the string value to an object. You can think of it as Javascript making a call to new String(strng) behind the scenes.
+
+The wrapper object will inherit all of the string methods, like charAt. And as soon as the property – in this case the charAt method – is correctly used, then the object that has just been created is thrown away. So, another word for the wrapper object is a “transient object”, because transient means something that appears just temporarily and then disappears.
+
+Wrapper objects also apply to both numbers and booleans in Javascript, so that methods can be called on those types as well. Remember that the whole point of a wrapper object is to allow methods to be called on non-objects.
+======
+
+What data is removed in Javascript minification?
+The data that is removed in Javascript minification is extra whitespace, comments, new line characters, etc. Basically anything that can be removed without compromising the functionality of the Javascript is removed.
+
+How are Javascript files minified?
+There are a lot of programs that will minify your Javascript code for free – all you have to do is simply google “Javascript minifier”, and these sites will simply ask you to submit your Javascript code and will return the minified result.
+=======
 framework vs library
 1.a framework is a certain way of writing your software not only a piece of code but your entire application.
 It’s solving structural and architectural problems on the code level.

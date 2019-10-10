@@ -9,7 +9,8 @@ LEFT JOIN
 RIGHT JOIN
 FULL JOIN
 
-INNER JOIN: The INNER JOIN keyword selects all rows from both the tables as long as the condition satisfies.
+INNER JOIN: The INNER JOIN keyword selects all rows from both the tables as long as the condition
+ satisfies.
 This keyword will create the result-set by combining all rows from both the tables where the condition satisfies
 i.e value of the common field will be same.
 
@@ -25,6 +26,22 @@ FULL JOIN: FULL JOIN creates the result-set by combining result of both LEFT JOI
  the rows from both the tables. The rows for which there is no matching, the result-set will contain NULL values.
  Syntax:
 
+self join
+https://www.programmerinterview.com/database-sql/what-is-a-self-join/
+
+  The way you should visualize a self join for a given table is by imagining that a join is performed between two
+   identical copies of that table. And that is exactly why it is called a self join –
+   because of the fact that it’s just the same table being joined to another copy of itself rather
+   than being joined with a different table.
+
+  SELECT e1.employee_name
+FROM employee e1, employee e2
+WHERE e1.employee_location = e2.employee_location
+AND e2.employee_name="Joe";
+
+Remember that a query is a self join as long as the two tables being joined are exactly the same table, but whether it’s an inner join or outer join depends on what is specified in the SQL. And, inner/outer joins are separate concepts entirely from a self join
+
+
 ===
 index=
 
@@ -34,10 +51,27 @@ It can reduce disk I/O(input/output) by using a rapid path access method to loca
  An index helps to speed up select queries and where clauses, but it slows down data input,
   with the update and the insert statements.
 
+  Well, an index is a data structure (most commonly a B- tree) that stores the values for a specific column
+  in a table. An index is created on a column of a table. So, the key points to remember are that an index
+  consists of column values from one table, and that those values are stored in a data structure.
+  The index is a data structure – remember that.
+
   An index is used to speed up searching in the database.w
-  An index can be used to efficiently find all rows matching some column in your query and then walk through only that subset of the table to find
+  An index can be used to efficiently find all rows matching some column in your query and then walk through
+   only that subset of the table to find
    exact matches. If you don't have indexes on any column in the WHERE clause, the SQL server has to walk through the whole table
    and check every row to see if it matches, which may be a slow operation on big tables
+
+Let’s say that we create a B- tree index on the Employee_Name column This means that when we search for
+employees named “Jesus” using the SQL we showed earlier, then the entire Employee table does not have
+ to be searched to find employees named “Jesus”. Instead, the database will use the index to find employees
+  named Jesus, because the index will presumably be sorted alphabetically by the Employee’s name.
+  And, because it is sorted, it means searching for a name is a lot faster because all names starting with a
+   “J” will be right next to each other in the index! It’s also important to note that the index also stores
+   pointers to the table row so that other column values can be retrieved – read on for more details on that.
+
+   An index also stores a pointer to the table row
+A pointer is just a reference to a place in memory where the row data is stored on disk.
 
   CREATE INDEX index ON TABLE column;
 
@@ -75,12 +109,14 @@ Because scripts are in one location, updates and tracking of dependencies based 
 Testing
 Can be tested independent of the application
 Isolation of Business Rules
-Having Stored Procedures in one location means that there’s no confusion of having business rules spread over potentially disparate code files in the application
+Having Stored Procedures in one location means that there’s no confusion of having business rules spread over
+potentially disparate code files in the application
 Speed / Optimization
 Stored procedures are cached on the server
 Execution plans for the process are easily reviewable without having to run the application
 Utilization of Set-based Processing
-The power of SQL is its ability to quickly and efficiently perform set-based processing on large amounts of data; the coding equivalent is usually iterative looping, which is generally much slower
+The power of SQL is its ability to quickly and efficiently perform set-based processing on large amounts of data;
+ the coding equivalent is usually iterative looping, which is generally much slower
 Security
 Limit direct access to tables via defined roles in the database
 Provide an “interface” to the underlying data structure so that all implementation and even the data itself is shielded.
@@ -165,7 +201,6 @@ used to filter groups based upon condition specified.
  .
 select salary from employee order by salary desc limit n-1,1;
 
-
 Difference between SQL and NoSQL
 
 SQL	NOSQL
@@ -178,10 +213,15 @@ Verticlly Scalable ==	Horizontally scalable
 The Main Differences:
 
 Type –
-SQL databases are primarily called as Relational Databases (RDBMS); whereas NoSQL database are primarily called as non-relational or distributed database.
+SQL databases are primarily called as Relational Databases (RDBMS); whereas NoSQL database are primarily called as
+ non-relational or distributed database.
 Language –
 SQL databases defines and manipulates data based structured query language (SQL). Seeing from a side
-this language is extremely powerful. SQL is one of the most versatile and widely-used options available which makes it a safe choice especially for great complex queries. But from other side it can be restrictive. SQL requires you to use predefined schemas to determine the structure of your data before you work with it. Also all of your data must follow the same structure. This can require significant up-front preparation which means that a change in the structure would be both difficult and disruptive to your whole system.
+this language is extremely powerful. SQL is one of the most versatile and widely-used options available which makes
+it a safe choice especially for great complex queries. But from other side it can be restrictive. SQL requires you to
+use predefined schemas to determine the structure of your data before you work with it. Also all of your data must
+follow the same structure. This can require significant up-front preparation which means that a change in the structure
+ would be both difficult and disruptive to your whole system.
 
 A NoSQL database has dynamic schema for unstructured data. Data is stored in many ways which means
 it can be document-oriented, column-oriented, graph-based or organized as a KeyValue store.
@@ -189,9 +229,17 @@ This flexibility means that documents can be created without having defined stru
 Also each document can have its own unique structure. The syntax varies from database to database,
  and you can add fields as you go.
 The Scalability –
-In almost all situations SQL databases are vertically scalable. This means that you can increase the load on a single server by increasing things like RAM, CPU or SSD. But on the other hand NoSQL databases are horizontally scalable. This means that you handle more traffic by sharding, or adding more servers in your NoSQL database. It is similar to adding more floors to the same building versus adding more buildings to the neighborhood. Thus NoSQL can ultimately become larger and more powerful, making these databases the preferred choice for large or ever-changing data sets.
+In almost all situations SQL databases are vertically scalable. This means that you can increase the load on a
+ single server by increasing things like RAM, CPU or SSD. But on the other hand NoSQL databases are horizontally
+ scalable. This means that you handle more traffic by sharding, or adding more servers in your NoSQL database.
+ It is similar to adding more floors to the same building versus adding more buildings to the neighborhood.
+ Thus NoSQL can ultimately become larger and more powerful, making these databases the preferred choice for
+  large or ever-changing data sets.
 The Structure –
-SQL databases are table-based on the other hand NoSQL databases are either key-value pairs, document-based, graph databases or wide-column stores. This makes relational SQL databases a better option for applications that require multi-row transactions such as an accounting system or for legacy systems that were built for a relational structure.
+SQL databases are table-based on the other hand NoSQL databases are either key-value pairs, document-based,
+graph databases or wide-column stores. This makes relational SQL databases a better option for applications that
+require multi-row transactions such as an accounting system or for legacy systems that were built for a relational
+structure.
 Property followed –
 SQL databases follow ACID properties (Atomicity, Consistency, Isolation and Durability) whereas the NoSQL database follows the
  Brewers CAP theorem (Consistency, Availability and Partition tolerance).
@@ -534,3 +582,15 @@ Transaction support is very much limited in MYSQL, But extensively and fully off
   ==
   What is query profiling?
 Query profiling means evaluating the performance of a particular SQL query. Typically this begins with the explain plan in which the query optimizer provides useful information about how the query will be executed by the RDBMS without actually executing it.
+===
+Provide an example and definition of a natural key in SQL.
+You have probably come across the term natural key within the context of SQL and data warehouses. What exactly is a natural key? A natural key is a key composed of columns that actually have a logical relationship to other columns within a table. What does that mean in plain English? Well, let’s go through an example of a natural key.
+
+Natural Key Example
+
+
+
+Consider a table called People. If we use the columns First_Name, Last_Name, and Address together to form a key then that would be a natural key because those columns are something that are natural to people, and there is definitely a logical relationship between those columns and any other columns that may exist in the table.
+
+Why is it called a natural key?
+The reason it’s called a natural key is because the columns that belong to the key are just naturally a part of the table and have a relationship with other columns in the table. So, a natural key already exists within a table – and columns do not need to be added just to create an “artificial” key.
