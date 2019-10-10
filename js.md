@@ -1,12 +1,15 @@
 If you have ever extensively worked with callbacks, you'll notice one problem with them. They are difficult to track!
 ==
 framework vs library
-1.a framework is a certain way of writing your software not only a piece of code but your entire application. It’s solving structural and architectural problems on the code level.
+1.a framework is a certain way of writing your software not only a piece of code but your entire application.
+It’s solving structural and architectural problems on the code level.
 
-You can say you build a standard while developing a framework. And framework consumer follows that standard. A library doesn't force you to follow any standard because it doesn't provide one in the first place.
+You can say you build a standard while developing a framework. And framework consumer follows that standard.
+ A library doesn't force you to follow any standard because it doesn't provide one in the first place.
 When you use a library you have the control over your code. Whenever you need something from the library you simply call it.
 
-So whenever the framework needs the application specific code it calls your code. So here the control is “inverted” from you to the framework. This is called inversion of control.
+So whenever the framework needs the application specific code it calls your code.
+ So here the control is “inverted” from you to the framework. This is called inversion of control.
 
 Library gives you a set of functions/modules/APIs which you can use to solve a certain problem, but it doesn’t change your code on the structural or architectural level.
 
@@ -26,14 +29,39 @@ A cookie contains specific information that is encrypted for security purposes.
 Normally, a cookie is attached with an HTTP header from the HTTP server to a Web browser in response to a user request.
  This stored cookie is sent to the HTTP server whenever access to a specific website is required.
 
-Cookies are managed in two patterns: with expiry date and without expiry date. Cookies without expiry dates are automatically stored in users’ machines and remain inside the system’s memory until the user’s browsing terminates.
+Cookies are managed in two patterns: with expiry date and without expiry date.
+Cookies without expiry dates are automatically stored in users’ machines and remain inside
+the system’s memory until the user’s browsing terminates.
 
  Cookies with an expiry date expire when that date is surpassed.
 The following are the types/variations of cookies:
 
 Session Cookies: Created for a specific session, these expire upon the termination of the user’s browser session.
  Persistent Cookies:
- Normally known as tracking cookies, these cookies have a specific time period before they expire.
+ Normally known as tracking cookies, these cookies have a specific time period before they expire
+
+
+ cookies
+
+ Set Cookie?
+ cookies.set( name, [ value ], [ options ] )
+ res.cookie('cookieName', 'cookieValue')
+ Read Cookie?
+
+ req.cookies.cookieName = " value"
+ cookies.get( name, [ options ] )
+
+ maxAge: a number representing the milliseconds from Date.now() for expiry
+ expires: a Date object indicating the cookie's expiration date (expires at the end of session by default).
+ path: a string indicating the path of the cookie (/ by default).
+ domain: a string indicating the domain of the cookie (no default).
+ secure: a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
+     Read more about this option below.
+ httpOnly: a boolean indicating whether the cookie is only to be sent over HTTP(S), and not made available to client JavaScript (true by default).
+ sameSite: a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
+ signed: a boolean indicating whether the cookie is to be signed (false by default). If this is true, another cookie of the same name with the .sig suffix appended will also be sent, with a 27-byte url-safe base64 SHA1 value representing the hash of cookie-name=cookie-value against the first Keygrip key. This signature key is used to detect tampering the next time a cookie is received.
+ overwrite: a boolean indicating whether to overwrite previously set cookies of the same name (false by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
+.
 ====
 to check the given array is array or not-
 if(Object.prototype.toString.call(arrayList) === '[object Array]') {
@@ -601,13 +629,13 @@ Being “weak”, it also serves as an additional storage. But not for an arbitr
 
 For instance, we can use WeakSet to keep track of users that visited our site:  
 WeakMap and WeakSet are used as “secondary” data structures in addition to the “main” object storage. Once the object is removed from the main storage, if it is only found as the key of WeakMap or in a WeakSet, it will be cleaned up automatically.
-
+====
 Asynchronous Module Definition(AMD)
 The problem with CommonJs style module definition is that it is synchronous.
 When you call ‘var add=require(‘add’);’, the system will be on
 
 ES6 uses ‘import’ and ‘export’ keywords to import and export modules. Here’s the example application written in ES6 modules.
-
+===
 
 Webpack
 Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files.
@@ -657,7 +685,9 @@ Generators can also receive values using the next(val) function. Then the genera
 IIFE
 An IIFE (Immediately Invoked Function Expression) is a JavaScript function that runs as soon as it is defined.
 
-It is a design pattern which is also known as a Self-Executing Anonymous Function and contains two major parts. The first is the anonymous function with lexical scope enclosed within the Grouping Operator (). This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
+It is a design pattern which is also known as a Self-Executing Anonymous Function and contains two major parts.
+The first is the anonymous function with lexical scope enclosed within the Grouping Operator ().
+This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
 
 The second part creates the immediately executing function expression () through which the JavaScript engine will directly interpret the function.
 
@@ -704,8 +734,7 @@ Client-side compiling and dependency management of CoffeeScript, less, CJS/AMD m
 Hooks for background services.
 Custom templating based on certain URL patterns.
 Performance enhancements, for example pre-fetching resources that the user is likely to need in the near future, such as the next few pictures in a photo album.
-
-
+=====
 Arrow Functions-
 Arrow functions make our code more concise, and simplify function scoping and the this keyword.
 By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions), and curly brackets.
@@ -725,7 +754,8 @@ The base object if the function was called as an "object method".
 When you should use them
 Arrow functions shine best with anything that requires this to be bound to the context, and not the function itself.
 
-Despite the fact that they are anonymous, I also like using them with methods such as map and reduce, because I think it makes my code more readable. To me, the pros outweigh the cons.
+Despite the fact that they are anonymous, I also like using them with methods such as map and reduce, because I think it makes my code more
+ readable. To me, the pros outweigh the cons.
 
 When you should not use Arrow Functions
 Object methods
@@ -811,7 +841,9 @@ A colon separates property name[1] from value.
 A comma separates each name-value pair from the next.
 There should be no comma after the last name-value pair.[2]
 
-No need to invoke constructors directly or maintain the correct order of arguments passed to functions. Object literals are also useful for unobtrusive event handling; they can hold the data that would otherwise be passed in function calls from HTML event handler attributes.
+No need to invoke constructors directly or maintain the correct order of arguments passed to functions.
+ Object literals are also useful for unobtrusive event handling; they can hold the data that would otherwise
+  be passed in function calls from HTML event handler attributes.
 
 
 Template literals
@@ -844,8 +876,6 @@ A more advanced form of template literals are tagged templates.
 
 
 Object.assign==
-
-
 Object.assign() Method
 Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and properties from one or more source objects to a target object.
 It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target. It returns the target object which has properties and values copied from the source object.
@@ -864,7 +894,6 @@ for..of on the other hand, is mainly interested in values of iterable objects.
  Built-in objects like Map and Set implement Symbol.iterator property allowing access to stored values.
 for of-
 You can also iterate over maps, sets, generators, DOM node collections and the arguments object available inside a functions.+
-
 
 ForEach vs map
 
@@ -892,7 +921,7 @@ When to use find?
 .find() When you want to select a single element from an array.
 When to use reduce?
 .reduce() when you want derive a single value from multiple elements in an array.
-
+=======
 Now lets talk about the difference between those methods First of all ,all of them can be used to
 check if the DOM is fully loaded and ready to be manipulated by your JavaScript code .
 
@@ -956,7 +985,8 @@ Modern web development has many repetitive tasks like running a local server, mi
 
 Gulp
 Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
-Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks. At a high level, gulp reads files as streams and pipes the streams to different tasks.
+Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks.
+ At a high level, gulp reads files as streams and pipes the streams to different tasks.
 These tasks are code-based and use plugins.
 The tasks modify the files, building source files into production files.
 
@@ -1024,7 +1054,8 @@ Event bubbling and capturing and event delegation
 
 event delegation
 
-Event delegation is a technique for listening to events where you delegate a parent element as the listener for all of the events that happen inside it.
+Event delegation is a technique for listening to events where you delegate a parent element as the listener for all of the events
+ that happen inside it.
 
 I often use listening to all clicks in the document as an example, but it can be any element on the page.
 
@@ -1040,7 +1071,8 @@ form.addEventListener('input', function (event) {
 }, false);
 
 
-Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another element, and both elements have registered a handle for that event.
+Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another
+element, and both elements have registered a handle for that event.
 
 With bubbling, the event is first captured and handled by the innermost element and then propagated to outer elements.
 

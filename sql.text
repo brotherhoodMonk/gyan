@@ -530,3 +530,7 @@ Transaction support is very much limited in MYSQL, But extensively and fully off
 
 	sql - To query and operate database system.
   mysql- Allows data handling, storing, modifying, deleting in a tabular format.
+
+  ==
+  What is query profiling?
+Query profiling means evaluating the performance of a particular SQL query. Typically this begins with the explain plan in which the query optimizer provides useful information about how the query will be executed by the RDBMS without actually executing it.
