@@ -6,10 +6,12 @@ https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357
 : Given an array of integers, find the largest product yielded from three of the integers
 
  	Mid
-Q43: Given an array of integers, find the largest difference between two elements such that the element of lesser value must come before the greater element
+Q43: Given an array of integers, find the largest difference between two elements such that the element of lesser
+ value must come before the greater element
 Add to PDF/md
  	Mid
-Q44: Find the intersection of two arrays. An intersection would be the common elements that exists within both arrays. In this case, these elements should be unique!
+Q44: Find the intersection of two arrays. An intersection would be the common elements that exists within both arrays.
+In this case, these elements should be unique!
 
  	Mid
 Q45: Given two strings, return true if they are anagrams of one another
@@ -99,7 +101,7 @@ Fibbonacci(number) {
 5. reverse strings
 
 reverseString(number) {
-  return string.parse("").resverse().join("");
+  return string.split("").resverse().join("");
 
 // forloop
   var newString = ""
@@ -148,10 +150,14 @@ splice---Modify the original array
 Array.splice (start, deleteCount, item 1, item 2….);
 remove second last element
 arr1.splice(arr1.length - 2, 1);
+ig the delete count is 0 then we cann add element
+
 
 slice- doesnt modify the array
 arr.slice(begin, end)
 the array contains the begin element but not the end element. less than last element
+
+
 
 8. pop
 remove last element
@@ -168,7 +174,18 @@ slice()
 Separate results of slice()
 If start > stop, This function will return an empty string. (“”)
 If start is negative, It sets char from the end of string, like substr().
-If stop is negative, It sets stop = string.length – Math.abs(stop) (original value)
+If stop is negative, It sets stop = string.length – Math.abs(stop) (original value);
+
+Distinctions of substring():
+
+If start > stop, then substring will swap those 2 arguments.
+If either argument is negative or is NaN, it is treated as if it were 0.
+Distinctions of slice():
+
+If start > stop, slice() will return the empty string. ("")
+If start is negative: sets char from the end of string, exactly like substr() in Firefox. This behavior is observed in both Firefox and IE.
+If stop is negative: sets stop to: string.length – Math.abs(stop) (original value), except bounded at 0 (thus, Math.max(0, string.length + stop)) as covered in the ECMA specification.
+
 
 11. reduceRight-
 array.reduceRight(accumulator, currentValue);
@@ -214,10 +231,33 @@ for(let i = 0; i <= arr1.length; i++) {
   }
 }
 
-14. some()- It returns a Boolean value.
+14. some()-
 The some() method tests whether at least one element in the array passes the test
+implemented by the provided function. It returns a Boolean value.
 implemented by the provided function.
+some() does not mutate the array on which it is called.
 
+function isBiggerThan10(element, index, array) {
+  return element > 10;
+}
+
+[2, 5, 8, 1, 4].some(isBiggerThan10);  // false
+[12, 5, 8, 1, 4].some(isBiggerThan10); // true
+===
+every();
+The every() method tests whether all elements in the array pass the test implemented by the provided function.
+It returns a Boolean value.
+
+function isBelowThreshold(currentValue) {
+  return currentValue < 40;
+}
+
+var array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
+// expected output: true
+
+----
 15. JavaScript | Array filter()
 arr.filter() function is used to create a new array from a given array consisting
  of only those elements from the given array which satisfy a condition set by the argument function.
@@ -258,7 +298,7 @@ Array.prototype.findIndex() expects a callback as first parameter. Use this if y
  the index in arrays with non-primitive types (e.g. objects) or your find condition
  is more complex than just a value.
 
- JavaScript | array.includes() function'===> returns boolean
+ JavaScript | array.includes() function ===> returns boolean
  array.includes(searchElement)
 The array.includes() is an inbuilt function in JavaScript which is used to know either a particular element
  is present in the array or not and accordingly, it returns true or false i.e, if the element
@@ -295,6 +335,10 @@ substr vs substring
 substr(startIndx, length);
 substring(startIndex, uptoIndex(not include the index));
 
+const rew = str.substring(4); //from 0 to 3rd position but not 4th
+str.substr(4) //from 0 ---take 4 elemets
+
+in case of single argument both are same, differnce lies with 2 arguments.
 
 13. substring(from, [to]) Returns the characters in a string between “from” and “to” indexes,
  NOT including “to” inself. “To” is optional, and if omitted, up to the end of the string is assumed.
@@ -337,6 +381,12 @@ getDay()	Get the weekday as a number (0-6)
 getTime()	Get the time (milliseconds since January 1, 1970)
 Date.now()	Get the time in miliseconds. ECMAScript 5.
 
+const str1 = Date.now(); 1570745191665
+const str2 = new Date(); 2019-10-10T22:06:31.665Z
+
+const res1 = str1.toString() 1570745191665
+const res2 = str2.toLocaleString();2019-10-11 03:36:31
+const res3 = str2.toString();Fri Oct 11 2019 03:36:31 GMT+0530 (IST)
 
 16. 2 D array
 var twodarr = new Array(2);  //create two empty slots

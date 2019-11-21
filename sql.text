@@ -419,8 +419,6 @@ that depends on table_x) when you delete row in table_x and this row is referenc
 row from table_x would be deleted and all rows that referenced this row in table_y would be deleted as well.
 ====
 
-
-
 Q9: What is blocking?
            Junior
 
@@ -476,7 +474,8 @@ And, for a relation R(A,B,C), if there is a multi-valued dependency between, A a
 If all these conditions are true for any relation(table), it is said to have multi-valued dependency.
 
 SET Operations in SQL
-SQL supports few Set operations which can be performed on the table data. These are used to get meaningful results from data stored in the table, under different special conditions.
+SQL supports few Set operations which can be performed on the table data. These are used to get meaningful
+results from data stored in the table, under different special conditions.
 UNION
 UNION ALL
 INTERSECT
@@ -495,16 +494,21 @@ irst table is in one set of rows, and the data from the second table in another 
 
 Keys
 Super Key
-Super Key is defined as a set of attributes within a table that can uniquely identify each record within a table. Super Key is a superset of Candidate key.
+Super Key is defined as a set of attributes within a table that can uniquely identify each record within a table.
+ Super Key is a superset of Candidate key.
 
 Candidate Key
-Candidate keys are defined as the minimal set of fields which can uniquely identify each record in a table. It is an attribute or a set of attributes that can act as a Primary Key for a table to uniquely identify each record in that table. There can be more than one candidate key.
+Candidate keys are defined as the minimal set of fields which can uniquely identify each record in a table.
+It is an attribute or a set of attributes that can act as a Primary Key for a table to uniquely identify each
+ record in that table. There can be more than one candidate key.
 
 Primary Key
-Primary key is a candidate key that is most appropriate to become the main key for any table. It is a key that can uniquely identify each record in a table.
+Primary key is a candidate key that is most appropriate to become the main key for any table.
+It is a key that can uniquely identify each record in a table.
 
 Composite Key
-Key that consists of two or more attributes that uniquely identify any record in a table is called Composite key. But the attributes which together form the Composite key are not a key independentely or individually.
+Key that consists of two or more attributes that uniquely identify any record in a table is called Composite key.
+But the attributes which together form the Composite key are not a key independentely or individually.
 
 Secondary or Alternative key
 The candidate key which are not selected as primary key are known as secondary keys or alternative keys.
@@ -581,16 +585,24 @@ Transaction support is very much limited in MYSQL, But extensively and fully off
 
   ==
   What is query profiling?
-Query profiling means evaluating the performance of a particular SQL query. Typically this begins with the explain plan in which the query optimizer provides useful information about how the query will be executed by the RDBMS without actually executing it.
+Query profiling means evaluating the performance of a particular SQL query.
+Typically this begins with the explain plan in which the query optimizer provides useful information about how the query
+will be executed by the RDBMS without actually executing it.
 ===
 Provide an example and definition of a natural key in SQL.
-You have probably come across the term natural key within the context of SQL and data warehouses. What exactly is a natural key? A natural key is a key composed of columns that actually have a logical relationship to other columns within a table. What does that mean in plain English? Well, let’s go through an example of a natural key.
+You have probably come across the term natural key within the context of SQL and data warehouses.
+What exactly is a natural key? A natural key is a key composed of columns that actually have a logical relationship to
+ other columns within a table. What does that mean in plain English? Well, let’s go through an example of a natural key.
 
 Natural Key Example
 
 
 
-Consider a table called People. If we use the columns First_Name, Last_Name, and Address together to form a key then that would be a natural key because those columns are something that are natural to people, and there is definitely a logical relationship between those columns and any other columns that may exist in the table.
+Consider a table called People. If we use the columns First_Name, Last_Name, and Address together to form a key
+then that would be a natural key because those columns are something that are natural to people, and there is
+ definitely a logical relationship between those columns and any other columns that may exist in the table.
 
 Why is it called a natural key?
-The reason it’s called a natural key is because the columns that belong to the key are just naturally a part of the table and have a relationship with other columns in the table. So, a natural key already exists within a table – and columns do not need to be added just to create an “artificial” key.
+The reason it’s called a natural key is because the columns that belong to the key are just naturally a part of
+ the table and have a relationship with other columns in the table. So, a natural key already exists within a
+ table – and columns do not need to be added just to create an “artificial” key.

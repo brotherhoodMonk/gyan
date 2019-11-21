@@ -19,36 +19,38 @@ Single Page Applications
 At the same time, it’s not suitable for heavy applications involving more of CPU usage.
 ===
 event loop-
-To handle the asynchronous nature of program, Node.js uses external “Queue” called as event queue
-where it inserts the
-callback of asynchronous code rather than pushing it into call stack .
-
-Since that piece of code is not in call stack, node runtime will not execute it immediately.
-Depending
-on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
-thread and using the thread pool it  execute it and as soon as thread processing is done and
- result is ready to process by node runtime,
- event loop checks “is the stack empty ?” If stack is  empty and Queue has some data,
- event loop will take the top most one from it and push it inside of stack for processing.
-Task of event loop is to check is there any item present in Queue and if Stack empty then push
-it on stack else wait for next tick ( Yes process.nextTick ).
-The increment that the event loop moves in is called a ‘tick’, and every time it
-‘ticks’ it checks if the call stack is empty.
-
-1. The event loop on every iteration looks if there’s something in the call stack, and executes it:
-The event loop is the term given to the process of the waiting for the msg queue to receive a message
- synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
- ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
- to the call stack and executes it.
 
 1. The event loop gives Node the capability to handle highly concurrent requests while still running “single-threaded”.
 2 .The event loop on every iteration looks if there’s something in the call stack, and executes it:
 3.  when node receives any request it is placed in the call stack,  node js process the request and send it ot client ,
-4.  If the request is asynchronous or contains blocking io, event loop delegate it to worker thread and thread pool via event que.
+4. If the request is asynchronous or contains blocking io, event loop delegate it to worker thread and thread pool via event que.
   Worker thread will prepare the response and send it back to event loop which then runs the callback function
   and sends the response to client.
 5. The loop gives priority to the call stack, and it first processes everything it finds in the call stack, and once there’s
  nothing in there, it goes to pick up things in the message queue.
+
+ To handle the asynchronous nature of program, Node.js uses external “Queue” called as event queue
+ where it inserts the
+ callback of asynchronous code rather than pushing it into call stack .
+
+ Since that piece of code is not in call stack, node runtime will not execute it immediately.
+ Depending
+ on the nature of asynchronous code (I/O, Network call, DNS etc ), Node.js will spawn the “libuv”
+ thread and using the thread pool it  execute it and as soon as thread processing is done and
+  result is ready to process by node runtime,
+  event loop checks “is the stack empty ?” If stack is  empty and Queue has some data,
+  event loop will take the top most one from it and push it inside of stack for processing.
+ Task of event loop is to check is there any item present in Queue and if Stack empty then push
+ it on stack else wait for next tick ( Yes process.nextTick ).
+ The increment that the event loop moves in is called a ‘tick’, and every time it
+ ‘ticks’ it checks if the call stack is empty.
+
+ 1. The event loop on every iteration looks if there’s something in the call stack, and executes it:
+ The event loop is the term given to the process of the waiting for the msg queue to receive a message
+  synchronously. The increment that the event loop moves in is called a ‘tick’, and every time it
+  ‘ticks’ it checks if the call stack is empty, if so , it adds the top function in the event queue
+  to the call stack and executes it.
+
  ===
 
  Phases Overview
@@ -150,7 +152,6 @@ process.nextTick()
  "I/O" refers primarily to interaction with the system's disk and network supported by libuv.
  ===
 worker threads
-
 Workers (threads) are useful for performing CPU-intensive JavaScript operations.
 They will not help much with I/O-intensive work.
 The worker_threads module enables the use of threads that execute JavaScript in parallel.:
@@ -392,6 +393,21 @@ computers or systems on the internet. The term REST API is something else.
 4. it provides web based resources by deploying a predefined set of stateless protocols and standard operations.
 5. REST API systems deliver fast performance, reliability, and more progression.
 
+As one REST API tutorial put it: SOAP is like an envelope while REST is just a postcard.
+
+REST is a software architecture style that relies on a stateless communications protocol, most commonly, HTTP
+
+Any situation where the size of the transmitted message does not matter, or where you control everything end-to-end,
+ SOAP is almost always the better answer.
+This applies primarily to direct server to server communication, generally used for internal
+communication only within the confines of one company.
+
+REST follows the object-oriented programming paradigm of noun-verb. REST is very data-driven,
+compared to SOAP, which is strongly function-driven.
+
+A REST service also has a schema in what is called a WADL – Web Application Description Language.
+ The WADL for the above call would look like this:
+
 What Is a SOAP API?
 1. SOAP is a standard communication protocol system that permits processes using different operating systems like Linux
  and Windows to communicate via HTTP and its XML.
@@ -405,8 +421,27 @@ perform accurate searches and much more. These can then be used with all those l
 5/ It includes a WSDL file which has
 the required information on what the web service does in
  addition to the location of the web service.
-
+itter();
+    //Subscribe FirstEvent
  SOAP uses service interfaces to expose its functionality to client applications.
+
+
+ SOAP provides the following advantages when compared to REST:
+
+ Language, platform, and transport independent (REST requires use of HTTP)
+ Works well in distributed enterprise environments (REST assumes direct point-to-point communication)
+ Standardized
+ Provides significant pre-build extensibility in the form of the WS* standards
+ Built-in error handling
+ Automation when used with certain language products
+ REST is easier to use for the most part and is more flexible. It has the following advantages when compared to SOAP:
+
+ Uses easy to understand standards like swagger and OpenAPI Specification 3.0
+ Smaller learning curve
+ Efficient (SOAP uses XML for all messages, REST mostly uses smaller message formats like JSON)
+ Fast (no extensive processing required)
+ Closer to other Web technologies in design philosophy
+
 
 Differences:
 SOAP
@@ -650,7 +685,6 @@ fork will be useful when you want to do messaging
 spawn should be used for streaming big data/files/images FROM spawn process TO parent process
 
 fork should be used for doing Json/Xml Data messaging .
-
 ===
 36. Explain the purpose of ExpressJS package?
 Express.js is a framework built on top of Node.js that facilitates the management of the
@@ -1289,6 +1323,54 @@ buffer.allocUnsafe(5);
 > buffer.write(string)
 This class also offers other methods like <readInt8> and <writeUInt8> that allows read/write from
  various types of data to the buffer.
+====
+how require works
+
+The require function will look for files in the following order:
+
+Built-in core Node.js modules (like fs)
+NPM Modules. It will look in the node_modules folder.
+Local Modules. If the module name has a ./, / or ../, it will look for the directory/file in the given path. It matches the file extensions: *.js, *.json, *.mjs, *.cjs, *.wasm and *.node.
+
+The Module type found in module.js has two main roles inside of Node.js. First, it provides a foundation for all Node.js
+modules to build off of. Each file is given a new instance of this base module on load, which persists
+even after the file has run. This is why we are able attach properties to module.exports and return them later as needed.
+
+The module’s second big job is to handle Node’s module loading mechanism. The stand-alone require
+function that we use is actually an abstraction over module.require, which is itself just a simple wrapper
+around Module._load. This load method handles the actual loading of each file, and is where we’ll begin our journey.
+
+
+Module._load = function(request, parent, isMain) {
+  // 1. Check Module._cache for the cached module.
+  // 2. Create a new Module instance if cache is empty.
+  // 3. Save it to the cache.
+  // 4. Call module.load() with your the given filename.
+  //    This will call module.compile() after reading the file contents.
+  // 5. If there was an error loading/parsing the file,
+  //    delete the bad module from the cache
+  // 6. return module.exports
+};
+
+
+MODULE._COMPILE
+Module.prototype._compile = function(content, filename) {
+  // 1. Create the standalone require function that calls module.require.
+  // 2. Attach other helper methods to require.
+  // 3. Wraps the JS code in a function that provides our require,
+  //    module, etc. variables locally to the module scope.
+  // 4. Run that function
+};
+
+This is where the real magic happens.
+First, a special standalone require function is created for that module. THIS is the require function that we are all
+ familiar with. While the function itself is just a wrapper around Module.require,
+ it also contains some lesser-known helper properties and methods for us to use:
+
+Once require is ready, the entire loaded source code is wrapped in a new function, which takes in require, module,
+exports, and all other exposed variables as arguments.
+
+
 ====
  4)      What does event-driven programming mean?
 
