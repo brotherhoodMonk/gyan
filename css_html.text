@@ -15,7 +15,8 @@ Loading an external CSS file using the <link> tag
 2. Could you describe the different kinds of selectors?
 A selector in CSS is the bit before the curly bracket, for
 example, body or .nav-item, that selects the content you want to style.
-The different kinds of selectors include tags, classes & IDs:
+The different kinds of selectors include
+tags, classes & IDs:
 
 3. display: block, inline, inline-block
 
@@ -28,8 +29,8 @@ Block elements:
 respect all of those
 force a line break after the block element
 acquires full-width if width not defined
-Inline-block elements:
 
+Inline-block elements:
 allow other elements to sit to their left and right
 respect top & bottom margins and padding
 respect height and width
@@ -104,7 +105,6 @@ number
 null
 ====
 Explain what is a @extend directive used for in Sass?
-Add to PDF/md	 		 	Junior
 Using @extend lets you share a set of CSS properties from one selector to another. It helps keep your Sass very dry.
 %message-shared {
   border: 1px solid #ccc;
@@ -115,8 +115,6 @@ Using @extend lets you share a set of CSS properties from one selector to anothe
 .message {
   @extend %message-shared;
 }
-
-
 ======
 float and clear
 The CSS float property specifies how an element should float.
@@ -126,8 +124,6 @@ The CSS clear property specifies what elements can float beside the cleared elem
 The CSS clear property can be used to be positioned below left/right/both floated elements.
 ===
 Explain CSS sprites, and how you would implement them on a page or site.
-
-Add to PDF/md 	  		  	Junior
 
 CSS sprites combine multiple images into one single larger image. It is commonly used technique for icons (Gmail uses it).
 
@@ -141,7 +137,6 @@ CSS sprites combine multiple images into one single larger image. It is commonly
        Advance downloading of assets that won’t be downloaded until needed, such as images that only appear upon :hover pseudo-states. Blinking wouldn't be seen.
 
    =====
-
    table-layout
    The table-layout property defines the algorithm used to lay out table cells, rows, and columns.
 
@@ -156,7 +151,6 @@ The DOM represents the document in the computer's memory. It combines the docume
 Web browsers apply CSS rules to a document to affect how they are displayed. A CSS rule is formed from:
 A set of properties,
 A selector,
-
 ===
 
 Normalize css vs reset
@@ -221,7 +215,7 @@ By the class you’ve specified in your HTML. For example, if you have three lis
 items with the class nav-item you can target them with .nav-item
 By the ID you’ve specified in your HTML. For example, if you have a link with
 the ID home-button you can target it with #home-button
-
+===
 How do you target something inside or around another element?
 Sometimes you need to target something that’s next to something else or target
 something only if it’s inside a particular container. Luckily, that’s easy!
@@ -273,9 +267,9 @@ backwards compatibility - and they look like this:
 
 p::first-line { ... }
 span::first-letter { ... }
-::selection { ... }
 .header::after { ... }
 .tooltip::before { ... }
+::selection { ... }
 
 6. What are pseudo classes and what are they used for?
 Pseudo classes are similar to pseudo elements, but instead of styling a part of an element,
@@ -292,8 +286,7 @@ They all start with a single colon and look like this:
 .tab:first-child { ... }
 .tab:last-child { ... }
 .avatar:nth-child(2n) { ... }
-
-
+===
 7. What are attributes and how are they used?
 You already know about classes, which means you already know about attributes,
 seeing as a class is just one of the many
@@ -308,9 +301,8 @@ You can target elements with particular attributes by using square brackets:
 input[type="radio"] {
     background-color: #eee;
 }
-
+===
 Specificity
-
 
 If you’ve spent any time wrangling CSS, you’ve likely come across the tricky rules around
  specificity.
@@ -318,10 +310,10 @@ What that means is which rules override others simply by being more specific.
 
 The following list displays the order of specificity, from low to high:
 
-Type selectors (e.g. h1) and pseudo-elements (e.g. ::before)
-Class selectors (e.g. .nav-item), attributes selectors (e.g. [type="radio"]) and
+1. Type selectors (e.g. h1) and pseudo-elements (e.g. ::before)
+2. Class selectors (e.g. .nav-item), attributes selectors (e.g. [type="radio"]) and
  pseudo-classes (e.g. :hover)
-ID selectors (e.g. #example)
+3. ID selectors (e.g. #example)
 
 A tag references an HTML tag
 A class references the class attribute on an HTML tag
@@ -410,9 +402,7 @@ The @keyframes rule specifies the animation code.
 The animation is created by gradually changing from one set of CSS styles to another.
 
 During the animation, you can change the set of CSS styles many times.
-
 ===
-
 14. How do you handle browser differences in your user base?
 In the past few years, browsers have come a long way. Modern browsers update automatically
  and provide pretty good feature coverage.
@@ -434,7 +424,7 @@ using fallback styles. The @supports query in CSS can be very useful to scan if 
 One of my favourite online tools is caniuse.com. It’s a website that tells you exactly which browsers support which features,
 including CSS and JavaScript, which can be extremely helpful in finding out what you can
 and can’t use!
-
+====
 Flexbox is a very useful layout tool, especially for smaller areas within the site.
  Its main features are to align
  items in horizontal or vertical axes, space them out automatically, invert the order
@@ -444,7 +434,7 @@ Flexbox is a very useful layout tool, especially for smaller areas within the si
 CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying
 out items along a single axis,
  Grid is better for layouts with both horizontal and vertical axes, i.e. grids!
-
+===
 Preprocessor-
 A CSS preprocessor is a program that lets you generate CSS from the preprocessor's
 own unique syntax.
@@ -478,7 +468,7 @@ $primary-color: #333;
 
 Think of variables as a way to store information that you want to reuse throughout your
  stylesheet.
-You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol
+You can store things like colors, font stacks, or any CSS value you think youll want to reuse. Sass uses the $ symbol
 to make something a variable. Here's an example:
 body {
   font: 100% $font-stack;
@@ -511,15 +501,17 @@ File splitting helps organize your CSS into multiple files, decreasing page load
  If you’re working with any of the preprocessors above, you can start splitting up your files.
 
 How you decide to split them up is up to you, but it can be useful to separate files by component. For example, you can have all
-your button styles in a file called _buttons.scss or all your header-specific styles in a file called _header.scss. Then, in your main file, say _app.scss, you can import those files by writing @import 'buttons';
+your button styles in a file called _buttons.scss or all your header-specific styles in a file called _header.scss. Then, in your main file,
+ say _app.scss, you can import those files by writing @import 'buttons';
 
-This way you can also create separate stylesheets for separate areas of your website, where you might not need all styles. For example, if you have a web app, you probably don’t need to load all styles when people land on your homepage, when they haven’t even logged into your app yet. Simply create another file and import only those styles you need.
+This way you can also create separate stylesheets for separate areas of your website, where you might not need all styles. For example,
+if you have a web app, you probably don’t need to load all styles when people land on your homepage, when they haven’t even logged into your
+ app yet. Simply create another file and import only those styles you need.
 
 19. What are variables used for?
 Variables are super useful for things like colors, fonts, font sizes, and certain
 dimensions, as you can be sure you’re
 always using the same ones, not 4 different versions of roughly the same color.
-
 
 Mixins
 Some things in CSS are a bit tedious to write, especially with CSS3 and the many vendor prefixes that exist.
@@ -557,12 +549,10 @@ change the color of the bullet, you must change the color of the text.
 19) Explain the layout of HTML?
 HTML layout specifies a way in which the web page is arranged.
 
-
 HTML Layouts
 Every website has a specific layout to display content in a specific manner.
 
 Following are different HTML5 elements which are used to define the different parts of a webpage.
-
 
 23) What are empty elements?
 HTML elements with no content are called empty elements. For example: <br>, <hr> etc.
@@ -573,7 +563,6 @@ The span tag is used for following things:
 For adding color on text
 For adding background on text
 Highlight any color text
-
 
 29) What is the float property of CSS?
 The CSS float property is used to move the image to the right or left along with the texts to be wrapped around it.
@@ -610,11 +599,10 @@ inherit: Inherits the property from the parent element.
   better arrangement of all of the page elements. It is a one-dimensional layout model that offers space allocation between
   items in an interface and robust alignment capabilities.
 
-
  Main Axis & Cross Axis
 Flexbox features properties that align and justifycontent along one axis or the other.
 
-The main axis is defined by flex-direction, which has fourpossible values:rowrow-reversecolumncolumn-reverse
+The main axis is defined by flex-direction, which has fourpossible values:row row-reverse column column-reverse
 
 CSS Grid vs Flexbox
 CSS Grid Layout is a two-dimensional system, meaning it can handle both columns and rows,
@@ -627,7 +615,6 @@ Flexbox layout is most appropriate to the components of an application (as most 
 If you only need to define a layout as a row or a column, then you probably need flexbox.
 If you want to define a grid and fit content into it in two dimensions — you need the grid.
 
-
 <header>: It is used to define a header for a document or a section.
 <nav>: It is used to define a container for navigation links
 <section>: It is used to define a section in a document
@@ -635,8 +622,7 @@ If you want to define a grid and fit content into it in two dimensions — you n
 <aside>: It is used to define content aside from the content (like a sidebar)
 <footer>: It is used to define a footer for a document or a section
 
-
-All the HTML elements can be categorized into two categories (a) Block Level Elements (b)Inline Elements.
+All the HTML elements can be categorized into two categories 1. Block Level Elements 2.Inline Elements.
 Block Elements
 
 Block elements appear on the screen as if they have a
@@ -660,7 +646,7 @@ Answer: Cascading order is itself a sorting method that allows many other differ
 
 #1) Sort by origin: There are some rules which can provide the alternate way which can be defined as:
 
-Normal weight of style sheet of a particular provider will be overridden by the increased weight of the user's style sheet.
+Normal weight of style sheet of a particular provider will be overridden by the increased weight of the users style sheet.
 Stylesheet rules of a particular user will be overridden by the normal width of the provider’s style sheet.
 #2) Sort by selector's specificity: Less specific selector is been overridden by the more specific selector.
 
@@ -736,8 +722,9 @@ By this property, we can transparent the image that can take the values from 0.0
  lower then the image is more transparent. IE8 and earlier version of the browser can take the values from 0-100.
 
 img {
-opacity: 0.6;
-filter: alpha(opacity=60); /* For IE8 and earlier */}
+opacity: 0.6
+filter: alpha
+}
 
 id & class
 Id is a kind of element which uniquely assigns a name to a particular element whereas class
@@ -824,7 +811,7 @@ Start at 0, add 1000 for style attribute, add 100 for each ID,
 add 10 for each attribute, class or pseudo-class, add 1 for each element name or pseudo-element.
 
 
-CSS Counters-
+CSS Counters-/* For IE8 and earlier */
 CSS counters are like "variables". The variable values can be incremented by CSS rules (which will track how many times they are used).
 
 To work with CSS counters we will use the following properties:
@@ -832,7 +819,7 @@ To work with CSS counters we will use the following properties:
     counter-reset - Creates or resets a counter
     counter-increment - Increments a counter value
     content - Inserts generated content
-    counter() or counters() function - Adds the value of a counter to an element
+    counter() or counters() - function - Adds the value of a counter to an element
 
     Explain the term Responsive web design.
 
@@ -910,7 +897,8 @@ and background-repeat styles
 ===
 The required alt attribute specifies an alternate text for an image, if the image cannot be displayed.
 
-The alt attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection, an error in the src attribute, or if the user uses a screen reader).
+The alt attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection, an
+   error in the src attribute, or if the user uses a screen reader).
 ==
 Meta tag
 Metadata is data (information) about data.
@@ -963,7 +951,8 @@ An example of a self closing tag is something like a line break (<br />) or the 
 ===
 Briefly describe the correct usage of the following HTML5 semantic elements: <header>, <article>, <section>, <footer>
 
-    <header> is used to contain introductory and navigational information about a section of the page. This can include the section heading, the author’s name, time and date of publication, table of contents, or other navigational information.
+    <header> is used to contain introductory and navigational information about a section of the page.
+    This can include the section heading, the author’s name, time and date of publication, table of contents, or other navigational information.
 
     <article> is meant to house a self-contained composition that can logically be independently recreated outside of
     the page without losing it’s meaining. Individual blog posts or news stories are good examples.
@@ -998,9 +987,7 @@ What are `data-` attributes good for?
 The data-* attribute is used to store custom data private to the page or application.
 
 The data-* attribute gives us the ability to embed custom data attributes on all HTML elements.
-
 ==
-
 <section> means that the content inside is grouped (i.e. relates to a single theme), and should appear as an entry in an outline of the page.
 
 <div>, on the other hand, does not convey any meaning, aside from any found in its class, lang and title attributes.
@@ -1021,7 +1008,8 @@ With defer, browser will run your script when the page finished parsing. (not ne
 =======
 Web SQL
 
-The Web SQL Database API isn't actually part of the HTML5 specification but it is a separate specification which introduces a set of APIs to manipulate client-side databases using SQL.
+The Web SQL Database API isnt actually part of the HTML5 specification but it is a separate specification which introduces
+a set of APIs to manipulate client-side databases using SQL.
 openDatabase − This method creates the database object either using existing database or creating new one.
 
 transaction − This method gives us the ability to control a transaction and performing either commit or rollback based on the situation.

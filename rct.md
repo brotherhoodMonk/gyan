@@ -3,7 +3,8 @@ onClick, onMouseHover
 
 jsx- JavaScript XML.
 
-1. it's just an extension to JavaScript that allows to write XML-like code for simplicity and elegance, and then you transpile the JSX into pure JavaScript function calls with React.createElement.
+1. its just an extension to JavaScript that allows to write XML-like code for simplicity and elegance,
+and then you transpile the JSX into pure JavaScript function calls with React.createElement.
 3. React allows us to write HTML in JavaScript,
 if JavaScript files contains JSX, that that file will have to be transpiled using babel.
  4. JSX produces React “elements”. which is simply an object representation of a DOM node.
@@ -11,7 +12,8 @@ if JavaScript files contains JSX, that that file will have to be transpiled usin
 
 diff between html and jsx
 
-1. HTML is a markup language which is used for creating attractive web pages with the help of styling, and which looks in a nice format on a web browser.
+1. HTML is a markup language which is used for creating attractive web pages with the help of styling, and which
+looks in a nice format on a web browser.
 where as JSX is extension to javascript that allows to write html-like syntax code to represent the web page.
 2. The attribute names are based on the DOM API, not on the HTML language specs.
 3. Tag attributes are camel cased.
@@ -32,7 +34,8 @@ n JSX, lower-case tag names are considered to be HTML tags. However, lower-case 
 Mounting
 This process of creating instances and DOM nodes corresponding to React components, and inserting them into the DOM, is called mounting.
 
-React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes already in the DOM).
+React does so by "mounting" (adding nodes to the DOM), "unmounting" (removing them from the DOM), and "updating" (making changes to nodes
+   already in the DOM).
 
 ====
 setting default props
@@ -82,7 +85,8 @@ differnce
 1. Props are immutable i.e. once set the props cannot be changed, state is mutable
 2. States can only be used in Class Components while Props don’t have this limitation.
 3. While Props are set by the parent component, State is generally updated by event handlers using setState.
-4. props get passed to the component (similar to function parameters) whereas state is managed within the component (similar to variables declared within a function)
+4. props get passed to the component (similar to function parameters) whereas state is managed within the component
+(similar to variables declared within a function)
 
 when to use state
 If a Component needs to alter one of its attributes at some point in time, that attribute should be part of
@@ -100,9 +104,12 @@ Thus the setState calls are asynchronous as well as batched for better UI experi
 
 get the latest value of state;
 --
-if we update the state of any component like the following the webpage will not re-render itself because React State will not be able to detect the changes made.
+if we update the state of any component like the following the webpage will not re-render itself because React State will
+ not be able to detect the changes made.
 this.state.attribute = "new-value";
-Thus, React provides its own method setState(). setState() method takes a single parameter and expects an object which should contain the set of values to be updated. Once the update is done the method implicitly calls the render() method to repaint the page. Hence the correct method of updating the value of a state will be similar to the code below.
+Thus, React provides its own method setState(). setState() method takes a single parameter and expects an object which
+ should contain the set of values to be updated. Once the update is done the method implicitly calls the render() method
+ to repaint the page. Hence the correct method of updating the value of a state will be similar to the code below.
 
 this.setState({attribute: "new-value"});
 ===
@@ -117,10 +124,14 @@ Note that a HOC doesn’t modify the input component, nor does it use inheritanc
 we can pass props to a wrapped component
 
 Don’t Use HOCs Inside the render Method
-React’s diffing algorithm (called reconciliation) uses component identity to determine whether it should update the existing subtree or throw it away and mount a new one. If the component returned from render is identical (===) to the component from the previous render, React recursively updates the subtree by diffing it with the new one. If they’re not equal, the previous subtree is unmounted completely.
+React’s diffing algorithm (called reconciliation) uses component identity to determine whether it should update
+the existing subtree or throw it away and mount a new one. If the component returned from render is identical
+(===) to the component from the previous render, React recursively updates the subtree by diffing it with the new one.
+If they’re not equal, the previous subtree is unmounted completely.
 
 Refs Aren’t Passed Through
-If you add a ref to an element whose component is the result of a HOC, the ref refers to an instance of the outermost container component, not the wrapped component.
+If you add a ref to an element whose component is the result of a HOC, the ref refers to an instance of the
+outermost container component, not the wrapped component.
 The solution for this problem is to use the React.forwardRef API (introduced with React 16.3).
 
 
@@ -153,6 +164,10 @@ Each component can access the stored state without having to send down props fro
 
 There are three building parts pf the redux:
 actions, store and reducers.
+
+1. Action
+2. Dispatcher
+3. reducers
 
 1. Actions in Redux
 Simply put, actions are events. They are the only way you can send data from your application to your
@@ -216,7 +231,9 @@ Redux makes it easy to debug an application. By logging actions and state, it is
 Ease of testing
 It is easy to test Redux apps as functions used to change the state of pure functions.
 You can persist some of the app’s state to local storage and restore it after a refresh. This can be really nifty.
-Redux can also be used for server-side rendering. With it, you can handle the initial render of the app by sending the state of an app to the server along with its response to the server request. The required components are then rendered in HTML and sent to the clients.
+Redux can also be used for server-side rendering. With it, you can handle the initial render of the app by sending the
+state of an app to the server along with its response to the server request. The required components are then rendered
+in HTML and sent to the clients.
 ============
 virtual DOM
 
@@ -224,9 +241,15 @@ Virtual Dom is node tree that lists attribute , elements, contents  as a propert
 Render method in react creates the node tree from react component and updates this tree in response to the change in the data model.
 Each times it undergoes the data changes react creates a new virtual Dom representatuion of user interface.
 
-The virtual DOM is an in-memory representation of the real DOM.  
+The virtual DOM is an in-memory representation of the real DOM.
 The Virtual DOM is an abstraction of the HTML DOM. It is lightweight and detached from the browser-specific implementation details.
  Since the DOM itself was already an abstraction, the virtual DOM is, in fact, an abstraction of an abstraction.
+
+ n React world, the term “virtual DOM” is usually associated with React elements since they are the objects representing the user
+ interface. React, however, also uses internal objects called “fibers” to hold additional information about the component tree.
+ They may also be considered a part of “virtual DOM” implementation in React.
+
+Fiber is the new reconciliation engine in React 16. Its main goal is to enable incremental rendering of the virtual DOM. Read more.
 
 By comparing changes between a virtual DOM and the real DOM USING DIFFING PROCESS, rendering engines can more efficiently
 determine what actually needs to be updated. This avoids unnecessary redrawing of DOM nodes as only elements that have
@@ -234,6 +257,70 @@ changed are redrawn. Without the virtual DOM, every element is redrawn regardles
 This adds a huge performance boost to DOM manipulation since redrawing elements is an expensive process.
 
 Manipulating the DOM is slow. Manipulating the virtual DOM is much faster, because nothing gets drawn onscreen.
+====
+The reconciliation process is where React
+Compares the previous internal instance with the next internal instance.
+Updates the internal Instance which is a Component Tree structure in JavaScript Object(Virtual DOM).
+And updates the actual DOM only at the node where there is an actual change along with it’s children.
+
+MArking COmp Dirty
+All the DOM event listeners are wrapper within custom React event listeners. Therefore on clicking Add, the event is
+ dispatched to the react event listener and thereby executing the anonymous function() that you see above.
+In the anonymous function(), we call the function this.setState() with the new state value.
+The setState() function, will in turn mark the component dirty as you see in below lines of code.
+
+
+If you are wondering, why React didn’t just mark the button as dirty, but instead the whole component? Well, this is
+because you call setState as this.setState(), where this is the Calculator component.
+
+Next step is to update the component.
+This is done by React running batch update.
+In the batch update, it will check if there are components marked as dirty and starts updating.
+
+First it will check if we have used componentWillReceiveProps() and if we have used it, allows us to update the state with the new props that we received.
+5. Next it will check if we have used shouldComponentUpdate() and if we have used, we can check if a component should be re-render with the change in state or props.
+Use this when you know of scenarios where you don’t need the component to re-render, and therefore improving on the performance.
+
+Reconciliation starts from the main <div> of the component which is the one with class=”container”.
+Its child is <div> which contains Output, and therefore react will start reconciliation of this child.
+Now this child has it’s own children <hr> and <h2>
+So react will start reconciliation for <hr>
+Next, it will start with reconciliation of <h2> and since it has it’s own children which are the texts Output: and the output from state, it will start reconciliation for these two.
+First Output: text goes through reconciliation and since there is no change, nothing happens to the DOM.
+Next, output from state goes through reconciliation and since we have a new value now, i.e 150, react will update the actual DOM.
+
+  ===
+  memoising
+  Memoizing in React is a performance feature of the framework that aims to speed up the render process of components. The technique is
+  used in a wide spectrum of disciplines, from game engines to web applications. This article explores memoization techniques within React
+   specifically, covering the APIs and example use cases along the way.
+
+Memoizing is a well known concept in computer programming, aiming to speed up programs by caching results of expensive function
+calls and re-using those cached results as to avoid repeating those expensive operations:
+
+Memoizing in React is primarily used for increasing rendering speed while decreasing rendering operations, caching a component’s render()
+result upon an initial render cycle, and re-using it given the same inputs (props, state, class properties, function variables).
+===
+react hooks
+It’s hard to reuse stateful logic between components
+
+With Hooks, you can extract stateful logic from a component so it can be tested independently and reused. Hooks allow you to reuse stateful
+ logic without changing your component hierarchy. This makes it easy to share Hooks among many components or with the community.
+
+Hooks let you split one component into smaller functions based on what pieces are related (such as setting up a subscription or fetching data),
+ rather than forcing a split based on lifecycle methods. You may also opt into managing the component’s local state with a reducer to make it
+ more predictable.
+
+ Hooks let you use more of React’s features without classes. Conceptually, React components have always been closer to functions. Hooks embrace
+  functions, but without sacrificing the practical spirit of React
+==
+7- How you implement Server Side Rendering or SSR?
+The reactjs provides the server-side rendering using 'react-dom/server' module.This module have renderToString() method to placed HTML string
+into the body as a response.
+
+==
+6- How to access child component properties in parent component?
+===
 
 Dom
 The DOM is an interface to an HTML document.
@@ -242,22 +329,31 @@ Javascript programs can modifyit to change  the content, structure, or styling o
 
 The DOM is an object-based representation of the source HTML document. I
 The object structure of the DOM is represented by what is called a “node tree”.
-
+===
 What is the Shadow DOM?
 
-The shadow DOM is a way of encapsulating the implementation of web components. Using the shadow DOM, you can hide the implementation details of a web component from the regular DOM tree. A popular example is the HTML5 slider input. While the regular DOM recognizes this as a simple <input/> tag, there is underlying HTML and CSS that make up the slide feature. This sub-tree of DOM nodes is hidden from the main DOM to encapsulate the implementation of the HTML5 slider. Additionally, the CSS properties for the slider are isolated from the rest of the DOM. This provides an isolated scope that prevents the component's styles from overriding other CSS properties defined elsewhere.
+The shadow DOM is a way of encapsulating the implementation of web components. Using the shadow DOM, you can hide
+the implementation details of a web component from the regular DOM tree. A popular example is the HTML5 slider input.
+ While the regular DOM recognizes this as a simple <input/> tag, there is underlying HTML and CSS that make up the slide
+ feature. This sub-tree of DOM nodes is hidden from the main DOM to encapsulate the implementation of the HTML5 slider.
+ Additionally, the CSS properties for the slider are isolated from the rest of the DOM. This provides an isolated scope
+ that prevents the component's styles from overriding other CSS properties defined elsewhere.
 
 The Difference?
-While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated scope for web components.
+While the shadow DOM and virtual DOM are seemingly similar in their creation of separate DOM instances, they are fundamentally
+different. The virtual DOM creates an additional DOM. The shadow DOM simply hides implementation details and provides isolated
+scope for web components.
 ====
 reactElement and ReactComponent
 
 What differs ReactComponent from ReactElement is - ReactComponents are stateful.
 A ReactElement is a light, stateless, immutable, virtual representation of a DOM Element.
 
-The biggest takeaway is that React elements are simply plain old JavaScript objects used to describe how the HTML for the component should look — there are no methods on the object, just data.
+The biggest takeaway is that React elements are simply plain old JavaScript objects used to describe how the HTML
+ for the component should look — there are no methods on the object, just data.
 
-key — the key property is used to uniquely identify specific React elements within an array of the same element types. You don’t have to provide a value for it, but if you do, React will be able to perform optimizations making the re-rendering process more efficient.
+key — the key property is used to uniquely identify specific React elements within an array of the same element types.
+You don’t have to provide a value for it, but if you do, React will be able to perform optimizations making the re-rendering process more efficient.
 props — the props property is exactly what you think it is: it’s a mapping of all the props and values passed down to child components.
 ref — the ref property is used to access the underlying DOM element associated with a rendered version of this React element.
 type
@@ -268,9 +364,12 @@ This is the reason of great React performance.
 =======
 lifting-state-up???
 
-When several components need to share the same changing data then it is recommended to lift the shared state up to their closest common ancestor. That means if two child components share the same data from its parent, then move the state to parent instead of maintaining local state in both of the child components.
+When several components need to share the same changing data then it is recommended to lift the shared state up to
+their closest common ancestor. That means if two child components share the same data from its parent,
+ then move the state to parent instead of maintaining local state in both of the child components.
 
-Answers ranging from “it allows to pass data between siblings” to “it allows you to have more pure-presentational components, which make re-usability easier” are preferred.
+Answers ranging from “it allows to pass data between siblings” to “it allows you to have more pure-presentational components,
+which make re-usability easier” are preferred.
 ====
 syntheticEvents???
 SyntheticEvent is a wrapper that forms part of React’s Event System.
@@ -296,7 +395,6 @@ string type
 
   ==========
 ====
-
 Component types
 
 Stateless Component/Presentational components/Dumb components/Functional Component —
@@ -331,23 +429,26 @@ renders
 componentDidUpdate
 UNSAFE_componentWillReceiveProps
 
-These lifecycle methods have often been misunderstood and subtly misused; furthermore, we anticipate that their potential misuse may be more problematic with async rendering. Because of this, we will be adding an “UNSAFE_” prefix to these lifecycles in an upcoming release. (Here, “unsafe” refers not to security but instead conveys that code using these lifecycles will be more likely to have bugs in future versions of React, especially once async rendering is enabled.)
+These lifecycle methods have often been misunderstood and subtly misused; furthermore, we anticipate that their potential misuse
+ may be more problematic with async rendering. Because of this, we will be adding an “UNSAFE_” prefix to these lifecycles in an
+  upcoming release. (Here, “unsafe” refers not to security but instead conveys that code using these lifecycles will be more likely
+     to have bugs in future versions of React, especially once async rendering is enabled.)
 
 Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
 constructor()
 
 Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
 UNSAFE_componentWillMount()
-getDerivedStateFromProps
+getDerivedStateFromProps()
 render()
 componentDidMount()
 
 Updating: Updating is the stage when the state of a component is updated and the application is
  repainted.
-shouldComponentUpdate
-UNSAFE_componentWillUpdate
-getSnapshotBeforeUpdate
-componentDidUpdate
+shouldComponentUpdate()
+UNSAFE_componentWillUpdate()
+getSnapshotBeforeUpdate()
+componentDidUpdate()
 
 Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
 componentWillUnmount()
@@ -356,26 +457,36 @@ componentDidCatch()
   What are the lifecycle methods of React?
 
   getDerivedStateFromProps:
-  Invoked right before calling render() and is invoked on every render. This exists for rare use cases where you need derived state. Worth reading if you need derived state.
+  Invoked right before calling render() and is invoked on every render. This exists for rare use cases where you need derived state.
+  Worth reading if you need derived state.
   componentDidMount: Executed after first rendering and here all AJAX requests, DOM or state updates, and set up event listeners should occur.
-  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
-  getSnapshotBeforeUpdate: Executed right before rendered output is committed to the DOM. Any value returned by this will be passed into componentDidUpdate(). This is useful to capture information from the DOM i.e. scroll position.
-  componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes. This will not fire if shouldComponentUpdate() returns false.
+  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component
+   doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it
+    allows you to prevent a re-render if component receives new prop.
+  getSnapshotBeforeUpdate: Executed right before rendered output is committed to the DOM. Any value returned by this will be passed into
+  componentDidUpdate(). This is useful to capture information from the DOM i.e. scroll position.
+  componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes. This will not fire if shouldComponentUpdate()
+  returns false.
   componentWillUnmount It will be used to cancel any outgoing network requests, or remove all event listeners associated with the component.
   Before 16.3
 
   componentWillMount: Executed before rendering and is used for App level configuration in your root component.
   componentDidMount: Executed after first rendering and here all AJAX requests, DOM or state updates, and set up event listeners should occur.
   componentWillReceiveProps: Executed when particular prop updates to trigger state transitions.
-  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true. If you are sure that the component doesn't need to render after state or props are updated, you can return false value. It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
-  componentWillUpdate: Executed before re-rendering the component when there are props & state changes confirmed by shouldComponentUpdate() which returns true.
+  shouldComponentUpdate: Determines if the component will be updated or not. By default it returns true.
+  If you are sure that the component doesn't need to render after state or props are updated, you can return false value.
+  It is a great place to improve performance as it allows you to prevent a re-render if component receives new prop.
+  componentWillUpdate: Executed before re-rendering the component when there are props & state changes confirmed by
+  shouldComponentUpdate() which returns true.
   componentDidUpdate: Mostly it is used to update the DOM in response to prop or state changes.
 
   ====
 
 Q12. What is PureComponent? When to use PureComponent over Component?
 PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for us.
- When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the other hand won't compare current props and state to next out of the box. Thus, the component will re-render by default whenever shouldComponentUpdate is called.
+ When props or state changes, PureComponent will do a shallow comparison on both props and state. Component on the
+ other hand wont compare current props and state to next out of the box.
+ Thus, the component will re-render by default whenever shouldComponentUpdate is called.
 When comparing previous props and state to next, a shallow comparison will check that primitives have the
 same value (eg, 1 equals 1 or that true equals true) and that the references are the same between more
 complex javascript values like objects and arrays.
@@ -385,14 +496,14 @@ Q16. What are controlled and uncontrolled components in React?
 This relates to stateful DOM components (form elements) and the difference:
 
 A Controlled Component is one that takes its current value through props and notifies changes through callbacks like onChange.
- A parent component “controls” it by handling the callback and managing its own state and passing the new values as props to the controlled component.
-You could also call this a “dumb component”.
+ A parent component “controls” it by handling the callback and managing its own state and passing the new values as props
+ to the controlled component. You could also call this a “dumb component”.
 
 A component that controls the input elements within the forms on subsequent user input is called Controlled Component, i.e,
  every state mutation will have an associated handler function.
 
 For a controlled component the value is passed in through props.
-
+xt out of the box
 An uncontrolled component would use state to control the value itself internally. This is the key difference
 
 A Uncontrolled Component is one that stores its own state internally, and you query the DOM using a ref to find its current value when you need it.
@@ -423,7 +534,6 @@ class NameForm extends React.Component {
     );
   }
 }
-
 ===
 How would you write an inline style in React?
 
@@ -431,14 +541,16 @@ For example:
 
 <div style={{ height: 10 }}>
 ===
+
 context
 
 Context provides a way to pass data through the component tree without having to pass props down manually at every level.
 
-Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language.
+Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user,
+theme, or preferred language.
 
 const MyContext = React.createContext(defaultValue);
-<MyContext.Provider value={/* some value }> in app.js
+<MyContext.Provider value={ some value }> in app.js;
 
 const ThemeContext = React.createContext('light');
 
@@ -451,7 +563,8 @@ static contextType = ThemeContext;
   }
 }
 
-Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+Context is primarily used when some data needs to be accessible by many components at different nesting levels.
+ Apply it sparingly because it makes component reuse more difficult.
 
 If you only want to avoid passing some props through many levels, component composition is often a simpler solution than context.
 
@@ -467,7 +580,8 @@ component composition
   <Avatar user={user} size={avatarSize} />
 </Link>
 
-One way to solve this issue without context is to pass down the Avatar component itself so that the intermediate components don’t need to know about the user or avatarSize props:
+One way to solve this issue without context is to pass down the Avatar component itself so that the intermediate components don’t need to
+ know about the user or avatarSize props:
 
 function Page(props) {
   const user = props.user;
@@ -499,16 +613,19 @@ handleClick = (id) => () => {
 ===
 What is the use of refs?
 
-The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when we need direct access to DOM element or an instance of a component.
+The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when we need
+direct access to DOM element or an instance of a component.
 ===
 What is JEST?
-
-Jest is a JavaScript unit testing framework made by Facebook based on Jasmine and provides automated mock creation and a jsdom environment. It's often used for testing React components.
+Jest is a JavaScript unit testing framework made by Facebook based on Jasmine and provides automated mock creation and
+ a jsdom environment. Its often used for testing React components.
 ==
-When rendering a list what is a key and what is it's purpose?
-Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
+When rendering a list what is a key and what is its purpose?
+Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array
+ to give the elements a stable identity. The best way to pick a key is to use a string that uniquely identifies a list item among its siblings.
 
-React uses the key to match children in the original tree with children in the subsequent tree. For example, adding a key to our inefficient example above can make the tree conversion efficient:
+React uses the key to match children in the original tree with children in the subsequent tree.
+For example, adding a key to our inefficient example above can make the tree conversion efficient:
 
 render () {
   return (
@@ -520,7 +637,9 @@ render () {
   )
 }
 
-Most often you would use IDs from your data as keys. When you don't have stable IDs for rendered items, you may use the item index as a key as a last resort. It is not recommend to use indexes for keys if the items can reorder, as that would be slow.
+Most often you would use IDs from your data as keys. When you dont have stable IDs for rendered items, you may use the item index as a key as a last
+resort.
+It is not recommend to use indexes for keys if the items can reorder, as that would be slow.
 ======
 Q31: How do you prevent the default behavior in an event callback in React?
 
@@ -530,7 +649,8 @@ Q32: How would you prevent a component from rendering in React?
 Return null from the render method.
 =====
 flux
-Flux is an architecture that Facebook uses internally when working with React. It is not a framework or a library. It is simply a new kind of architecture that complements React and the concept of Unidirectional Data Flow.
+Flux is an architecture that Facebook uses internally when working with React. It is not a framework or a library.
+It is simply a new kind of architecture that complements React and the concept of Unidirectional Data Flow.
 
 Actions - Helper methods that facilitate passing data to the Dispatcher
 Dispatcher - Receives actions and broadcasts payloads to registered callbacks
@@ -545,7 +665,8 @@ The reason is because of JSX 😃The code which looked like plain html to me is 
 The important thing to focus here is React.createElement and this is the reason why we need to import React at the start of any functional component.
 ==
 Q46: How to create refs?
-Refs are created using React.createRef() method and attached to React elements via the ref attribute. In order to use refs throughout the component, just assign the ref to the instance property with in constructor.
+Refs are created using React.createRef() method and attached to React elements via the ref attribute.
+In order to use refs throughout the component, just assign the ref to the instance property with in constructor.
 
 class MyComponent extends React.Component {
  constructor(props) {
@@ -583,7 +704,8 @@ A child class constructor cannot make use of this reference until super() method
  The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super()
   call is to access this.props in your child constructors.
 
-  In JavaScript, there’s a distinction between a “constructor function of an inheriting class” and all others. In an inheriting class, the corresponding constructor function is labelled with a special internal property [[ConstructorKind]]:"derived".
+  In JavaScript, there’s a distinction between a “constructor function of an inheriting class” and all others.
+  In an inheriting class, the corresponding constructor function is labelled with a special internal property [[ConstructorKind]]:"derived".
 
 The difference is:
 
@@ -690,16 +812,16 @@ If the React element was previously rendered into container, this will perform
 an update on it and only mutate the DOM as necessary to reflect the latest React element.
 ===
 What is the purpose of render method of react-dom?
-This method is used to render a React element into the DOM in the supplied container and return a reference to the component. If the React element was previously rendered into container,
+This method is used to render a React element into the DOM in the supplied container and return a reference to the component.
+If the React element was previously rendered into container,
  it will perform an update on it and only mutate the DOM as necessary to reflect the latest changes.
 
 ReactDOM.render(element, container[, callback])
 If the optional callback is provided, it will be executed after the component is rendered or updated.
 ===
-
 What are fragments?
 
-It's common pattern in React which is used for a component to return multiple elements.
+Its common pattern in React which is used for a component to return multiple elements.
  Fragments let you group a list of children without adding extra nodes to the DOM.
 
 render() {
@@ -811,7 +933,7 @@ We will explain these steps below in detail.
 Component is part of the React API. A Component is a class or function that describes
  part of a React UI. Container is an informal term for a React component that is connected
  to a redux store. Containers receive Redux state updates and dispatch actions, and
-  they usually don't render DOM elements; they delegate rendering to presentational child components.
+  they usually dont render DOM elements; they delegate rendering to presentational child components.
 ===
 How do you tell React to build in Production mode and what will that do?
 https://reactjs.org/docs/optimizing-performance.html
@@ -819,13 +941,16 @@ https://reactjs.org/docs/optimizing-performance.html
 When you want to build your app in production mode, you should use webpack production shortcut. Like this:
 
 webpack -p
+heroku git : remote -a "appname"
 ===
-Normally, when we want to update our component we just call setState with a new value by passing in an object to the setState function: this.setState({someField:someValue})
-But, often there is a need to update our component’s state using the current state of the component. Directly accessing this.state to update our component is not a reliable way to update our component’s next state. From the React documentation:
+Normally, when we want to update our component we just call setState with a new value by passing in an object
+to the setState function: this.setState({someField:someValue})
+But, often there is a need to update our component’s state using the current state of the component.
+Directly accessing this.state to update our component is not a reliable way to update our component’s next state. From the React documentation:
 
 Because this.props and this.state may be updated asynchronously, you should not rely on their values for calculating the next state.
 
-submit(){
+submit() {
    this.setState(function(prevState, props){
       return {showForm: !prevState.showForm}
    });
@@ -833,14 +958,12 @@ submit(){
 Passing in a function into setState instead of an object will give you a reliable value for your component’s state and props.
 
 =====
-
-
-
 18. What is React.cloneElement? And the difference with this.props.children?
 React.cloneElement clone and return a new React element  using the passed element as the starting point.
-The resulting element will have the original element's props with the new props merged
+The resulting element will have the original elements props with the new props merged
 in shallowly. New children will replace existing children. key and ref from the original
 element will be preserved.
+
 React.cloneElement only works if our child is a single React element.
 For almost everything {this.props.children} is the better solution. Cloning is useful
 in some more advanced scenarios, where a parent send in an element and the child component
@@ -853,7 +976,7 @@ this.props.children does is that it is used to display whatever you include betw
 jsx-
 JSX produces React “elements”.
 JSX is simply converting XML-like markup into JavaScript.
-asically, by using JSX you can write concise HTML/XML-like structures (e.g., DOM like tree structures)
+basically, by using JSX you can write concise HTML/XML-like structures (e.g., DOM like tree structures)
  in the same file as you write JavaScript code,
 Unlike the past, instead of putting JavaScript into HTML, JSX allows us to put HTML into JavaScript.
 React embraces the fact that rendering logic is inherently coupled with other UI logic:
@@ -887,7 +1010,8 @@ Less technical people can still understand and modify the required parts. CSS de
  designers will find JSX more familiar than JavaScript alone. I.e., HTML markup looks like HTML markup.
 You can leverage the full power of JavaScript in HTML and avoid learning or using a templating
 language. JSX is not a templating solution. It is a declarative syntax used to express a tree structure of UI components.
-By adding a JSX transformation step you'll find errors in your HTML you might otherwise miss.
+By adding a JSX transformation step you
+ll find errors in your HTML you might otherwise miss.
 JSX promotes the idea of inline styles. Which can be a good thing.
 
 conditional operator=
@@ -897,7 +1021,8 @@ if else
 Element Variables
 
 Inline If with Logical && Operator
-You may embed any expressions in JSX by wrapping them in curly braces. This includes the JavaScript logical && operator. It can be handy for conditionally including an element:
+You may embed any expressions in JSX by wrapping them in curly braces. This includes the JavaScript logical && operator.
+It can be handy for conditionally including an element:
 
 Inline If-Else with Conditional Operator
 
@@ -933,19 +1058,23 @@ componentWillMount
 aftre the componentWillMount immediately the renders functio executes,
 so if our api call is asynchronous, then we will not get updated data.
 
-This lifecycle is also called at the server side (if you are using SSR). In this case the external data won’t be used. So the api will be called twice unnecessarily.
+This lifecycle is also called at the server side (if you are using SSR). In this case the external data won’t be used.
+So the api will be called twice unnecessarily.
 
-The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated after React v17. After React v17 only the alias will work fine.
+The componentWillMount is considered legacy, alias UNSAFE_componentWillMount is introduced in React v16.3 and will be depricated
+after React v17. After React v17 only the alias will work fine.
 
 constructor
 
-Fetching data in constructor is considered to be a side effect and it is recommended to avoid that. As you all know we cannot call setState() in the constructor.
+Fetching data in constructor is considered to be a side effect and it is recommended to avoid that. As you all know we cannot call
+setState() in the constructor.
 
 A typical react constructor is used for two purpose -
 ➀ Initializing local state by assigning an object to this.state .
 ➁ Binding event handler methods to an instance.
 
-Warning: Can't call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the App component.
+Warning: Cant call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application.
+ Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the App component.
 
 ====
 react new features
@@ -954,10 +1083,13 @@ portal
 error boundary
 getDerivedStateFromError()
 static getDerivedStateFromProps
-Fiber: React 16.0 introduced a brand new reconciliation engine known as Fiber. This new engine is a generation leap over the previous generation of React’s core and is also responsible for the many new features that were introduced in this release. Fiber also introduces the concept of async rendering which results in more responsive apps because React prevents blocking the main thread. Fiber incorporates a smart scheduling algorithm that batches updates instead of synchronously re-
+Fiber: React 16.0 introduced a brand new reconciliation engine known as Fiber. This new engine is a generation leap over the previous
+generation of React’s core and is also responsible for the many new features that were introduced in this release.
+ Fiber also introduces the concept of async rendering which results in more responsive apps because React prevents blocking the main thread.
+  Fiber incorporates a smart scheduling algorithm that batches updates instead of synchronously re-
 
 React.memo() is the functional component solution to React.PureComponent as used in class components.
- It's a higher order component that is wrapped around functional components to create memoized components.
+ Its a higher order component that is wrapped around functional components to create memoized components.
 
 React.lazy() allows us to render dynamic imports as regular components.
 It takes a function that must call a dynamic import().
@@ -982,7 +1114,18 @@ function MyComponent() {
   );
 }
 ==
+hooks
+Hooks let you "hook into" the underlying lifecycle and state changes of a component within a functional component. More than that, they often also improve readability and organization of your components.
+===
+Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.Jan 2, 2016
 
+==
+binding function
+
+ https://reactjs.org/docs/handling-events.html
+ ==
+Redux-Saga is a library that aims to make application side effects (e.g., asynchronous actions such as fetching data) easier to handle and more efficient to execute. ... Like Redux-Thunk, Redux-Saga has access to the full Redux application state and it can dispatch Redux actions as wel
+==
 static method
 
 We can also assign a method to the class function itself, not to its "prototype". Such methods are called static.
@@ -991,5 +1134,50 @@ Usually, static methods are used to implement functions that belong to the class
 
 Static properties are used when we’d like to store class-level data, also not bound to an instance.
 
-As MDN describes it, “Static methods are called without instantiating their class and are also not callable when the class is instantiated. Static methods are often used to create utility functions for an application.” In other words, static methods have no access to data stored in specific objects.
-Since these methods operate on the class instead of instances of the class, they are called on the class. There are two ways to call static methods:
+As MDN describes it, “Static methods are called without instantiating their class and are also not callable when the class is instantiated.
+ Static methods are often used to create utility functions for an application.” In other words, static methods have no access to data stored
+  in specific objects.
+Since these methods operate on the class instead of instances of the class, they are called on the class. There are two ways to call
+static methods:
+
+===
+import React from 'react'
+import ListItem from './ListItem';
+
+export class Table extends React.Component {
+
+// Dummy data for the table
+state = {
+   data: tableData
+}
+
+getData = (rowData) => {
+// This is the row data from ChildComponent
+  console.log(rowData);
+}
+
+render(){
+     return(
+          <div>
+              {this.state.data.map(item => (
+                   <ListItem rowData={item} handleClick={this.getData}/>
+              ))}
+       </div>
+        );
+    }
+}
+
+
+import React from 'react';
+const ListItem = (props) => {
+ return(
+    // Using Props handleClick as callback function
+          <div onClick={()=> props.handleClick(props.rowData)}>
+                <p> {props.rowData.company} </p>
+                <p> {props.rowData.contact} </p>
+                <p> {props.rowData.country} </p>
+           </div>
+ );
+}
+export default ListItem;
+===

@@ -5,9 +5,9 @@ https://exploringjs.com/es6/ch_variables.html#sec_let-const-loop-heads
 The following table gives an overview of six ways in which variables can be declared in ES6 (inspired by a table by kangax):
 
  	Hoisting	Scope	Creates global properties
-var	Declaration	Function	Yes
-let	Temporal dead zone	Block	No
-const	Temporal dead zone	Block	No
+var       	Declaration	Function	Yes
+let	      Temporal dead zone	Block	No
+const	    Temporal dead zone	Block	No
 function	Complete	Block	Yes
 class	No	Block	No
 import	Complete	Module-global	No
@@ -27,15 +27,10 @@ Since objects are also variables, strict mode disallows the use of any object th
 Caveats – use strict in JavaScript must be declared at the beginning of a script, to be recognized. There are also strings and keywords that are not available when strict mode has been declared, such as:
 ======
 What is Javascript minification?
-
-
-
 Minification in Javascript is the process of removing all characters that are not necessary from the Javascript source code. That is why it is called “minification” – because all of the data that is not necessary to the functioning of the Javascript is removed from the source code, and therefore the Javascript is “minimized”. Even though these characters are removed from the Javascript source code, the functionality of the Javascript code does not change at all. So, your Javascript code will behave exactly the same even after it goes through the minification process. Code that has gone through the minification process is also known as “minified” code.
 
 
 The goal of obfuscation is to try to hide your original source code from other people
-
-
 
 Obfuscation in Javascript is also a process in which Javascript files are modified. But, in obfuscation, the files are modified to deliberately make them difficult to understand and read. The goal is to make it so that people can not reverse engineer Javascript source code and use it for their own projects, or whatever else. But, if someone is determined enough they can and will reverse engineer any obfuscated Javascript code so that they can see the original source code – obfuscation will just slow them down a bit. Remember that browsers have to be able to translate the obfuscated Javascript source code to it’s original form so that they can understand it. And if browsers can do it, then any individual can also do it with some effort.
 ===
@@ -46,7 +41,6 @@ var strng = "ProgrammerInterview is Great!";
 //the letter variable will hold a "P":
 var letter = strng.charAt(0);
 In the code above, the strng variable is set to a string – “ProgrammerInterview is Great!”. Then, the first letter of that string is retrieved and stored in the letter variable – this would be the letter “P”.
-
 Strings are not objects in Javascript
 You may or may not know that in Javascript, objects are composed of properties. Those properties are accessed by using the dot notation – the “.”. And, if there is a function defined inside an object, that function is called a method. A method is also considered to be a property of an object.
 
@@ -123,9 +117,14 @@ Session Cookies: Created for a specific session, these expire upon the terminati
  secure: a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).
      Read more about this option below.
  httpOnly: a boolean indicating whether the cookie is only to be sent over HTTP(S), and not made available to client JavaScript (true by default).
- sameSite: a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
- signed: a boolean indicating whether the cookie is to be signed (false by default). If this is true, another cookie of the same name with the .sig suffix appended will also be sent, with a 27-byte url-safe base64 SHA1 value representing the hash of cookie-name=cookie-value against the first Keygrip key. This signature key is used to detect tampering the next time a cookie is received.
- overwrite: a boolean indicating whether to overwrite previously set cookies of the same name (false by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
+ sameSite: a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict',
+ 'lax', or true (which maps to 'strict').
+ signed: a boolean indicating whether the cookie is to be signed (false by default). If this is true, another cookie of the same
+ name with the .sig suffix appended will also be sent, with a 27-byte url-safe base64 SHA1 value representing the hash of cookie-name=cookie-value
+  against the first Keygrip key. This signature key is used to detect tampering the next time a cookie is received.
+ overwrite: a boolean indicating whether to overwrite previously set cookies of the same name (false by default). If this is true,
+ all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header
+  when setting this cookie.
 .
 ====
 to check the given array is array or not-
@@ -137,12 +136,14 @@ Array.isArray(arrayList);
 ==
 
 DOM
-The W3C Document Object Model (DOM) is a platform and language-neutral interface that allows programs and scripts to dynamically access and update the content, structure, and style of a document."
-
+The W3C Document Object Model (DOM) is a platform and language-neutral interface that allows programs and scripts to
+ dynamically access and update the content, structure, and style of a document."
 ===
-
 Object.freeze()
-The Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed. In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
+The Object.freeze() method freezes an object. A frozen object can no longer be changed;
+freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing
+the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed.
+In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
 
 const obj = {
   prop: 42
@@ -163,45 +164,55 @@ function isInt(num) {
   return num % 1 === 0;
 }
 
-Q25: What language constructions do you use for iterating over object properties and array items? 	
-Add to PDF/md	 		 	Junior
+Q25: What language constructions do you use for iterating over object properties and array items?
 For objects:
 
-for loops - for (var property in obj) { console.log(property); }. However, this will also iterate through its inherited properties, and you will add an obj.hasOwnProperty(property) check before using it.
-Object.keys() - Object.keys(obj).forEach(function (property) { ... }). Object.keys() is a static method that will lists all enumerable properties of the object that you pass it.
-Object.getOwnPropertyNames() - Object.getOwnPropertyNames(obj).forEach(function (property) { ... }). Object.getOwnPropertyNames() is a static method that will lists all enumerable and non-enumerable properties of the object that you pass it.
+for loops - for (var property in obj) { console.log(property); }. However, this will also iterate through its inherited properties,
+and you will add an obj.hasOwnProperty(property) check before using it.
+Object.keys() - Object.keys(obj).forEach(function (property) { ... }). Object.keys() is a static method that will lists all enumerable
+ properties of the object that you pass it.
+Object.getOwnPropertyNames() - Object.getOwnPropertyNames(obj).forEach(function (property) { ... }).
+Object.getOwnPropertyNames() is a static method that will lists all enumerable and non-enumerable properties of the object that you pass it.
 For arrays:
 
-for loops - for (var i = 0; i < arr.length; i++). The common pitfall here is that var is in the function scope and not the block scope and most of the time you would want block scoped iterator variable. ES2015 introduces let which has block scope and it is recommended to use that instead. So this becomes: for (let i = 0; i < arr.length; i++).
-forEach - arr.forEach(function (el, index) { ... }). This construct can be more convenient at times because you do not have to use the index if all you need is the array elements. There are also the every and some methods which will allow you to terminate the iteration early.
-Most of the time, I would prefer the .forEach method, but it really depends on what you are trying to do. for loops allow more flexibility, such as prematurely terminate the loop using break or incrementing the iterator more than once per loop.
+for loops - for (var i = 0; i < arr.length; i++). The common pitfall here is that var is in the function scope and not
+ the block scope and most of the time you would want block scoped iterator variable. ES2015 introduces let which has block
+  scope and it is recommended to use that instead. So this becomes: for (let i = 0; i < arr.length; i++).
+forEach - arr.forEach(function (el, index) { ... }). This construct can be more convenient at times because you do not have
+ to use the index if all you need is the array elements. There are also the every and some methods which will allow you to
+  terminate the iteration early.
+Most of the time, I would prefer the .forEach method, but it really depends on what you are trying to do. for loops allow
+more flexibility, such as prematurely terminate the loop using break or incrementing the iterator more than once per loop.
 
 ==
-Q27: Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it? 	
-Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
+Q27: Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?
+Every script has access to the global scope, and if everyone uses the global namespace to define their variables, collisions
+ will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
 ==
 Load vs DOMContentLoaded
-Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those? 	
-Add to PDF/md	 		 	Junior
+Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
 The load event fires at the end of the document loading process.
 At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
 
-The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed, but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page to be loaded before initializing.
+The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed,
+ but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page
+ to be loaded before initializing.
 
 ==
-31: Explain the same-origin policy with regards to JavaScript. 	
-Add to PDF/md	 		 	Junior
-The same-origin policy prevents JavaScript from making requests across domain boundaries. An origin is defined as a combination of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access to sensitive data on another web page through that page's Document Object Model.
+31: Explain the same-origin policy with regards to JavaScript.
+The same-origin policy prevents JavaScript from making requests across domain boundaries. An origin is defined as a combination
+of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access to sensitive data on another
+web page through that pages Document Object Model.
 
 ==
-What's the difference between host objects and native objects? 	
+What's the difference between host objects and native objects?
 Add to PDF/md	 		 	Junior
-Native objects are objects that are part of the JavaScript language defined by the ECMAScript specification, such as String, Math, RegExp, Object, Function, etc.
+Native objects are objects that are part of the JavaScript language defined by the ECMAScript specification, such as String,
+ Math, RegExp, Object, Function, etc.
 
 Host objects are provided by the runtime environment (browser or Node), such as window, XMLHTTPRequest, etc.
 ==
-Is there anyway to force using strict mode in Node.js? 	
-Add to PDF/md	 		 	Junior
+Is there anyway to force using strict mode in Node.js?
 you can place
 
 "use strict";
@@ -211,9 +222,13 @@ node --use_strict
 ==
 transpilation in js
 
-Compiler: is an umbrella term to describe a program that takes source code written in one language and produce a (or many) output file in some other language. In practice we mostly use this term to describe a compiler such as gcc which takes in C code as input and produces a binary executable (machine code) as output.
+Compiler: is an umbrella term to describe a program that takes source code written in one language and produce a (or many) output file in
+ some other language. In practice we mostly use this term to describe a compiler such as gcc which takes in C code as input and produces
+ a binary executable (machine code) as output.
 
-Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code file and convert it to another source code file in some other language or a different version of the same language. The ouput is generally understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
+Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code
+file and convert it to another source code file in some other language or a different version of the same language. The ouput is generally
+understandable by a human. This output still has to go through a compiler or interpreter to be able to run on the machine.
 
 Some examples of transpilers:
 
@@ -221,8 +236,6 @@ Emscripten: Transpiles C/C++ to JavaScript
 Babel: Transpiles ES6+ code to ES5 (ES6 and ES5 are different versions or generations of
    the JavaScript language)
 ===
-
-
 The Object.is() method determines whether two values are the same value.
 ==
 compare two objects
@@ -252,25 +265,31 @@ return true;
 named vs anonymous function
 
 named fun are hoisted
-Named functions are also easier to reuse. In both ways (declaration and expression) when a function is named it makes it easier for us to consume it again for similar use cases.
+Named functions are also easier to reuse. In both ways -
+declaration and expression when a function is named it makes it easier for us to consume it again for similar use cases.
 
 anonymous function
-One of the more famous use cases for anonymous functions are Immediately Invokable Function Expressions (IIFE). IIFE, for short, is a pattern that uses an anonymous function which immediately creates and invokes the contents of the function.
+One of the more famous use cases for anonymous functions are Immediately Invokable Function Expressions IIFE.
+IIFE, for short, is a pattern that uses an anonymous function which immediately creates and invokes the contents of the function.
 
-The benefit of doing so is that you could use the function name in recursive situations as well as having the function name in your call stack for easier debugging.
+The benefit of doing so is that you could use the function name in recursive situations as well as having the function name
+ in your call stack for easier debugging.
 
-ES6 arrow functions are also known as lambda expressions. In Javascript, not all lambdas are anonymous, and not all anonymous functions are lambdas. Lambda functions are quite similar to anonymous functions but what truly makes them different is that lambda functions are functions used as data.
+ES6 arrow functions are also known as lambda expressions. In Javascript, not all lambdas are anonymous, and not all anonymous
+ functions are lambdas. Lambda functions are quite similar to anonymous functions but what truly makes them different is that lambda
+  functions are functions used as data.
 
 Arrow functions are best suited for non-method functions, and they cannot be used as constructors.
 ==
-
 purpose of symbols-
 
-Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows different modules to create properties that don't conflict with one another.
+Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows
+different modules to create properties that don't conflict with one another.
 Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have direct access to the Symbol.
 
 Symbols are a new primitive. Just like the number, string, and boolean primitives, Symbol have a function which can be used to create them.
-Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with the Symbol constructor in the following way:
+Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with
+ the Symbol constructor in the following way:
 
 Symbols can be used as Object keys
 Symbols can be used as a unique value.
@@ -292,20 +311,22 @@ A higher-order function is a function that can take another function as an argum
 that returns a function as a result.
 
 First Class Functions
-You may have heard it said that JavaScript treats functions as first-class citizens. What this means is that functions in JavaScript are treated as objects. They have the type Object, they can be assigned as the value of a variable, and they can be passed and returned just like any other reference variable.
+You may have heard it said that JavaScript treats functions as firstclass citizen What this means is that functions in
+ JavaScript are treated as objects. They have the type Object, they can be assigned as the value of a variable, and they can be
+ passed and returned just like any other reference variable.
 
-This native ability gives JavaScript special powers when it comes to functional programming. Because functions are objects, the language supports a very natural approach to functional programming. In fact, it’s so natural, that I’ll bet you’ve been using it without even thinking about it.
+This native ability gives JavaScript special powers when it comes to functional programming. Because functions are objects, the language
+supports a very natural approach to functional programming. In fact, it’s so natural, that I’ll bet you’ve been using it without even
+thinking about it.
 
 Taking Functions as Arguments
-If you’ve done much web-based JavaScript programming or front-end development, you’ve probably come across functions that use a callback. A callback is a function that gets executed at the end of an operation, once all of the other operations of been completed. Usually this callback function is passed in as the last argument in the function.
+If you’ve done much web-based JavaScript programming or front-end development, you’ve probably come across functions that use a callback.
+ A callback is a function that gets executed at the end of an operation, once all of the other operations of been completed. Usually this
+ callback function is passed in as the last argument in the function.
  Frequently, it’s defined inline as an anonymous function.
 ====
-
  What are the differences between ES6 class and ES5 function constructors?
 https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e
-
-
-
 object type in js-
 The object type refers to a compound value where you can set properties (named locations) that each hold their own values of any type.
 
@@ -316,16 +337,18 @@ what is coersion in js-
 
 *** https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/
 
-Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion.
+Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on).
+Any type, be it primitive or an object, is a valid subject for type coercion.
  To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
-
 Implicit vs. explicit coercion
 
 Type coercion can be explicit and implicit.
 
-When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called explicit type coercion (or type casting).
+When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value),
+it’s called explicit type coercion or type casting.
 
-Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called implicit type coercion. It usually happens when you apply operators to values of different types, like
+Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called
+implicit type coercion. It usually happens when you apply operators to values of different types, like
 
 String conversion
 String(123) // explicit
@@ -335,7 +358,7 @@ Boolean conversion
 To explicitly convert a value to a boolean apply the Boolean() function.
 Implicit conversion happens in logical context, or is triggered by logical operators ( || && !) .
 Boolean('')           // false
-Boolean(0)            // false     
+Boolean(0)            // false
 Boolean(-0)           // false
 Boolean(NaN)          // false
 Boolean(null)         // false
@@ -379,7 +402,8 @@ Here is a pseudo implementation of [[ToPrimitive]] method:
 
 [[ToPrimitive]] is passed with an input value and preferred type of conversion: Number or String. preferredType is optional.
 
-Both numeric and string conversion make use of two methods of the input object: valueOf and toString . Both methods are declared on Object.prototype and thus available for any derived types, such as Date, Array, etc.
+Both numeric and string conversion make use of two methods of the input object: valueOf and toString . Both methods are declared on
+Object.prototype and thus available for any derived types, such as Date, Array, etc.
 
 In general the algorithm is as follows:
 
@@ -391,15 +415,19 @@ In general the algorithm is as follows:
 
 4. If neither input.toString() nor input.valueOf() yields primitive, throw TypeError.
 
-Numeric conversion first calls valueOf (3) with a fallback to toString (2). String conversion does the opposite: toString (2) followed by valueOf (3).
+Numeric conversion first calls valueOf (3) with a fallback to toString (2). String conversion does the opposite: toString (2)
+ followed by valueOf (3).
 
-Most built-in types do not have valueOf, or have valueOf returning this object itself, so it’s ignored because it’s not a primitive. That’s why numeric and string conversion might work the same — both end up calling toString().
+Most built-in types do not have valueOf, or have valueOf returning this object itself, so it’s ignored because it’s not a primitive.
+That’s why numeric and string conversion might work the same — both end up calling toString().
 
-Different operators can trigger either numeric or string conversion with a help of preferredType parameter. But there are two exceptions: loose equality == and binary + operators trigger default conversion modes (preferredType is not specified, or equals to default). In this case, most built-in types assume numeric conversion as a default, except Date that does string conversion.
+Different operators can trigger either numeric or string conversion with a help of preferredType parameter. But there are two exceptions:
+ loose equality == and binary + operators trigger default conversion modes (preferredType is not specified, or equals to default). In this case, most built-in types assume numeric conversion as a default, except Date that does string conversion.
 ==
 unary operator-
 A unary operator is one that takes a single operand/argument and performs an operation.
-A unary operation is an operation with only one operand. This operand comes either before or after the operator. Unary operators are more efficient than standard JavaScript function calls. Additionally, unary operators can not be overridden, therefore their functionality is guaranteed.
+A unary operation is an operation with only one operand. This operand comes either before or after the operator.
+Unary operators are more efficient than standard JavaScript function calls. Additionally, unary operators can not be overridden, therefore their functionality is guaranteed.
 Operator	Explanation
 
 Unary plus (+)	Tries to convert the operand into a number
@@ -417,20 +445,25 @@ delete	Deletes specific index of an array or specific property of an object
 void	Discards a return value of an expression. *
 
 #diff betwn promises and callbacks
-The main difference between callbacks and promises is that with callbacks you tell the executing function what to do when the asynchronous task completes, whereas with promises the executing function returns a special object to you (the promise) and then you tell the promise what to do when the asynchronous task completes.
+The main difference between callbacks and promises is that with callbacks you tell the executing function what to do when
+ the asynchronous task completes, whereas with promises the executing function returns a special object to you (the promise)
+ and then you tell the promise what to do when the asynchronous task completes.
 
 So, in other words, an async function is itself an asynchronous task (that typically manages the execution of other asynchronous tasks).
 In fact, the main innovation of async/await is to allow to write asynchronous code with promises that “looks like” synchronous code
 
-
 43. XMLHttpRequest
 Use XMLHttpRequest (XHR) objects to interact with servers.
  You can retrieve data from a URL without having to do a full page refresh.
-  This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in AJAX programming.
+  This enables a Web page to update just part of a page without disrupting what the user is doing. XMLHttpRequest is used heavily in
+  AJAX programming.
 Despite its name, XMLHttpRequest can be used to retrieve any type of data, not just XML.
 
-If your communication needs to involve receiving event data or message data from a server, consider using server-sent events through the EventSource interface. For full-duplex communication, WebSockets may be a better choice.
-Asynchronous JavaScript + XML, while not a technology in itself, is a term coined in 2005 by Jesse James Garrett, that describes a "new" approach to using a number of existing technologies together, including HTML or XHTML, Cascading Style Sheets, JavaScript, The Document Object Model, XML, XSLT, and most importantly the XMLHttpRequest object.
+If your communication needs to involve receiving event data or message data from a server, consider using server-sent events through
+the EventSource interface. For full-duplex communication, WebSockets may be a better choice.
+Asynchronous JavaScript + XML, while not a technology in itself, is a term coined in 2005 by Jesse James Garrett, that describes a
+"new" approach to using a number of existing technologies together, including HTML or XHTML, Cascading Style Sheets, JavaScript,
+ The Document Object Model, XML, XSLT, and most importantly the XMLHttpRequest object.
 
 44. AJAX
 AJAX stands for Asynchronous JavaScript and XML.
@@ -498,7 +531,8 @@ W3C Recommendation
 46. JSON
 JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types (or any other serializable value).
 It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in some AJAX-style systems.
-JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages include code to generate and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension .json.
+JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages include code to generate
+and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension .json.
 Data types and syntax
 JSON's basic data types are:
 
@@ -510,14 +544,19 @@ Object:
 null:
 
 47. Objects
-objects in JavaScript may be defined as an unordered collection of related data, of primitive or reference types, in the form of “key: value” pairs. These keys can be variables or functions and are called properties and methods, respectively, in the context of an object.
+objects in JavaScript may be defined as an unordered collection of related data, of primitive or reference types, in the form of “key: value” pairs.
+These keys can be variables or functions and are called properties and methods, respectively, in the context of an object.
 
-An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer to that value. That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store the value.
+An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer to that value.
+That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store the value.
 
 48. class
-In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
-When an object is created by a constructor of the class, the resulting object is called an instance of the class, and the member variables specific to the object are called instance variables, to contrast with the class variables shared across the class.
-A JavaScript class is a type of function. Classes are declared with the class keyword. We will use function expression syntax to initialize a function and class expression syntax to initialize a class
+In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state
+ (member variables) and implementations of behavior (member functions or methods).
+When an object is created by a constructor of the class, the resulting object is called an instance of the class, and the member variables
+specific to the object are called instance variables, to contrast with the class variables shared across the class.
+A JavaScript class is a type of function. Classes are declared with the class keyword. We will use function expression syntax to initialize
+ a function and class expression syntax to initialize a class
 
 class mailer {
   constructor(name) {
@@ -540,6 +579,15 @@ Number
 BigInt
 String
 Symbol
+
+The latest ECMAScript(ES6) standard defines seven data types: Out of which six data types are Primitive(predefined)
+Numbers: 5, 6.5, 7 etc.
+
+String: “Hello GeeksforGeeks” etc.
+Boolean: Represent a logical entity and can have two values: true or false.
+Null: This type has only one value : null.
+Undefined: A variable that has not been assigned a value is undefined.
+Object: It is the most important data-type and forms the building blocks for modern JavaScript. We will learn about these data types in details in further articles.
 
 Object
  A Symbol is a unique and immutable primitive value and may be used as the key of an Object property (see below).
@@ -592,12 +640,14 @@ Symbols allow properties to be keyed by either string (as in ES5) or symbol. Sym
 The Symbol() function returns a value of type symbol  which is is unique,
 is incomplete as a constructor because it does not support the syntax "new Symbol()".
 A symbol value may be used as an identifier for object properties; this is the data type's only purpose.
-Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties; this is the data type's only purpose.+
+Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties;
+ this is the data type's only purpose.+
 
 
 2. proxy
 Proxies
-Proxies enable creation of objects with the full range of behaviors available to host objects. Can be used for interception, object virtualization, logging/profiling, etc.
+Proxies enable creation of objects with the full range of behaviors available to host objects.
+Can be used for interception, object virtualization, logging/profiling, etc.
 
 3. Map
 Map is a collection of keyed data items, just like an Object.
@@ -617,7 +667,8 @@ var a = new Map(); a.set('snc', "sdsds");console.log(a);
 VM184:1 Map(1) {"snc" => "sdsds"}
 
  has static properties that expose several members of built-in objects,
- has static methods that expose the global symbol registry, and resembles a built-in object class but is incomplete as a constructor because it does not support the syntax "new Symbol()".  
+ has static methods that expose the global symbol registry, and resembles a built-in object class but is
+ incomplete as a constructor because it does not support the syntax "new Symbol()".
 
 
 Iteration over Map
@@ -692,7 +743,7 @@ An object exists in the set while it is reachable from somewhere else.
 Like Set, it supports add, has and delete, but not size, keys() and no iterations.
 Being “weak”, it also serves as an additional storage. But not for an arbitrary data, but rather for “yes/no” facts. A membership in WeakSet may mean something about the object.
 
-For instance, we can use WeakSet to keep track of users that visited our site:  
+For instance, we can use WeakSet to keep track of users that visited our site:
 WeakMap and WeakSet are used as “secondary” data structures in addition to the “main” object storage. Once the object is removed from the main storage, if it is only found as the key of WeakMap or in a WeakSet, it will be cleaned up automatically.
 ====
 Asynchronous Module Definition(AMD)
@@ -706,13 +757,18 @@ Webpack
 Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files.
  Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
 
-Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example, if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js. Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
+Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example,
+ if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. '
+ And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js.
+ Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
 
-Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files, but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
+Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files,
+ but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
 
-Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins. For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
-WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code changes detected. It will expedite your development process by providing instant feedback of your code.
-
+Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins.
+For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
+WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code
+ changes detected. It will expedite your development process by providing instant feedback of your code.
 
 Genretaor :
 A generator is a function that can stop midway and then continue from where it stopped.
@@ -723,7 +779,7 @@ A generator is a function that produces a sequence of results instead of a singl
 function * generatorFunction() { // Line 1
   console.log('This will be executed first.');
   yield 'Hello, ';   // Line 2
-  console.log('I will be printed after the pause');  
+  console.log('I will be printed after the pause');
   yield 'World!';
 }
 const generatorObject = generatorFunction(); // Line 3
@@ -744,9 +800,9 @@ Better Async functionality
 Infinite Data Streams
 It’s possible to create generators that never end. Consider this example —
 Generators as observers
-Generators can also receive values using the next(val) function. Then the generator is called an observer since it wakes up when it receives new values. In a sense, it keeps observing for values and acts when it gets one. You can read more about this pattern here.
-
-
+Generators can also receive values using the next(val) function. Then the generator is called an observer since it wakes up when
+ it receives new values. In a sense, it keeps observing for values and acts when it gets one. You can read more about this pattern here.
+====
 IIFE
 An IIFE (Immediately Invoked Function Expression) is a JavaScript function that runs as soon as it is defined.
 
@@ -764,9 +820,11 @@ var result = (function () {
     return name;
 })();
 
-This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE (like in any other normal function) are not visible outside its scope.
-
-To intercept HTTP requests, use the webRequest API. This API enables you to add listeners for various stages of making an HTTP request. In the listeners, you can:
+This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE
+(like in any other normal function) are not visible outside its scope.
+=====
+To intercept HTTP requests, use the webRequest API. This API enables you to add listeners for various stages of making an HTTP request.
+In the listeners, you can:
 
 get access to request headers and bodies, and response headers
 cancel and redirect requests
@@ -778,17 +836,23 @@ Interceptors
 Interceptors have access to response/request before and after the route handler is called.
 
 Middleware
-Middleware is called only before the route handler is called. You have access to the response object, but you don't have the result of the route handler. They are basically express middleware functions.
+Middleware is called only before the route handler is called. You have access to the response object, but you don't have the result
+ of the route handler. They are basically express middleware functions.
 
 Exception Filters
 Exception Filters are called after the route handler and after the interceptors. They are the last place to make changes before a response goes out.
 
 Service workers
-Service workers essentially act as proxy servers that sit between web applications, the browser, and the network (when available). They are intended, among other things, to enable the creation of effective offline experiences, intercept network requests and take appropriate action based on whether the network is available, and update assets residing on the server. They will also allow access to push notifications and background sync APIs.
+Service workers essentially act as proxy servers that sit between web applications, the browser, and the network (when available).
+They are intended, among other things, to enable the creation of effective offline experiences, intercept network requests and take appropriate
+action based on whether the network is available, and update assets residing on the server. They will also allow access to push notifications
+ and background sync APIs.
 
 Service worker concepts and usageSection
 A service worker is an event-driven worker registered against an origin and a path.
-It takes the form of a JavaScript file that can control the web-page/site that it is associated with, intercepting and modifying navigation and resource requests, and caching resources in a very granular fashion to give you complete control over how your app behaves in certain situations (the most obvious one being when the network is not available).
+It takes the form of a JavaScript file that can control the web-page/site that it is associated with, intercepting and modifying navigation
+ and resource requests, and caching resources in a very granular fashion to give you complete control over how your app behaves in certain
+ situations (the most obvious one being when the network is not available).
 
 Service workers only run over HTTPS, for security reasons.
 Uses-
@@ -798,7 +862,8 @@ Receiving centralized updates to expensive-to-calculate data such as geolocation
 Client-side compiling and dependency management of CoffeeScript, less, CJS/AMD modules, etc. for development purposes.
 Hooks for background services.
 Custom templating based on certain URL patterns.
-Performance enhancements, for example pre-fetching resources that the user is likely to need in the near future, such as the next few pictures in a photo album.
+Performance enhancements, for example pre-fetching resources that the user is likely to need in the near future,
+such as the next few pictures in a photo album.
 =====
 Arrow Functions-
 Arrow functions make our code more concise, and simplify function scoping and the this keyword.
@@ -806,7 +871,8 @@ By using arrow functions, we avoid having to type the function keyword, return k
 Arrow functions do not have their own arguments object.
 Arrow functions do not have a prototype property.
 Arrow function expressions are ill suited as methods, and they cannot be used as constructors.
-he methods call(), apply(), and bind() will not change the value of this in arrow functions. (In fact, the value of this inside a function simply can’t be changed; it will be the same value as when the function was called.);
+the methods call(), apply(), and bind() will not change the value of this in arrow functions. (In fact, the value of this inside a function simply
+   can’t be changed; it will be the same value as when the function was called.);
 ES6 arrow functions can’t be bound to a this keyword, so it will lexically go up a scope, and use the value of this in the scope in which it was defined.
 
 Two factors influenced the introduction of arrow functions: the need for shorter functions and the behavior of the this keyword.
@@ -863,10 +929,7 @@ function Person(){
 }
 
 var p = new Person();
-
-
-
-
+======
 Object destructuring-
 The destructuring assignment syntax is a JavaScript expression that makes it possible to
  unpack values from arrays, or properties from objects, into distinct variables.
@@ -892,8 +955,7 @@ var b = 3;
 [a, b] = [b, a];
 console.log(a); // 3
 console.log(b); // 1
-
-
+=======
 JavaScript Object Literal
 
 A JavaScript object literal is a comma-separated list of name-value pairs wrapped in curly braces.
@@ -909,19 +971,22 @@ There should be no comma after the last name-value pair.[2]
 No need to invoke constructors directly or maintain the correct order of arguments passed to functions.
  Object literals are also useful for unobtrusive event handling; they can hold the data that would otherwise
   be passed in function calls from HTML event handler attributes.
-
-
+  ====
 Template literals
 Template literals are string literals allowing embedded expressions.
 You can use multi-line strings and string interpolation features with them.
-Template literals are enclosed by the back-tick (` `)  character instead of double or single quotes. Template literals can contain placeholders. These are indicated by the dollar sign and curly braces (${expression}).
-The expressions in the placeholders and the text between the back-ticks (` `) get passed to a function. The default function just concatenates the parts into a single string.
+Template literals are enclosed by the back-tick (` `)  character instead of double or single quotes. Template literals can contain placeholders.
+These are indicated by the dollar sign and curly braces (${expression}).
+The expressions in the placeholders and the text between the back-ticks (` `) get passed to a function. The default function just concatenates
+the parts into a single string.
 
 hey are unique because they provide a lot of features that normal strings built with quotes do not, in particular:
 
 they offer a great syntax to define multiline strings
 they provide an easy way to interpolate variables and expressions in strings
-they allow you to create DSLs with template tags (DSL means domain specific language, and it’s for example used in React by Styled Components, to define CSS for a component)
+they allow you to create DSLs with template tags (DSL means domain specific language, and it’s for example used in React by Styled Components,
+
+   to define CSS for a component)
 
 Expression interpolation
 In order to embed expressions within normal strings,
@@ -931,11 +996,12 @@ console.log(`Fifteen is ${a + b} and
 not ${2 * a + b}.`);
 
 In order to embed expressions within normal strings,
-
+====
 Tagged templates
 
 A more advanced form of template literals are tagged templates.
- Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions.
+ Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values.
+ The remaining arguments are related to the expressions.
  In the end, your function can return your manipulated string (or it can return something completely different as described in the next example).
  The name of the function used for the tag can be whatever you want.
 
@@ -946,7 +1012,9 @@ Question: What are the differences between null and undefined?
 Answer: JavaScript has two distinct values for nothing, null and undefined.
 
 undefined
-undefined means, value of the variable is not defined. JavaScript has a global variable undefined whose value is "undefined" and typeof undefined is also "undefined". Remember, undefined is not a constant or a keyword. undefined is a type with exactly one value: undefined. Assigning a new value to it does not change the value of the type undefined.
+undefined means, value of the variable is not defined. JavaScript has a global variable undefined whose value is "undefined" and
+ typeof undefined is also "undefined". Remember, undefined is not a constant or a keyword. undefined is a type with exactly one value: undefined.
+  Assigning a new value to it does not change the value of the type undefined.
 
 8 Ways to get Undefined:
 A declared variable without assigning any value to it.
@@ -958,21 +1026,25 @@ Anything that has been set to the value of undefined.
 Any expression in the form of void(expression)
 The value of the global variable undefined
 null
-null means empty or non-existent value which is used by programmers to indicate “no value”. null is a primitive value and you can assign null to any variable. null is not an object, it is a primitive value. For example, you cannot add properties to it. Sometimes people wrongly assume that it is an object, because typeof null returns "object".
+null means empty or non-existent value which is used by programmers to indicate “no value”. null is a primitive value and you can assign null
+ to any variable. null is not an object, it is a primitive value. For example, you cannot add properties to it. Sometimes people wrongly
+ assume that it is an object, because typeof null returns "object".
 ====
 Object.assign==
 Object.assign() Method
-Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and properties from one or more source objects to a target object.
-It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target. It returns the target object which has properties and values copied from the source object.
+Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and
+properties from one or more source objects to a target object.
+It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target. It returns the target object
+which has properties and values copied from the source object.
 Object.assign() does not throw on null or undefined source values.
 Applications:
 
 Object.assign() is used for cloning an object.
 Object.assign() is used to merge object with same properties.
 
-
 For Of  vs For in
-Both for..of and for..in statements iterate over lists; the values iterated on are different though, for..in returns a list of keys on the object being iterated, whereas for..of returns a list of values of the numeric properties of the object being iterated.
+Both for..of and for..in statements iterate over lists; the values iterated on are different though, for..in returns a
+list of keys on the object being iterated, whereas for..of returns a list of values of the numeric properties of the object being iterated.
 
 Another distinction is that for..in operates on any object; it serves as a way to inspect properties on this object.
 for..of on the other hand, is mainly interested in values of iterable objects.
@@ -986,17 +1058,23 @@ Let’s first take a look at the definitions on MDN:
 forEach() — executes a provided function once for each array element.
 map() — creates a new array with the results of calling a provided function on every element in the calling array.
 
-Well, the forEach() method doesn’t actually return anything (undefined). It simply calls a provided function on each element in your array. This callback is allowed to mutate the calling array.
-Meanwhile, the map() method will also call a provided function on every element in the array. The difference is that map() utilizes return values and actually returns a new Array of the same size.
+Well, the forEach() method doesn’t actually return anything (undefined). It simply calls a provided
+function on each element in your array. This callback is allowed to mutate the calling array.
+Meanwhile, the map() method will also call a provided function on every element in the array. The difference is that map()
+utilizes return values and actually returns a new Array of the same size.
 
 ForEach muteate the array where map not.
 
-hy forEach? Ease of Use and Readability.
-To me, the most compelling case for using .forEach() in favor of a for loop is that it’s easier. Even though it’s the same number of lines, there’s less setup. With a regular for loop you have three steps:
+why forEach? Ease of Use and Readability.
+To me, the most compelling case for using .forEach() in favor of a for loop is that it’s easier. Even though it’s the same number
+ of lines, there’s less setup. With a regular for loop you have three steps:
 
-When using the .forEach() you pass an individual function with it’s own scope. In a for loop you’re polluting whatever scope you place the loop in. Most, if not all, of the time, this is a bad thing.
+When using the .forEach() you pass an individual function with it’s own scope. In a for loop you’re polluting whatever scope
+you place the loop in. Most, if not all, of the time, this is a bad thing.
 
-.forEach() is great you need to execute a function for each individual element in an array. Good practice is that you should use .forEach() when you can’t use other array methods to accomplish your goal. I know this may sound vague, but .forEach() is a generic tool… only use it when you can’t use a more specialized tool.
+.forEach() is great you need to execute a function for each individual element in an array. Good practice is that you should use
+.forEach() when you can’t use other array methods to accomplish your goal. I know this may sound vague, but .forEach() is a generic
+tool… only use it when you can’t use a more specialized tool.
 
 When to use map?
 .map() when you want to transform elements in an array.
@@ -1010,31 +1088,27 @@ When to use reduce?
 Now lets talk about the difference between those methods First of all ,all of them can be used to
 check if the DOM is fully loaded and ready to be manipulated by your JavaScript code .
 
-Secondly , $(document).ready() and $(window).load() are jQuery methods and not pure JavaScript methods so to use them you need to include jQuery library .But window.onload is a pure JavaScript method that you can use without any external libraries
+Secondly , $(document).ready() and $(window).load() are jQuery methods and not pure JavaScript methods so to use them you
+need to include jQuery library .But window.onload is a pure JavaScript method that you can use without any external libraries
 
 Thirdly ,the most important difference is that
 
-$(document).ready() uses either the modern browser API event DOMContentLoaded to check if your dom is ready or readyState document variable in older browsers which makes it the best candidate if you need to check if your DOM is fully loaded and ready .On the contrary $(window).load() and window.onload are created to check if the page and its resources are loaded ,resources are images ,texts,css styles and stylesheets and JavaScript files so if you just want to check if the DOM is ready it may be slower than $(document).ready() .
+$(document).ready() uses either the modern browser API event DOMContentLoaded to check if your dom is ready or readyState document
+variable in older browsers which makes it the best candidate if you need to check if your DOM is fully loaded and ready .
+On the contrary $(window).load() and window.onload are created to check if the page and its resources are loaded ,resources are images ,
+texts,css styles and stylesheets and JavaScript files so if you just want to check if the DOM is ready it may be slower than $(document).ready() .
 
-The ready event occurs after the HTML document has been loaded, while the onload event occurs later, when all content (e.g. images) also has been loaded.
+The ready event occurs after the HTML document has been loaded, while the onload event occurs later, when all content (e.g. images)
+ also has been loaded.
 
-The onload event is a standard event in the DOM, while the ready event is specific to jQuery. The purpose of the ready event is that it should occur as early as possible after the document has loaded, so that code that adds functionality to the elements in the page doesn't have to wait for all content to load.
-
-MEta tags
-Metadata is data (information) about data.
-
-The <meta> tag provides metadata about the HTML document. Metadata will not be displayed on the page, but will be machine parsable.
-
-Meta elements are typically used to specify page description, keywords, author of the document, last modified, and other metadata.
-
-The metadata can be used by browsers (how to display content or reload page), search engines (keywords), or other web services.
-
-HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page), through the <meta> tag (See "Setting The Viewport" example below).
-
+The onload event is a standard event in the DOM, while the ready event is specific to jQuery.
+The purpose of the ready event is that it should occur as early as possible after the document has loaded, so that code that adds
+functionality to the elements in the page doesn't have to wait for all content to load.
+===
 Strict mode in JavaScript
 - Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
- - This strict context prevents certain actions from being taken and throws more exceptions.
-  - The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
+- This strict context prevents certain actions from being taken and throws more exceptions.
+- The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
 - Strict mode eliminates some JavaScript silent errors by changing them to throw errors.
 - Strict mode fixes mistakes that make it difficult for JavaScript engines to perform optimizations:
  - strict mode code can sometimes be made to run faster than identical code that’s not strict mode.
@@ -1047,7 +1121,8 @@ Also note you can apply "strict mode" to the whole file... Or you can use it onl
 function
 
 typeof null === object why-
- In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was 0. null was represented as the NULL pointer (0x00 in most platforms). Consequently, null had 0 as type tag, hence the "object" typeof return value.
+ In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was 0.
+  null was represented as the NULL pointer (0x00 in most platforms). Consequently, null had 0 as type tag, hence the "object" typeof return value.
 
 This is a bug and one that unfortunately can’t be fixed, because it would break existing code. Let’s explore the history of this bug.
 
@@ -1056,27 +1131,31 @@ why function has a type function not objects
 You can logically think of Function as a subclass of Object. It has all the methods of Object plus
  some more that are specific to a function (such as .bind(), .call(), .apply(), etc...).
 
-It is extremely useful that Function does report its own type so you can easily check if a property is callable as a function and perhaps that is the main reason why it was done this way.
+It is extremely useful that Function does report its own type so you can easily check if a property is callable as a function and perhaps
+ that is the main reason why it was done this way.
 
 why typeof NaN is number
-The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is, in computing, NaN is actually technically a numeric data type. However, it is a numeric data type whose value cannot be represented using actual numbers.
+The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is, in computing, NaN is actually technically
+ a numeric data type. However, it is a numeric data type whose value cannot be represented using actual numbers.
 
 ...constant cannot change through re-assignment
 ...constant cannot be re-declared
 
-When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned, you're just adding to the "list" that the constant points to.
-
-Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
+When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned,
+you're just adding to the "list" that the constant points to.
+====
 
 Gulp
-Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more. This text discusses gulp, a build tool for automating these tasks.
+Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more.
+This text discusses gulp, a build tool for automating these tasks.
 Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks.
  At a high level, gulp reads files as streams and pipes the streams to different tasks.
 These tasks are code-based and use plugins.
 The tasks modify the files, building source files into production files.
 
-
-for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying it gulp does it for you.
+for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used
+for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying
+it gulp does it for you.
 
 - Compile Sass, LESS files for you
 
@@ -1163,11 +1242,13 @@ With bubbling, the event is first captured and handled by the innermost element 
 
 With capturing, the event is first captured by the outermost element and propagated to the inner elements.
 
-By default javascript is set the event propagation to Bubble . If we want to use capture we have to set the 3rd argument in the addEventListener function to true.
+By default javascript is set the event propagation to Bubble . If we want to use capture we have to set the 3rd argument in
+the addEventListener function to true.
 
 The capturing phase is used very rarely, usually we handle events on bubbling. And there’s a logic behind that.
 
-In real world, when an accident happens, local authorities react first. They know best the area where it happened. Then higher-level authorities if needed.
+In real world, when an accident happens, local authorities react first. They know best the area where it happened.
+Then higher-level authorities if needed.
 
 to stop bubbling
 The method for it is event.stopPropagation().
@@ -1196,14 +1277,17 @@ Browser has following main components
 
 the first step  starts with the The network layer.
 Network layer Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
-The browser initially looks for any cache availability on local memory for requested URLs. Otherwise, the network layer creates an HTTP packet with a domain name for requesting a web resource over the internet.
+The browser initially looks for any cache availability on local memory for requested URLs. Otherwise, the network layer creates an HTTP
+ packet with a domain name for requesting a web resource over the internet.
 
-This step involves accepting data from the network layer and feed the display subsystems. Render engine, JS engine and UI backend subsystems are part of the process.
+This step involves accepting data from the network layer and feed the display subsystems. Render engine, JS engine and UI backend subsystems
+ are part of the process.
 The rendering engine subsystem processes data from the network layer and displays web content on the screen.
 
 With rendering engines, web resources are parsed. For example, a HTML parser converts a HTML template into an object called the DOM tree.
 Stylesheets are parsed to generate style rules for both external and inline style elements
-A render tree is an object that combines both the parsed HTML and CSS. It is generated with visual instructions and attributes to render elements on the user’s screen.
+A render tree is an object that combines both the parsed HTML and CSS. It is generated with visual instructions and attributes to
+ render elements on the user’s screen.
 Once the render tree is constructed, it undergoes layout and painting processes, and displays the output on the screen.
 The layout process includes calculating dimensions and exact coordinates where each element should appear on the viewport.
 
@@ -1212,13 +1296,17 @@ The painting process includes filing the layout with style attributes like color
 User Interface and Browser Engine are responsible for data presentation and handling user navigation.
 
 The JavaScript engine
-This is the subsystem for parsing JavaScript code to machine code and then executing it. These JS engines can be standard interpreters or JIT (just in time) compilers.
+This is the subsystem for parsing JavaScript code to machine code and then executing it. These JS engines can be standard interpreters
+or JIT (just in time) compilers.
 
 Browser Engine vs Render Engine
-The Browser Engine: The browser engine works as a bridge between the User interface and the rendering engine. According to the inputs from various user interfaces, it queries and manipulates the rendering engine.
-The Rendering Engine: The rendering engine, as the name suggests is responsible for rendering the requested web page on the browser screen. The rendering engine interprets the HTML, XML documents and images that are formatted using CSS and generates the layout that is displayed in the User Interface. However, using plugins or extensions, it can display other types data also. Different browsers user different rendering
-
-
+The Browser Engine: The browser engine works as a bridge between the User interface and the rendering engine. According to the inputs from
+various user interfaces, it queries and manipulates the rendering engine.
+The Rendering Engine: The rendering engine, as the name suggests is responsible for rendering the requested web page on the browser
+screen. The rendering engine interprets the HTML, XML documents and images that are formatted using CSS and generates the layout that is
+displayed in the User Interface. However, using plugins or extensions, it can display other types data also. Different browsers user different
+rendering
+===
 Browser Storages
 
 Indexdb
@@ -1243,9 +1331,12 @@ db.createObjectStore(name[, keyOptions]);
 
 
 webapps
-Web apps, on the other hand, are accessed via the internet browser and will adapt to whichever device you’re viewing them on. They are not native to a particular system, and don’t need to be downloaded or installed. Due to their responsive nature, they do indeed look and function a lot like mobile apps — and this is where the confusion arises.
+Web apps, on the other hand, are accessed via the internet browser and will adapt to whichever device you’re viewing them on.
+ They are not native to a particular system, and don’t need to be downloaded or installed. Due to their responsive nature, they do
+  indeed look and function a lot like mobile apps — and this is where the confusion arises.
 
-Mobile apps have the advantage of being faster and more efficient, but they do require the user to regularly download updates. Web apps will update themselves.
+Mobile apps have the advantage of being faster and more efficient, but they do require the user to regularly download updates. Web apps will
+ update themselves.
 
  While standard web apps lack some of the functionality that mobile apps can offer, progressive web apps fall somewhere in between.
 
@@ -1253,23 +1344,35 @@ Mobile apps have the advantage of being faster and more efficient, but they do r
 
  When launched from the user’s home screen, service workers enable a Progressive Web App to load instantly, regardless of the network state.
 
- A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and how to respond to resource requests. By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable experience for your users.
+ A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and how to respond to resource requests.
+ By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable experience for your users.
 
  Fast
 
  Progressive Web Apps are installable and live on the user's home screen, without the need for an app store. They offer an immersive full screen experience with help from a web app manifest file and can even re-engage users with web push notifications.
 
  What is SQL Injection (SQLi) and How to Prevent It
-SQL Injection (SQLi) is a type of an injection attack that makes it possible to execute malicious SQL statements. These statements control a database server behind a web application. Attackers can use SQL Injection vulnerabilities to bypass application security measures. They can go around authentication and authorization of a web page or web application and retrieve the content of the entire SQL database. They can also use SQL Injection to add, modify, and delete records in the database.
+SQL Injection (SQLi) is a type of an injection attack that makes it possible to execute malicious SQL statements. These statements control a
+ database server behind a web application. Attackers can use SQL Injection vulnerabilities to bypass application security measures.
+ They can go around authentication and authorization of a web page or web application and retrieve the content of the entire SQL database.
+  They can also use SQL Injection to add, modify, and delete records in the database.
 
 HTTP VS HTTPS
 
 What is HTTP?#
-HTTP stands for Hypertext Transfer Protocol. When you enter HTTP:// in your address bar in front of the domain, it tells the browser to connect over HTTP.
-HTTP uses TCP (Transmission Control Protocol), generally over port 80, to send and receive data packets over the web. To put it simply it is a protocol that’s used by a client and server which allows you to communicate with other websites. The client sends a request message to a HTTP server (after the TCP handshake) which hosts a website, the server then replies with the response message. The response message contains completion status information, such as “HTTP/1.1 200 OK”.
+HTTP stands for Hypertext Transfer Protocol. When you enter HTTP:// in your address bar in front of the domain, it tells the browser to
+connect over HTTP.
+HTTP uses TCP (Transmission Control Protocol), generally over port 80, to send and receive data packets over the web.
+To put it simply it is a protocol that’s used by a client and server which allows you to communicate with other websites.
+ The client sends a request message to a HTTP server (after the TCP handshake) which hosts a website, the server then replies
+ with the response message. The response message contains completion status information, such as “HTTP/1.1 200 OK”.
 
 What is HTTPS?#
-HTTPS stands for Hypertext Transfer Protocol Secure (also referred to as HTTP over TLS or HTTP over SSL). When you enter HTTPS:// in your address bar in front of the domain, it tells the browser to connect over HTTPS. Generally sites running over HTTPS w0l have a redirect in place so even if you type in HTTP:// it will redirect to deliver over a secured connection. HTTPS also uses TCP (Transmission Control Protocol) to send and receive data packets, but it does so over port 443, within a connection encrypted by Transport Layer Security (TLS).
+HTTPS stands for Hypertext Transfer Protocol Secure (also referred to as HTTP over TLS or HTTP over SSL).
+ When you enter HTTPS:// in your address bar in front of the domain, it tells the browser to connect over HTTPS. Generally sites running over
+  HTTPS w0l have a redirect in place so even if you type in HTTP:// it will redirect to deliver over a secured connection. HTTPS also uses TCP
+  (Transmission Control Protocol) to send and receive data packets, but it does so over port 443, within a connection encrypted by Transport
+  Layer Security (TLS).
 
 diff
 HTTP URL in your browser’s address bar is HTTP:// and the HTTPS URL is HTTPS://.
@@ -1277,13 +1380,17 @@ HTTP is unsecured while HTTPS is secured.
 HTTP sends data over port 80 while HTTPS uses port 443.
 HTTP operates at application layer, while HTTPS operates at transport layer.
 No SSL certificates are required for HTTP, with HTTPS it is required that you have an SSL certificate and it is signed by a CA.
-HTTP doesn’t require domain validation, where as HTTPS requires at least domain validation and certain certificates even require legal document validation.
+HTTP doesn’t require domain validation, where as HTTPS requires at least domain validation and certain certificates even require legal
+ document validation.
 No encryption in HTTP, with HTTPS the data is encrypted before sending.
 
 
 jsonp
-Say you're on domain example.com, and you want to make a request to domain example.net. To do so, you need to cross domain boundaries, a no-no in most of browserland.
+Say you're on domain example.com, and you want to make a request to domain example.net. To do so, you need to cross domain boundaries,
+a no-no in most of browserland.
 
-The one item that bypasses this limitation is <script> tags. When you use a script tag, the domain limitation is ignored, but under normal circumstances, you can't really do anything with the results, the script just gets evaluated.
+The one item that bypasses this limitation is <script> tags. When you use a script tag, the domain limitation is ignored, but
+under normal circumstances, you can't really do anything with the results, the script just gets evaluated.
 
-Enter JSONP. When you make your request to a server that is JSONP enabled, you pass a special parameter that tells the server a little bit about your page. That way, the server is able to nicely wrap up its response in a way that your page can handle.
+Enter JSONP. When you make your request to a server that is JSONP enabled, you pass a special parameter that tells the server a
+ little bit about your page. That way, the server is able to nicely wrap up its response in a way that your page can handle.

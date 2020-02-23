@@ -1,10 +1,13 @@
 component-
 Components are the most basic building block of an UI in an Angular application.
 A component controls a patch of screen called a view.
-You define a component's application logic—what it does to support the view—inside a class. The class interacts with the view through an API of properties and methods.
+You define a component's application logic—what it does to support the view—inside a class. The class interacts with the view through an API
+ of properties and methods.
  An Angular application is a tree of Angular components.
-  Angular components are a subset of directives. Unlike directives, components always have a template and only one component can be instantiated per an element in a template.
-Components are defined using the @component decorator. A component has a selector, template, style and other properties, using which it specifies the metadata required to process the component.
+  Angular components are a subset of directives. Unlike directives, components always have a template and only one component can be instantiated
+  per an element in a template.
+Components are defined using the @component decorator. A component has a selector, template, style and other properties, using which it specifies
+the metadata required to process the component.
 
 
 Directives-
@@ -51,7 +54,7 @@ so selector is just provide the name of the component which is being called by i
 community. It aims to simplify both the development and the testing of such applications
  by providing a framework for client-side model–view–controller (MVC) and model–view–viewmodel (MVVM)
  architectures.
- The AngularJS framework works by first reading the Hypertext Markup Language (HTML) page,
+ The AngularJS framework works by first reading the Hypertext Markup Language page,
   which has additional custom HTML attributes embedded into it. Angular interprets those attributes as
   directives to bind input or output parts of the page to a model that is represented by standard
   JavaScript variables. The values of those JavaScript variables can be manually set within the code,
@@ -84,7 +87,8 @@ Reactive forms are also known as model-driven forms. This means that the HTML co
 depending on the code in the component.
 
 What Are Angular Template-Driven Forms?
-Template-driven forms are driven by derivatives in the template. This means that you will see derivatives such as ngModel in the template as opposed to the code.
+Template-driven forms are driven by derivatives in the template. This means that you will see derivatives such as ngModel in the
+ template as opposed to the code.
 
 Differences Between Template-Driven and Reactive Forms
 Template-driven forms use the FormsModule, while reactive forms use the ReactiveFormsModule.
@@ -107,7 +111,8 @@ Complex forms with more number of fields.
 Multiple complex validation are there. Custom validations are required
 Require JSON structure to be send with the values in the form.
 
-Template Driven Form : It can be used when using simple forms. Like login page. With the two way data binding. We can simply assign value to variable from ui and vice versa.
+Template Driven Form : It can be used when using simple forms. Like login page. With the two way data binding. We can simply assign
+value to variable from ui and vice versa.
 
 Simple example is if we are givng two way binding for the below input.
 
@@ -160,7 +165,8 @@ RULE 2: Whenever you find yourself saying something like X has many Y, that is w
 know you are looking at a possible FormArray of Y inside X(where X is almost always a FormGroup).
 
 7. What is Traceur compiler?
-Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
+Traceur compiler is a Google project. It compiles ECMAScript Edition 6 (ES6) (including classes, generators and so on) code on the fly to regular
+ Javascript (ECMAScript Edition 5 [ES5]) to make it compatible for the browser.
 Traceur itself is written in ES6, compiled to ES5.
 
 
@@ -207,7 +213,8 @@ getItems(): Observable> {
 
 8. Observables
 
-As seen above ... an Observable is a stream of events or data. They are often returned from Angular methods, such as the http.get and the myinputBox.valueChanges.
+As seen above ... an Observable is a stream of events or data. They are often returned from Angular methods, such as the http.get and the myinputBox.
+valueChanges.
 Without a subscribe (or an async pipe) the stream won't start emitting values.
 
 Angular makes use of observables as an interface to handle a variety of common asynchronous operations.
@@ -380,9 +387,11 @@ export class ChildTestComponentComponent implements OnInit {
 11. factories and services
 
 Services -
-Singleton objects in Angular that get instantiated only once during the lifetime of an application are called services. An Angular service contains methods that maintain the data throughout the life of an application.
+Singleton objects in Angular that get instantiated only once during the lifetime of an application are called services. An Angular service
+contains methods that maintain the data throughout the life of an application.
 
-The primary intent of an Angular service is to organize as well as share business logic, models, or data and functions with various components of an Angular application.
+The primary intent of an Angular service is to organize as well as share business logic, models, or data and functions with various
+components of an Angular application.
 
 The functions offered by an Angular service can be invoked from any Angular component, such as a controller or directive.
 =====
@@ -448,7 +457,7 @@ An injector creates dependencies, and maintains a container of dependency instan
 The DI in Angular basically consists of three things:
 
 Injector - The injector object that exposes APIs to us to create instances of dependencies.
-Provider - A provider is like a recipe that tells the injector how to create an instance of a  
+Provider - A provider is like a recipe that tells the injector how to create an instance of a
          dependency. A provider takes a token and maps that to a factory function that creates an
          object.
 Dependency - A dependency is the type of which an object should be created.
@@ -477,7 +486,7 @@ When you add a service provider to the root application injector, it’s availab
  custom pipes
  import { Pipe, PipeTransform } from '@angular/core';
 
-/*
+
   * Raise the value exponentially
  * Takes an exponent argument that defaults to 1.
  * Usage:
@@ -515,7 +524,9 @@ Provider
 
 
 18. What is a singleton pattern and where we can find it in Angular?
-Singleton pattern in Angular is a great pattern which restricts a class from being used more than once. Singleton pattern in Angular is majorly implemented on dependency injection and in the services. Thus, if you use ‘new Object()’ without making it a singleton, then two different memory locations will be allocated for the same object. Whereas, if the object is declared as a singleton, in case it already exists in the memory then simply it will be reused.
+Singleton pattern in Angular is a great pattern which restricts a class from being used more than once. Singleton pattern in Angular is
+majorly implemented on dependency injection and in the services. Thus, if you use ‘new Object()’ without making it a singleton, then two different
+ memory locations will be allocated for the same object. Whereas, if the object is declared as a singleton, in case it already exists in the memory then simply it will be reused.
 
 19. What do you understand by REST in Angular?
 

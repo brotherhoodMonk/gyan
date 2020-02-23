@@ -157,7 +157,8 @@ slice- doesnt modify the array
 arr.slice(begin, end)
 the array contains the begin element but not the end element. less than last element
 
-
+The slice() method returns a shallow copy of a portion of an array into a new array object selected
+from begin to end (end not included) where begin and end represent the index of items in that array. The original array will not be modified.
 
 8. pop
 remove last element
@@ -364,6 +365,7 @@ output: abcxyz
  Splits a string into many according to the specified delimiter,
 and returns an array containing each element. The optional “limit” is an integer that lets
  you specify the maximum number of elements to return.
+
 15.
 new Date(year, month, date, hours, minutes, seconds, ms)
 milisecond count = This date and time is called the Unix epoch, which is the predominant base value for computer-recorded date and time values.
@@ -446,6 +448,7 @@ array.findIndex(function(element, index, arr), thisValue)
  Return value
  This function returns the index value of the first element that satisfies the given condition.
   If no element satisfies the condition then it returns -1
+
  JavaScript | Array fill() function
 
 Array.fill() function is used to fill the array with a given static value. The value can be
