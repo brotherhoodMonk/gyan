@@ -1,0 +1,41 @@
+t0 = performance.now();
+
+fillarray
+
+const a = new Array(100).fill('test');
+
+Big o
+
+when we grow bigger and bigger with our input
+how much does the alg or fun slows down
+
+If the list of elem increases how many operation that we havve to do
+
+ O(n) => linear  Time (same input - same no of operation like forEach)
+
+ O(1) (arr) => {console.log(arr[0])}
+&&
+
+
+(arr) => {
+  console.log(arr[0])
+  console.log(arr[1])
+}
+
+
+ for the nested array ..we multiply so - it becomes - O(n * n) => O(n^2)
+
+ what causes space ccomplexity
+ 1. Variables
+ 2. data structure
+ 3. functiona
+4. allocation
+
+
+
+iteratiing over array
+
+
+1. forEach
+2 .for(i = 0; i <= n; i++){}
+3. for (let i of array) {} 

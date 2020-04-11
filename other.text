@@ -1,0 +1,16 @@
+postgres-
+username- postgres
+db- ocean
+pw - admin
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo -i -u postgres
+\l = to list all db
+psql
+
+to change the password-
+
+ALTER USER postgres PASSWORD 'admin';
+
+16.6.0

@@ -1,5 +1,77 @@
 If you have ever extensively worked with callbacks, you'll notice one problem with them. They are difficult to track!
 ==
+How Object-Oriented Programming is implemented in JavaScript? How they differ from other languages?
+Can you implement Inheritance in JavaScript and so on…”
+
+There are certain features or mechanisms which makes a Language Object Oriented like:
+
+Object
+Classes
+Encapsulation
+Inheritance
+
+https://www.geeksforgeeks.org/introduction-object-oriented-programming-javascript/
+==
+
+function Expression vs Function Defenation/decalration
+
+function Expression -
+var a = function() {} or var a = function b() { }; but u cannot call with b();
+1. doesnt get hoisted
+2. benifits with closures
+3. passed as an argument
+4.As Immediately Invoked Function Expressions
+
+After a function expression has been stored in a variable, the variable can be used as a function.
+Functions stored in variables do not need function names. They are always invoked (called) using the variablvariab
+
+function Definition/ declaration
+1. gets hoisted
+functiona abc() {};
+
+
+  ==
+
+"A closure does not merely pass the value of a variable or even a reference to the variable. A closure captures the variable
+ itself!
+ES6 solution: let
+
+ECMAScript 6 (ES6) introduces new let and const keywords that are scoped differently than var-based variables. For example,
+in a loop with a let-based index, each iteration through the loop will have a new variable i with loop scope, so your code
+would work as you expect. There are many resources, but I'd recommend 2ality's block-scoping post as a great source of
+information.
+
+
+Increment using closures
+==
+Five falsy values
+
+false
+''
+0
+undefined
+null
+===
+A declared function is “saved for later use”, and will be executed later, when it is invoked (called).
+Just as Variable Declarations must start with “var”, Function Declarations must begin with “function”.
+
+
+Hoisting tricks =
+console.log(foo); // undefined
+console.log(foo()); // typeEtypeEundefinedrrorundefinedrror foo is not a function
+
+var foo = function() { return 5; }
+--------------------
+
+console.log(foo); // function foo() { return 5; }
+console.log(foo()); // 5
+function foo() { return 5; }
+
+lee name.
+
+
+
+
 https://exploringjs.com/es6/ch_variables.html#sec_let-const-loop-heads
 9.1.3 Ways of declaring variables #
 The following table gives an overview of six ways in which variables can be declared in ES6 (inspired by a table by kangax):
@@ -13,21 +85,66 @@ class	No	Block	No
 import	Complete	Module-global	No
 
 ==
+To check whether Object is emptyt or not
+
+1. Object.keys(obj).length === 0 && obj.constructor === Object
+2. Object.entries(obj).length === 0 && obj.constructor === Object
+3. return JSON.stringify(obj) === JSON.stringify({});
+4.  function isEmpty(obj) {
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      return false;
+    }
+  }
+  return true;
+}
+5. .isEmpty({});
+==
+hasOwnProperty = The hasOwnProperty() method returns a boolean indicating whether the object has the specified property as its
+own property (as opposed to inheriting it).
+
+
+JavaScript does not protect the property name hasOwnProperty; thus, if the possibility exists that an object might have a property
+with this name, it is necessary to use an external hasOwnProperty to get correct results:
+
+var foo = {
+  hasOwnProperty: function() {
+    return false;
+  },
+  bar: 'Here be dragons'
+};
+
+foo.hasOwnProperty('bar'); // always returns false
+
+// Use another Object's hasOwnProperty
+// and call it with 'this' set to foo
+({}).hasOwnProperty.call(foo, 'bar'); // true
+
+// It's also possible to use the hasOwnProperty property
+// from the Object prototype for this purpose
+Object.prototype.hasOwnProperty.call(foo, 'bar'); // true
+==
 Why use strict mode?
 
-JavaScript will generate a new global variable anytime a new one is named in a function. In strict mode, this will generate an error, since you cannot create a new variable in strict mode. The benefit is that a mistyped variable name will not create a new one, which can eliminate errors caused by typos.
+JavaScript will generate a new global variable anytime a new one is named in a function. In strict mode, this will generate
+an error, since you cannot create a new variable in strict mode. The benefit is that a mistyped variable name will not create
+ a new one, which can eliminate errors caused by typos.
 
 Programmers can avoid potential coding errors through the use of strict mode:
 
 Assignment to getter-only or non-writable properties
 Reference to a non-existing property or variable
 Use of an object that does not exist
-Since objects are also variables, strict mode disallows the use of any object that has not been declared, and prevents deletion of an object or variable.
+Since objects are also variables, strict mode disallows the use of any object that has not been declared, and prevents
+deletion of an object or variable.
 
-Caveats – use strict in JavaScript must be declared at the beginning of a script, to be recognized. There are also strings and keywords that are not available when strict mode has been declared, such as:
+Caveats – use strict in JavaScript must be declared at the beginning of a script, to be recognized.
+There are also strings and keywords that are not available when strict mode has been declared, such as:
 ======
 What is Javascript minification?
-Minification in Javascript is the process of removing all characters that are not necessary from the Javascript source code. That is why it is called “minification” – because all of the data that is not necessary to the functioning of the Javascript is removed from the source code, and therefore the Javascript is “minimized”. Even though these characters are removed from the Javascript source code, the functionality of the Javascript code does not change at all. So, your Javascript code will behave exactly the same even after it goes through the minification process. Code that has gone through the minification process is also known as “minified” code.
+Minification in Javascript is the process of removing all characters that are not necessary from the Javascript source code.
+ That is why it is called “minification” – because all of the data that is not necessary to the functioning of the Javascript
+  is removed from the source code, and therefore the Javascript is “minimized”. Even though these characters are removed from the Javascript source code, the functionality of the Javascript code does not change at all. So, your Javascript code will behave exactly the same even after it goes through the minification process. Code that has gone through the minification process is also known as “minified” code.
 
 
 The goal of obfuscation is to try to hide your original source code from other people
@@ -35,29 +152,41 @@ The goal of obfuscation is to try to hide your original source code from other p
 Obfuscation in Javascript is also a process in which Javascript files are modified. But, in obfuscation, the files are modified to deliberately make them difficult to understand and read. The goal is to make it so that people can not reverse engineer Javascript source code and use it for their own projects, or whatever else. But, if someone is determined enough they can and will reverse engineer any obfuscated Javascript code so that they can see the original source code – obfuscation will just slow them down a bit. Remember that browsers have to be able to translate the obfuscated Javascript source code to it’s original form so that they can understand it. And if browsers can do it, then any individual can also do it with some effort.
 ===
 What is a wrapper object in Javascript? Provide an example of how a wrapper object would work.
-In order to best explain what wrapper objects are and how they work in Javascript, let’s first consider a simple example of a string in Javascript.
+In order to best explain what wrapper objects are and how they work in Javascript, let’s first consider a simple example of a
+string in Javascript.
 
 var strng = "ProgrammerInterview is Great!";
 //the letter variable will hold a "P":
 var letter = strng.charAt(0);
-In the code above, the strng variable is set to a string – “ProgrammerInterview is Great!”. Then, the first letter of that string is retrieved and stored in the letter variable – this would be the letter “P”.
+In the code above, the strng variable is set to a string – “ProgrammerInterview is Great!”. Then, the first letter of that
+string is retrieved and stored in the letter variable – this would be the letter “P”.
 Strings are not objects in Javascript
-You may or may not know that in Javascript, objects are composed of properties. Those properties are accessed by using the dot notation – the “.”. And, if there is a function defined inside an object, that function is called a method. A method is also considered to be a property of an object.
+You may or may not know that in Javascript, objects are composed of properties. Those properties are accessed by using
+the dot notation – the “.”. And, if there is a function defined inside an object, that function is called a method.
+A method is also considered to be a property of an object.
 
-In Javascript, Strings are not actually objects. So, the question is in our example above, why does it appear that charAt is a method belonging to a string object named strng?
+In Javascript, Strings are not actually objects. So, the question is in our example above, why does it appear that charAt
+is a method belonging to a string object named strng?
 
-Well, what’s actually happening is that a wrapper object is being created. What is a wrapper object? Well, as soon as we make the call to charAt – in effect, what looks like a method access of a String object named strng – then Javascript will actually convert the string value to an object. You can think of it as Javascript making a call to new String(strng) behind the scenes.
+Well, what’s actually happening is that a wrapper object is being created. What is a wrapper object? Well, as soon as
+ we make the call to charAt – in effect, what looks like a method access of a String object named strng – then Javascript
+  will actually convert the string value to an object. You can think of it as Javascript making a call to new String(strng)
+  behind the scenes.
 
-The wrapper object will inherit all of the string methods, like charAt. And as soon as the property – in this case the charAt method – is correctly used, then the object that has just been created is thrown away. So, another word for the wrapper object is a “transient object”, because transient means something that appears just temporarily and then disappears.
+The wrapper object will inherit all of the string methods, like charAt. And as soon as the property – in this case the
+charAt method – is correctly used, then the object that has just been created is thrown away. So, another word for the
+wrapper object is a “transient object”, because transient means something that appears just temporarily and then disappears.
 
-Wrapper objects also apply to both numbers and booleans in Javascript, so that methods can be called on those types as well. Remember that the whole point of a wrapper object is to allow methods to be called on non-objects.
+Wrapper objects also apply to both numbers and booleans in Javascript, so that methods can be called on those types as well.
+ Remember that the whole point of a wrapper object is to allow methods to be called on non-objects.
 ======
-
 What data is removed in Javascript minification?
-The data that is removed in Javascript minification is extra whitespace, comments, new line characters, etc. Basically anything that can be removed without compromising the functionality of the Javascript is removed.
+The data that is removed in Javascript minification is extra whitespace, comments, new line characters, etc. Basically
+anything that can be removed without compromising the functionality of the Javascript is removed.
 
 How are Javascript files minified?
-There are a lot of programs that will minify your Javascript code for free – all you have to do is simply google “Javascript minifier”, and these sites will simply ask you to submit your Javascript code and will return the minified result.
+There are a lot of programs that will minify your Javascript code for free – all you have to do is simply google
+ “Javascript minifier”, and these sites will simply ask you to submit your Javascript code and will return the minified result.
 =======
 framework vs library
 1.a framework is a certain way of writing your software not only a piece of code but your entire application.
@@ -70,17 +199,51 @@ When you use a library you have the control over your code. Whenever you need so
 So whenever the framework needs the application specific code it calls your code.
  So here the control is “inverted” from you to the framework. This is called inversion of control.
 
-Library gives you a set of functions/modules/APIs which you can use to solve a certain problem, but it doesn’t change your code on the structural or architectural level.
+Library gives you a set of functions/modules/APIs which you can use to solve a certain problem, but it doesn’t change your
+code on the structural or architectural level.
 
-On the other hand, frameworks also give you a set of functions/modules/APIs but it does change your code on the structural or architectural level. Library - you call it, Framework - it calls you.
+On the other hand, frameworks also give you a set of functions/modules/APIs but it does change your code on the structural
+or architectural level. Library - you call it, Framework - it calls you.
 ===
 class
-In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).
+In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values
+for state (member variables) and implementations of behavior (member functions or methods).
 
 Classes provide "super" keyword for that.
 
 super.method(...) to call a parent method.
 super(...) to call a parent constructor (inside our constructor only).
+===
+creating object ways- find its differce
+var a = Object.create(null);
+var a = new Object();
+var a = {};
+var Obj = function(name) {
+    this.name = name
+  }
+  var c = new Obj("hello");
+----
+Using the function constructor + prototype:
+
+function myObj(){};
+  myObj.prototype.name = "hello";
+var k = new myObj();
+-----
+
+Using ES6 class syntax:
+
+class myObject  {
+  constructor(name) {
+    this.name = name;
+  }
+}
+var e = new myObject("hello");
+---
+Singleton pattern:
+var l = new function(){
+  this.name = "hello";
+}
+
 
 ===
 Cookies-
@@ -142,8 +305,10 @@ The W3C Document Object Model (DOM) is a platform and language-neutral interface
 Object.freeze()
 The Object.freeze() method freezes an object. A frozen object can no longer be changed;
 freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing
-the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed.
-In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
+the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties
+ from being changed.
+In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was
+ passed in.
 
 const obj = {
   prop: 42
@@ -169,7 +334,8 @@ For objects:
 
 for loops - for (var property in obj) { console.log(property); }. However, this will also iterate through its inherited properties,
 and you will add an obj.hasOwnProperty(property) check before using it.
-Object.keys() - Object.keys(obj).forEach(function (property) { ... }). Object.keys() is a static method that will lists all enumerable
+Object.keys() - Object.keys(obj).forEach(function (property) { ... }). Object.keys() is a static method that will lists all
+enumerable
  properties of the object that you pass it.
 Object.getOwnPropertyNames() - Object.getOwnPropertyNames(obj).forEach(function (property) { ... }).
 Object.getOwnPropertyNames() is a static method that will lists all enumerable and non-enumerable properties of the object that you pass it.
@@ -190,18 +356,24 @@ Every script has access to the global scope, and if everyone uses the global nam
  will likely occur. Use the module pattern (IIFEs) to encapsulate your variables within a local namespace.
 ==
 Load vs DOMContentLoaded
-Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
+
+Q28: Why would you use something like the `load` event? Does this event have disadvantages? Do you know any alternatives,
+ and why would you use those?
 The load event fires at the end of the document loading process.
-At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have finished loading.
+At this point, all of the objects in the document are in the DOM, and all the images, scripts, links and sub-frames have
+finished loading.
 
 The DOM event DOMContentLoaded will fire after the DOM for the page has been constructed,
- but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full page
+ but do not wait for other resources to finish loading. This is preferred in certain cases when you do not need the full
+ page
  to be loaded before initializing.
 
 ==
 31: Explain the same-origin policy with regards to JavaScript.
-The same-origin policy prevents JavaScript from making requests across domain boundaries. An origin is defined as a combination
-of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access to sensitive data on another
+The same-origin policy prevents JavaScript from making requests across domain boundaries.
+An origin is defined as a combination
+of URI scheme, hostname, and port number. This policy prevents a malicious script on one page from obtaining access
+ to sensitive data on another
 web page through that pages Document Object Model.
 
 ==
@@ -216,14 +388,17 @@ Is there anyway to force using strict mode in Node.js?
 you can place
 
 "use strict";
-at the top of your file in node >= 0.10.7, but if you want your whole app to run in strict (including external modules) you can do this
+at the top of your file in node >= 0.10.7, but if you want your whole app to run in strict (including external modules)
+ you can do this
 
 node --use_strict
 ==
 transpilation in js
 
-Compiler: is an umbrella term to describe a program that takes source code written in one language and produce a (or many) output file in
- some other language. In practice we mostly use this term to describe a compiler such as gcc which takes in C code as input and produces
+Compiler: is an umbrella term to describe a program that takes source code written in one language and produce a (or many)
+ output file in
+ some other language. In practice we mostly use this term to describe a compiler such as gcc which takes in C code as input
+ and produces
  a binary executable (machine code) as output.
 
 Transpilers are also known as source-to-source compilers. So in essence they are a subset of compilers which take in a source code
@@ -283,9 +458,11 @@ Arrow functions are best suited for non-method functions, and they cannot be use
 ==
 purpose of symbols-
 
-Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of string's allows
+Symbols are a new, special kind of object that can be used as a unique property name in objects. Using Symbol instead of
+ string's allows
 different modules to create properties that don't conflict with one another.
-Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have direct access to the Symbol.
+Symbols can also be made private, so that their properties can't be accessed by anyone who doesn't already have
+direct access to the Symbol.
 
 Symbols are a new primitive. Just like the number, string, and boolean primitives, Symbol have a function which can be used to create them.
 Unlike the other primitives, Symbols do not have a literal syntax (e.g how string have '') - the only way to create them is with
@@ -328,7 +505,8 @@ If you’ve done much web-based JavaScript programming or front-end development,
  What are the differences between ES6 class and ES5 function constructors?
 https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e
 object type in js-
-The object type refers to a compound value where you can set properties (named locations) that each hold their own values of any type.
+The object type refers to a compound value where you can set properties (named locations) that each hold their own values
+of any type.
 
 Bracket notation is also useful if you want to access a property/key but the name is stored in another variable, such as:
 ==
@@ -337,7 +515,8 @@ what is coersion in js-
 
 *** https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/
 
-Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on).
+Type coercion is the process of converting value from one type to another (such as string to number, object to boolean,
+  and so on).
 Any type, be it primitive or an object, is a valid subject for type coercion.
  To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
 Implicit vs. explicit coercion
@@ -529,10 +708,14 @@ It simplifies data availability
 W3C Recommendation
 
 46. JSON
-JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects consisting of attribute–value pairs and array data types (or any other serializable value).
-It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in some AJAX-style systems.
-JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages include code to generate
-and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension .json.
+JavaScript Object Notation (JSON)is an open-standard file format that uses human-readable text to transmit data objects
+consisting of attribute–value pairs and array data types (or any other serializable value).
+It is a very common data format used for asynchronous browser–server communication, including as a replacement for XML in
+ some AJAX-style systems.
+JSON is a language-independent data format. It was derived from JavaScript, but as of 2017, many programming languages
+include code to generate
+and parse JSON-format data. The official Internet media type for JSON is application/json. JSON filenames use the extension
+.json.
 Data types and syntax
 JSON's basic data types are:
 
@@ -544,11 +727,14 @@ Object:
 null:
 
 47. Objects
-objects in JavaScript may be defined as an unordered collection of related data, of primitive or reference types, in the form of “key: value” pairs.
+objects in JavaScript may be defined as an unordered collection of related data, of primitive or reference types,
+in the form of “key: value” pairs.
 These keys can be variables or functions and are called properties and methods, respectively, in the context of an object.
 
-An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer to that value.
-That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store the value.
+An object, is a reference data type. Variables that are assigned a reference value are given a reference or a pointer
+ to that value.
+That reference or pointer points to the location in memory where the object is stored. The variables don’t actually store
+ the value.
 
 48. class
 In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state
@@ -587,7 +773,8 @@ String: “Hello GeeksforGeeks” etc.
 Boolean: Represent a logical entity and can have two values: true or false.
 Null: This type has only one value : null.
 Undefined: A variable that has not been assigned a value is undefined.
-Object: It is the most important data-type and forms the building blocks for modern JavaScript. We will learn about these data types in details in further articles.
+Object: It is the most important data-type and forms the building blocks for modern JavaScript. We will learn about
+ these data types in details in further articles.
 
 Object
  A Symbol is a unique and immutable primitive value and may be used as the key of an Object property (see below).
@@ -643,7 +830,6 @@ A symbol value may be used as an identifier for object properties; this is the d
 Every symbol value returned from Symbol() .  A symbol value may be used as an identifier for object properties;
  this is the data type's only purpose.+
 
-
 2. proxy
 Proxies
 Proxies enable creation of objects with the full range of behaviors available to host objects.
@@ -652,6 +838,36 @@ Can be used for interception, object virtualization, logging/profiling, etc.
 3. Map
 Map is a collection of keyed data items, just like an Object.
 But the main difference is that Map allows keys of any type.
+
+The Map object holds key-value pairs and remembers the original insertion order of the keys.
+Any value (both objects and primitive values) may be used as either a key or a value.
+
+var map1 = new Map();
+  console.log(map1);
+// adding some elements to the map
+map1.set("first name", "sumit");
+map1.set("***&777", "ghosh").set("friend 1", "gourav")
+    .set("friend 2", "sourav"); ;
+console.log('map1', map1);
+----
+var map1 = new Map();
+  console.log(map1);
+// adding some elements to the map
+map1.set("first name", "sumit");
+map1.set("***&777", "ghosh").set("friend 1", "gourav")
+    .set("friend 2", "sourav"); ;
+console.log('map1', map1);
+---
+diff with object
+
+1. A Map does not contain any keys by default. It only contains what is explicitly put into it.
+An Object has a prototype, so it contains default keys that could collide with your own keys if you're not careful.
+
+2. 	A Map's keys can be any value (including functions, objects, or any primitive).
+The keys of an Object must be either a String or a Symbol.
+3. Performs better in scenarios involving frequent additions and removals of key-value pairs.
+Not optimized for frequent additions and removals of key-value pairs.
+---
 
 Methods and properties are:
 
@@ -689,8 +905,22 @@ var result = Object.keys(obj).map(function(key) {
   return [Number(key), obj[key]];
 });
 
+----
+wek map
+
+The WeakMap object is a collection of key/value pairs in which the keys are objects only and the values
+ can be arbitrary values.
+
+The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced.
+\The keys must be objects and the values can be arbitrary values.
+
+By contrast, native WeakMaps hold "weak" references to key objects, which means that they do not prevent
+ garbage collection in case there would be no other reference to the key object
+
+===
 4. Set
 A Set is a special type collection – “set of values” (without keys), where each value may occur only once.
+The Set object lets you store unique values of any type, whether primitive values or object references.
 
 Its main methods are:
 
@@ -705,38 +935,14 @@ Iteration over Set
 We can loop over a set either
 with for..of or using forEach:
 
-
-* WeakMap
-WeakSet is a special kind of Set that does not prevent JavaScript from removing its items from memory. WeakMap is the same thing for Map.
-The first difference from Map is that WeakMap keys must be objects, not primitive values:
-
-let john = { name: "John" };
-
-let weakMap = new WeakMap();
-weakMap.set(john, "...");
-
-john = null;
-// john is removed from memory!
-
-let john = { name: "John" };
-
-let map = new Map();
-map.set(john, "...");
-
-john = null;
-WeakMap has only the following methods:
-
-weakMap.get(key)
-weakMap.set(key, value)
-weakMap.delete(key)
-weakMap.has(key)
-
-
-If we’re working with an object that “belongs” to another code, maybe even a third-party library, and would like to store some data associated with it, that should only exist while the object is alive – then WeakMap is the right choice!
-
-
 WeakSet
 WeakSet behaves similarly:
+WeakSet objects are collections of objects. Just as with Sets, each object in a WeakSet may occur only once; all objects in a WeakSet's collection are unique.
+
+WeakSets are collections of objects only.  They cannot contain arbitrary values of any type, as Sets can.
+The WeakSet is weak, meaning references to objects in a WeakSet are held weakly. If no other references to
+ an object stored in the WeakSet exist, those objects can be garbage collected.
+
 
 It is analogous to Set, but we may only add objects to WeakSet (not primitives).
 An object exists in the set while it is reachable from somewhere else.
@@ -769,7 +975,7 @@ Plugin: Webpack plugins manipulate your bundles before it is written into files.
 For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
 WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code
  changes detected. It will expedite your development process by providing instant feedback of your code.
-
+====
 Genretaor :
 A generator is a function that can stop midway and then continue from where it stopped.
 In short, a generator appears to be a function but it behaves like an iterator.
@@ -794,7 +1000,8 @@ console.log(generatorObject.next().value); // Line 6
 
 Uses of Generators
 Implementing Iterables
-When you implement an iterator, you have to manually make an iterator object with a next() method. Also, you have to manually save the state.
+When you implement an iterator, you have to manually make an iterator object with a next() method.
+ Also, you have to manually save the state.
 
 Better Async functionality
 Infinite Data Streams
@@ -810,7 +1017,8 @@ It is a design pattern which is also known as a Self-Executing Anonymous Functio
 The first is the anonymous function with lexical scope enclosed within the Grouping Operator ().
 This prevents accessing variables within the IIFE idiom as well as polluting the global scope.
 
-The second part creates the immediately executing function expression () through which the JavaScript engine will directly interpret the function.
+The second part creates the immediately executing function expression () through which the JavaScript engine will directly
+interpret the function.
 
 An Immediately Invoked Function Expression is a good way at protecting the scope of your function and the variables within it.
 Assigning the IIFE to a variable stores the function's return value, not the function definition itself.
@@ -867,7 +1075,8 @@ such as the next few pictures in a photo album.
 =====
 Arrow Functions-
 Arrow functions make our code more concise, and simplify function scoping and the this keyword.
-By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions), and curly brackets.
+By using arrow functions, we avoid having to type the function keyword, return keyword (it’s implicit in arrow functions),
+ and curly brackets.
 Arrow functions do not have their own arguments object.
 Arrow functions do not have a prototype property.
 Arrow function expressions are ill suited as methods, and they cannot be used as constructors.
@@ -956,6 +1165,7 @@ var b = 3;
 console.log(a); // 3
 console.log(b); // 1
 =======
+
 JavaScript Object Literal
 
 A JavaScript object literal is a comma-separated list of name-value pairs wrapped in curly braces.
@@ -1030,18 +1240,67 @@ null means empty or non-existent value which is used by programmers to indicate 
  to any variable. null is not an object, it is a primitive value. For example, you cannot add properties to it. Sometimes people wrongly
  assume that it is an object, because typeof null returns "object".
 ====
+Object Prototype
+
+In JavaScript, objects have a special hidden property [[Prototype]] (as named in the specification),
+ that is either null or references another object.
+When we want to read a property from object, and it’s missing, JavaScript automatically takes it from the prototype.
+The property [[Prototype]] is internal and hidden, but there are many ways to set it.
+
+
+Use to set other object properties to own
+
+let animal = {
+  eats: true
+};
+let rabbit = {
+  jumps: true
+};
+
+rabbit.__proto__ = animal;
+__proto__ is getter setter for an object
+
+===
 Object.assign==
 Object.assign() Method
 Among the Object constructor methods, there is a method Object.assign() which is used to copy the values and
 properties from one or more source objects to a target object.
-It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target. It returns the target object
+It invokes getters and setters since it uses both [[Get]] method on the source and [[Set]] on the target.
+It returns the target object
 which has properties and values copied from the source object.
 Object.assign() does not throw on null or undefined source values.
 Applications:
 
 Object.assign() is used for cloning an object.
 Object.assign() is used to merge object with same properties.
+====
+Object.seal vs freeze
 
+SEAL -  allow to update the properties but doesnt allow to add or delete existing properties
+The Object.seal() method seals an object, preventing new properties from being added to it and marking
+ all existing properties as non-configurable. Values of present properties can still be changed as long as they are writable.
+
+Object.freeze() makes an object immune to everything even little changes cannot be made.
+
+The Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an object prevents
+new properties from being added to it, existing properties from being removed, prevents changing the enumerability,
+ configurability, or writability of existing properties, and prevents the values of existing properties from being changed.
+-----
+how to make object property read only / enumerable / configurable
+
+Object.defineProperty(ObjectName, 'propertyName', { writable : false});
+Object.defineProperty(ObjectName, 'propertyName', { enumerable : false});
+Object.defineProperty(ObjectName, 'propertyName', { configurable : false});
+
+
+Object.defineProperty(obj, "uuid", { configurable: false, writable: false });
+
+configurable: false means that from now uuid property descriptor can't be defined again. That is, no other sentence
+ will be able to let the property be mutable again.
+
+At the end of the day, Object.freeze is like a shortcut which iterates all enumerable properties in a given object and
+ turns them into non-configurable+non-writable ones.
+===
 For Of  vs For in
 Both for..of and for..in statements iterate over lists; the values iterated on are different though, for..in returns a
 list of keys on the object being iterated, whereas for..of returns a list of values of the numeric properties of the object being iterated.
@@ -1106,9 +1365,11 @@ The purpose of the ready event is that it should occur as early as possible afte
 functionality to the elements in the page doesn't have to wait for all content to load.
 ===
 Strict mode in JavaScript
-- Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.
+- Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, or a function,
+in a “strict” operating context.
 - This strict context prevents certain actions from being taken and throws more exceptions.
-- The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer feature set of JavaScript.
+- The statement “use strict”; instructs the browser to use the Strict mode, which is a reduced and safer
+ feature set of JavaScript.
 - Strict mode eliminates some JavaScript silent errors by changing them to throw errors.
 - Strict mode fixes mistakes that make it difficult for JavaScript engines to perform optimizations:
  - strict mode code can sometimes be made to run faster than identical code that’s not strict mode.
@@ -1135,26 +1396,31 @@ It is extremely useful that Function does report its own type so you can easily 
  that is the main reason why it was done this way.
 
 why typeof NaN is number
-The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is, in computing, NaN is actually technically
+The type of NaN, which stands for Not a Number is, surprisingly, a number. The reason for this is,
+ in computing, NaN is actually technically
  a numeric data type. However, it is a numeric data type whose value cannot be represented using actual numbers.
 
 ...constant cannot change through re-assignment
 ...constant cannot be re-declared
 
-When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's already declared and assigned,
+When you're adding to an array or object you're not re-assigning or re-declaring the constant, it's
+ already declared and assigned,
 you're just adding to the "list" that the constant points to.
 ====
 
 Gulp
-Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images, preprocessing CSS and more.
+Modern web development has many repetitive tasks like running a local server, minifying code, optimizing images,
+ preprocessing CSS and more.
 This text discusses gulp, a build tool for automating these tasks.
 Gulp is a cross-platform, streaming task runner that lets developers automate many development tasks.
  At a high level, gulp reads files as streams and pipes the streams to different tasks.
 These tasks are code-based and use plugins.
 The tasks modify the files, building source files into production files.
 
-for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files which are used
-for development purpose and later you want to push it for production then you need to minify it manually, instead of you minifying
+for any changes and then perform some kind actions on it for eg. assume you change the styles.css or script.js files
+ which are used
+for development purpose and later you want to push it for production then you need to minify it manually, instead of
+you minifying
 it gulp does it for you.
 
 - Compile Sass, LESS files for you
@@ -1209,7 +1475,8 @@ your js, css, image files for faster loading of websites and web applications
 
 instanceof
 
-The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype chain of an object.
+The instanceof operator tests whether the prototype property of a constructor appears anywhere in the prototype
+chain of an object.
 
 Class checking: "instanceof"
 The instanceof operator allows to check whether an object belongs to a certain class. It also takes inheritance into account.
@@ -1218,7 +1485,8 @@ Event bubbling and capturing and event delegation
 
 event delegation
 
-Event delegation is a technique for listening to events where you delegate a parent element as the listener for all of the events
+Event delegation is a technique for listening to events where you delegate a parent element as the
+listener for all of the events
  that happen inside it.
 
 I often use listening to all clicks in the document as an example, but it can be any element on the page.
@@ -1235,7 +1503,8 @@ form.addEventListener('input', function (event) {
 }, false);
 
 
-Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another
+Event bubbling and capturing are two ways of event propagation in the HTML DOM API,
+when an event occurs in an element inside another
 element, and both elements have registered a handle for that event.
 
 With bubbling, the event is first captured and handled by the innermost element and then propagated to outer elements.
@@ -1276,15 +1545,19 @@ Browser has following main components
 6. ui backend
 
 the first step  starts with the The network layer.
-Network layer Accepts URLs from the browser user interface and is responsible for making network calls to fetch resources via HTTP/FTP protocols.
-The browser initially looks for any cache availability on local memory for requested URLs. Otherwise, the network layer creates an HTTP
+Network layer Accepts URLs from the browser user interface and is responsible for making network
+ calls to fetch resources via HTTP/FTP protocols.
+The browser initially looks for any cache availability on local memory for requested URLs. Otherwise, the network layer
+ creates an HTTP
  packet with a domain name for requesting a web resource over the internet.
 
-This step involves accepting data from the network layer and feed the display subsystems. Render engine, JS engine and UI backend subsystems
+This step involves accepting data from the network layer and feed the display subsystems. Render engine, JS engine
+and UI backend subsystems
  are part of the process.
 The rendering engine subsystem processes data from the network layer and displays web content on the screen.
 
-With rendering engines, web resources are parsed. For example, a HTML parser converts a HTML template into an object called the DOM tree.
+With rendering engines, web resources are parsed. For example, a HTML parser converts a HTML template into an object
+ called the DOM tree.
 Stylesheets are parsed to generate style rules for both external and inline style elements
 A render tree is an object that combines both the parsed HTML and CSS. It is generated with visual instructions and attributes to
  render elements on the user’s screen.
@@ -1296,15 +1569,20 @@ The painting process includes filing the layout with style attributes like color
 User Interface and Browser Engine are responsible for data presentation and handling user navigation.
 
 The JavaScript engine
-This is the subsystem for parsing JavaScript code to machine code and then executing it. These JS engines can be standard interpreters
+This is the subsystem for parsing JavaScript code to machine code and then executing it.
+These JS engines can be standard interpreters
 or JIT (just in time) compilers.
 
 Browser Engine vs Render Engine
-The Browser Engine: The browser engine works as a bridge between the User interface and the rendering engine. According to the inputs from
+The Browser Engine: The browser engine works as a bridge between the User interface and the rendering engine.
+ According to the inputs from
 various user interfaces, it queries and manipulates the rendering engine.
-The Rendering Engine: The rendering engine, as the name suggests is responsible for rendering the requested web page on the browser
-screen. The rendering engine interprets the HTML, XML documents and images that are formatted using CSS and generates the layout that is
-displayed in the User Interface. However, using plugins or extensions, it can display other types data also. Different browsers user different
+The Rendering Engine: The rendering engine, as the name suggests is responsible for rendering the requested web
+page on the browser
+screen. The rendering engine interprets the HTML, XML documents and images that are formatted using CSS and
+ generates the layout that is
+displayed in the User Interface. However, using plugins or extensions, it can display other types data also.
+ Different browsers user different
 rendering
 ===
 Browser Storages
@@ -1328,35 +1606,43 @@ To store stomething in IndexedDB, we need an object store.
 An object store is a core concept of IndexedDB.
 
 db.createObjectStore(name[, keyOptions]);
-
+===
 
 webapps
 Web apps, on the other hand, are accessed via the internet browser and will adapt to whichever device you’re viewing them on.
- They are not native to a particular system, and don’t need to be downloaded or installed. Due to their responsive nature, they do
+ They are not native to a particular system, and don’t need to be downloaded or installed. Due to their responsive nature,
+  they do
   indeed look and function a lot like mobile apps — and this is where the confusion arises.
 
-Mobile apps have the advantage of being faster and more efficient, but they do require the user to regularly download updates. Web apps will
+Mobile apps have the advantage of being faster and more efficient, but they do require the user to regularly download
+updates. Web apps will
  update themselves.
 
- While standard web apps lack some of the functionality that mobile apps can offer, progressive web apps fall somewhere in between.
+ While standard web apps lack some of the functionality that mobile apps can offer, progressive web apps fall somewhere
+  in between.
 
  Reliable
 
- When launched from the user’s home screen, service workers enable a Progressive Web App to load instantly, regardless of the network state.
+ When launched from the user’s home screen, service workers enable a Progressive Web App to load instantly,
+ regardless of the network state.
 
- A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and how to respond to resource requests.
- By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable experience for your users.
+ A service worker, written in JavaScript, is like a client-side proxy and puts you in control of the cache and
+  how to respond to resource requests.
+ By pre-caching key resources you can eliminate the dependence on the network, ensuring an instant and reliable
+ experience for your users.
 
  Fast
 
- Progressive Web Apps are installable and live on the user's home screen, without the need for an app store. They offer an immersive full screen experience with help from a web app manifest file and can even re-engage users with web push notifications.
+ Progressive Web Apps are installable and live on the user's home screen, without the need for an app store.
+ They offer an immersive full screen experience with help from a web app manifest file and can even re-engage
+  users with web push notifications.
 
  What is SQL Injection (SQLi) and How to Prevent It
 SQL Injection (SQLi) is a type of an injection attack that makes it possible to execute malicious SQL statements. These statements control a
  database server behind a web application. Attackers can use SQL Injection vulnerabilities to bypass application security measures.
  They can go around authentication and authorization of a web page or web application and retrieve the content of the entire SQL database.
   They can also use SQL Injection to add, modify, and delete records in the database.
-
+====
 HTTP VS HTTPS
 
 What is HTTP?#
@@ -1384,7 +1670,7 @@ HTTP doesn’t require domain validation, where as HTTPS requires at least domai
  document validation.
 No encryption in HTTP, with HTTPS the data is encrypted before sending.
 
-
+===
 jsonp
 Say you're on domain example.com, and you want to make a request to domain example.net. To do so, you need to cross domain boundaries,
 a no-no in most of browserland.

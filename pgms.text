@@ -3,6 +3,11 @@ https://github.com/ganqqwerty/123-Essential-JavaScript-Interview-Questions/blob/
 https://github.com/denysdovhan/wtfjs
 https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed
 
+sorting array with objects.
+a.sort((x, y) => {
+  return (y.id - x.id);
+});
+
 : Given an array of integers, find the largest product yielded from three of the integers
 
  	Mid
@@ -40,7 +45,38 @@ sortArray.sort(function(a, b) {
    return (b - a); //descending
 });
 
+====
 
+(function(){
+    var a = b = 3;
+})();
+
+console.log(b); //3
+console.log(a);//reference error
+
+var a = b = 3 ; works like
+
+b = 3;
+var a = b;
+so the b become global
+==
+get the first duplicate letter in a string =
+
+var a = "mySrtrinString";
+ a = a.split("");
+ const uniq = [];
+ const duplicate = [];
+ console.log('a--- ', a);
+ a.forEach((v, i) => {
+   if(a.indexOf(v) == i) { uniq.push(v); }
+   else {
+     duplicate.push(v);
+   }
+ });  or duplicate = a.filter((v, i) => { return (a.indexOf(v) !== i)})
+
+ console.log('--- ', duplicate[0]);
+
+==
 2. Factorial
 
 factorial(number) {
@@ -98,6 +134,13 @@ Fibbonacci(number) {
   return febNew;
 }
 
+==
+
+String.prototype.isAlphaNumeric = function() {
+  var regExp = /^[A-Za-z0-9]+$/;
+  return (this.match(regExp));
+};
+===
 5. reverse strings
 
 reverseString(number) {
@@ -158,7 +201,8 @@ arr.slice(begin, end)
 the array contains the begin element but not the end element. less than last element
 
 The slice() method returns a shallow copy of a portion of an array into a new array object selected
-from begin to end (end not included) where begin and end represent the index of items in that array. The original array will not be modified.
+from begin to end (end not included) where begin and end represent the index of items in that array.
+The original array will not be modified.
 
 8. pop
 remove last element
@@ -201,9 +245,33 @@ op- [ 43, 123, 1, 2, 3, 4, 5 ]
 JavaScript | Array reduce() Method
 The array reduce() method in JavaScript is used to reduce the array to a single value and
 executes a provided function for each value of the array (from left-to-right) and the return
- value of the function is stored in an accumulator.
+ value of the function is stored in an accumulator;
+ Note: this method does not change the original array.
 
  array.reduce( function(total, currentValue, currentIndex, arr), initialValue )
+
+ callback
+ A function to execute on each element in the array (except for the first, if no initialValue is supplied).
+
+ It takes four arguments:
+ to get the sum
+ var b = a.reduce((x, y) => {
+    return (x + y.id);
+ }, 0);
+ accumulator
+ The accumulator accumulates callback's return values. It is the accumulated value previously returned in the
+ last invocation of the callback—or
+  initialValue, if it was supplied (see below).
+ currentValue
+ The current element being processed in the array.
+ index Optional
+ The index of the current element being processed in the array. Starts from index 0 if an initialValue is provided.
+ Otherwise, it starts from index 1.
+ array Optional
+ The array reduce() was called upon.
+ initialValue Optional
+ A value to use as the first argument to the first call of the callback. If no initialValue is supplied, the first element in the array
+  will be used and skipped. Calling reduce() on an empty array without an initialValue will throw a TypeError.
 
 12. toString()
 The JavaScript method toString() converts an array to a string of (comma separated) array values.
@@ -275,9 +343,24 @@ op- [{a : 1}, {b: 2}];
 
 22. find- returns first element that satisfies the condition
 arr.find(function(element, index, array), thisValue)
-JavaScript | Array find() function
-arr.find() function is used to find the first element from the array that satisfies the condition implemented by a function.
 
+JavaScript | Array find() function
+arr.find() function is used to find the first element from the array that satisfies the condition
+implemented by a function.
+
+let b = [{
+  id : 1,
+  name : 'a',
+
+}, {
+  id : 44,
+  name : 'dd'
+}];
+
+
+
+const c = b.find((i) => i.id === 44);
+{ id: 44, name: 'dd' }
 
 23. JavaScript | Array.prototype.map() function
 Array.map()
@@ -298,12 +381,21 @@ array.findIndex(fun(curValue, index, arr), thisValue)
 Array.prototype.findIndex() expects a callback as first parameter. Use this if you need
  the index in arrays with non-primitive types (e.g. objects) or your find condition
  is more complex than just a value.
-
+----
  JavaScript | array.includes() function ===> returns boolean
  array.includes(searchElement)
+ arr.includes(valueToFind[, fromIndex])
+
 The array.includes() is an inbuilt function in JavaScript which is used to know either a particular element
  is present in the array or not and accordingly, it returns true or false i.e, if the element
   is present, then it returns true otherwise false
+
+If fromIndex is greater than or equal to the length of the array, false is returned. The array will not be searched.
+
+let arr = ['a', 'b', 'c']
+
+arr.includes('c', 3)    // false
+arr.includes('c', 100)  // false
 
   JavaScript | Array lastIndexOf()
   arr.lastIndexOf() function is used to find the index of the last occurrence of the search

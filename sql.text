@@ -24,7 +24,9 @@ RIGHT JOIN: RIGHT JOIN is similar to LEFT JOIN. This join returns all the rows o
 
 FULL JOIN: FULL JOIN creates the result-set by combining result of both LEFT JOIN and RIGHT JOIN. The result-set will contain all
  the rows from both the tables. The rows for which there is no matching, the result-set will contain NULL values.
- Syntax:
+ Syntax
+
+==
 
 self join
 https://www.programmerinterview.com/database-sql/what-is-a-self-join/
@@ -39,9 +41,8 @@ FROM employee e1, employee e2
 WHERE e1.employee_location = e2.employee_location
 AND e2.employee_name="Joe";
 
-Remember that a query is a self join as long as the two tables being joined are exactly the same table, but whether it’s an inner join or outer join depends on what is specified in the SQL. And, inner/outer joins are separate concepts entirely from a self join
-
-
+Remember that a query is a self join as long as the two tables being joined are exactly the same table, but whether it’s an inner
+ join or outer join depends on what is specified in the SQL. And, inner/outer joins are separate concepts entirely from a self join
 ===
 index=
 
@@ -142,6 +143,7 @@ are defined using Primary Key-Foreign Key
 a. One-One Relationship (1-1 Relationship)
 b. One-Many Relationship (1-M Relationship)
 c. Many-Many Relationship (M-M Relationship)
+
 1. One-One Relationship (1-1 Relationship)
 One-to-One (1-1) relationship is defined as the relationship between two tables where both the tables should be
 associated with each other based on only one matching row.
@@ -177,7 +179,7 @@ By default, Primary key is clustered index and data in the database table is phy
 organized in the sequence of clustered index.
 	Foreign key do not automatically create an index, clustered or non-clustered. You can manually
   create an index on foreign key.
-We can have only one Primary key in a table.	We can have more than one foreign key in a table.
+We can have only one Primary key in a table.We can have more than one foreign key in a table.
 
 Where and having-
 WHERE and HAVING clause is used to specify filtering condition in SQL,
@@ -270,6 +272,12 @@ FROM student
 WHERE gender = 'Male'
 
 =====
+second highest salary---
+SELECT salary
+FROM employee
+ORDER BY salary desc limit n-1,1
+
+==
 SQL | Views
 Views in SQL are kind of virtual tables. A view also has rows and columns as they are
 in a real table in the database. We can create a view by selecting fields from one or
@@ -326,7 +334,6 @@ Durable – Once the transaction is committed, any failure or system restart,
  returns the data in a correct state.  Stated another way, once a transaction is
   committed, it will remain so, regardless of a subsequent system failure.
 ===
-
 cursor
 In this chapter, we will discuss the cursors in PL/SQL. Oracle creates a memory area,
  known as the context area, for processing an SQL statement, which contains all the
@@ -388,7 +395,7 @@ longer tuple size. The resultant tuple contains attributes from both the relatio
  types of JOIN in SQL are INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN.
 ==
 Delete and Truncate and Drop
-1. truncate
+1. truncate- DDL
 Removes All rows from a table.
 Does not require a WHERE clause, so you can not filter rows while Truncating.
 5. No Triggers are fired on this operation because it does not operate on individual rows.
@@ -396,7 +403,7 @@ This command will temporarily delete the data from database.
 Before commit operation ,if we roll back we will get the data.
 
 2.delete 1. Removes Some or All rows from a table based on where .
-Delete is DML, Truncate is DDL
+Delete is DML, Truncate is
 But in reality both DELETE and TRUNCATE operations can be COMMITTED
  AND ROLL-BACKED if provided inside a Transaction.
  This command will permanently delete the data from database.

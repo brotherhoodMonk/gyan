@@ -1,0 +1,15 @@
+1. The bool query accepts a must parameter (equivalent to AND), a must_not parameter (equivalent to NOT), and a should parameter (equivalent to OR).
+2. The multi_match keyword is used in place of the match keyword as a convenient shorthand way of running the same query against multiple fields. The fields property specifies what fields to query against and, in this case, we want to query against all the fields in the document.
+
+3. Boosting
+Since we are searching across multiple fields, we may want to boost the scores in a certain field. In the contrived example below, we boost scores from the summary field by a factor of 3 in order to increase the importance of the summary field, which will, in turn, increase the relevance of document _id 4.
+
+4. Wildcard Query
+Wildcard queries allow you to specify a pattern to match instead of the entire term. ? matches any character and * matches zero or more characters. For example, to find all records that have an author whose name begins with the letter ‘t’:
+"query": {
+        "wildcard" : {
+            "authors" : "t*"
+        }
+    },
+
+5.

@@ -1,3 +1,81 @@
+manegerial
+
+what aws services u have used how u implemented it
+what is agile
+what is cicd
+microservicess
+vue js life cycle hooks
+created mounted
+vuex store
+
+array Functions
+prototype
+array functions
+architecture of the application
+
+
+HTML symantics
+UI symantics
+
+Classes Ids
+
+3 divs in line
+
+how to place div at center
+
+
+DTD
+META Tag
+data in html
+
+===
+rest apis
+==
+
+
+dont answer que for syneziip
+
+stub
+React Hooks
+unit testing
+application state
+where u write apllication login in react
+how to create lazy loading in react
+
+
+====
+routing in express
+
+package.json
+project structure/ angular/react
+meaning of each file - angular
+clousure/ use of closure
+promise callback
+dev Dependancy vs dependancy
+let var const
+getElementByID
+event loop
+prototypes
+forEach vs map
+
+frontend
+node.js
+
+oops -
+event loop
+call apply bind
+middlewares
+encrypton password
+libraries used-
+
+aws-
+
+virtual
+progressive web apps feature,
+routing works
+
+
+======
 redis
 Observables vs promises
 which ui library used for Angular
@@ -70,3 +148,59 @@ sql vs my sql
 connection pooling
 https://exploringjs.com/es6/ch_variables.html#sec_let-const-loop-heads
 https://exploringjs.com/es6/index.html#toc_ch_variables
+
+====
+amazon que
+
+binary search trees
+NDA Signed
+Leet Medium
+
+1st Round: Related to Graph and leadership principles.
+2nd Round: Related to Hash map and leadership principles.
+3rd Round: OOD Question and leadership principles.
+Lunch Break
+4th Round:leadership principles.
+5th Round: System Design question and leadership principles.
+
+first-in-first-out parking lot system
+ design a data structure, which is a dictionary and a queue.
+
+ No bq, asked me to draw an EER diagram for a database (which I'm confused, I didn't apply for database engineering position), and then analyze the diagram, then ask me to design a cache to store the entities in a searchable way, etc
+
+ How would you implement a word auto-complete feature? Assume you are given the list of words to be completed and the word to be searched (always starting from its first letter).
+
+  Also make sure you know all of the algorithms beforehand because this company is really about memorizing those.
+
+
+  What is Hashing, how does it work
+
+  Balanced Parenthesis
+
+  Valid algebraic expression
+
+Applied to the New Grad SDE position. Got OA1, OA2, OA3 and the final interview was just a review of OA2.
+
+
+A technical coding question included a question about binary trees and the various traversals (In-order, pre-order and post-order). If given the In-order (L, M, R) and Post-order (L, R, M), can you return the original tree? (M for mid instead of root because it starts with R). The two inputs are arrays of integers, the values at each node of the binary tree.
+
+
+You're given two timed leetcode type questions,
+===
+1. how to create object and difference
+2. function Expression vs declaration
+3. let const var
+4. closure where did u use it
+5. var
+
+=====
+
+vuex store
+
+symantics ui symantics
+
+html class ids basic
+
+2 apti
+
+mathematical 

@@ -1,0 +1,1092 @@
+node current - 12.11.1
+node lts- 10.16.3
+
+changes in node 10
+1. Support for Modern Cryptography
+cryptographic support now includes the ChaCha20 cipher and the Poly1305 authenticator.
+According to IETF documentation, ChaCha20 is a high-speed cipher (much faster than AES in software only-implementations)
+that is not sensitive to timing attacks. The same organization defines Poly1305 as a high-speed message authentication
+ code with a straight-forward and easy implementation.
+
+2. Experimental Promisified fs Functions
+The experimental fs/promises API gives us a set of alternative asynchronous file system methods that return a Promise
+ object instead of using callbacks. We can access this API through require('fs/promises').
+Now, we are going to create a function called doTruncate that asynchronously opens the file using open()
+ and truncates the content of the file using ftruncate, both methods of the fs/promises library.
+ftruncate();
+open()
+
+3.
+Function.prototype.toString()
+This method now returns exact slices of source text which include whitespace and comments.
+
+4.
+The catch clause of try statements no longer requires a parameter. Here's an example from the release notes:
+
+5.
+Non-standard methods trimLeft() and trimRight() becomes aliases for the newly implemented String.prototype.trimStart()
+and String.prototype.trimEnd() to ensure backward compatibility:
+
+6.Performance Improvements
+Promises and async functions get a performance boost. The V8 Engineering team has been able to close
+the gap between async functions and raw promise chains.
+7.
+"Node v10 will integrate with NPM v6 before it goes into LTS status in October 2018.
+ Get ready to witness up to 17x the speed of last year's npm!"
+
+8.Full Support of N-API
+N-API is an API that allows developers to build native Addons.
+Node.js Addons are used to provide a performance boost to our codebase when JavaScript performance
+ isn't enough. Node.js Addons provide us with an interface between JavaScript running in Node.js and C/C++ libraries.
+
+If an API is a contract between code modules, an ABI is a contract between pieces of binary code as explained
+ by Google Engineer Robert Love: an Application Binary Interface (ABI) "defines the mechanisms by which
+  functions are invoked, how parameters are passed between caller and callee, how return values are provided to
+   callers, how libraries are implemented, and how programs are loaded into memory." A stable ABI for Addons
+    will make upgrading codebases that rely on native modules much easier.
+----
+deprecation
+
+Using non-string values for process.env has been deprecated in documentation.
+Passing more than one argument to assert.fail() will emit a runtime deprecation warning
+The crypto.createCipher() and crypto.createDecipher() methods have been deprecated in documentation
+Previously deprecated internal getters/setters on net.Server has reached end-of-life and have been removed. [3701b02309]
+Previously deprecated legacy async_hooks APIs have reached end-of-life and have been removed.
+Previously deprecated internal getters/setters on net.Server have reached end-of-life and have been removed.
+Using require() to access several of Node.js' own internal dependencies will emit a runtime deprecation.
+===
+What is LTS releases of Node.js why should you care?
+An LTS(Long Term Support) version of Node.js receives all the critical bug fixes, security updates
+and performance improvements.
+
+LTS versions of Node.js are supported for at least 18 months and are indicated by even version
+ numbers (e.g. 4, 6, 8). They're best for production since the LTS release line is focussed on
+ stability and security, whereas the Current release line has a shorter lifespan and more frequent
+ updates to the code. Changes to LTS versions are limited to bug fixes for stability, security updates,
+ possible npm updates, documentation updates and certain performance improvements that can be
+  demonstrated to not break existing applications.
+===
+Q21. What are the security mechanisms available in Node.js?
+authentication
+Error Handling
+Request Validation
+Node.js Security Tools and Best Practices
+We can use tools like helmet (protects our application by setting HTTP headers),
+csurf (validates tokens in incoming requests and rejects the invalid ones),
+node rate limiter (controls the rate of repeated requests. This function can protect you from brute force attacks)
+ and cors (enables cross-origin resource sharing).
+
+
+Q19. What is the use of DNS module in Node.js?
+1. dns module which provide underlying systems name resolution and DNS look up facilities.
+2. DNS module consists of an asynchronous network wrapper.
+
+The most commonly used functions in DNS module are:
+1. dns.lookup(adress, options, callback) - The dns lookup method takes any website address as its
+ first parameter and returns the corresponding first IPV4 or IPV6 record.
+2. dns.lookupservice(address, port, callback) - This function converts any physical address such as
+ “www.knowledgehills.com” to array of record types. The record types are specified by the second parameter “rrbyte”.
+  Finally the third method is the callback function.
+3. dns.getServers() - This function returns an array of IP address strings, formatted according to rfc5952,
+ that are currently configured for DNS resolution. A string will include a port section if a custom port is used.
+4. dns.setServers() - This function sets the IP address and port of servers to be used when performing DNS resolution.
+ The dns.setServers() method must not be called while a DNS query is in progress.
+
+ ===
+ request status code
+ '500': 'Internal Server Error',
+  '501': 'Not Implemented',
+  '502': 'Bad Gateway',
+  '503': 'Service Unavailable',
+  '504': 'Gateway Time-out',
+  '505': 'HTTP Version Not Supported',
+
+  401 : unathorized
+  403 : forbidden
+  404 : not found
+  405 : method not allowed
+
+  400 :
+  200 : ok
+  201 : created
+  202 : accepted
+  ====
+  Express js
+
+  Express is a fast, assertive, essential lightweight and moderate web framework of Node.js.
+  You can assume express as a layer built on the top of the Node.js that helps manage a server
+  and routes.
+  It provides a robust set of features to develop web and mobile applications.
+
+      wxpress js is userd to build Single-page, multi-page, and hybrid mobile and web apps
+      Common back-end functions for web applications APIs (application programming interfaces)
+
+      Because Node.js itself wasn’t intended to build websites, the Express framework is able to layer in
+      built-in structure and functions needed to actually build a site.
+
+  Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate
+   the flow of data into a website structure.
+
+   It’s a pretty lightweight framework
+  that’s great for giving developers extra, built-in web application features and the Express API without
+   overriding the already robust, feature-packed Node.js platform.
+
+   Templating engines: Express comes with two templating engines, Jade and EJS, which facilitate the flow
+    of data into a website structure.
+        It can be used to design single-page, multi-page and hybrid web applications.
+        It allows to setup middlewares to respond to HTTP Requests.
+        It defines a routing table which is used to perform different actions based on HTTP method and URL.
+        It allows to dynamically render HTML Pages based on passing arguments to templates.
+
+   Advantages of Express.js
+      Makes Node.js web application development fast and easy.
+      Easy to configure and customize.
+      Allows you to define routes of your application based on HTTP methods and URLs.
+      Includes various middleware modules which you can use to perform additional tasks
+       on request and response.
+      Easy to integrate with different template engines like Jade, Vash, EJS etc.
+      Allows you to define an error handling middleware.
+      Easy to serve static files and resources of your application.
+      Allows you to create REST API server.
+      Easy to connect with databases such as MongoDB, Redis, MySQL
+
+  Express.js is based on the Node.js middleware module called connect which in turn uses
+  ++http module. So, any middleware which is based on connect will also work with Express.js.
+  ===
+  What is Express.js
+
+  Let's see some of the core features of Express framework:
+
+      Why use Express
+          Ultra fast I/O
+          Asynchronous and single threaded
+          MVC like structure
+          Robust API makes routing easy
+
+          Express 3.x is a light-weight web application framework to help organize your web application
+           into an MVC architecture on the server side. You can use a variety of choices for your templating
+           language (like EJS, Jade, and Dust.js).
+
+          You can then use a database like MongoDB with Mongoose (for modeling) to provide a backend for your
+          Node.js application.
+          Express.js basically helps you manage everything, from routes, to handling requests and views.
+          What is the purpose of it with Node.js?
+
+  That you don't have to repeat same code over and over again.
+  Node.js is a low-level I/O mechanism which has an HTTP module. If you just use an HTTP module,
+  a lot of work like parsing the payload, cookies, storing sessions (in memory or in Redis), selecting
+   the right route pattern based on regular expressions will have to be re-implemented.
+   With Express.js, it is just there for you to use.
+
+   Easy integration of third-party services and middleware
+   Disadvantages-
+   Event-driven nature (callbacks)
+   Philosophy of plugins known as middleware
+
+  Express.js is built on this philosophy, that is why it is important to understand its main concepts.
+
+
+  Code organization
+
+  Note that the code organization in Express.js is represented by patterns that make your code
+  easier to maintain.
+  ===
+  Web Services; - soap vs rest=---- SOAP is like an envelope while REST is just a postcard.
+
+  Web services tells us how the communication between two different set of devices or applications held over the World Wide
+  Web.
+  This communication system can be categorized into two types, namely Simple Object Access Protocol or SOAP,
+  and Representational State Transfer or REST.
+
+  What Is a REST API?
+  1. REST is basically an architectural style of the web services that work as a channel of communication between different
+  computers or systems on the internet. The term REST API is something else.
+
+  2. Those application programming interfaces that are backed by the architectural style of REST architectural system
+   are called REST APIs.
+   3. REST API proides web services, database systems, and computer systems permit requesting
+    systems to get robust access
+  4. it provides web based resources by deploying a predefined set of stateless protocols and standard operations.
+  5. REST API systems deliver fast performance, reliability, and more progression.
+
+  As one REST API tutorial put it:
+
+  REST is a software architecture style that relies on a stateless communications protocol, most commonly, HTTP
+
+  Any situation where the size of the transmitted message does not matter, or where you control everything end-to-end,
+   SOAP is almost always the better answer.
+  This applies primarily to direct server to server communication, generally used for internal
+  communication only within the confines of one company.
+
+  REST follows the object-oriented programming paradigm of noun-verb. REST is very data-driven,
+  compared to SOAP, which is strongly function-driven.
+
+  A REST service also has a schema in what is called a WADL – Web Application Description Language.
+   The WADL for the above call would look like this:
+
+  What Is a SOAP API?
+  1. SOAP is a standard communication protocol system that permits processes using different operating systems like Linux
+   and Windows to communicate via HTTP and its XML.
+  2. SOAP based APIs are designed to create, recover, update and delete
+   records like accounts, passwords, leads, and custom objects.
+  3. These offers over twenty different kinds of calls that make it easy for the API developers to maintain their accounts,
+  perform accurate searches and much more. These can then be used with all those languages that support web services.
+  4. SOAP APIs take the advantages of making web based protocols such as HTTP and its XML that are already operating the all
+   operating systems thats  why its developers can easily manipulate web services and get responses without caring about
+    language and platforms at all.
+  5/ It includes a WSDL file which has
+  the required information on what the web service does in
+   addition to the location of the web service.
+  itter();
+      //Subscribe FirstEvent
+   SOAP uses service interfaces to expose its functionality to client applications.
+
+
+   SOAP provides the following advantages when compared to REST:
+
+   Language, platform, and transport independent REST requires use of HTTP
+   Works well in distributed enterprise environments REST assumes direct point-to-point communication
+   Standardized
+   Provides significant pre-build extensibility in the form of the WS* standards
+   Built-in error handling
+   Automation when used with certain language products
+   REST is easier to use for the most part and is more flexible. It has the following advantages when compared to SOAP:
+
+   Uses easy to understand standards like swagger and OpenAPI Specification 3.0
+   Smaller learning curve
+   Efficient (SOAP uses XML for all messages, REST mostly uses smaller message formats like JSON)
+   Fast (no extensive processing required)
+   Closer to other Web technologies in design philosophy
+
+
+  Differences:
+  SOAP
+
+  REST
+  SOAP stands for Simple Object Access Protocol
+  REST stands for Representational State Transfer
+
+  SOAP is a protocol. SOAP was designed with a specification.
+   It includes a WSDL file which has
+   the required information on what the web service does in
+    addition to the location of the web service.
+
+  -REST is an Architectural style in which a web service
+   can only be treated as a RESTful service if it follows the constraints of being
+  Client Server
+  Stateless
+  Cacheable
+  Layered System
+  Uniform Interface
+
+  SOAP cannot make use of REST since SOAP is a protocol and REST is an architectural pattern.
+  -REST can make use of SOAP as the underlying protocol for web services,
+  because in the end it is just an architectural pattern.
+
+  SOAP uses service interfaces to expose its functionality to client applications.
+   In SOAP, the WSDL file provides the client with the necessary information which
+    can be used to understand what services the web service can offer.
+
+  - REST use Uniform Service locators to access to the components on the
+  hardware device. For example, if there is an object which represents
+  the data of an employee hosted on a URL as http://demo.guru99 , the below
+   are some of URI that can exist to access them
+  http://demo.guru99.com/Employee
+
+  SOAP requires more bandwidth for its usage.
+  Since SOAP Messages contain a lot of information inside of it,
+  the amount of data transfer using SOAP is generally a lot.
+  -REST does not need much bandwidth when requests are sent to the server.
+   REST messages mostly just consist of JSON messages. Below is an example of
+   a JSON message passed to a web server. You can see that the size of the
+   message is comparatively smaller to SOAP.
+  {"city":"Mumbai","state":"Maharastra"}
+
+  SOAP can only work with XML format. As seen from SOAP messages,
+  all data passed is in XML format.
+  REST permits different data format such as Plain text, HTML, XML, JSON, etc.
+  But the most preferred format for transferring data is JSON.
+
+  ===
+  npx
+  npx : An npm package runner — helps to execute packages without installing explicitly.
+
+  There are times you wanted to try some CLI tools but it’s annoying to have it
+  installed globally (or) locally just to run it once. npx is a great way for solving this.
+  Using npx <command> to initiate the execution of a package. If <command> is not already
+  in your $PATH, npx will install the package from npm registry and invoke it. npx will not maintain
+  the packages in the globals, So you don't have to worry about polluting your globals.
+
+  difference
+  NPM by itself does not simply run any package. it doesn't run any package in a matter of fact. If you
+  want to run a package using NPM, you must specify that package in your package.json file.
+
+  npx will check whether <command> exists in $PATH, or in the local project binaries, and execute it.
+  ==
+  yarn
+  https://engineering.fb.com/web/yarn-a-new-package-manager-for-javascript/
+  1. makes the install process faster.
+  2. Fast, reliable, and secure dependency management.
+  3. Uses Lock files
+
+  Yarn resolves these issues around versioning and non-determinism by using lockfiles and an install
+  algorithm that is deterministic and reliable. These lockfiles lock the installed dependencies to a
+  specific version, and ensure that every install results in the exact same file structure in node_modules
+   across all machines. The written lockfile uses a concise format with ordered keys to ensure that changes
+   are minimal and review is simple.
+
+  Fast, reliable, and secure dependency management.
+  Resolution: Yarn starts resolving dependencies by making requests to the registry and recursively looking up each dependency.
+  Fetching: Next, Yarn looks in a global cache directory to see if the package needed has already been downloaded.
+   If it hasn't, Yarn fetches the tarball for the package and places it in the global cache so it can work offline
+   and won't need to download dependencies more than once. Dependencies can also be placed in source control as tarballs for full offline installs.
+  Linking: Finally, Yarn links everything together by copying all the files needed from the global cache into the local node_modules directory.
+
+  makes the install process faster.
+
+  Fast: Yarn caches every package it downloads so it never needs to again.
+  It also parallelizes operations to maximize resource utilization so install times are faster than ever.
+
+  Reliable: Using a detailed, but concise, lockfile format, and a deterministic algorithm for installs,
+  Yarn is able to guarantee that an install that worked on one system will work exactly the same way on any other system.
+
+  Secure: Yarn uses checksums to verify the integrity of every installed package before its code is executed.
+
+  Offline Mode: If you've installed a package before, you can install it again without any internet connection.
+  Deterministic: The same dependencies will be installed the same exact way across every machine regardless of install order.
+  Network Performance: Yarn efficiently queues up requests and avoids request waterfalls in order to maximize network utilization.
+  Multiple Registries: Install any package from either npm or Bower and keep your package workflow the same.
+  Network Resilience: A single request failing won't cause an install to fail. Requests are retried upon failure.
+  Flat Mode: Resolve mismatching versions of dependencies to a single version to avoid creating duplicates.
+===
+why try catch doesnt work in asynchronous code???
+This will not work because the callback function passed to fs.readFile() is called asynchronously.
+ By the time the callback has been called, the surrounding code, including the try…catch block, will
+ have already exited. Throwing an error inside the callback can crash the Node.js process in most cases.
+  If domains are enabled, or a handler has been registered with process.on('uncaughtException'), such errors can be intercepted.
+==
+Why Node.js is single threaded?
+Node.js uses a single threaded model in order to support async processing to handleing callbacks.
+With async processing,
+an application can perform better and is more scalable under web loads. Also can handle concurerent requests
+ Thus, Node.js makes use of a
+single-threaded model approach rather than typical thread-based implementation.
+===
+Q-22. What Is The Local Installation Of Dependencies?
+Answer.
+
+By default, NPM installs any dependency in the local mode. It means that the package gets installed
+in “node_modules” directory which is present in the same folder, where Node application is placed.
+Locally deployed packages are accessible via require(). Following is the syntax to install a Node
+project locally.
+====
+Explain the concept of Punycode in Node.js? utf8 to ascII
+In Node.js, Punycode is an encoding syntax that is used for converting Unicode (UTF-8) string of
+ characters into a basic ASCII string of characters. It is important as the hostnames can only
+ understand the ASCII characters. Thus, Node.js version 0.6.2 onwards, it was bundled up with
+ the default Node package. If you want to use it with any previous versions, you can easily do
+ that by using the following code:
+
+Syntax:
+
+1
+punycode = require('punycode');
+===
+      Q-7. Is Node.Js Entirely Based On A Single-Thread?
+
+Yes, it’s true that Node.js processes all requests on a single thread. But it’s just a part of the
+theory behind Node.js design. In fact, more than the single thread mechanism, it makes use of events
+and callbacks to handle a large no. of requests asynchronously.
+
+Moreover, Node.js has an optimized design which utilizes both JavaScript and C++ to guarantee maximum
+ performance. JavaScript executes at the server-side by Google Chrome v8 engine. And the C++ libUV
+ library takes care of the non-sequential I/O via background workers.
+
+To explain it practically, let’s assume there are 100s of requests lined up in Node.js queue. As per
+ design, the main thread of Node.js event loop will receive all of them and forwards to background
+  workers for execution. Once the workers finish processing requests, the registered callbacks get
+  notified on event loop thread to pass the result back to the user.
+
+  Q-8. How To Get Post Data In Node.Js?
+
+Following is the code snippet to fetch Post Data using Node.js.
+
+app.use(express.bodyParser());
+app.post('/', function(request, response){
+console.log(request.body.user);
+});
+
+Q-9. How To Make Post Request In Node.Js?
+Answer.
+Following code snippet can be used to make a Post Request in Node.js.
+var request = require('request');
+request.post(
+'http://www.example.com/action',
+{ form: { key: 'value' } },
+function (error, response, body) {
+if (!error && response.statusCode == 200) {
+console.log(body)
+}
+}
+);
+===
+Q-10. What Is Callback In Node.Js?
+Answer.
+We may call “callback” as an asynchronous equivalent for a function. Node.js makes heavy use of
+callbacks and triggers it at the completion of a given task. All the APIs of Node.js are written
+in such a way that they support callbacks.
+For example, suppose we have a function to read a file, as soon as it starts reading the file,
+ Node.js return the control immediately to the execution environment so that the next instruction
+can be executed. Once file read operation is complete, it will call the callback function and pass
+the contents of the file as its arguments. Hence, there is no blocking or wait, due to File I/O.
+This functionality makes Node.js as highly scalable, using it processes a high number of requests
+without waiting for any function to return the expected result.
+
+;
+24.3.5 Pros and cons of callbacks
+Using callbacks results in a radically different programming style, CPS  Continuation-passing style .
+The main advantage of CPS is that its basic mechanisms are easy to understand. But there are also disadvantages:
+
+Error handling becomes more complicated: There are now two ways in which errors are reported – via callbacks and via exceptions.
+ You have to be careful to combine both properly.
+Less elegant signatures: In synchronous functions, there is a clear separation of concerns between input (parameters)
+and output (function result). In asynchronous functions that use callbacks, these concerns are mixed:
+ the function result doesn’t matter and some parameters are used for input, others for output.
+Composition is more complicated: Because the concern “output” shows up in the parameters, it is more complicated to compose code via combinators.
+Callbacks in Node.js style have three disadvantages (compared to those in a functional style):
+
+The if statement for error handling adds verbosity.
+Reusing error handlers is harder.
+Providing a default error handler is also harder. A default error handler is useful if you make a function call
+ and don’t want to write your own handler. It could also be used by a function if a caller doesn’t specify a handler.
+
+promises
+then() always returns a Promise, which enables you to chain method calls:
+
+asyncFunc1()
+.then(result1 => {
+    // Use result1
+    return asyncFunction2(); // (A)
+})
+.then(result2 => { // (B)
+    // Use result2
+})
+.catch(error => {
+    // Handle errors of asyncFunc1() and asyncFunc2()
+});
+How the Promise P returned by then() is settled depends on what its callback does:
+
+If it returns a Promise (as in line A), the settlement of that Promise is forwarded to P.
+ That’s why the callback from line B can pick up the settlement of asyncFunction2’s Promise.
+If it returns a different value, that value is used to settle P.
+If throws an exception then P is rejected with that exception.
+Furthermore, note how catch() handles the errors of two asynchronous function calls
+(asyncFunction1() and asyncFunction2()). That is, uncaught errors are passed on until there is an error handler.
+
+Promise.all() enables you to be notified once all results are in (a join in Unix process terminology). '
+Its input is an Array of Promises, its output a single Promise that is fulfilled with an Array of the results.
+
+The Promise API is about delivering results asynchronously. A Promise object (short: Promise) is a stand-in for
+the result, which is delivered via that object.
+
+States:
+
+A Promise is always in one of three mutually exclusive states:
+Before the result is ready, the Promise is pending.
+If a result is available, the Promise is fulfilled.
+If an error happened, the Promise is rejected.
+A Promise is settled if “things are done” (if it is either fulfilled or rejected).
+A Promise is settled exactly once and then remains unchanged.
+
+Reacting to state changes:
+
+Promise reactions are callbacks that you register with the Promise method then*, to be notified of a fulfillment or a rejection.
+A thenable is an object that has a Promise-style then* method. Whenever the API is only interested
+in being notified of settlements, it only demands thenables (e.g. the values returned from then() and catch();
+ or the values handed to Promise.all* and Promise.race*).
+
+Promises are a pattern that helps with one particular kind of asynchronous programming:
+a function or method that returns a single result asynchronously. One popular way of receiving such a
+ result is via a callback “callbacks as continuations”:
+Promises provide a better way of working with callbacks: Now an asynchronous function returns a Promise,
+an object that serves as a placeholder and container for the final result.
+ Callbacks registered via the Promise method then() are notified of the result:
+
+Compared to callbacks as continuations, Promises have the following advantages:
+
+No inversion of control: similarly to synchronous code, Promise-based functions return results,
+they don’t (directly) continue – and control – execution via callbacks. That is, the caller stays in control.
+Chaining is simpler: If the callback of then() returns a Promise (e.g. the result of calling another Promise-based function)
+ then then() returns that Promise (how this really works is more complicated and explained later).
+  As a consequence, you can chain then() method calls:
+Composing asynchronous calls (loops, mapping, etc.): is a little easier, because you have data (Promise objects) you can work with.
+Error handling: As we shall see later, error handling is simpler with Promises, because, once again, there isn’t an inversion of control.
+ Furthermore, both exceptions and asynchronous errors are managed the same way.
+Cleaner signatures: With callbacks, the parameters of a function are mixed;
+ some are input for the function, others are responsible for delivering its output.
+ With Promises, function signatures become cleaner; all parameters are input.
+Standardized: Prior to Promises, there were several incompatible ways of handling asynchronous results
+ (Node.js callbacks, XMLHttpRequest, IndexedDB, etc.).
+  With Promises, there is a clearly defined standard: ECMAScript 6. ES6 follows the standard Promises/A+ [1].
+  Since ES6, an increasing number of APIs is based on Promises.
+
+25.5.3 Consuming a Promise #
+As a consumer of promise, you are notified of a fulfillment or a rejection via reactions – callbacks that you register
+with the methods then() and catch():
+
+A thenable is any object that has a method then() that works like Promise.prototype.then().
+ Thus, Promises are thenables. Resolving with R (e.g. by returning it from onFulfilled) means that it is inserted
+ “after” Q: R’s settlement is forwarded to Q’s onFulfilled and onRejected callbacks. In a way, Q becomes R
+
+diff
+Compared to callbacks, Promises have cleaner function (or method) signatures. With callbacks, parameters are used for input and output:
+With Promises, all parameters are used for input:
+
+Unified handling of both asynchronous errors and normal exceptions.
+Easier composition, because you can reuse synchronous tools such as Array.prototype.map().
+Chaining of then() and catch().
+Guarding against notifying callbacks more than once. Some development environments also warn about rejections that are never handled.
+
+Q-11. What Is Callback Hell?
+Initially, you may praise Callback after learning about it. Callback hell is heavily nested callbacks
+which make the code unreadable and difficult to maintain.
+
+Let’s see the following code example.
+
+downloadPhoto('http://coolcats.com/cat.gif', displayPhoto)
+function displayPhoto (error, photo) {
+if (error) console.error('Download error!', error)
+else console.log('Download finished', photo)
+}
+console.log('Download started')
+In this scenario, Node.js first declares the “displayPhoto” function. After that, it calls the “downloadPhoto”
+function and pass the “displayPhoto” function as its callback. Finally, the code prints ‘Download started’ on the console.
+The “displayPhoto” will be executed only after “downloadPhoto” completes the execution of all its tasks.
+
+
+
+Q-12. How To Avoid Callback Hell In Node.Js?
+Answer.
+
+Node.js internally uses a single-threaded event loop to process queued events. But this approach may
+lead to blocking the entire process if there is a task running longer than expected.
+
+Node.js addresses this problem by incorporating callbacks also known as higher-order functions.
+ So whenever a long-running process finishes its execution, it triggers the callback associated.
+ With this approach, it can allow the code execution to continue past the long-running task.
+
+However, the above solution looks extremely promising. But sometimes, it could lead to complex and
+unreadable code. More the no. of callbacks, longer the chain of returning callbacks would be. Just see
+ the below example.
+
+With such an unprecedented complexity, it’s hard to debug the code and can cause you a whole lot of
+time. There are four solutions which can address the callback hell problem.
+
+1. Make Your Program Modular.
+It proposes to split the logic into smaller modules. And then join them together from the main module
+to achieve the desired result.
+
+2. Use Async Mechanism.
+It is a widely used Node.js module which provides a sequential flow of execution.
+
+The async module has <async.waterfall> API which passes data from one operation to other using the
+ next callback.
+
+Another async API <async.map> allows iterating over a list of items in parallel and calls back with
+another list of results.
+
+With the async approach, the caller’s callback gets called only once. The caller here is the main
+ method using the async module.
+
+3. Use Promises Mechanism.
+Promises give an alternate way to write async code. They either return the result of execution or
+ the error/exception. Implementing promises requires the use of <.then()> function which waits for
+ the promise object to return. It takes two optional arguments, both functions. Depending on the state
+ of the promise only one of them will get called. The first function call proceeds if the promise gets
+ fulfilled. However, if the promise gets rejected, then the second function will get called.
+
+4. Use Generators.
+Generators are lightweight routines, they make a function wait and resume via the yield keyword.
+Generator functions uses a special syntax <function* ()>. They can also suspend and resume asynchronous
+operations using constructs such as promises or <thunks> and turn a synchronous code into asynchronous.
+====
+Q-14. What Is The Difference Between Nodejs, AJAX, And JQuery?
+Answer.
+The one common trait between Node.js, AJAX, and jQuery is that all of them are the advanced
+implementation of JavaScript. However, they serve completely different purposes.
+
+Node.Js –
+It is a server-side platform for developing client-server applications. For example, if we’ve to
+build an online employee management system, then we won’t do it using client-side JS.
+But the Node.js can certainly do it as it runs on a server similar to Apache, Django not in a browser.
+
+AJAX (Aka Asynchronous Javascript And XML) –
+It is a client-side scripting technique, primarily designed for rendering the contents of a page
+ without refreshing it. There are a no. of large companies utilizing AJAX such as Facebook and
+ Stack Overflow to display dynamic content.
+
+JQuery –
+It is a famous JavaScript module which complements AJAX, DOM traversal, looping and so on.
+ This library provides many useful functions to help in JavaScript development. However,
+  it’s not mandatory to use it but as it also manages cross-browser compatibility, so can
+  help you produce highly maintainable web applications.
+===
+how require works
+
+The require function will look for files in the following order:
+
+Built-in core Node.js modules (like fs)
+NPM Modules. It will look in the node_modules folder.
+Local Modules. If the module name has a ./, / or ../, it will look for the directory/file in the given path.
+It matches the file extensions: *.js, *.json, *.mjs, *.cjs, *.wasm and *.node.
+
+The Module type found in module.js has two main roles inside of Node.js. First, it provides a foundation for all Node.js
+modules to build off of. Each file is given a new instance of this base module on load, which persists
+even after the file has run. This is why we are able attach properties to module.exports and return them later as needed.
+
+The module’s second big job is to handle Node’s module loading mechanism. The stand-alone require
+function that we use is actually an abstraction over module.require, which is itself just a simple wrapper
+around Module._load. This load method handles the actual loading of each file, and is where we’ll begin our journey.
+
+
+Module._load = function(request, parent, isMain) {
+   1. Check Module._cache for the cached module.
+   2. Create a new Module instance if cache is empty.
+   3. Save it to the cache.
+   4. Call module.load() with your the given filename.
+      This will call module.compile() after reading the file contents.
+   5. If there was an error loading/parsing the file,
+      delete the bad module from the cache
+   6. return module.exports
+};
+
+
+MODULE._COMPILE
+Module.prototype._compile = function(content, filename) {
+   1. Create the standalone require function that calls module.require.
+   2. Attach other helper methods to require.
+   3. Wraps the JS code in a function that provides our require,
+      module, etc. variables locally to the module scope.
+   4. Run that function
+};
+
+This is where the real magic happens.
+First, a special standalone require function is created for that module. THIS is the require function that we are all
+ familiar with. While the function itself is just a wrapper around Module.require,
+ it also contains some lesser-known helper properties and methods for us to use:
+
+Once require is ready, the entire loaded source code is wrapped in a new function, which takes in require, module,
+exports, and all other exposed variables as arguments.
+
+====
+ 4)      What does event-driven programming mean?
+
+ event-driven programming is a programming paradigm in which the flow of the program is
+ determined by events such as user actions (mouse clicks, key presses), sensor outputs,
+ or messages from other programs or threads.
+
+ In an event-driven application, there is generally a main loop that listens for events,
+  and then triggers a callback function when one of those events is detected.
+
+   It is an application architecture technique divided into two sections
+   1) Event Selection 2) Event Handling
+   ----
+   Creating event handlers
+The first step in developing an event-driven program is to write a series of subroutines,
+or methods, called event-handler routines. These routines handle the events to which the main
+ program will respond. For example, a single left-button mouse-click on a command button in a GUI
+ program may trigger a routine that will open another window, save data to a database or exit the
+ application. Many modern-day programming environments provide the programmer with event templates,
+  allowing the programmer to focus on writing the event code.
+
+The second step is to bind event handlers to events so that the correct function is called when
+ the event takes place. Graphical editors combine the first two steps: double-click on a button
+  and the editor creates an (empty) event handler associated with the user clicking the button
+  and opens a text window so you can edit the event handler.
+
+The third step in developing an event-driven program is to write the main loop. This is a function
+that checks for the occurrence of events, and then calls the matching event handler to process it.
+Most event-driven programming environments already provide this main loop, so it need not be specifically
+provided by the application programmer. RPG, an early programming language from IBM, whose 1960s design
+concept was similar to event-driven programming discussed above, provided a built-in main I/O loop
+(known as the "program cycle") where the calculations responded in accordance to 'indicators' (flags)
+that were set earlier in the cycle
+===
+The two types of API functions in Node.js are
+
+a)      Asynchronous, non-blocking functions
+
+b)      Synchronous, blocking functions
+==
+Describe the exit codes of Node.js.
+In Node.js, exit codes are a set of specific codes which are used for finishing a specific process.
+These processes can include the global object as well. Below are some of the exit codes used in Node.js:
+
+Uncaught fatal exception
+Unused
+Fatal Error
+Internal Exception handler Run-time failure
+Internal JavaScript Evaluation Failure
+===
+Is cryptography supported in Node.js?
+Yes, Node.js does support cryptography through a module called Crypto.
+ This module provides various cryptographic functionalities like cipher, decipher, sign and
+ verify functions, a set of wrappers for open SSL’s hash HMAC etc. For example
+==
+12)   Can you access DOM in node?
+
+No, you cannot access DOM in node.
+====
+
+)   Using the event loop what are the tasks that should be done asynchronously?
+
+a)      I/O operations
+
+b)      Heavy computation
+
+c)       Anything requiring blocking
+===
+
+What are the two arguments that async.queue takes?
+
+The two arguments that async.queue takes
+
+a)      Task function
+
+b)      Concurrency value
+===
+Mention the steps by which you can async in Node.js?
+
+By following steps you can async Node.js
+
+a)      First class functions
+
+b)      Function composition
+
+c)       Callback Counters
+
+d)      Event loops
+
+==
+What tools can be used to assure consistent style?
+You have plenty of options to do so:
+
+JSLint by Douglas Crockford
+JSHint
+ESLint
+JSCS
+===
+What's the difference between operational and programmer errors?
+Operation errors are not bugs, but problems with the system, like request timeout or hardware failure.
+
+On the other hand programmer errors are actual bugs.
+===
+Why npm shrinkwrap is useful?
+This command locks down the versions of a package's dependencies so that you can control exactly which
+versions of each dependency will be used when your package is installed. - npmjs.com
+
+It is useful when you are deploying your Node.js applications - with it you can be sure which versions
+ of your dependencies are going to be deployed.
+====
+ What's a stub? Name a use case.
+Stubs are functions/programs that simulate the behaviours of components/modules.
+Stubs provide canned answers to function calls made during test cases. Also, you can assert on
+with what these stubs were called.
+
+A use-case can be a file read, when you do not want to read an actual file:
+
+var fs = require('fs');
+
+var readFileStub = sinon.stub(fs, 'readFile', function (path, cb) {
+  return cb(null, 'filecontent');
+});
+
+expect(readFileStub).to.be.called;
+readFileStub.restore();
+===
+What's a test pyramid? How can you implement it when talking about HTTP APIs?
+A test pyramid describes that when writings test cases there should be a lot more low-level unit
+ tests than high level end-to-end tests.
+
+When talking about HTTP APIs, it may come down to this:
+
+a lot of low-level unit tests for your models
+less integration tests, where your test how your models interact with each other
+a lot less acceptance tests / end to end test, where you test the actual HTTP endpoints
+===
+What is the purpose of console object?
+
+console object is used to Used to print information on stdout and stderr.
+
+The Timers module in Node.js contains functions that execute code after a set period of time.
+===
+Authentication and Authorization
+Authentication means confirming your own identity, whereas authorization means
+being allowed access to the system. In even more simpler terms
+ authentication is the process of verifying oneself, while authorization is
+ the process of verifying what you have access to.
+
+ Authentication
+ Authentication is about validating your credentials such as Username/User ID
+ and password to verify your identity. The system then checks whether you are what
+  you say you are using your credentials. Whether in public or private networks,
+  the system authenticates the user identity through login passwords. Usually
+  authentication is done by a username and password, although there are other
+  various ways to be authenticated.
+
+  Authorization
+  Authorization occurs after your identity is successfully authenticated by the system,
+  which therefore gives you full access to resources such as information, files, databases,
+  funds, etc. However authorization verifies your rights to grant you access to resources only
+  after determining your ability to access the system and up to what extent.
+   In other words, authorization
+   is the process to determine whether the authenticated user has access to the particular resources.
+    A good example of this is, once verifying and confirming employee ID and passwords through authentication,
+     the next step would be determining which employee has access to which floor and that is done through authorization.
+  Access to a system is protected by authentication and authorization, and they are frequently used in conjunction
+  with each other. Although both have different concepts behind then, they are critical to the web service
+   infrastructure, especially when it comes to being granted access to a system. Understanding each
+   term is very important and a key aspect of security.
+
+  Single- Factor Authentication: This is the simplest form of authentication method which
+  requires a password to grant user access to a particular system such as a website or a network.
+  The person can request access to the system using only one of the credentials to verify one’s
+   identity. For example, only requiring a password against a username would be a way to verify a
+   login credential using single- factor authentication.
+
+Two- Factor Authentication: This authentication requires a two- step verification process which
+not only requires a username and password, but also a piece of information only the user knows.
+Using a username and password along with a confidential information makes it that much harder
+for hackers to steal valuable and personal data.
+
+Multi- Factor Authentication: This is the most advanced method of authentication which requires
+ two or more levels of security from independent categories of authentication to grant user
+ access to the system. This form of authentication utilizes factors that are independent of
+ each other in order to eliminate any data exposure. It is common for financial organizations,
+ banks, and law enforcement agencies to use multiple- factor authentication.
+====
+ jsonwebtoken
+ let token = jwt.sign({
+   name:#name
+ }, #secret, {
+   expiresIn: 120 // expires in 24 hours
+ });
+
+ jwt.verify(token, config.secrets.session, cb(err, res) {
+
+ });
+ ===]response object methods
+
+ res.append(field [, value])
+ res.append() is supported by Express v4.11.0+
+
+ Appends the specified value to the HTTP response header field. If the header is not already set,
+ it creates the header
+ with the specified value. The value parameter can be a string or an array.
+
+ Note: calling res.set() after res.append() will reset the previous
+ ---
+ res.download(path [, filename] [, options] [, fn])
+ The optional options argument is supported by Express v4.16.0 onwards.
+
+ Transfers the file at path as an “attachment”. Typically, browsers will prompt the user for download.
+ By default, the Content-Disposition header “filename=” parameter is path (this typically appears
+ in the browser dialog). Override this default with the filename parameter.
+ --
+ res.end([data] [, encoding])
+ Ends the response process. This method actually comes from Node core, specifically the response.end()
+ method of http.ServerResponse.
+ --
+ res.format(object)
+ Performs content-negotiation on the Accept HTTP header on the request object, when present.
+  It uses req.accepts() to select a handler for the request, based on the acceptable types ordered
+   by their quality values. If the header is not specified, the first callback is invoked.
+   When no match is found, the server responds with 406 “Not Acceptable”, or invokes the default callback.
+
+ The Content-Type response header is set when a callback is selected. However, you may alter this within the
+ callback using methods such as res.set() or res.type().
+
+ res.format({
+   'text/plain': function () {
+     res.send('hey')
+   },
+ ---
+ res.get(field)
+ Returns the HTTP response header specified by field. The match is case-insensitive.
+ ---
+ res.json([body])
+ Sends a JSON response. This method sends a response (with the correct content-type) that is the parameter converted
+ to a JSON string using JSON.stringify().
+
+ The parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you
+ can also use it to convert other values to JSON.
+ ---
+ res.jsonp([body])
+ Sends a JSON response with JSONP support. This method is identical to res.json(), except that it opts-in to JSONP callback support.
+ =--
+ res.render(view [, locals] [, callback])
+ Renders a view and sends the rendered HTML string to the client. Optional parameters:
+ ---
+ res.send([body])
+ Sends the HTTP response.
+
+ The body parameter can be a Buffer object, a String, an object, or an Array. For example:
+ --
+ res.sendStatus(statusCode)
+ Sets the response HTTP status code to statusCode and send its string representation as the response body.
+ res.sendStatus(200) // equivalent to res.status(200).send('OK')
+ res.sendStatus(403) // equivalent to res.status(403).send('Forbidden')
+ ---
+ res.set(field [, value])
+ Sets the response’s HTTP header field to value. To set multiple fields at once, pass an object as the parameter.
+ --
+ res.status(code)
+ Sets the HTTP status for the response. It is a chainable alias of Node’s response.statusCode.
+
+ res.status(403).end()
+ ---
+ =============
+ Http methods
+ idempotent - does produce the same result when hit multiple times
+ Get
+ Simply put, the GET method is used to retreive data from a server at the specified resource.
+ Since a GET request is only requesting data and not modifying any resources, it's considered a safe and idempotent method.
+
+ Post
+ POST
+ In web services, POST requests are used to send data to the API sever to create or udpate a resource.
+  The data sent to the server is stored in the request body of the HTTP request.
+ It's worth noting that a POST request is non-idempotent. It mutates data on the backend server (by creating or updating a resource),
+
+ Put
+ PUT
+ Simlar to POST, PUT requests are used to send data to the API to create or update a resource. The difference is that PUT requests
+ are idempotent. That is, calling the same PUT request multiple times will always produce the same result. In contrast, calling a
+  POST request repeatedly make have side effects of creating the same resource multiple times.
+
+ Patch
+ The difference with PATCH is that you only apply partial modifications to the resource.
+
+ The difference between PATCH and PUT, is that a PATCH request is non-idempotent (like a POST request).
+
+ Delete
+
+ The DELETE method is exactly as it sounds: delete the resource at the specified URL.
+
+ HEad
+ HEAD
+ The HEAD method is almost identical to GET, except without the response body.
+  In other words, if GET /users returns a list of users,
+  then HEAD /users will make the same request but won't get back the list of users.
+  HEAD requests are useful for checking what a GET request will return before actually
+   making a GET request -- like before downloading a large file or response body
+
+ Options
+ oPTIONS request should return data describing what other methods and operations the server supports at the given URL.
+
+ OPTIONS requests are more loosely defined and used than the others, making them a good candidate to test for fatal
+  API errors.
+ ---
+ not following the Methods
+ HTTP GET method is specified as idempotent, a GET request, by specification, can be resubmitted
+ with the assumption that it will not change anything on the server.
+ This is not the case for a HTTP POST which by specification can change the status of the application running on the
+ server.
+
+ as a last example, web browsers warn users when they try to refresh a page that was reached by a
+ HTTP POST request warning that some data might be resubmitted. You do not get that layer of protection
+ built-in browsers if the page is reached by a HTTP GET request.
+ ====
+ 26. Explain the concept of URL module.
+ The URL module of Node.js provides various utilities for URL resolution and parsing.
+  It is a built-in module that helps in splitting up the web address into a readable format:
+
+ 1
+ var url = require('url');
+ For example:
+ var url = require('url');
+ var adrs = '<a href="http://localhost:8082/default.htm?year=2019&month=april">http://localhost:8082/default.htm?year=2019&month=april</a>';
+ var q = url.parse(adr, true);
+ console.log(q.host); //returns 'localhost:8082'
+ console.log(q.pathname); //returns '/default.htm'
+ console.log(q.search); //returns '?year=2019 and month=april'
+ var qdata = q.query; //returns an object: { year: 2019, month: 'april' }
+ console.log(qdata.month); //returns 'april'
+ ====
+ NODE_ENV==
+
+ NODE_ENV is an environment variable made popular by the express webserver framework. When a node
+  application is run, it can check the value of the environment variable and do different things
+ based on the value. NODE_ENV specifically is used (by convention) to state whether a particular
+ environment is a production or a development environment. A common use-case is running additional
+ debugging or logging code if running in a development environment.
+
+ Accessing NODE_ENV
+ You can use the following code to access the environment variable yourself so that you can perform your own checks and logic:
+
+ var environment = process.env.NODE_ENV
+
+ Or alternatively using express' app.get('env') (note: this defaults to "development")
+
+ Be aware that if you haven't explicitly set NODE_ENV for your environment, it will be undefined.
+
+ Setting NODE_ENV
+ How to actually set the environment variable varies from operating system to operating system, and also depend on your user setup.
+
+ If you want to set the environment variable as a one-off, you can do so from the command line:
+
+ linux & mac: export NODE_ENV=production
+ windows: $env:NODE_ENV = 'production'
+ ======
+ GARBAGE COLLECTION-
+
+ The JavaScript Engine’s Garbage collector basically looks out for unreachable objects which are
+ removed from the memory. There are two garbage collection algorithms that I would like to explain
+  which are as follows:
+ Reference-counting garbage collection
+ Mark-and-sweep algorithm
+
+ Reference-counting garbage collection
+ This is a naïve garbage collection algorithm. This algorithm looks out for those objects which
+ have no references left. An object becomes eligible for garbage collection if it has no references
+ attached to it.
+
+ Mark-and-Sweep Algorithm
+ This algorithm looks out for objects which are unreachable from the root which is the JavaScript’s
+  global object. This algorithm overcomes the limitations of Reference-counting algorithm.
+  This algorithm starts from the root and traverses down to all other objects while marking them .
+  It further traverses through the traversed objects and marks them. This process continues till the
+   algorithm has no child nodes or any path left to traverse while marking all the nodes that have
+   been traversed. Now the garbage collector ignores all the reachable objects as they were marked
+   while traversing. So all the objects that were not marked were clearly unreachable to the root
+   which makes them eligible for garbage collection and later the memory is freed by removing those
+    objects.
+===
+==
+   View vs materialized view
+   Definition of View
+   View is a virtual table, created using Create View command. This virtual table contains the data
+   retrieved from a query expression,
+    in Create View command. View can be created from one or more than one base tables or views.
+    A view can be queried like you query
+    the original base tables.
+
+   It is not that the View is precomputed and stored on the disk instead, a View is computed each
+    time it is used or accessed.
+   Whenever a view is used the query expression in Create View command is executed at that particular
+    moment. Hence, you always
+   get the updated data in a View.
+
+   If you update any content in View, it is reflected in the original table, and if any changes had
+   been done to the original
+    base table, it would reflect in its View. But this makes the performance of a View slower.
+    For example, a view is created
+    from the join of two or more tables. In that case, you have to pay time to resolve Joins each
+    time a View is used.
+
+   But it has some advantages like it do not require storage space. You can create a customized view of
+    a complex database.
+   You can restrict the user from accessing sensitive information in a database. Reduces the complexity
+   of queries by getting
+    data from several tables into a single customized View.
+    ===

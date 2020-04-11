@@ -49,3 +49,50 @@ VueJS script is very lightweight and the performance is also very fast.
 Vue-CLI
 VueJS can be installed at the command line using the vue-cli command line interface. It helps to build and compile the project easily using vue-cli.
 ===
+Explain Vue.js reactivity and common issues when tracking changes.
+
+All properties defined in a Vue instance’s data option are reactive, meaning that if they change, the component is automatically updated and re-rendered as needed.
+
+All such properties are converted to getters and setters during initialization, thus allowing Vue to detect when those properties are accessed or changed.
+
+The following limitations must be accounted for when designing a Vue app:
+
+Vue cannot detect object property addition or deletion due to a JavaScript limitation, so the Vue.set method must be used to add new root-level reactive properties.
+Similarly, Vue cannot detect when an array item is modified using an index. Vue.set must be used here as well.
+===
+virtual DOM
+
+The virtual DOM is a tree-like data structure (or a collection) of JavaScript objects representing DOM nodes that are managed by Vue.js and that should be rendered on the page. These objects are called “virtual nodes” or VNodes for short.
+
+The main purpose of the virtual DOM is faster and more efficient DOM manipulation. When there are lots of nodes in the DOM, updating them can be expensive in terms of processing power and resources required.
+
+Working with the virtual DOM JavaScript object is significantly faster. Subsequently, Vue.js organizes DOM updates in batches for more efficiency.
+
+===
+
+computed
+1. In fact, when the Vue is instantiated, computed properties are converted into a property of the Vue with
+a getter and sometimes a setter.
+2. Basically you can think of a computed value as a derived value that will be automatically updated
+ whenever one of the underlying values used to calculate it is updated.
+
+3. Computed values are also cached to avoid repetitively calculating a value that doesn't need to be re-calculated when it hasn't changed (as it might not be in a loop for example).
+
+Computed properties are getter function in Vue instance rather than actual methods. we can define the same function as a method instead. However, the difference is that computed properties are cached based on their dependencies. A computed property will only re-evaluate when some of its dependencies have changed. In comparison, a method invocation will always run the function whenever a re-render happe
+
+
+Method
+
+A method is just a function bound to the Vue instance. It will only be evaluated when you explicitly
+ call it. Like all javascript functions it accepts parameters and will be re-evaluated every time
+  it's called. Methods are useful in the same situations any function is useful.
+
+===
+What is $parent in Vue?
+
+Similar to $root, the $parent property can be used to access the parent instance from a child.
+
+Although it provides direct access, it makes the application hard to test and debug. And we can not easily find out the where the mutation come from.
+
+Vue also provides $child just like $parent, but it can be used to access the child instance.
+===

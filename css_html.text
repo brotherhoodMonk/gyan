@@ -1,3 +1,38 @@
+
+3.<!DOCTYPE>
+ 1. The <!DOCTYPE> declaration must be the very first thing in your HTML document,
+  before the <html> tag.
+
+2. The <!DOCTYPE> declaration is not an HTML tag; it is an instruction to the
+web browser about what version of HTML the page is written in.
+
+3. HTML 5- <!DOCTYPE html>
+HTML 4.01 Strict
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+===
+What is a DTD?
+A DTD is a Document Type Definition.
+
+A document type definition (DTD) is a set of markup declarations that define a document
+type for a SGML-family markup language (GML, SGML, XML, HTML).
+
+this is for xml for html we use <!DOCTYPE>
+A DTD defines the structure and the legal elements and attributes of an XML document.
+If the DTD is declared inside the XML file, it must be wrapped inside the <!DOCTYPE> definition:
+If the DTD is declared in an external file, the <!DOCTYPE> definition must contain a reference to the DTD file:
+
+
+Doctype Usage: In the version, HTML 4.01, the usage of DOCTYPE declaration was to create a reference to
+a document type definition (DTD), since the version HTML 4.01 was completely based on a Standard Generalized Markup
+Language -SGML.
+
+The document type definition -DTD is responsible for specifying the rules for the Standard Generalized Markup
+Language -SGML so that the browser processes the content correctly. But in the HTML version, HTML 5 there isn’t
+any need of a reference to a document type definition (DTD) because HTML 5 is not based on a Standard Generalized
+ Markup Language(SGML).
+
+===
+
 1. Explain the three main ways to apply CSS styles to a web page.
 You will, of course, need to know how to add CSS to a page, and there are three main ways:
 
@@ -20,6 +55,7 @@ tags, classes & IDs:
 
 3. display: block, inline, inline-block
 
+inline-
 respect left & right margins and padding, but not top & bottom
 cannot have a width and height set
 allow other elements to sit to their left and right.
@@ -35,6 +71,26 @@ allow other elements to sit to their left and right
 respect top & bottom margins and padding
 respect height and width
 
+===
+
+Block-level elements
+Take full-width (100% width) by default
+Each gets displayed in a new line
+Width & height properties can be set
+Can contain other block or inline elements
+
+Inline elements
+Take only as much space as they need
+Displayed side by side
+Don’t accept width or height properties, and top-bottom margin
+Can be a parent of other inline elements
+
+inline element
+
+In other words, we can think of an inline element, that width & height properties can be set, or we can think
+of a block-level element, that doesn’t have to start with a new line.
+
+===
 position: fixed always fixates an element to some position within its scrolling
 container or the viewport. No matter how you scroll its container, it will
 remain in the exact same position and not affect the flow of other elements
@@ -46,7 +102,37 @@ position: relative until an element is scrolled beyond a specific offset, in
  its position instead of being scrolled out of view. It eventually gets unstuck
  as it gets scrolled back toward its original position. At least, that's how I
   understand it in theory.
+
+
 ====
+class and id
+The difference between an ID and a class is that an ID can be used to identify one element, whereas a class can be used
+to identify more than one.
+
+ID-
+The id attribute specifies a unique id for an HTML element (the value must be unique within the HTML document).
+ID’s are unique
+Each element can have only one ID
+Each page can have only one element with that ID
+
+class -
+
+The .class selector selects elements with a specific class attribute.
+
+To select elements with a specific class, write a period (.) character, followed by the name of the class.
+
+You can also specify that only specific HTML elements should be affected by a class. To do this, start with the element
+name, then write the period (.) character, followed by the name of the class (look at Example 1 below).
+
+
+
+Classes are not unique
+You can use the same class on multiple elements.
+You can use multiple classes on the same element.
+====
+
+
+===
 Explain the CSS “box model” and the layout components that it consists of
 Add to PDF/md	 		 	Junior
 The CSS box model is a rectangular layout paradigm for HTML elements that consists of the following:
@@ -66,15 +152,15 @@ A set of CSS rules contained within a stylesheet determines how a webpage should
 ===
 What is Sass?
 
-Sass or Syntactically Awesome StyleSheets is a CSS preprocessor that adds power and elegance to the basic language.
+Sass or Syntactically Awesome StyleSheets is a CSS preprocessor that adds power and elegance to the css language.
  It allows you to use variables, nested rules, mixins, inline imports, and more, all with a fully CSS-compatible
  syntax. Sass helps keep large stylesheets well-organized, and get small stylesheets up and running quickly.
 
- A CSS preprocessor is a scripting language that extends CSS by allowing developers to write code in one language and then compile it into CSS.
+ A CSS preprocessor is a scripting language that extends CSS by allowing developers to write code in one language and
+  then compile it into CSS.
 
 ====
 List out the key features for Sass?
-Add to PDF/md	 		 	Junior
 Key features for Sass include
 
 Full CSS3-compatible
@@ -145,8 +231,71 @@ users will not see any part of the table until the browser has rendered the whol
 So, if you use table-layout: fixed, users will see the
 top of the table while the browser loads and renders rest of the table. This gives the impression that the page loads a lot quicker!
 =======
+div in line
+<div class="outer">
+  <div class="inner">
+    abc1
+  </div>
+  <div class="inner">
+      abc2
+  </div>
+  <div class="inner">
+      abc3
+  </div>
+</div>
+
+ANS===>
+
+.inner {
+  border : 1px solid red;
+   margin-left : 10px;
+  float : left
+}
+
+Or
+
+.outer {
+  border : 1px solid blue;
+  padding : 10px;
+  display : flex;
+  flex-direction : row
+}
+.inner {
+  border : 1px solid red;
+
+}
+
+
+====
+
+Div at center
+
+horizontally
+
+margin-left :auto;
+margin-right : auto;
+
+horizontally + vertically
+.div {
+  top : 0;
+  bottom : 0;
+  left : 0;
+  right : 0;
+  margin : auto;
+  height : 10px;//required
+  position : absolute;//required
+}
+=====
+.div {
+  position : absolute;
+ transform : translate(-50%. -50%);
+ left : 50%;
+ top : 50%;
+}
+
+===
 how does css works
-The browser converts HTML and CSS into the DOM (Document Object Model).
+The browser converts HTML and CSS into the DOM -Document Object Model.
 The DOM represents the document in the computer's memory. It combines the document's content with its style.
 Web browsers apply CSS rules to a document to affect how they are displayed. A CSS rule is formed from:
 A set of properties,
@@ -175,6 +324,7 @@ transition-
     .example {
     transition: [transition-property] [transition-duration] [transition-timing-function] [transition-delay];
 }
+
 The transition-timing-function property specifies the speed curve of the transition effect.
 
 The transition-timing-function property can have the following values:
@@ -186,26 +336,7 @@ ease-out - specifies a transition effect with a slow end
 ease-in-out - specifies a transition effect with a slow start and end
 cubic-bezier(n,n,n,n) - lets you define your own values in a cubic-bezier function
 
-
-3.<!DOCTYPE>
- The <!DOCTYPE> declaration must be the very first thing in your HTML document,
-  before the <html> tag.
-
-The <!DOCTYPE> declaration is not an HTML tag; it is an instruction to the
-web browser about what version of HTML the page is written in.
-HTML 5- <!DOCTYPE html>
-HTML 4.01 Strict
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
-What is a DTD?
-A DTD is a Document Type Definition.
-A document type definition (DTD) is a set of markup declarations that define a document
-type for a SGML-family markup language (GML, SGML, XML, HTML).
-this is for xml for html we use <!DOCTYPE>
-A DTD defines the structure and the legal elements and attributes of an XML document.
-If the DTD is declared inside the XML file, it must be wrapped inside the <!DOCTYPE> definition:
-If the DTD is declared in an external file, the <!DOCTYPE> definition must contain a reference to the DTD file:
-
+====
 3. Explain the three main ways to target elements.
 Now, in order to style certain elements on the page, you need to know how
  to specify those elements. There are three main ways to target something:
@@ -230,7 +361,7 @@ immediately inside the .nav as opposed to any level deep, you can add the > char
 Want to target a button only if it’s next to another button? The + character has got you covered:
 
 .button + .button { ... }
-
+====
 4.
 HTML5 Semantic Elements
 Semantic HTML or semantic markup is HTML that introduces meaning to the web page rather than just
@@ -254,7 +385,7 @@ The semantic elements added in HTML5 are:
     <section>
     <summary>
     <time>
-
+===
 5. What are pseudo elements and what are they used for?
 Pseudo elements are used to style particular parts of an element, rather than the whole
 thing.
@@ -270,7 +401,7 @@ span::first-letter { ... }
 .header::after { ... }
 .tooltip::before { ... }
 ::selection { ... }
-
+====
 6. What are pseudo classes and what are they used for?
 Pseudo classes are similar to pseudo elements, but instead of styling a part of an element,
 they apply styles when an element is in a certain state.
@@ -373,7 +504,7 @@ Not all operating systems and browsers have the same fonts installed.
  to display (e.g. Arial), followed by a generic font family
   (e.g. sans-serif). If your fallback font doesn’t display either,
   the browser can pick a generic font in the sans-serif family.
-
+==
 13. How would you use media queries in a mobile-first approach?
 There’s no way to avoid these nowadays, everyone expects their website to work on
 mobile devices, even if they don’t specifically ask for it.
@@ -554,6 +685,13 @@ Every website has a specific layout to display content in a specific manner.
 
 Following are different HTML5 elements which are used to define the different parts of a webpage.
 
+<header>: It is used to define a header for a document or a section.
+<nav>: It is used to define a container for navigation links
+<section>: It is used to define a section in a document
+<article>: It is used to define an independent, self-contained article
+<aside>: It is used to define content aside from the content (like a sidebar)
+<footer>: It is used to define a footer for a document or a section
+
 23) What are empty elements?
 HTML elements with no content are called empty elements. For example: <br>, <hr> etc.
 
@@ -591,7 +729,7 @@ auto: The stack order is equal to that of the parent(default).
 number: The stack order depends in the number.
 initial: Sets the property to its default value.
 inherit: Inherits the property from the parent element.
-
+===
  Flex vs Grid-
  “The main idea behind the flex layout is to give the container the ability to alter its items’ width/height
  (and order) to best fill the available space (mostly to accommodate to all kind of display devices and screen sizes).”
@@ -615,12 +753,6 @@ Flexbox layout is most appropriate to the components of an application (as most 
 If you only need to define a layout as a row or a column, then you probably need flexbox.
 If you want to define a grid and fit content into it in two dimensions — you need the grid.
 
-<header>: It is used to define a header for a document or a section.
-<nav>: It is used to define a container for navigation links
-<section>: It is used to define a section in a document
-<article>: It is used to define an independent, self-contained article
-<aside>: It is used to define content aside from the content (like a sidebar)
-<footer>: It is used to define a footer for a document or a section
 
 All the HTML elements can be categorized into two categories 1. Block Level Elements 2.Inline Elements.
 Block Elements
@@ -676,9 +808,18 @@ Body {background: #FF00FF !important; color: blue}
 
 In this body background has more weight than the color.
 
-Static- This is the default for every single page element. Different elements don't have different
-default values for positioning, they all start out as static. Static doesn't mean much;
+===
+position
+
+static, relative, fixed, absolute or sticky
+
+Elements are then positioned using the top, bottom, left, and right properties.
+
+Static- This is the default for every single page element.
+ Different elements don't have differentdefault values for positioning, they all start out as static.
+ Static doesn't mean much;
 it just means that the element will flow into the page as it normally would.
+Static positioned elements are not affected by the top, bottom, left, and right properties.
 
 Relative. This type of positioning is probably the most confusing and misused.
 What it really means is "relative to itself". If you set position: relative;
@@ -709,11 +850,20 @@ is not affected by other elements and it doesn't affect other elements. This is 
 consider every time you use absolute positioning. Its overuse or improper use can limit the flexibility
  of your site.
 
- Fixed. This type of positioning is fairly rare but certainly has its uses. A fixed position element
- is positioned relative to the viewport, or the browser window itself. The viewport doesn't change
+ Fixed.
+ This type of positioning is fairly rare but certainly has its uses. A fixed position element
+ is positioned relative to the viewport, or the browser window itself.
+  The viewport doesn't change
  when the window is scrolled, so a fixed positioned element will stay right where it is when the page is
  scrolled, creating an effect a bit like the old school "frames"
 
+ sticky
+ An element with position: sticky; is positioned based on the user's scroll position.
+
+A sticky element toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given
+offset position is met in the viewport - then it "sticks" in place (like position:fixed).
+
+===
  25) What is CSS opacity?
 
 Answer: It is the property which elaborates the transparency of an element.
@@ -759,7 +909,6 @@ flex-flow
 justify-content
 align-items
 align-content
-
 
 Q #16) What are gradients in CSS?
 
@@ -909,10 +1058,17 @@ but will be machine parsable.
 Meta elements are typically used to specify page description, keywords, author of the document,
 last modified, and other metadata.
 
+
 The metadata can be used by browsers (how to display content or reload page), search engines (keywords), or other web services.
 
 HTML5 introduced a method to let web designers take control over the viewport (the user's visible area of a web page),
  through the <meta> tag (See "Setting The Viewport" example below).
+
+ HTML <meta> tag is used to represent the metadata about the HTML document. It specifies page description, keywords,
+ copyright, language, author of the documents, etc.
+
+The metadata does not display on the webpage, but it is used by search engines, browsers and other web services which scan
+ the site or webpage to know about the webpage.
 
 <meta charset="UTF-8">
   <meta name="description" content="Free Web tutorials">
@@ -922,6 +1078,9 @@ HTML5 introduced a method to let web designers take control over the viewport (t
   and will be smaller on a mobile phone than on a computer screen.
 
 You should include the following <meta> viewport element in all your web pages:
+1. <meta charset="utf-8">
+4. <meta name="author" content="thisauthor">
+3. <meta name="description" content="Free Online tutorials">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -987,8 +1146,18 @@ What are `data-` attributes good for?
 The data-* attribute is used to store custom data private to the page or application.
 
 The data-* attribute gives us the ability to embed custom data attributes on all HTML elements.
+
+
+<div id="msglist" data-user="bob" data-list-size="5" data-maxage="180"></div>
+
+
+var msglist = document.getElementById("msglist");
+
+var show = msglist.getAttribute("data-list-size");
+msglist.setAttribute("data-list-size", +show+3);
 ==
-<section> means that the content inside is grouped (i.e. relates to a single theme), and should appear as an entry in an outline of the page.
+<section> means that the content inside is grouped (i.e. relates to a single theme),
+ and should appear as an entry in an outline of the page.
 
 <div>, on the other hand, does not convey any meaning, aside from any found in its class, lang and title attributes.
 
@@ -1001,9 +1170,11 @@ script with and without difer and async
 <script defer src="myscript.js"></script>
 Without async or defer, browser will run your script immediately, before rendering the elements that's below your script tag.
 
-With async (asynchronous), browser will continue to load the HTML page and render it while the browser load and execute the script at the same time.
+With async (asynchronous), browser will continue to load the HTML page and render it while the browser
+load and execute the script at the same time.
 
-With defer, browser will run your script when the page finished parsing. (not necessary finishing downloading all image files. This is good.)
+With defer, browser will run your script when the page finished parsing. (not necessary finishing downloading all
+  image files. This is good.)
 
 =======
 Web SQL

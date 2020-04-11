@@ -1,0 +1,98 @@
+1. Routes
+
+Routes tell the Router which view to display when a user clicks a link or pastes a URL into the browser address bar.
+
+ng generate module app-routing --flat --module=app
+
+--flat puts the file in src/app instead of its own folder.
+--module=app tells the CLI to register it in the imports array of the AppModule.
+
+-----------------
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HeroesComponent } from './heroes/heroes.component';
+
+const routes: Routes = [
+  { path: 'heroes', component: HeroesComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+===
+What is activated route?
+ActivatedRoute contains the information about a route associated with a component loaded in an outlet. It can also be used to traverse the router state tree. The ActivatedRoute will be injected as a router service to access the information. In the below example, you can access route path and parameters,
+@Component({...})
+class MyComponent {
+  constructor(route: ActivatedRoute) {
+    const id: Observable<string> = route.params.pipe(map(p => p.id));
+    const url: Observable<string> = route.url.pipe(map(segments => segments.join('')));
+    // route.data includes both `data` and `resolve`
+    const user = route.data.pipe(map(d => d.user));
+  }
+}
+==
+===
+What are active router links?
+RouterLinkActive is a directive that toggles css classes for active RouterLink bindings based on the current
+ RouterState. i.e, the Router will add CSS classes when this link is active and and remove when the link is inactive. For example, you can add them to RouterLinks as below
+===
+What is router state?
+RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL segments,
+the extracted parameters, and the resolved data. You can access the current RouterState from anywhere in the
+application using the Router service and the routerState property.
+@Component({templateUrl:'template.html'})
+class MyComponent {
+  constructor(router: Router) {
+    const state: RouterState = router.routerState;
+    const root: ActivatedRoute = state.root;
+    const child = root.firstChild;
+    const id: Observable<string> = child.params.map(p => p.id);
+    //...
+  }
+}
+===
+What is the purpose of Wildcard route?
+If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL. For example, you can define PageNotFoundComponent for wildcard route as below
+{ path: '**', component: PageNotFoundComponent }
+===
+How do you describe various dependencies in angular application?
+The dependencies section of package.json with in an angular application can be divided as follow,
+Angular packages: Angular core and optional modules; their package names begin @angular/.
+Support packages: Third-party libraries that must be present for Angular apps to run.
+Polyfill packages: Polyfills plug gaps in a browser's JavaScript implementation.
+===
+What are the class decorators in Angular?
+A class decorator is a decorator that appears immediately before a class definition, which declares the class to be of the given type, and provides metadata suitable to the type The following list of decorators comes under class decorators,
+@Component()
+@Directive()
+@Pipe()
+@Injectable()
+@NgModule()
+====
+What are class field decorators?
+The class field decorators are the statements declared immediately before a field in a class definition that defines the type of that field. Some of the examples are: @input and @output,
+@Input() myProperty;
+@Output() myEvent = new EventEmitter();
+==
+How do you pass headers for HTTP client?
+You can directly pass object map for http client or create HttpHeaders class to supply the headers.
+
+constructor(private _http: HttpClient) {}
+this._http.get('someUrl',{
+   headers: {'header1':'value1','header2':'value2'}
+});
+
+(or)
+let headers = new HttpHeaders().set('header1', headerValue1); // create header object
+headers = headers.append('header2', headerValue2); // add a new header, creating a new object
+headers = headers.append('header3', headerValue3); // add another header
+
+let params = new HttpParams().set('param1', value1); // create params object
+params = params.append('param2', value2); // add a new param, creating a new object
+params = params.append('param3', value3); // add another param
+
+return this._http.get<any[]>('someUrl', { headers: headers, params: params })
+==
