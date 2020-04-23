@@ -140,7 +140,8 @@ process.nextTick()
     recursive process.nextTick() calls, which prevents the event loop from reaching the poll phase.
     Why use process.nextTick()?
   There are two main reasons:
-  Allow users to handle errors, cleanup any then unneeded resources, or perhaps try the request again before the event loop continues.
+  Allow users to handle errors, cleanup any then unneeded resources, or perhaps try the request again
+  before the event loop continues.
   At times it's necessary to allow a callback to run after the call stack has unwound but before the event loop continues.
  ====
  "I/O" refers primarily to interaction with the system's disk and network supported by libuv.
@@ -196,7 +197,6 @@ const salaryModelMock = {
 }
 const userServiceInstance = new UserService(userModel, companyModel, salaryModelMock);
 const user = await userServiceInstance.getMyUser('12346');
-
 ==
 
 It’s complicated to distingue when a response should be sent, and when to continue processing in ‘background’,
@@ -754,12 +754,21 @@ REPL
   What are Streams?
 https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93/
 
+They are data-handling method and are used to read or write input into output sequentially.
+
+What makes streams unique, is that instead of a program reading a file into memory all at once
+like in the traditional way, streams read chunks of data piece by piece, processing its content
+without keeping it all in memory.
+
+
+Calling the stream.pipe() method to send the data to a Writable.
+
   1. Streams are objects that let you read data from a source or write data to
-  a destination in continuous fashion.
-2. The difference is that streams might not be available all at once, and they don’t have to fit in memory.
-This makes streams really powerful when working with large amounts of data, or data that’s
-3. In Node.js, there are four types of streams −
-coming from an external source one chunk at a time.
+    a destination in continuous fashion.
+  2. The difference is that streams might not be available all at once, and they don’t have to fit in memory.
+    This makes streams really powerful when working with large amounts of data, or data that’s
+  3. In Node.js, there are four types of streams −
+    coming from an external source one chunk at a time.
       Readable − Stream which is used for read operation.
 
       Writable − Stream which is used for write operation.
@@ -775,10 +784,61 @@ coming from an external source one chunk at a time.
         and the output is readable stream part. You might also hear transform streams referred to as
          “through streams.”
 
-The pipe method returns the destination stream, which enabled us to do the chaining above. For streams a (readable), b and c (duplex),
+The pipe method returns the destination stream, which enabled us to do the chaining above. For streams
+ a (readable), b and c (duplex),
 and d (writable), we can:
-      =========
-      Differentiate between readFile vs createReadStream in Node.js?
+-----
+in reports
+used  postgres copyTo
+s3 s3-upload-stream
+
+====
+const Stream = require('stream')
+const readableStream = new Stream.Readable()
+readableStream.push('ping!')
+readableStream.push('pong!')
+-----
+
+handling the iterables or array
+
+const { Readable } = require('stream');
+
+async function * generate() {
+  yield 'hello';
+  yield 'streams';
+}
+
+const readable = Readable.from(generate());
+
+readable.on('data', (chunk) => {
+  console.log(chunk);
+});
+-----
+Creating readable streams from files  #
+
+
+import * as fs from 'fs';
+
+const readableStream = fs.createReadStream(
+  'tmp/test.txt', {encoding: 'utf8'});
+
+  writable
+  const writableStream = fs.createWriteStream(
+  'tmp/log.txt', {encoding: 'utf8'});
+
+
+  ---
+  eventEmmitor
+
+  const st = stream()
+
+  st.on('data', () => )
+  st.on('error', () => )
+  st.on('close', () => )
+  st.on('finish', () => )
+  =========
+
+      Differentiate between readFile vs createReadStream vs fs.readFileSync in Node.js?
 
 Node.js provides two ways to read and execute files which are using readFile and CreateStream.
 
@@ -790,6 +850,85 @@ readFile() is a fully buffered process which returns the response only when the 
    The entire file is split into chunks which are then processed and sent back as a response one by one.
     Once done, they are finally removed from the buffer.
     Unlike readFile, createReadStream is really effective for the processing of the large files.
+
+    The default setting in node.js for createReadStream is to read the file in 16KB chunks at a time.
+    As soon as we have read the first chunk, we get the header of that string and then immediately destroy
+    the stream so that it does not read any more chunks. This allows us to have fast performance no matter
+    how big the file size is.
+
+    const stream = fs.createReadStream(file, {encoding: 'utf8'});
+ stream.on('data', data => {
+   header = data.split(/\n/)[0];
+   stream.destroy();
+ });
+ stream.on('close', () => {
+   console.timeEnd(label);
+   resolve();
+ });
+
+====
+pipe vs pipeline
+According to the documentation, they both do the same thing. But there some differences:
+
+.pipe() is a method of Readable, while pipeline is a module method of stream that accepts streams to pipe.
+pipeline() method provide a callback when the pipeline is complete.
+pipeline() method was added since 10 version of node, while .pipe exist from the earliest versions of Node.
+In my opinion, with pi
+
+Example of .pipe():
+
+const fs = require('fs');
+const r = fs.createReadStream('file.txt');
+const z = zlib.createGzip();
+const w = fs.createWriteStream('file.txt.gz');
+r.pipe(z).pipe(w);
+
+---
+
+Example of pipeline():
+
+const { pipeline } = require('stream');
+const fs = require('fs');
+const zlib = require('zlib');
+
+pipeline(
+  fs.createReadStream('archive.tar'),
+  zlib.createGzip(),
+  fs.createWriteStream('archive.tar.gz'),
+  (err) => {
+    if (err) {
+      console.error('Pipeline failed.', err);
+    } else {
+      console.log('Pipeline succeeded.');
+    }
+  }
+);
+====
+
+cipher decipher in node
+https://lollyrock.com/posts/nodejs-encryption/
+// Nodejs encryption with CTR
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    password = 'd6F3Efeq';
+
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
+var hw = encrypt("hello world")
+// outputs hello world
+console.log(decrypt(hw));
 ====
 Q-13. Can You Create HTTP Server In Nodejs, Explain The Code Used For It?
 Answer.

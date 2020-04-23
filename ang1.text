@@ -96,3 +96,18 @@ params = params.append('param3', value3); // add another param
 
 return this._http.get<any[]>('someUrl', { headers: headers, params: params })
 ==
+ngSwitch
+
+It acts similar to switch case in javascript
+
+<ul *ngFor= "let person in persons" [ngSwitch] = "person.country">
+<li *ngSwitchCase="'uk'">
+  other css {{person}}
+</li>
+<li *ngSwitchCase="'USA'">
+  other css {{person}}
+</li>
+<li *ngSwitchDefault>
+  other css {{person}}
+</li>
+===

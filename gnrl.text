@@ -1,0 +1,70 @@
+Webpack
+
+1. Webpack is a popular module bundler, a tool for bundling application source code in convenient chunks and for loading that code
+ from a server into a browser.
+2. A bundle is a JavaScript file that contains many required and should be served to the
+ client in a response to a single file request.
+3.   A bundle can include JavaScript, CSS styles, HTML, and almost any other kind of file.
+4. Webpack roams over your application source code, looking for import statements, building a dependency graph,
+ emitting one or more bundles. With plugins and rules, Webpack can preprocess and minify different non-JavaScript
+ files such as TypeScript, SASS, and LESS files.
+
+webpack.config.js
+https://v5.angular.io/guide/webpack
+
+work done
+1. minify differnet non-javascript file like typescript, SAAS
+2.Provide loaders
+Loaders
+  Webpack can bundle any kind of file: JavaScript, TypeScript, CSS, SASS, LESS, images, HTML, fonts, whatever.
+   Webpack itself only understands JavaScript files. Teach it to transform non-JavaScript file into their JavaScript
+    equivalents with loaders. Configure loaders for TypeScript and CSS as follows.
+3. we can add many plugins
+4.
+Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files.
+ Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
+
+Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example,
+ if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. '
+ And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js.
+ Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
+
+Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files,
+ but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
+
+Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins.
+For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
+WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code
+ changes detected. It will expedite your development process by providing instant feedback of your code.
+====\
+Babel
+
+
+1. Babel is a JavaScript compiler
+2. Babel is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in
+current and older browsers or environments.
+3. ES2015 and beyond
+Babel has support for the latest version of JavaScript through syntax transformers.
+
+These plugins allow you to use new syntax, right now without waiting for browser support.
+Check out our usage guide to get started.
+4. JSX and React
+Babel can convert JSX syntax! Check out our React preset to get started. Use it together with
+the babel-sublime package to bring syntax highlighting to a whole new level.
+5.
+
+===
+testing
+protractor helps in running test against the browser
+
+jasmine is your behavior driven test env
+helps in structure your code properly
+
+karma
+helps in runnig the tests in multiple browser
+
+
+while testing we required
+1. Test runner - mocha , jest both
+2. Assertion library -chai
+3. Headless browser

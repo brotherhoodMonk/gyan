@@ -1,4 +1,184 @@
+HTML
+Hypertext Markup Language *HTML) is the standard markup language for documents designed to be
+ displayed in a web browser. It can be assisted by technologies such as Cascading Style Sheets *CSS)
+  and scripting languages such as JavaScript.
 
+Web browsers receive HTML documents from a web server or from local storage and
+render the documents into multimedia web pages. HTML describes the structure of a web page
+semantically and originally included cues for the appearance of the document.
+
+HTML is a markup language that web browsers use to interpret and compose text,
+images, and other material into visual or audible web pages.
+
+
+html 5 October 28, 2014
+feature
+1. figure
+There unfortunately isn't any easy or semantic way to associate the caption, wrapped in a
+paragraph tag, with the image element itself. HTML5 rectifies this, with the introduction
+ of the <figure> element. When combined with the <figcaption> element, we can now semantically associate captions
+  with their image counterparts.
+
+2. No More Types for Scripts and Links
+<link rel="stylesheet" href="path/to/stylesheet.css" type="text/css" />
+<script type="text/javascript" src="path/to/script.js"></script>
+
+<link rel="stylesheet" href="path/to/stylesheet.css" />
+<script src="path/to/script.js"></script>
+
+3. we can edit the conten using contenteditable="true"
+
+4. Email Inputs input type="email"
+
+5. Local Storage
+
+6. Required Attribute
+
+7. audio / video support
+
+8. Regular Expressions using pattern attribute
+
+<input type="text"
+       name="username"
+       id="username"
+       placeholder="4 <> 10"
+       pattern="[A-Za-z]{4,10}"
+       autofocus
+       required>
+    <button type="submit">Go </button>
+
+9. The Data Attribute
+10. Geolocation
+11. SVG
+===
+CSS
+Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a
+ document written in a markup language like HTML.[1]
+
+ CSS is designed to enable the separation of presentation and content, including layout, colors, and fonts
+
+
+ CSS3
+ Unlike CSS 2, which is a large single specification defining various features, CSS 3 is divided into several
+  separate documents called "modules". Each module adds new capabilities or extends features defined in CSS 2,
+  preserving backward compatibility
+
+module
+css3-background
+css3-box
+css3-color
+css3-content
+css3-ui
+css3-mediaqueries
+css3-layout
+
+
+1	Importance-	The "!important" annotation overwrites the previous priority types
+2	Inline- 	A style applied to an HTML element via HTML "style" attribute
+3	Media Type- 	A property definition applies to all media types, unless a media specific CSS is defined
+4	User defined- 	Most browsers have the accessibility feature: a user defined CSS
+5	Selector specificity - 	A specific contextual selector (#heading p) overwrites generic definition
+6	Rule- order	Last rule declaration has a higher priority
+7	Parent inheritance = 	If a property is not specified, it is inherited from a parent element
+8	CSS property  - definition in HTML document	CSS rule or CSS inline style overwrites a default browser value
+9	Browser default- 	The lowest priority: browser default value is determined by W3C initial value specifications
+
+  ====
+  Css3 feature
+  1. CSS Animations and Transitions
+  2. Calculating Values With calc()
+Another new and awesome CSS feature is the calc*) function. It allows you to do simple arithmetic calculations
+ in CSS. You can use it anywhere a length or a size is required. What is even cooler, is that you can freely mix
+ different units, like percentages and pixels. This makes a lot of layout hacks that you might have used in the
+  past obsolete. The best news? It works in IE9 and up, prefix-free.
+
+   width: calc(100% - 40px);
+   3.  Advanced Selectors, data attribute as well
+
+   p::first-line{
+  .elem:first-child,
+    .elem:last-child{
+  .elem:nth-child(odd){
+  .elem[data-foo=bar1]{
+
+  4. Gradients
+Gradients give web designers the power to create smooth transitions between colors without having to resort to images
+5. Webfonts
+6. Border Images border-image
+7. Multiple Backgrounds
+8. border-radius and box-shadow
+9. background-size
+===
+media queries
+
+Media types
+Media types describe the general category of a device. Except when using the not or only logical operators, the media type is optional and the all type will be implied.
+
+all
+Suitable for all devices.
+
+print
+Intended for paged material and documents viewed on a screen in print preview mode.
+(Please see paged media for information about formatting issues that are specific to these formats.)
+
+screen
+Intended primarily for screens.
+
+----
+Logical operators
+And
+Not
+only
+
+speech
+Intended for speech synthesizers.
+
+mobiles =
+@media screen
+  and (device-width: 360px)
+  and (device-height: 640px)
+  and (-webkit-device-pixel-ratio: 3)
+  and (orientation: portrait) {
+
+}
+
+@media screen
+and(device min-width : 700px)
+
+laptops
+@media screen
+  and (min-device-width: 1200px)
+  and (max-device-width: 1600px)
+  and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+   ====
+
+
+
+What is SVG?
+SVG stands for Scalable Vector Graphics
+SVG is used to define graphics for the Web
+SVG is a W3C recommendation
+SVG is a language for describing 2D graphics in XML.
+In SVG, each drawn shape is remembered as an object.
+If attributes of an SVG object are changed, the browser can automatically re-render the shape.
+
+diff bet canvas and svg
+SVG
+Resolution independent
+Support for event handlers
+Best suited for applications with large rendering areas (Google Maps)
+Slow rendering if complex *anything that uses the DOM a lot will be slow)
+Not suited for game applications
+
+Canvas
+Resolution dependent
+No support for event handlers
+Poor text rendering capabilities
+You can save the resulting image as .png or .jpg
+Well suited for graphic-intensive games
+====
 3.<!DOCTYPE>
  1. The <!DOCTYPE> declaration must be the very first thing in your HTML document,
   before the <html> tag.
@@ -9,7 +189,66 @@ web browser about what version of HTML the page is written in.
 3. HTML 5- <!DOCTYPE html>
 HTML 4.01 Strict
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+is doctype necessary
+yes if u want to use html 5 new feature like semantic tags
+
+not really
+
+A doctype is essentially a protocol that dictates
+how each element on the page should be displayed, which tags are valid etc.
+
+When the doctype is not present, the browser attempts to interpreting the HTML itself so therefore may be inconsistency
+
+ When omitted, browsers tend to use a different rendering mode that is incompatible with some specifications.
+
 ===
+data attribute
+introduced by html5
+
+ data-* attributes allow us to store extra information on standard, semantic HTML elements without other
+ hacks such as non-standard attributes, extra properties on DOM, or Node.setUserData().
+
+Its main purpose is to allow the developer to assign style information to a set of elements.
+we can set a tooltip
+
+ HTML5 has introduced custom data attributes. All attributes on an element whose name starts with data- are
+  data attributes. You can also use these data attributes to style your elements.
+
+For instance, let’s say you have a list of different restaurants on a webpage. Before HTML5, if you wanted
+ to store information about the type of food offered by restaurants or their distance from the visitor,
+ you would have used the HTML class attribute. What if you also needed to store the restaurant id to see
+ which particular restaurant the user would want to visit?
+
+
+  <li data-type="veg" data-distance="2miles" data-identifier="10318">
+    Salad King
+  </li>
+
+  in js
+  can get or set value using  getAttribute, setAttribute or dataset
+
+  var restaurant = document.getElementById("restaurantId");
+
+  var owner = restaurant.dataset['ownerName'];
+  restaurant.dataset['ownerName'] = 'newOwner';
+    ----
+    var ratings = restaurant.getAttribute("data-ratings");
+    restaurant.setAttribute("data-owner-name", "someName");
+
+
+  in css
+  li[data-type='veg'] {
+  background: #8BC34A;
+}
+
+li[data-type='french'] {
+  background: #3F51B5;
+}
+
+
+
+ ====
 What is a DTD?
 A DTD is a Document Type Definition.
 
@@ -123,8 +362,6 @@ To select elements with a specific class, write a period (.) character, followed
 
 You can also specify that only specific HTML elements should be affected by a class. To do this, start with the element
 name, then write the period (.) character, followed by the name of the class (look at Example 1 below).
-
-
 
 Classes are not unique
 You can use the same class on multiple elements.
@@ -1039,14 +1276,18 @@ Answer: There are several differences between CSS2 and CSS3.
 
 CSS3 is divided into two various sections which are called as a module. Whereas in CSS2 everything accedes
 into a single document with all the information in it.
-CSS3 modules are supported almost on every browser and on the other hand modules of CSS and CSS2 are not supported in every browser.
-In CSS3 we will find that many graphics related characteristics have been introduced like “Border-radius or box-shadow, flexbox.
-In CSS3, a user can precise multiple background images on a webpage by using properties like background-image, background-position,
+CSS3 modules are supported almost on every browser and on the other hand modules of CSS and CSS2 are not supported
+in every browser.
+In CSS3 we will find that many graphics related characteristics have been introduced like “Border-radius
+or box-shadow, flexbox.
+In CSS3, a user can precise multiple background images on a webpage by using properties like background-image,
+ background-position,
 and background-repeat styles
 ===
 The required alt attribute specifies an alternate text for an image, if the image cannot be displayed.
 
-The alt attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection, an
+The alt attribute provides alternative information for an image if a user for some reason cannot view it
+ (because of slow connection, an
    error in the src attribute, or if the user uses a screen reader).
 ==
 Meta tag
@@ -1087,7 +1328,8 @@ You should include the following <meta> viewport element in all your web pages:
 ======
 What is Character Encoding?
 
-To display an HTML page correctly, a web browser must know which character set (character encoding) to use. This is specified in the tag:
+To display an HTML page correctly, a web browser must know which character set (character encoding) to use.
+This is specified in the tag:
 
 HTML4:
 
@@ -1100,9 +1342,11 @@ HTML5:
 =======
 Q10: What is a self closing tag?
 
-In HTML5 it is not strictly necessary to close certain HTML tags. The tags that aren’t required to have specific closing tags are called “self closing” tags.
+In HTML5 it is not strictly necessary to close certain HTML tags. The tags that aren’t required to have specific
+closing tags are called “self closing” tags.
 
-An example of a self closing tag is something like a line break (<br />) or the meta tag (<meta>). This means that the following are both acceptable:
+An example of a self closing tag is something like a line break (<br />) or the meta tag (<meta>). This means that the
+following are both acceptable:
 
 <meta charset="UTF-8">
 ...

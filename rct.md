@@ -83,6 +83,15 @@ Thus, React provides its own method setState(). setState() method takes a single
 this.setState({attribute: "new-value"});
 ===
 HOC-
+Higher order component
+
+1. A higher-order component in React is a pattern used to share common functionality between components
+ without repeating code.
+2. A higher-order component is actually not a component though, it is a function.
+3.  A HOC function takes a component as an argument and returns a component. It transforms a component
+ into another component and adds additional data or functionality.
+
+
 1. a higher-order component is a function that takes a component and returns a new component.
 2. it is an advanced technique in React for reusing component logic.
 3. Note that a HOC doesn’t modify the input component, nor does it use inheritance to copy its behavior.
@@ -343,16 +352,37 @@ componentDidMount() {
 
 ===
 react hooks
+
+we can use state in the functional componentv without writing class component
+ hooks allows us to use statefull logics without changing the component hierarchy.
+ allows to add additional feature in the functional component withput changing to class compoent
+ useState hooks
+
+ import {useState} from 'react';
+
+ const [count , setState] = useState(0);
+
+ <div onClick="{c1  => setCount(count + 1)}"><div>
+
+
+
+
+Hooks are a new addition in React 16.8. They let you use state and other React features
+ without writing a class.
+
 16.7 support
 useState gives to attributes 1. value 2. function to update the state.
 we can have state in functional comp. using hooks.
 
 It’s hard to reuse stateful logic between components
 
-With Hooks, you can extract stateful logic from a component it can be tested independently and reused. Hooks allow you to reuse stateful
- logic without changing your component hierarchy. This makes it easy to share Hooks among many components or with the community.
+With Hooks, you can extract stateful logic from a component it can be tested independently and reused.
+ Hooks allow you to reuse stateful
+ logic without changing your component hierarchy. This makes it easy to share Hooks among many
+ components or with the community.
 
-Hooks let you split one component into smaller functions based on what pieces are related (such as setting up a subscription or fetching data),
+Hooks let you split one component into smaller functions based on what pieces are related (such as
+  setting up a subscription or fetching data),
  rather than forcing a split based on lifecycle methods. You may also opt into managing the component’s local state with a reducer to make it
  more predictable.
 
@@ -505,6 +535,29 @@ render() {
 }
 }
 ==
+react testing
+
+npm i @testing-library/react react-test-renderer jest-dom --save
+
+testing the components
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+
+
+snapshot testing
+
+it create the snapshot file of the elements virtiual Dom
+
+===
 reactElement and ReactComponent
 
 What differs ReactComponent from ReactElement is - ReactComponents are stateful.
@@ -579,7 +632,8 @@ logic should move downstream into as many Stateless Components as possible.
 ===
 Lifecycle-
 
-Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
+Initialization: This is the stage where the component is constructed with the given Props and default state.
+This is done in the constructor of a Component Class.
 constructor()
 
 Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
@@ -628,6 +682,7 @@ componentDidCatch()
 ===
 setting default props
 
+if the props not provided by the parent componen, so instead of fallback ui, we can use the defaultProps
 class ReactComp extends React.Component {}
 ReactComp.defaultProps = {}
 
@@ -915,6 +970,8 @@ Greeting.propTypes = {
   name: PropTypes.string
 };
 
+npm install prop-types --save
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -932,6 +989,93 @@ class User extends React.Component {
     )
   }
 }
+
+Note that propTypes type checking only happens in development mode, enabling you to catch bugs in your
+ React application while developing. For performance reasons, it is not triggered in the production environment.
+
+ PropTypes.any: The prop can be of any data type
+ PropTypes.bool: The prop should be a Boolean
+ PropTypes.number: The prop should be a number
+ PropTypes.string: The prop should be a string
+ PropTypes.func: The prop should be a function
+ PropTypes.array: The prop should be an array
+ PropTypes.object: The prop should be an object
+ PropTypes.symbol: The prop should be a symbol
+ ----
+
+ PropTypes.node: The prop should be anything that can be rendered by React — a number, string, element, or array (or fragment) containing these types
+PropTypes.element: The prop should be a React element
+Component.propTypes = {
+  nodeProp: PropTypes.node,
+  elementProp: PropTypes.element
+}
+
+----
+in case of choose bwtween  multiple
+
+Component.propTypes = {
+
+  enumProp: PropTypes.oneOf([true, false, 0, 'Unknown']),
+
+  unionProp: PropTypes.oneOfType([
+    PropType.bool,
+    PropType.number,
+    PropType.string,
+    PropType.instanceOf(Person)
+  ])
+
+}
+==---
+Basic custom validators
+The custom validation function takes three arguments:
+
+props: An object containing all the props passed to the component
+propName: The name of the prop to be validated
+componentName: The name of the component
+It should return an Error object if the validation fai
+
+const isEmail = function(props, propName, componentName) {
+  const regex = /^((([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,})))?$/;
+
+  if (!regex.test(props[propName])) {
+    return new Error(`Invalid prop `${propName}` passed to `${componentName}`. Expected a valid email address.`);
+  }
+}
+
+Component.propTypes = {
+  email: isEmail,
+  fullname: PropTypes.string,
+  date: PropTypes.instanceOf(Date)
+}
+====
+
+why not stateType
+
+The important thing to remember here is that propTypes checks if you passed correct data to the current element in
+the place where you render this component. You can reuse the component as many times as you wish, therefore it could
+easily happen that you forgot to pass appropriate properties to it.
+
+Therefore, checking data passed from "other source" is more important and more beneficial than checking the data
+ you just use when you write the component itself. If you could work with the information from state somewhere else,
+ which you cannot, it would be worth using.
+===
+Render Props
+
+Render props comes handy when we want to share the same state across components.
+
+render prop is a function
+render prop is a function prop
+render prop is used for sharing code between components
+render prop is used by a component to know what to render
+render prop makes it possible to write reusable components.
+
+So, in summary
+a prop can be a function
+a function prop might be a render prop
+a render prop is a function prop
+
+A render prop is a function prop that a component uses to know what to render
+The render prop can return a HTML markup:
 ===
 ReactDOM
 The react-dom package provides DOM-specific methods that can be used at the top
@@ -964,6 +1108,10 @@ What are fragments?
 
 Its common pattern in React which is used for a component to return multiple elements.
  Fragments let you group a list of children without adding extra nodes to the DOM.
+
+React components are meant to return elements but they must be enclosed in a parent tag,
+multiple elements cannot be returned. But adding extra node sometimes results in the wrong
+formatting of our html output as we saw above.
 
 render() {
   return (
@@ -1136,7 +1284,8 @@ in some more advanced scenarios, where a parent send in an element and the child
 
 this.props.children
 
-this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
+this.props.children does is that it is used to display whatever you include between the opening and closing tags
+ when invoking a component.
 ====
 jsx-
 JSX produces React “elements”.

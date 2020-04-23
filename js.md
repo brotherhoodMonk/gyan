@@ -214,7 +214,7 @@ Classes provide "super" keyword for that.
 super.method(...) to call a parent method.
 super(...) to call a parent constructor (inside our constructor only).
 ===
-creating object ways- find its differce
+create object ways- find its differce
 var a = Object.create(null);
 var a = new Object();
 var a = {};
@@ -243,6 +243,15 @@ Singleton pattern:
 var l = new function(){
   this.name = "hello";
 }
+
+---
+\difference btn object literal and constructor
+
+If you dont have behaviour associated with an object (i.e. if the object is just a container for data/state),
+ I would use an object literal.
+
+ If you want to add behaviour to your object, you can go with a constructor and add methods to the object during
+ construction or give your class a prototype.
 
 
 ===
@@ -959,22 +968,7 @@ When you call ‘var add=require(‘add’);’, the system will be on
 ES6 uses ‘import’ and ‘export’ keywords to import and export modules. Here’s the example application written in ES6 modules.
 ===
 
-Webpack
-Webpack is a module bundler. Just like Browserify, it traverses dependency tree and bundles up into a single or more files.
- Webpack can handle CommonJS, AMD and ES6 modules. And Webpack comes with more flexibility and cool features like:
 
-Code Split: When you have multiple apps sharing same modules. Webpack can bundle your code into two or more files. For example,
- if you have two apps, app1 and app2, and both shares many modules. With Browserify, you would have app1.js and app2.js. '
- And both contain all the dependency modules. But with Webpack, you can create app1.js, app2.js, and shared-lib.js.
- Yes, you will have to load 2 files from html page. But with hashed filename, browser cache and CDN, it can reduce initial loading time.
-
-Loader: With custom loaders, you can load any file into your source. You can use ‘reuiqre()’ syntax to load not just JavaScript files,
- but also css, CoffeeScript, Sass, Less, HTML for template, images, etc.
-
-Plugin: Webpack plugins manipulate your bundles before it is written into files. There are many community built plugins.
-For example, there are bundle for adding banners to bundled code, adding source map and splitting a bundle into chunks, and more.
-WebpackDevServer is development server that automatically bundles your source code and refresh browser whenever source code
- changes detected. It will expedite your development process by providing instant feedback of your code.
 ====
 Genretaor :
 A generator is a function that can stop midway and then continue from where it stopped.

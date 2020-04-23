@@ -1,3 +1,143 @@
+services
+factory
+dependancy injection
+
+11. factories and services
+
+Services -
+1. Singleton objects in Angular that get instantiated only once during the lifetime of an application are called services.
+An Angular service
+2. services contains methods that maintain the data throughout the life of an application.
+3. The primary intent of an Angular service is to organize as well as share business logic, models, or data and functions
+ with various components of an Angular application.
+4. The functions offered by an Angular service can be invoked from any Angular component, such as a controller or directive.
+=====
+factory
+
+1. Factory is an angular function which is used to return the values.
+2. A value on demand is created by the factory, whenever a service or controller needs it.
+3. Once the value is created, it is reused for all services and controllers.
+4, factory() is also a method that takes a name and function that defines the factory.
+=====
+differences
+
+ * They both allow us to create an object that can then be used anywhere in our app.
+ * The major difference between a service and factory is that we return an object literal in the case of factory
+ * a service is a constructor function whereas a factory is not.
+ * It turns out that it’s actually better to use services where possible, when it
+  comes to migrating to ES6. The reason for that is simply that a service is a constructor
+  function and a factory is not. Working with constructor functions in ES5 allows us to easily
+  use ES6 classes when we migrate to ES6.
+
+ import { Injectable } from '@angular/core';
+
+ @Injectable({
+   providedIn: 'root',
+ })
+ export class HeroService {
+
+   constructor() { }
+
+ }
+ ==
+ dependancy injection
+
+ 1. Dependency Injection *DI) iss a core concept of Angular 2+ and allows a classs receive dependencies from another classs.
+ 2. Most of the time in Angular, dependency injection is done by injecting a service class into a component or module class.
+3. The DI in Angular basically consists of three things:
+
+ Injector - The injector object that exposes APIs to us to create instances of dependencies.
+ Provider - A provider is like a recipe that tells the injector how to create an instance of a
+          dependency. A provider takes a token and maps that to a factory function that creates an
+          object.
+ Dependency - A dependency is the type of which an object should be created.
+ ===
+ 13. Dependancy Injector-
+ https://blog.thoughtram.io/angular/2015/05/18/dependency-injection-in-angular-2.html
+  1. It allows us to inject dependencies in different components across our applications,
+  without needing to know, how those dependencies are created, or what dependencies they need themselves.
+  2 An injector creates dependencies using providers. Providers are recipes that know how to create dependencies
+  4. DI is wired into the Angular framework and used everywhere to provide new components with
+    the services or other things they need.
+
+
+ 3. Components consume services; that is, you can inject a service into a
+    component, giving the component access to that service class.
+ To define a class as a service in Angular, use the @Injectable() decorator to provide the
+  metadata that allows Angular to inject it into a component as a dependency.
+  Angular creates an application-wide injector for you during the bootstrap process,
+   and additional injectors as needed. You don't have to create injectors.
+ An injector creates dependencies, and maintains a container of dependency instances that it reuses if possible.
+ ====
+ 14. Providers
+ 1. A provider is an instruction to the DI system on how to obtain a value for a dependency.
+ 2. Most of the time, these dependencies are services that you create and provide.
+ Provider scope
+ 3. When you add a service provider to the root application injector, it’s available throughout the app.
+  Additionally, these providers are also available to
+  all the classes in the app as long they have the lookup token.
+====
+angular guard
+
+Guards in Angular are nothing but the functionality, logic, and code which are executed before the route is
+loaded or the ones leaving the route.
+1. CanActivate
+2. canAcitivateChild
+3. CanDeactivate
+4. CanLoad
+5. Resolve
+
+1. canActivate
+we can check user has access to the given route or not
+The canActivate method returns a boolean indicating whether or not navigation to a route should be allowed
+
+import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+@Injectable()
+export class AuthService {
+  constructor(public jwtHelper: JwtHelperService) {}
+  // ...
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    // Check whether the token is expired and return
+    // true or false
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+}
+-----
+import { Injectable } from '@angular/core';
+import { Router, CanActivate } from '@angular/router';
+import { AuthService } from './auth.service';
+@Injectable()
+export class AuthGuardService implements CanActivate {
+  constructor(public auth: AuthService, public router: Router) {}
+  canActivate(): boolean {
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['login']);
+      return false;
+    }
+    return true;
+  }
+}
+
+2. canAcitivateChild
+checks child route access
+
+3. CanDeactivate
+This guard is used when a user makes some changes in a form and by mistake clicks on a menu to navigate to some other
+route. In this case, it can be implemented to prompt a user that there are some unsaved changes, do you want to navigate
+away from this page or not.
+
+4. CanLoad
+This page will walk through Angular CanLoad route guard example. CanLoad guard is used to decide if a module can be
+ loaded or not configured with loadChildren property
+https://www.concretepage.com/angular/angular-canload-guard-example
+5. resolve
+Resolve guard is used in the scenario where before navigating to any route we want to ensure whether there is data
+ available or not. If there is no data then it has no meaning to navigate there. It means we have to resolve data
+ before navigating to that route.
+
+=======
 component-
 1. Components are the most basic building block of an UI in an Angular application.
 2. A component controls a patch of screen called a view.
@@ -109,6 +249,19 @@ src - app/ component/middlewares/ services main.ts - app.js
 public - index.html
 node modules
 ===========
+What is ng-template in Angular
+1. ng-template is a virtual element and its contents are displayed only when needed (based on conditions).
+2. ng-template should be used along with structural directives like [ngIf],[ngFor],[NgSwitch] or
+custom structural directives.That is why in the above example the contents of ng-template are not displayed.
+3. ng-template never meant to be used like other HTML elements. It’s an internal implementation of Angular’s
+structural directives.
+4. When you use a structural directive in Angular we will add a prefix asterisk* before the directive name.
+This asterisk is short hand notation for ng-template.
+Whenever Angular encounter with the asterisk* symbol, we are informing Angular saying that it is a structural
+ directive and Angular will convert directive attribute to ng-template element.
+ng-template is not exactly a true web element. When we compile our code, we will not see a ng-template tag in HTML DOM.
+Angular will evaluate the ng-template element to convert it into a comment section in HTML DOM.
+===
 2. Reactive- model-driven forms and Template-Driven Forms
 What Are Angular Reactive Forms?
 Reactive forms are also known as model-driven forms. This means that the HTML content changes
@@ -232,23 +385,56 @@ bootstrap: The main application view, called the root component, which hosts all
 root NgModule should set the bootstrap property.
 
 ====
+A template reference variable
+
+A template reference variable is often a reference to a DOM element within a template.
+That means you can easily access the variable anywhere in the template.
+
+You declare a reference variable by using the hash symbol (#). The #firstNameInput declares a firstNameInput variable
+ on an <input> element.
+<input type="text" #lastNameInput>
+<button (click)="show(lastNameInput)">Show</button>
+show(lastName: HTMLInputElement){
+    console.log(lastName.value);
+}
+
+Usually, the reference variable can only be accessed inside the template.
+ However, you can use ViewChild decorator to reference it inside your component.
+
+ import {ViewChild, ElementRef} from '@angular/core';
+ // Reference firstNameInput variable inside Component
+ @ViewChild('firstNameInput') nameInputRef: ElementRef;
+
+ After that, you can use this.nameInputRef anywhere inside your Component.
+show(lastName: HTMLInputElement){
+  this.fullName = this.nameInputRef.nativeElement.value + ' ' + lastName.value;
+}
+
+=====
 What is JIT?
-Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. JIT compilation is the default when you run the ng build (build only) or ng serve (build and serve locally) CLI commands. i.e, the below commands used for JIT compilation,
+Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. JIT compilation
+ is the default when you run the ng build *build only) or ng serve *build and serve locally) CLI commands. i.e,
+ the below commands used for JIT compilation,
 ng build
 ng serve
+
 arrow_up Back to Top
 
 What is AOT?
-Ahead-of-Time (AOT) is a type of compilation that compiles your app at build time. For AOT compilation, include the --aot option with the ng build or ng serve command as below,
+Ahead-of-Time (AOT) is a type of compilation that compiles your app at build time. For AOT compilation,
+include the --aot option with the ng build or ng serve command as below,
 ng build --aot
 ng serve --aot
 Note: The ng build command with the --prod meta-flag (ng build --prod) compiles with AOT by default.
 
 What are the advantages with AOT?
 Below are the list of AOT benefits,
-Faster rendering: The browser downloads a pre-compiled version of the application. So it can render the application immediately without compiling the app.
-Fewer asynchronous requests: It inlines external HTML templates and CSS style sheets within the application javascript which eliminates separate ajax requests.
-Smaller Angular framework download size: Doesn't require downloading the Angular compiler. Hence it dramatically reduces the application payload.
+Faster rendering: The browser downloads a pre-compiled version of the application. So it can render the application
+immediately without compiling the app.
+Fewer asynchronous requests: It inlines external HTML templates and CSS style sheets within the application javascript
+ which eliminates separate ajax requests.
+Smaller Angular framework download size: Doesn't require downloading the Angular compiler. Hence it dramatically
+reduces the application payload.
 Detect template errors earlier: Detects and reports template binding errors during the build step itself
 Better security: It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
 ===
@@ -262,7 +448,10 @@ what is RXJS
 1. RXjs Is reactive Extension for Javscrpt and it is library used by many developer in angular
 2. Rxjs provide functional and reactive programming pattern for working with events and stream of data.
 3. Rxjs make uses of observer design pattern to handle such data.
-4. the observer pattern is a software design pattern in which an object called subject maintains the list of dependancy
+4. the observer pattern is a software design pattern in which contains observable nand observer to
+ create communication channel.
+
+an object called subject maintains the list of dependancy
 called observers.
 So whenever there is changes in the state, it notifies automatically to the observers usually by calling their method.
 ===
@@ -278,6 +467,7 @@ What is subscribing?
 
 1. An observable instance start to publish value, when an suscriber is suscribe to it.
 2. So we need to suscribe by calling  suscribe* method of an instance , passig an observer object to create notification.
+
 Creates an observable sequence of 5 integers, starting from 1
 const source = range(1, 5);
 const myObserver = {
@@ -288,9 +478,12 @@ const myObserver = {
 
 source.suscribe(myObserver);
 ======
+subscriber
+ all Observers get converted to a Subscriber, in order to provide Subscription-like capabilities such as unsubscribe
+ ===
 What is Observable
 
-1. An Observable is an entity that emits or publishes multiple data values stream of data over time and asynchronously.
+1. An Observable is an entity that emits or publishes multiple data values, stream of data over time and asynchronously.
 2. An Observable is a unique Object similar to a Promise that can help manage async code.
 3. The observables are created Usingg nw keyword
 4. Observables open up a continuous channel of communication in which multiple values of
@@ -306,12 +499,11 @@ Observer
 
 1. Observers are also called listeners or consumers as they can listen or subscribe to get the observed data.
 2. Observer is a collection of callbacks that knows how to listen to values delivered by the Observable.
-3.Observer  Execute some code whenever recieve new value or error
+3. Observer  Execute some code whenever recieve new value or error
 Obesrvables invokes this methods
 next()- whenever new value is immited
 error()- throes error
 complete()p- whenever observable is done
-
 ====
 what is Subject
 1. An RxJS Subject is a special type of Observable that allows values to be multicasted to many Observers
@@ -348,7 +540,6 @@ Answer:
 - need to reject promise for error handling
 4. Provides chaining and subscription to handle complex applications
 - Uses only .then() clause
-
 ===
 
 Hot and Cold Observables
@@ -357,6 +548,37 @@ Unlike regular Observables, Subjects are called hot. A hot Observable starts emi
 to it which means observers may lose previous emitted values if they don’t subscribe at that right time
  while cold Observables ****start emitting values when at least one observer is subscribed.
 =======
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.sass']
+})
+export class AppComponent {
+  title = 'adminYorkerAng';
+  constructor(private http : HttpClient) {
+    // super();
+    console.log('-------------------')
+  }
+  getData() {
+    return this.http.get('http://localhost:8080/api/testapi')
+      .subscribe(
+        res => {
+          console.log('---res', res);
+        },
+        error => {
+          console.log('error---', error);
+        }
+      )
+  }
+  ngOnInit() {
+    this.getData();
+  }
+}
+
+===
 What are observable creation functions?
 RxJS provides creation functions for the process of creating observables from things such as promises, events,
  timers and Ajax requests. Let us explain each of them with an example,
@@ -418,66 +640,6 @@ import { map } from 'rxjs/operators';
 getItems(): Observable> {
   return this.aService.getItems().pipe(map(response => response.data));
 }
-
-8. Observables
-
-Obesrvables - some wrapper over data values(stream of data values)
-we specially use for asynchronius data
-
-Observer-
-Execute some code whenever recieve new value or error
-Obesrvables invokes this methods
-next()- whenever new value is immited
-error()- throes error
-complete()p- whenever observable is done
-
-subscription
- Using the subscribe method we tell the Observables someone is caring about the value or listening to thje value.,
-
-As seen above ... an Observable is a stream of events or data. They are often returned from Angular methods, such as the http.get and the myinputBox.
-valueChanges.
-Without a subscribe (or an async pipe) the stream won't start emitting values.
-
-Angular makes use of observables as an interface to handle a variety of common asynchronous operations.
-
-Observables provide support for passing messages between publishers and subscribers in your application.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until
- a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes,
-  or until they unsubscribe.
-An observable can deliver multiple values of any type—literals, messages, or events, depending on the context.
-
-Observables open up a continuous channel of communication in which multiple values of
-data can be emitted over time. From this we get a pattern of dealing with data by using
-array-like operations to parse  , modify and maintain data.
-Observables provide support for passing messages between publishers and subscribers
-in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming,
-and handling multiple values.
-Observables are declarative—that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
-
-An observable can deliver multiple values of any type—literals, messages, or events, depending on the context
-
-next	Required. A handler for each delivered value. Called zero or more times after execution starts.
-error	Optional. A handler for an error notification. An error halts execution of the observable instance.
-complete	Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the
-next handler after execution is complete.
-
-var observer = {
-  next : (value) => {
-    console.log(value);
-  },
-  error : (error) => {
-    console.log(error);
-  },
-  complete : () => {
-    console.log(completed);
-  }
-}
-var subscribe = Rx.Observable.create((obs) => {
-  obs.next('a value');
-  obs.error('an error');
-  }).subscribe(observer);
-
-  subscribe.unsubscribe();
   ====
   version 9
   With the release of Angular 9, Ivy is now the default compiler and runtime. Ivy improves bundle size, allows for better
@@ -636,39 +798,6 @@ export class ChildTestComponentComponent implements OnInit {
 
 }
 ====
-11. factories and services
-
-Services -
-Singleton objects in Angular that get instantiated only once during the lifetime of an application are called services.
-An Angular service
-contains methods that maintain the data throughout the life of an application.
-
-The primary intent of an Angular service is to organize as well as share business logic, models, or data and functions
- with various components of an Angular application.
-
-The functions offered by an Angular service can be invoked from any Angular component, such as a controller or directive.
-=====
- * They both allow us to create an object that can then be used anywhere in our app.
- * a service is a constructor function whereas a factory is not.
- * It turns out that it’s actually better to use services where possible, when it
-  comes to migrating to ES6. The reason for that is simply that a service is a constructor
-  function and a factory is not. Working with constructor functions in ES5 allows us to easily
-  use ES6 classes when we migrate to ES6.
-A component can delegate certain tasks to services, such as fetching data from the server,
- validating user input, or logging directly to the console. By defining such processing tasks
- in an injectable service class, you make those tasks available to any component.
-
- import { Injectable } from '@angular/core';
-
- @Injectable({
-   providedIn: 'root',
- })
- export class HeroService {
-
-   constructor() { }
-
- }
-
  12. Services
  Syntax: module.service( 'serviceName', function );
  Result: When declaring serviceName as an injectable argument you will be provided the
@@ -760,7 +889,10 @@ export class NonLazyLoadedModule {}
 export class LazyLoadedModule {}
 ====
 What is lazy loading?
-Lazy loading is one of the most useful concepts of Angular Routing. It helps us to download the web pages in chunks instead of downloading everything in a big bundle. It is used for lazy loading by asynchronously loading the feature module for routing whenever required using the property loadChildren. Let's load both Customer and Order feature modules lazily as below,
+Lazy loading is one of the most useful concepts of Angular Routing. It helps us to download the web pages in
+chunks instead of downloading everything in a big bundle. It is used for lazy loading by asynchronously
+loading the feature module for routing whenever required using the property loadChildren. Let's load both Customer
+and Order feature modules lazily as below,
 
 const routes: Routes = [
   {
@@ -778,39 +910,6 @@ const routes: Routes = [
   }
 ];
 ==
-13. Dependancy Injector-
-https://blog.thoughtram.io/angular/2015/05/18/dependency-injection-in-angular-2.html
- 1. It allows us to inject dependencies in different components across our applications,
- without needing to
- know, how those dependencies are created, or what dependencies they need themselves.
- 2 An injector creates dependencies using providers. Providers are recipes that know how to create dependencies
- 4. DI is wired into the Angular framework and used everywhere to provide new components with
-  the services or other things they need.
-  5. The DI in Angular basically consists of three things:
-
-  Injector - The injector object that exposes APIs to us to create instances of dependencies.
-  Provider - A provider is like a recipe that tells the injector how to create an instance of a
-           dependency. A provider takes a token and maps that to a factory function that creates an
-           object.
-  Dependency - A dependency is the type of which an object should be created.
-
-3. Components consume services; that is, you can inject a service into a
-   component, giving the component access to that service class.
-To define a class as a service in Angular, use the @Injectable() decorator to provide the
- metadata that allows Angular to inject it into a component as a dependency.
- Angular creates an application-wide injector for you during the bootstrap process,
-  and additional injectors as needed. You don't have to create injectors.
-An injector creates dependencies, and maintains a container of dependency instances that it reuses if possible.
-====
-14. Providers
-A provider is an instruction to the DI system on how to obtain a value for a dependency.
-Most of the time, these dependencies are services that you create and provide.
-Provider scope
-When you add a service provider to the root application injector, it’s available throughout the app.
- Additionally, these providers are also available to
- all the classes in the app as long they have the lookup token.
-
-
  15. Pipe
  A pipe takes in data as input and transforms it to a desired output.
  built in pipes-DatePipe, UpperCasePipe, LowerCasePipe, CurrencyPipe, and PercentPipe.
@@ -1298,7 +1397,8 @@ the bitwise operators | and &
 the template expression operators
 ===
 What are template expressions?
-A template expression produces a value similar to any Javascript expression. Angular executes the expression and assigns it to a property of a binding target; the target might be an HTML element, a component, or a directive. In the property binding, a template expression appears in quotes to the right of the = symbol as in [property]="expression". In interpolation syntax, the template expression is surrounded by double curly braces. For example, in the below interpolation, the template expression is {{username}},
+A template expression produces a value similar to any Javascript expression. Angular executes the expression and
+ assigns it to a property of a binding target; the target might be an HTML element, a component, or a directive. In the property binding, a template expression appears in quotes to the right of the = symbol as in [property]="expression". In interpolation syntax, the template expression is surrounded by double curly braces. For example, in the below interpolation, the template expression is {{username}},
 <h3>{{username}}, welcome to Angular</h3>
 The below javascript expressions are prohibited in template expression
 assignments * =, +=, -=, ...
@@ -1309,7 +1409,10 @@ increment and decrement operators (++ and --)
 ==
 
 What is a parameterized pipe?
-A pipe can accept any number of optional parameters to fine-tune its output. The parameterized pipe can be created by declaring the pipe name with a colon ( : ) and then the parameter value. If the pipe accepts multiple parameters, separate the values with colons. Let's take a birthday example with a particular format(dd/MM/yyyy):
+A pipe can accept any number of optional parameters to fine-tune its output.
+ The parameterized pipe can be created by declaring the pipe name with a colon ( : )
+  and then the parameter value. If the pipe accepts multiple parameters, separate the values with colons.
+   Let's take a birthday example with a particular format(dd/MM/yyyy):
 ==
 How do you chain pipes?
 You can chain pipes together in potentially useful combinations as per the needs. Let's take a birthday property which uses date pipe(along with parameter) and uppercase pipes as below
@@ -1339,3 +1442,10 @@ What are dynamic components?
 Dynamic components are the components in which components location in the application is not defined at
 build time.i.e, They are not used in any angular template. But the component is instantiated and placed in
 the application at runtime.
+==
+What is NgZone?
+Angular provides a service called NgZone which creates a zone named angular to automatically
+trigger change detection when the following conditions are satisfied.
+
+When a sync or async function is executed.
+When there is no microTask scheduled.
